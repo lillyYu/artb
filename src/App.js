@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+/* Components */
+import Gnb from "./Components/Gnb";
+import Home from "./Components/Home";
+import NftTrade from "./Components/NftTrade";
+import Footer from "./Components/Footer";
+
+/* Libraries */
+import styled from "styled-components";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Gnb />
+      <NftTrade />
+      {/* <Switch>
+        <Route path="/" component={Home}></Route>
+        <Route path="/trade" component={NftTrade}></Route>
+      </Switch> */}
+      {/* <Footer /> */}
+    </Container>
   );
 }
+
+const Container = styled.div`
+  // font-family: Pretendard;
+  display: flex;
+  width: 720px;
+  gap: 20px 0;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default App;
