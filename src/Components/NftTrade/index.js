@@ -9,11 +9,21 @@ import { HashLink } from "react-router-hash-link";
 import { useRecoilState } from "recoil";
 
 function NftTrade() {
+  const [payOpen, setPayOpen] = useState(false);
+  const [toggle1Open, setToggle1Open] = useState(false);
+  const [toggle2Open, setToggle2Open] = useState(false);
   return (
     <Container>
       <Contents>
         <Header>
-          <div className="back">목록으로 돌아가기</div>
+          <div
+            className="back"
+            onClick={() => {
+              setPayOpen(false);
+            }}
+          >
+            {payOpen ? "< 페이지로 돌아가기" : "< 목록으로 돌아가기"}
+          </div>
           <div className="basic">
             <div className="info">
               <div className="status">판매중</div>
@@ -22,11 +32,19 @@ function NftTrade() {
             <div className="function">
               <img
                 src="/detail_share.png"
-                style={{ width: "35px", height: "35px" }}
+                style={
+                  payOpen
+                    ? { display: "none" }
+                    : { width: "35px", height: "35px", cursor: "pointer" }
+                }
               />
               <img
                 src="/detail_refresh.png"
-                style={{ width: "35px", height: "35px" }}
+                style={
+                  payOpen
+                    ? { display: "none" }
+                    : { width: "35px", height: "35px", cursor: "pointer" }
+                }
               />
             </div>
           </div>
@@ -74,36 +92,40 @@ function NftTrade() {
             </div>
           </div>
         </Info1>
-        <Info2>
-          <div className="top">
-            <div className="deadline">판매 마감일</div>
-            <div className="time">2021.12.30 24:00</div>
-          </div>
-          <Countdown
-            date={new Date(2021, 11, 30, 24).getTime()}
-            renderer={({ days, hours, minutes, seconds }) => (
-              <div className="bottom">
-                <div className="day">
-                  <div className="digit">{zeroPad(days)}</div>
-                  <div className="unit">일</div>
+        {payOpen ? (
+          <></>
+        ) : (
+          <Info2>
+            <div className="top">
+              <div className="deadline">판매 마감일</div>
+              <div className="time">2021.12.30 24:00</div>
+            </div>
+            <Countdown
+              date={new Date(2021, 11, 30, 24).getTime()}
+              renderer={({ days, hours, minutes, seconds }) => (
+                <div className="bottom">
+                  <div className="day">
+                    <div className="digit">{zeroPad(days)}</div>
+                    <div className="unit">일</div>
+                  </div>
+                  <div className="time">
+                    <div className="digit">{zeroPad(hours)}</div>
+                    <div className="unit">시간</div>
+                  </div>
+                  <div className="minute">
+                    <div className="digit">{zeroPad(minutes)}</div>
+                    <div className="unit">분</div>
+                  </div>
+                  <div className="second">
+                    <div className="digit">{zeroPad(seconds)}</div>
+                    <div className="unit">초</div>
+                  </div>
                 </div>
-                <div className="time">
-                  <div className="digit">{zeroPad(hours)}</div>
-                  <div className="unit">시간</div>
-                </div>
-                <div className="minute">
-                  <div className="digit">{zeroPad(minutes)}</div>
-                  <div className="unit">분</div>
-                </div>
-                <div className="second">
-                  <div className="digit">{zeroPad(seconds)}</div>
-                  <div className="unit">초</div>
-                </div>
-              </div>
-            )}
-          />
-        </Info2>
-        <Info3>
+              )}
+            />
+          </Info2>
+        )}
+        <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
           <div className="title">개당 저작권 가격</div>
           <div className="info">
             <div className="price">
@@ -126,15 +148,162 @@ function NftTrade() {
             <div className="left">잔여수량:</div>
             <div className="right">123,123,123</div>
           </div>
-          <div className="payButton">
-            <img
-              src="/detail_pay.png"
-              style={{ width: "26px", height: "24px" }}
-            />
-            <div className="name">구매하기</div>
-          </div>
+          {payOpen ? (
+            <div className="buttons">
+              <div
+                className="coinButton"
+                onClick={() => {
+                  setPayOpen(!payOpen);
+                  console.log(payOpen);
+                }}
+              >
+                <div className="name">Artb 구매</div>
+              </div>
+              <div
+                className="cashButton"
+                onClick={() => {
+                  setPayOpen(!payOpen);
+                }}
+              >
+                <div className="name">원화 구매</div>
+              </div>
+            </div>
+          ) : (
+            <div
+              className="payButton"
+              onClick={() => {
+                setPayOpen(!payOpen);
+                setToggle1Open(false);
+                setToggle2Open(false);
+              }}
+            >
+              <img
+                src="/detail_pay.png"
+                style={{ width: "26px", height: "24px" }}
+              />
+              <div className="name">구매하기</div>
+            </div>
+          )}
         </Info3>
-        <Info4></Info4>
+        {payOpen ? (
+          <></>
+        ) : (
+          <Toggle1>
+            <div
+              className="nftToggle"
+              onClick={() => {
+                setToggle1Open(!toggle1Open);
+                setToggle2Open(false);
+              }}
+              style={
+                toggle1Open
+                  ? {
+                      border: "1px solid rgba(226, 226, 226, 0.7)",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                    }
+                  : {}
+              }
+            >
+              <div className="title">NFT 정보</div>
+              <img
+                src={
+                  toggle1Open
+                    ? "/detail_toggleOpen.png"
+                    : "/detail_toggleClose.png"
+                }
+                style={{ width: "25px", height: "16px" }}
+              />
+            </div>
+            {toggle1Open ? (
+              <Info4>
+                <div className="info">
+                  <div className="title">Blockchain</div>
+                  <div className="detail">Ethereum ERC-1155(OpenSea)</div>
+                </div>
+                <div className="info">
+                  <div className="title">Contract</div>
+                  <div className="detail">
+                    0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9
+                  </div>
+                </div>
+                <div className="info">
+                  <div className="title">카테고리</div>
+                  <div className="detail">남관_가을축제_저작권</div>
+                </div>
+                <div className="info">
+                  <div className="title">작품관리번호</div>
+                  <div className="detail">
+                    0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9
+                  </div>
+                </div>
+                <div className="info">
+                  <div className="title">등록자</div>
+                  <div className="detail">
+                    0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9
+                  </div>
+                </div>
+                <div className="info">
+                  <div className="title">설명</div>
+                  <div className="detail">
+                    NFT에 관한 설명란입니다. 혼인과 가족생활은 개인의 존엄과
+                    양성의 평등을 기초로 성립되고 유지되어야 하며, 국가는 이를
+                    보장한다. 평화통일정책의 수립에 관한 대통령의 자문에 응하기
+                    위하여 민주평화통일자문회의를 둘 수 있다. 국가는 전통문화의
+                    계승·발전과 민족문화의 창달에 노력하여야 한다. 국가는
+                    대외무역을 육성하며, 이를 규제·조정할 수 있다. 대법원장과
+                    대법관이 아닌 법관의 임기는 10년으로 하며, 법률이 정하는
+                    바에 의하여 연임할 수 있다. 국무회의는 대통령·국무총리와
+                    15인 이상 30인 이하의 국무위원으로 구성한다. 국가는 농지에
+                    관하여 경자유전의 원칙이 달성될 수 있도록 노력하여야 하며,
+                    농지의 소작제도는 금지된다. 대한민국의 국민이 되는 요건은
+                    법률로 정한다. 대통령은 국가의 독립·영토의 보전·국가의
+                    계속성과 헌법을 수호할 책무를 진다. 선거운동은 각급
+                    선거관리위원회의 관리하에 법률이 정하는 범위안에서 하되,
+                    균등한 기회가 보장되어야 한다. 국회의원은 현행범인인 경우를
+                    제외하고는 회기중 국회의 동의없이 체포 또는 구금되지
+                    아니한다. 헌법재판소는 법률에 저촉되지 아니하는 범위안에서
+                    심판에 관한 절차, 내부규율과 사무처리에 관한 규칙을 제정할
+                    수 있다.
+                  </div>
+                </div>
+              </Info4>
+            ) : (
+              <></>
+            )}
+          </Toggle1>
+        )}
+        {payOpen ? (
+          <></>
+        ) : (
+          <Toggle2>
+            <div
+              className="historyToggle"
+              onClick={() => {
+                setToggle2Open(!toggle2Open);
+                setToggle1Open(false);
+              }}
+              style={
+                toggle2Open
+                  ? {
+                      border: "1px solid rgba(226, 226, 226, 0.7)",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                    }
+                  : {}
+              }
+            >
+              <div className="title">저작권 구매기록</div>
+              <img
+                src={
+                  toggle2Open
+                    ? "/detail_toggleOpen.png"
+                    : "/detail_toggleClose.png"
+                }
+                style={{ width: "25px", height: "16px" }}
+              />
+            </div>
+            {/* <Info5></Info5> */}
+          </Toggle2>
+        )}
       </Contents>
     </Container>
   );
@@ -175,6 +344,7 @@ const Header = styled.div`
     font-weight: 500;
     font-size: 20px;
     color: #eb4632;
+    cursor: pointer;
   }
 
   .basic {
@@ -423,7 +593,8 @@ const Info3 = styled.div`
   width: 530px;
   margin: 0 70px;
   padding: 0 50px;
-  height: 350px; // 임시
+  // height: 350px; // 임시
+  height: fit-content; // 임시
   background-color: #f6f6f6;
   box-sizing: border-box;
   border-radius: 10px;
@@ -522,15 +693,63 @@ const Info3 = styled.div`
     }
   }
 
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+    margin-bottom: 40px;
+
+    .coinButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 430px;
+      height: 70px;
+      background: rgba(230, 71, 36, 0.8);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      cursor: pointer;
+
+      .name {
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 25px;
+        color: #ffffff;
+      }
+    }
+
+    .cashButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 430px;
+      height: 70px;
+      background: rgba(230, 71, 36, 0.8);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      cursor: pointer;
+
+      .name {
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 25px;
+        color: #ffffff;
+      }
+    }
+  }
+
   .payButton {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 40px;
     width: 430px;
     height: 70px;
     background: rgba(230, 71, 36, 0.8);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
+    cursor: pointer;
+
     .name {
       margin-left: 10px;
       font-weight: bold;
@@ -539,16 +758,89 @@ const Info3 = styled.div`
     }
   }
 `;
-const Info4 = styled.div`
+
+const Toggle1 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 530px;
   margin: 0 70px;
-  height: 1900px; // 임시
-  background-color: #f6f6f6;
+  width: 530px;
+  background-color: rgba(191, 191, 191, 0.2);
   border-radius: 10px;
   border: 1px solid rgba(226, 226, 226, 0.7);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+
+  .nftToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    width: 530px;
+    height: 80px; // 임시
+    background-color: #f6f6f6;
+    box-sizing: border-box;
+    border-radius: 10px;
+    cursor: pointer;
+
+    .title {
+      font-weight: bold;
+      font-size: 25px;
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+`;
+
+const Info4 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0;
+  padding: 30px 50px;
+  width: 530px;
+  //   height: 500px; // 임시
+  height: fit-content;
+  box-sizing: border-box;
+
+  .info {
+    .title {
+      font-size: 20px;
+      color: #c4c4c4;
+    }
+
+    .detail {
+      margin-top: 5px;
+      font-size: 20px;
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+`;
+
+const Toggle2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 70px 35px;
+  width: 530px;
+  background-color: rgba(191, 191, 191, 0.2);
+  border-radius: 10px;
+  border: 1px solid rgba(226, 226, 226, 0.7);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+
+  .historyToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    width: 530px;
+    height: 80px; // 임시
+    background-color: #f6f6f6;
+    box-sizing: border-box;
+    border-radius: 10px;
+    cursor: pointer;
+
+    .title {
+      font-weight: bold;
+      font-size: 25px;
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
 `;
 
 export default NftTrade;

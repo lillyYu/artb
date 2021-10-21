@@ -6,7 +6,6 @@ import Footer from "./Components/Footer";
 
 /* Libraries */
 import styled from "styled-components";
-import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 function App() {

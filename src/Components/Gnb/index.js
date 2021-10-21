@@ -60,6 +60,7 @@ const Setting = styled.div`
 const Language = styled.div`
   font-size: 20px;
   color: black;
+  cursor: pointer;
 `;
 
 const Logo = styled.div`
@@ -67,10 +68,12 @@ const Logo = styled.div`
   width: 162px;
   height: 56px;
   background-color: white;
+  cursor: pointer;
 `;
 
 const My = styled.div`
   // background-color: red;
+  cursor: pointer;
 `;
 
 export default Gnb;
