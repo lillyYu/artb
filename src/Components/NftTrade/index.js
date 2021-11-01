@@ -48,8 +48,8 @@ function NftTrade() {
               />
             </div>
           </div>
-          <div className="title">작품명 작품명 작품명</div>
-          <div className="artist">작가명</div>
+          <div className="title">작품명 : 가을축제</div>
+          <div className="artist">작가명 : 남관</div>
         </Header>
         <Info1>
           <div className="period">
@@ -65,18 +65,18 @@ function NftTrade() {
           <div className="info1">
             <div className="left">
               <div className="like">
-                <img
+                {/* <img
                   src="/detail_like.png"
                   style={{ width: "32px", height: "28px" }}
-                ></img>
-                <div className="amount">15</div>
+                ></img> */}
+                {/* <div className="amount">15</div> */}
               </div>
               <div className="look">
-                <img
+                {/* <img
                   src="/detail_look.png"
                   style={{ width: "38px", height: "25px" }}
-                ></img>
-                <div className="amount">120,000</div>
+                ></img> */}
+                {/* <div className="amount">120,000</div> */}
               </div>
             </div>
             <div className="right">잔여 수량/총 발행량</div>
@@ -150,23 +150,27 @@ function NftTrade() {
           </div>
           {payOpen ? (
             <div className="buttons">
-              <div
-                className="coinButton"
-                onClick={() => {
-                  setPayOpen(!payOpen);
-                  console.log(payOpen);
-                }}
-              >
-                <div className="name">Artb 구매</div>
-              </div>
-              <div
-                className="cashButton"
-                onClick={() => {
-                  setPayOpen(!payOpen);
-                }}
-              >
-                <div className="name">원화 구매</div>
-              </div>
+              <HashLink to={"/payment/coin"}>
+                <div
+                  className="coinButton"
+                  onClick={() => {
+                    setPayOpen(!payOpen);
+                    console.log(payOpen);
+                  }}
+                >
+                  <div className="name">Artb 구매</div>
+                </div>
+              </HashLink>
+              <HashLink to={"/payment/cash"}>
+                <div
+                  className="cashButton"
+                  onClick={() => {
+                    setPayOpen(!payOpen);
+                  }}
+                >
+                  <div className="name">원화 구매</div>
+                </div>
+              </HashLink>
             </div>
           ) : (
             <div
@@ -245,10 +249,12 @@ function NftTrade() {
                 <div className="info">
                   <div className="title">설명</div>
                   <div className="detail">
-                    NFT에 관한 설명란입니다. 혼인과 가족생활은 개인의 존엄과
-                    양성의 평등을 기초로 성립되고 유지되어야 하며, 국가는 이를
-                    보장한다. 평화통일정책의 수립에 관한 대통령의 자문에 응하기
-                    위하여 민주평화통일자문회의를 둘 수 있다. 국가는 전통문화의
+                    NFT에 관한 설명란입니다. <br />
+                    <br />
+                    혼인과 가족생활은 개인의 존엄과 양성의 평등을 기초로
+                    성립되고 유지되어야 하며, 국가는 이를 보장한다.
+                    평화통일정책의 수립에 관한 대통령의 자문에 응하기 위하여
+                    민주평화통일자문회의를 둘 수 있다. 국가는 전통문화의
                     계승·발전과 민족문화의 창달에 노력하여야 한다. 국가는
                     대외무역을 육성하며, 이를 규제·조정할 수 있다. 대법원장과
                     대법관이 아닌 법관의 임기는 10년으로 하며, 법률이 정하는
@@ -809,6 +815,7 @@ const Info4 = styled.div`
       margin-top: 5px;
       font-size: 20px;
       color: rgba(0, 0, 0, 0.8);
+      line-height: 40px;
     }
   }
 `;
