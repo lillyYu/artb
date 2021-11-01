@@ -2,6 +2,8 @@
 import Gnb from "./Components/Gnb";
 import Home from "./Components/Home";
 import NftTrade from "./Components/NftTrade";
+import PayCoin from "./Components/NftTrade/Payment/coin";
+import PayCash from "./Components/NftTrade/Payment/cash";
 import Footer from "./Components/Footer";
 
 /* Libraries */
@@ -12,7 +14,11 @@ function App() {
   return (
     <Container>
       <Gnb />
-      <NftTrade />
+      <Switch>
+        <Route path="/payment/coin" component={PayCoin}></Route>
+        <Route path="/payment/cash" component={PayCash}></Route>
+        <Route path="/" component={NftTrade}></Route>
+      </Switch>
       {/* <Switch>
         <Route path="/" component={Home}></Route>
         <Route path="/trade" component={NftTrade}></Route>
