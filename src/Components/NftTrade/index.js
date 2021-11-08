@@ -148,7 +148,22 @@ function NftTrade() {
             <div className="left">잔여수량:</div>
             <div className="right">123,123,123</div>
           </div>
-          {payOpen ? (
+          <div
+            className="payButton"
+            onClick={() => {
+              // setPayOpen(!payOpen);
+              // setToggle1Open(false);
+              // setToggle2Open(false);
+              console.log("clicked");
+            }}
+          >
+            <img
+              src="/detail_pay.png"
+              style={{ width: "26px", height: "24px" }}
+            />
+            <div className="name">구매하기</div>
+          </div>
+          {/* {payOpen ? (
             <div className="buttons">
               <HashLink to={"/payment/coin"}>
                 <div
@@ -187,7 +202,7 @@ function NftTrade() {
               />
               <div className="name">구매하기</div>
             </div>
-          )}
+          )} */}
         </Info3>
         {payOpen ? (
           <></>
