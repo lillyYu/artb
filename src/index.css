@@ -19,3 +19,156 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.Text_Style_1 {
+  font-family: Noto Sans KR;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #eb4632;
+}
+.Text_Style_2 {
+  font-family: Noto Sans KR;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.375px;
+  text-align: left;
+  color: #000000cc;
+}
+.Text_Style_3 {
+  font-family: Noto Sans KR;
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 38px;
+  letter-spacing: -0.05em;
+  text-align: left;
+  color: #000000cc;
+}
+.Text_Style_4 {
+  font-family: Malgun Gothic;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.375px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.2);
+}
+.Text_Style_5 {
+  font-family: Malgun Gothic;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.375px;
+  text-align: left;
+  color: #000000cc;
+}
+.Text_Style_6 {
+  font-family: NanumMyeongjo;
+  font-size: 65px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 50px;
+  letter-spacing: 0.699999988079071px;
+  text-align: left;
+  color: #000000cc;
+}
+.Text_Style_7 {
+  font-family: NanumMyeongjo;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.Text_Style_8 {
+  font-family: Malgun Gothic;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.375px;
+  text-align: left;
+}
+.Text_Style_9 {
+  font-family: Malgun Gothic;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px;
+  letter-spacing: 0.375px;
+  text-align: left;
+}
+.Text_Style_10 {
+  font-family: NanumMyeongjo;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 40px;
+  letter-spacing: 0.375px;
+  text-align: center;
+  color: #ffffffcc;
+}
+.Text_Style_11 {
+  font-family: Noto Sans KR;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #eb4632;
+}
+.Text_Style_12 {
+font-family: Noto Sans KR;
+font-size: 35px;
+font-style: normal;
+font-weight: 700;
+letter-spacing: 0em;
+text-align: center;
+color:#FFFFFF;
+}
+.Text_Style_13 {
+font-family: Noto Sans KR;
+font-size: 29px;
+font-style: normal;
+font-weight: 400;
+line-height: 35px;
+letter-spacing: 0em;
+text-align: center;
+color:#B9B9B9;
+}
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */
+/* .Text_Style_11 {
+
+} */

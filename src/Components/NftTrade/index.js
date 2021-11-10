@@ -7,11 +7,18 @@ import React, { useState, useEffect } from "react";
 import Countdown, { zeroPad } from "react-countdown";
 import { HashLink } from "react-router-hash-link";
 import { useRecoilState } from "recoil";
+import TermsOfUse from "./Terms/TermsOfUse"
+
 
 function NftTrade() {
   const [payOpen, setPayOpen] = useState(false);
   const [toggle1Open, setToggle1Open] = useState(false);
   const [toggle2Open, setToggle2Open] = useState(false);
+  const [termsModal, setTermsModal] = useState(false);
+  const [inputValue, setInputValue] = useState(0);
+
+
+  console.log("asdf", inputValue)
   return (
     <Container>
       <Contents>
@@ -141,28 +148,52 @@ function NftTrade() {
             </div>
           </div>
           <div className="inputBox">
-            <input className="input" type="number" placeholder="000,000" />
+            <input
+              className="input"
+              type="number"
+              placeholder="000,000"
+              onChange={(e) => { setInputValue(e.target.value) }}
+
+            />
             <div className="unit">EA</div>
           </div>
           <div className="restAmount">
             <div className="left">잔여수량:</div>
             <div className="right">123,123,123</div>
           </div>
-          <div
-            className="payButton"
-            onClick={() => {
-              // setPayOpen(!payOpen);
-              // setToggle1Open(false);
-              // setToggle2Open(false);
-              console.log("clicked");
-            }}
-          >
-            <img
-              src="/detail_pay.png"
-              style={{ width: "26px", height: "24px" }}
-            />
-            <div className="name">구매하기</div>
+
+
+          {/* <HashLink to={"/payment/terms"} > */}
+          <div>
+            <div
+              className="payButton"
+              onClick={() => {
+
+              }}
+            >
+              <img
+                src="/detail_pay.png"
+                style={{ width: "26px", height: "24px" }}
+              />
+              <div className="name">지갑연결</div>
+            </div>
+            <div
+              className="payButton"
+              onClick={() => {
+                console.log("asdf")
+                setTermsModal(!termsModal)
+              }}
+            >
+              <img
+                src="/detail_pay.png"
+                style={{ width: "26px", height: "24px" }}
+              />
+              <div className="name">구매하기</div>
+            </div>
           </div>
+          {termsModal ? <TermsOfUse setTermsModal={setTermsModal} /> : null}
+          {/* </HashLink> */}
+
           {/* {payOpen ? (
             <div className="buttons">
               <HashLink to={"/payment/coin"}>
@@ -217,9 +248,9 @@ function NftTrade() {
               style={
                 toggle1Open
                   ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
+                    border: "1px solid rgba(226, 226, 226, 0.7)",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                  }
                   : {}
               }
             >
@@ -306,9 +337,9 @@ function NftTrade() {
               style={
                 toggle2Open
                   ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
+                    border: "1px solid rgba(226, 226, 226, 0.7)",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                  }
                   : {}
               }
             >
