@@ -21,11 +21,17 @@ function Coin() {
             <div className="button" />
           </HashLink>
         </div>
+
         <TransactionHashWrapper>
           <TransactionHash>
             0xee5112a72eebf80e8a886b014de85660d0cc1527fa7e3750b7187b905385c1c7
           </TransactionHash>
         </TransactionHashWrapper>
+
+        <Txid onClick={() => { console.log("1234") }}>
+
+        </Txid>
+
         <CategoryWrapper>
           <Category>
             남관_가을축제_저작권
@@ -41,6 +47,11 @@ function Coin() {
             83,332.5 ABC
           </Deposit>
         </DepositWrapper>
+        <MainButton onClick={() => { console.log("1234") }}>
+
+        </MainButton>
+
+
       </Contents>
     </Container>
   );
@@ -113,7 +124,7 @@ z-index:2;
 display:flex;
 justify-content:flex-start;
 align-items:center;
-margin-top: 108px;
+margin-top: 65px;
 margin-left: 60px;
 `
 const Category = styled.div`
@@ -121,7 +132,7 @@ margin-left:22px;
 height: 40px;
 display: flex;
 align-items: center;
-font-size:20px;
+font-size:22px;
 font-weight: 300;
 `
 const ApplicationWrapper = styled.div`
@@ -165,10 +176,18 @@ font-size:20px;
 font-weight: 300;
 `
 
-const TxidButton = styled.div`
-width:150px;
+const Txid = styled.div`
+width:160px;
 height:50px;
-background-color:blue;
+
 z-index:2;
+margin-left: 83px;
+`
+const MainButton = styled.div`
+width:450px;
+height:90px;
+z-index:2;
+margin-left: 135px;
+margin-top:153px;
 `
 export default Coin;
