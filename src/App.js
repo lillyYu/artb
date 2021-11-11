@@ -16,14 +16,10 @@ function App() {
     <Container>
       <Gnb />
       <Switch>
-
         <Route path="/payment/coin" component={PayCoin}></Route>
         <Route path="/payment/cash" component={PayCash}></Route>
-        {/* <Route path="/payment/terms" component={TermsOfUse}></Route>
-        <Route path="/payment/privacy" component={Privacy}></Route> */}
         <Route path="/payment" component={NftTrade}></Route>
         <Route path="/" component={Home}></Route>
-
       </Switch>
       {/* <Switch>
         <Route path="/" component={Home}></Route>
