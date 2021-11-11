@@ -380,9 +380,9 @@ function NftTrade() {
               style={
                 toggle1Open
                   ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
+                    border: "1px solid rgba(226, 226, 226, 0.7)",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                  }
                   : {}
               }
             >
@@ -469,9 +469,9 @@ function NftTrade() {
               style={
                 toggle2Open
                   ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
+                    border: "1px solid rgba(226, 226, 226, 0.7)",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                  }
                   : {}
               }
             >
@@ -494,8 +494,9 @@ function NftTrade() {
 }
 
 const Container = styled.div`
-  position: absolute;
-  top: 130px;
+  /* position: absolute; */
+  position: relative;
+  margin-top: 130px;
   display: flex;
   flex-direction: column;
   width: 720px;
@@ -925,7 +926,7 @@ const Info3 = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     width: 430px;
     height: 70px;
     background: rgba(230, 71, 36, 0.8);

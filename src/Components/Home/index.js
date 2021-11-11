@@ -13,7 +13,9 @@ function Home() {
     <Container className="container">
       <Contents>
         <IntroWrapper>
-          <img src="test.png" style={{ top: "130px" }} />
+          <img src="test.png"
+          // style={{ top: "130px" }} 
+          />
           <Intro>
             <div className="Text_Style_5">한국 추상화의 아버지</div>
             <div className="Text_Style_6" style={{ paddingTop: "30px" }}>
@@ -53,7 +55,9 @@ function Home() {
         </IntroWrapper>
 
         <RecomendWrapper>
-          <div style={{ position: "absolute", top: "130px" }}>
+          <div
+          // style={{ position: "absolute", top: "130px" }}
+          >
             <img src="recomend.png" />
             <Recomend>
               <div
@@ -140,7 +144,7 @@ const Container = styled.div`
 `;
 
 const Contents = styled.div`
-  top: 130px;
+  margin-top: 130px;
   display: flex;
   flex-direction: column;
   width: 720px;
@@ -151,7 +155,7 @@ const IntroWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 720px;
-  top: 130px; ;
+  /* top: 130px; ; */
 `;
 const Intro = styled.div`
   position: absolute;
@@ -191,8 +195,8 @@ const P_Background = styled.img`
 `;
 
 const ProjectWrapper = styled.div`
-  position: absolute;
-  top: 2273px; ;
+  /* position: absolute; */
+  /* top: 2273px; ; */
 `;
 
 const ArtBProject = styled.div`

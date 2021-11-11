@@ -11,9 +11,11 @@ function Gnb() {
   return (
     <Container>
       <Contents>
-        <Logo>
-          <img src="/gnb_logo.png" style={{ width: "162px", height: "56px" }} />
-        </Logo>
+        <HashLink to={"/"}>
+          <Logo>
+            <img src="/gnb_logo.png" style={{ width: "162px", height: "56px" }} />
+          </Logo>
+        </HashLink>
         {/* <Language /> */}
         <Setting>
           <Language>KR</Language>
@@ -36,7 +38,7 @@ const Container = styled.div`
   width: 720px;
   height: 130px;
   background-color: white;
-  z-index: 6;
+  z-index: 1;
   a {
     text-decoration: none;
   }

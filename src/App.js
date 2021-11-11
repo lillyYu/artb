@@ -25,7 +25,7 @@ function App() {
         <Route path="/" component={Home}></Route>
         <Route path="/trade" component={NftTrade}></Route>
       </Switch> */}
-      {/* <Footer /> */}
+      <Footer />
     </Container>
   );
 }
@@ -33,9 +33,9 @@ function App() {
 const Container = styled.div`
   // font-family: Pretendard;
   display: flex;
-  width: 720px;
-  gap: 20px 0;
   flex-direction: column;
+  width: 720px;
+  /* gap: 20px 0; */
   align-items: center;
 `;
 

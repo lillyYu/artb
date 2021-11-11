@@ -68,7 +68,8 @@ const Container = styled.div`
 
 const Contents = styled.div`
   position: relative;
-  top: 130px;
+  margin-top:130px;
+  /* top: 130px; */
   display: flex;
   flex-direction: column;
   width: 720px;
@@ -179,9 +180,9 @@ font-weight: 300;
 const Txid = styled.div`
 width:160px;
 height:50px;
-
 z-index:2;
 margin-left: 83px;
+
 `
 const MainButton = styled.div`
 width:450px;
