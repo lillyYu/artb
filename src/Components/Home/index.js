@@ -44,11 +44,15 @@ function Home() {
                 </HashLink>
               </Left>
               <Right>
-                <div style={{ paddingBottom: "15px" }}>
-                  {" "}
-                  #아트비가 추천 저작권
+                <div style={{ display: "flex" }}>
+
+                  <div style={{ paddingBottom: "15px" }}>
+                    {" "}
+                    #아트비가 추천 저작권
+                  </div>
+                  <img src="logo.png" style={{ width: "10.42px", height: "12px", margin: "3px" }} />
                 </div>
-                <img src="recomend_1.png" />
+                <img src="recomend_1.png" style={{ boxShadow: "0px 0px 20px gray", blur: "20px" }} />
               </Right>
             </Bottom>
           </Intro>

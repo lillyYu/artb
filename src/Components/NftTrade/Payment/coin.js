@@ -50,9 +50,13 @@ function Coin() {
 
 
         <HashLink to={"/"}>
-          <div>
-            <MainButton className="mainButton"></MainButton>
-          </div>
+          <MainButtonWrapper>
+            <MainButton className="mainButton">
+              <div style={{ marginTop: "6px" }}>
+                메인화면으로 가기
+              </div>
+            </MainButton>
+          </MainButtonWrapper>
         </HashLink>
       </Contents>
     </Container>
@@ -186,11 +190,28 @@ z-index:2;
 margin-left: 83px;
 
 `
-const MainButton = styled.div`
-width:450px;
-height:90px;
+const MainButtonWrapper = styled.div`
+
 z-index:2;
-margin-left: 135px;
-margin-top:153px;
+display:flex;
+/* justify-content:flex-start; */
+/* align-items:center; */
+margin-top: 32px;
+margin-left: 60px;
+`
+const MainButton = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+width:444px;
+height:71px;
+z-index:2;
+margin-left: 79px;
+margin-top:138px;
+background-color:#E64724CC;
+border-radius: 6px;
+color: white;
+font-size: 30px;
+
 `
 export default Coin;

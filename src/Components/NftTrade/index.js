@@ -275,6 +275,7 @@ function NftTrade() {
               onChange={(e) => {
                 setInputValue(e.target.value);
               }}
+              style={{ height: "50px" }}
             />
             <div className="unit">EA</div>
           </div>
