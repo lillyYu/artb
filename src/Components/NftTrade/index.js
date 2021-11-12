@@ -285,6 +285,8 @@ function NftTrade() {
           </div>
 
           {/* <HashLink to={"/payment/terms"} > */}
+
+
           <div>
             <div
               className="payButton"
