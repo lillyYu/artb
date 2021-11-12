@@ -85,6 +85,7 @@ const AgreeButtonWrapper = styled.div`
 padding-top:31px;
 display:flex;
 justify-content: center;
+cursor: pointer;
 `
 const AgreeButton = styled.div`
 display:flex;

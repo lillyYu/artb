@@ -188,7 +188,7 @@ width:160px;
 height:50px;
 z-index:2;
 margin-left: 83px;
-
+cursor: pointer;
 `
 const MainButtonWrapper = styled.div`
 
