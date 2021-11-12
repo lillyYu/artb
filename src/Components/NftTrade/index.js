@@ -141,14 +141,16 @@ function NftTrade() {
     <Container>
       <Contents>
         <Header>
-          <div
-            className="back"
-            onClick={() => {
-              setPayOpen(false);
-            }}
-          >
-            {payOpen ? "< 페이지로 돌아가기" : "< 목록으로 돌아가기"}
-          </div>
+          <HashLink to={"/"}>
+            <div
+              className="back"
+              onClick={() => {
+                setPayOpen(false);
+              }}
+            >
+              {payOpen ? "< 페이지로 돌아가기" : "< 이전 페이지로 돌아가기"}
+            </div>
+          </HashLink>
           <div className="basic">
             <div className="info">
               <div className="status">판매중</div>
@@ -315,6 +317,13 @@ function NftTrade() {
                 console.log("asdf");
                 setTermsModal(!termsModal);
               }}
+              style={
+                account
+                  ?
+                  { cursor: "pointer" }
+                  :
+                  { cursor: "not-allowed", opacity: "30%" }
+              }
             >
               <img
                 src="/detail_pay.png"
@@ -660,6 +669,7 @@ const Info1 = styled.div`
       .name {
         margin-left: 10px;
         color: #eb4632;
+
       }
     }
 
@@ -938,6 +948,7 @@ const Info3 = styled.div`
       font-weight: bold;
       font-size: 25px;
       color: #ffffff;
+      cursor: pointer;
     }
   }
 `;

@@ -38,7 +38,7 @@ const Container = styled.div`
   width: 720px;
   height: 130px;
   background-color: white;
-  z-index: 1;
+  z-index: 2;
   a {
     text-decoration: none;
   }

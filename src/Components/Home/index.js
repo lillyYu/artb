@@ -23,7 +23,7 @@ function Home() {
             </div>
             <Bottom>
               <Left>
-                <div className="Text_Style_7" style={{ paddingTop: "100px" }}>
+                <div className="Text_Style_7" style={{ paddingTop: "100px", width: "325px" }}>
                   <br /> 총 183점의
                   <br /> 예술품을
                   <br /> 이제 NFT로 만나보세요
@@ -168,7 +168,7 @@ const Bottom = styled.div`
 const Left = styled.div``;
 const Right = styled.div`
   padding-top: 110px;
-  margin-left: 25px;
+  /* margin-left: 25px; */
 `;
 
 const RecomendWrapper = styled.div`

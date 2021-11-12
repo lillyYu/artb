@@ -47,11 +47,13 @@ function Coin() {
             83,332.5 ABC
           </Deposit>
         </DepositWrapper>
-        <MainButton onClick={() => { console.log("1234") }}>
-
-        </MainButton>
 
 
+        <HashLink to={"/"}>
+          <div>
+            <MainButton className="mainButton"></MainButton>
+          </div>
+        </HashLink>
       </Contents>
     </Container>
   );
@@ -102,7 +104,7 @@ background-color:#f1f1f1;
 box-sizing:border-box;
 width:600px;
 height:53px;
-z-index:2;
+/* z-index:2; */
 display:flex;
 justify-content:flex-start;
 align-items:center;
@@ -121,7 +123,7 @@ const CategoryWrapper = styled.div`
 width:300px;
 height:40px;
 background-color:#f1f1f1;
-z-index:2;
+/* z-index:2; */
 display:flex;
 justify-content:flex-start;
 align-items:center;
@@ -140,7 +142,7 @@ const ApplicationWrapper = styled.div`
 width:300px;
 height:40px;
 background-color:#f1f1f1;
-z-index:2;
+/* z-index:2; */
 display:flex;
 justify-content:flex-start;
 align-items:center;
