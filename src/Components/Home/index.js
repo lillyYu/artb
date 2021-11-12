@@ -24,7 +24,8 @@ function Home() {
             <Bottom>
               <Left>
                 <div className="Text_Style_7" style={{ paddingTop: "100px", width: "325px" }}>
-                  <br /> 총 183점의
+                  <br />
+                  <span>총 </span><span style={{ fontSize: "25px" }}>183</span><span>점의</span>
                   <br /> 예술품을
                   <br /> 이제 NFT로 만나보세요
                 </div>
@@ -50,7 +51,7 @@ function Home() {
                     {" "}
                     #아트비가 추천 저작권
                   </div>
-                  <img src="logo.png" style={{ width: "10.42px", height: "12px", margin: "3px" }} />
+                  <img src="logo.png" style={{ width: "15px", height: "17px", marginLeft: "3px" }} />
                 </div>
                 <img src="recomend_1.png" style={{ boxShadow: "0px 0px 20px gray", blur: "20px" }} />
               </Right>
