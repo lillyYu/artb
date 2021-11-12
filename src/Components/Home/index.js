@@ -51,7 +51,10 @@ function Home() {
                     {" "}
                     #아트비가 추천 저작권
                   </div>
-                  <img src="logo.png" style={{ width: "15px", height: "17px", marginLeft: "3px" }} />
+                  <div style={{ display: "flex", height: "20px", alignItems: "center" }}>
+
+                    <img src="logo.png" style={{ width: "15px", height: "17px", marginLeft: "3px" }} />
+                  </div>
                 </div>
                 <img src="recomend_1.png" style={{ boxShadow: "0px 0px 20px gray", blur: "20px" }} />
               </Right>

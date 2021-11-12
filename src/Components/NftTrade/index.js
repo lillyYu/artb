@@ -317,9 +317,14 @@ function NftTrade() {
             <div
               className="payButton"
               onClick={() => {
-                console.log("asdf");
-                setTermsModal(!termsModal);
-                window.scrollTo(0, 0);
+                if (account) {
+
+                  setTermsModal(!termsModal);
+                  window.scrollTo(0, 0);
+                } else {
+                  alert("지갑을 연결해 주세요")
+                }
+
               }}
               style={
                 account
