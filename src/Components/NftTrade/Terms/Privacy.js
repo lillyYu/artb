@@ -10,7 +10,7 @@ function Privacy({ setPrivacyModal }) {
             <Contents>
                 <div
                     className="Text_Style_1"
-                    style={{ paddingBottom: "20px" }}
+                    style={{ paddingBottom: "20px", cursor: "pointer" }}
                     onClick={() => {
                         setPrivacyModal(false)
                     }}
@@ -90,7 +90,10 @@ border: 1px solid rgba(0, 0, 0, 0.2);
 box-sizing: border-box;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 border-radius: 10px;
-
+:active{
+  background-color: #eb4632;
+  color:white;
+}
 
 `
 export default Privacy;

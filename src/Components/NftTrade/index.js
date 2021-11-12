@@ -316,6 +316,7 @@ function NftTrade() {
               onClick={() => {
                 console.log("asdf");
                 setTermsModal(!termsModal);
+                window.scrollTo(0, 0);
               }}
               style={
                 account
@@ -948,7 +949,7 @@ const Info3 = styled.div`
       font-weight: bold;
       font-size: 25px;
       color: #ffffff;
-      cursor: pointer;
+      /* cursor: pointer; */
     }
   }
 `;

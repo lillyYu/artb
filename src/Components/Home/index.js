@@ -54,82 +54,78 @@ function Home() {
           </Intro>
         </IntroWrapper>
 
-        <RecomendWrapper>
-          <div
-          // style={{ position: "absolute", top: "130px" }}
-          >
-            <img src="recomend.png" />
-            <Recomend>
-              <div
+        <RecomendWrapper className="recomendWrapper">
+          <img src="recomend.png" />
+          <Recomend className="recomend">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: "113px",
+              }}
+            >
+              <img src="Line_1.png" style={{ width: "79px" }} />
+            </div>
+            <div className="Text_Style_10" style={{ padding: "40px 0px" }}>
+              ArtB 추천 저작권
+            </div>
+            <div
+              style={{
+                display: "flex",
+                paddingLeft: "250px",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src="recomend_1.png"
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "113px",
+                  width: "250px",
+                  height: "350px",
+                  marginRight: "20px",
                 }}
-              >
-                <img src="Line_1.png" style={{ width: "79px" }} />
-              </div>
-              <div className="Text_Style_10" style={{ padding: "40px 0px" }}>
-                ArtB 추천 저작권
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  paddingLeft: "250px",
-                  overflow: "hidden",
-                }}
-              >
-                <img
-                  src="recomend_1.png"
-                  style={{
-                    width: "250px",
-                    height: "350px",
-                    marginRight: "20px",
-                  }}
-                />
-                <img
-                  src="recomend_1.png"
-                  style={{ width: "250px", height: "350px" }}
-                />
-              </div>
-              <div
-                className="Text_Style_11"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "40px",
-                }}
-              >
-                컬렉션 작품
-              </div>
-              <div
-                className="Text_Style_12"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "40px",
-                }}
-              >
-                작품명 소개
-              </div>
-              <div
-                className="Text_Style_13"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "54px 50px",
-                }}
-              >
-                세부 작품명 소개자리입니다. 이달의 작가를 소개하고 작품을
-                안내합니다. 100자 이내로 작성하고 작품이 잘 드러날 수 있는
-                콘텐츠를 작성합니다.
-              </div>
-            </Recomend>
-          </div>
+              />
+              <img
+                src="recomend_1.png"
+                style={{ width: "250px", height: "350px" }}
+              />
+            </div>
+            <div
+              className="Text_Style_11"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: "40px",
+              }}
+            >
+              컬렉션 작품
+            </div>
+            <div
+              className="Text_Style_12"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: "40px",
+              }}
+            >
+              작품명 소개
+            </div>
+            <div
+              className="Text_Style_13"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "54px 50px",
+              }}
+            >
+              세부 작품명 소개자리입니다. 이달의 작가를 소개하고 작품을
+              안내합니다. 100자 이내로 작성하고 작품이 잘 드러날 수 있는
+              콘텐츠를 작성합니다.
+            </div>
+          </Recomend>
         </RecomendWrapper>
 
-        <ProjectWrapper>
-          <P_Background src="artB_project.png" />
+        <ProjectWrapper >
+          <Background src="artB_project.png" />
         </ProjectWrapper>
       </Contents>
     </Container>
@@ -175,11 +171,7 @@ const RecomendWrapper = styled.div`
   position: relative;
 `;
 
-const LineImg = styled.img`
-  display: flex;
-  justify-content: center;
-  width: 79px;
-`;
+
 
 const Recomend = styled.div`
   top: 0;
@@ -189,14 +181,13 @@ const Recomend = styled.div`
   width: 720px;
 `;
 
-const P_Background = styled.img`
+const Background = styled.img`
   display: flex;
   width: 720px;
 `;
 
 const ProjectWrapper = styled.div`
-  /* position: absolute; */
-  /* top: 2273px; ; */
+margin-top:-5px;
 `;
 
 const ArtBProject = styled.div`

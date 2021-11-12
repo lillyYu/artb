@@ -11,7 +11,7 @@ function TermsOfUse({ setTermsModal }) {
       <Contents>
         <div
           className="Text_Style_1"
-          style={{ paddingBottom: "20px" }}
+          style={{ paddingBottom: "20px", cursor: "pointer" }}
           onClick={() => {
             setTermsModal(false)
           }}
@@ -40,7 +40,8 @@ function TermsOfUse({ setTermsModal }) {
         {/* <HashLink to={"/payment/privacy"} style={{ textDecoration: "none" }}> */}
         <AgreeButtonWrapper
           onClick={() => {
-            setPrivacyModal(!privacyModal)
+            setPrivacyModal(!privacyModal);
+            window.scrollTo(0, 0);
           }}
         >
           <AgreeButton className="Text_Style_4">
@@ -96,7 +97,10 @@ border: 1px solid rgba(0, 0, 0, 0.2);
 box-sizing: border-box;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 border-radius: 10px;
-
+:active{
+  background-color: #eb4632;
+  color:white;
+}
 
 `
 export default TermsOfUse;
