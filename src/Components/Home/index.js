@@ -125,7 +125,7 @@ function Home() {
                 }}
               />
               <img
-                src="recomend_1.png"
+                src="recomend_2.png"
                 style={{ width: "250px", height: "350px" }}
               />
             </div>
