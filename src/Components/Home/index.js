@@ -58,7 +58,7 @@ function Home() {
                 <div style={{ display: "flex" }}>
                   <div style={{ paddingBottom: "15px" }}>
                     {" "}
-                    #아트비가 추천 저작권
+                    #ArtB 추천 저작권
                   </div>
                   <div
                     style={{
@@ -122,11 +122,16 @@ function Home() {
                   width: "250px",
                   height: "350px",
                   marginRight: "20px",
+                  borderRadius: "10px",
                 }}
               />
               <img
                 src="recomend_2.png"
-                style={{ width: "250px", height: "350px" }}
+                style={{
+                  width: "250px",
+                  height: "350px",
+                  borderRadius: "10px",
+                }}
               />
             </div>
             <div
@@ -177,8 +182,8 @@ function Home() {
 
 const Container = styled.div`
   display: flex;
-  gap: 20px 0;
   flex-direction: column;
+  gap: 20px 0;
   align-items: center;
 `;
 
@@ -190,9 +195,9 @@ const Contents = styled.div`
 `;
 
 const IntroWrapper = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
   width: 720px;
   /* top: 130px; ; */
 `;
@@ -204,23 +209,24 @@ const Intro = styled.div`
 const Bottom = styled.div`
   display: flex;
 `;
-const Bar = styled.div`
-  position: absolute;
-  bottom: 150px;
-`;
 const Left = styled.div``;
 const Right = styled.div`
   padding-top: 110px;
   /* margin-left: 25px; */
 `;
 
+const Bar = styled.div`
+  position: absolute;
+  bottom: 150px;
+`;
 const RecomendWrapper = styled.div`
+  display: flex;
   position: relative;
 `;
 
 const Recomend = styled.div`
-  top: 0;
   position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
   width: 720px;

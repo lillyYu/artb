@@ -211,7 +211,7 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">artB</div>
+              <div className="name">ArtB</div>
             </div>
             <div className="right">
               <div className="rest">80,000EA/</div>
