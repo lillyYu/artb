@@ -8,10 +8,10 @@ function Footer() {
                 <Logo src="Footer_logo.png" />
             </div>
             <InfoWrapper>
-                <Info>주식회사 아트비</Info>
-                <Info>서울시 강남구 삼성동 봉은사로410 라마다호텔 별관 1층</Info>
-                <Info>전화번호 02-552-2038</Info>
-                <Info>사업자등록번호 521-88-02293</Info>
+                <Info>{"법인명 : 아트비글로벌(주)"}</Info>
+                <Info>{"사업자 등록 번호 : 521-88-02293"}</Info>
+                <Info>{"주소 : 서울특별시 송파구 백제고분로24길 16, 101호"}</Info>
+                <Info>{"대표자 : 이건용"}</Info>
             </InfoWrapper>
         </Container>
     )
