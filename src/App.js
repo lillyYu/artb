@@ -31,12 +31,7 @@ function App() {
 }
 
 const Container = styled.div`
-  // font-family: Pretendard;
-  display: flex;
-  flex-direction: column;
   width: 720px;
-  /* gap: 20px 0; */
-  align-items: center;
 `;
 
 export default App;

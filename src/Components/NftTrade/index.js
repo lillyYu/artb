@@ -22,12 +22,16 @@ import {
 
 import TermsOfUse from "./Terms/TermsOfUse";
 
+import { COPYRIGHT_DATA } from "../../lib/loading_Data"
+
 function NftTrade() {
   const [payOpen, setPayOpen] = useState(false);
   const [toggle1Open, setToggle1Open] = useState(false);
   const [toggle2Open, setToggle2Open] = useState(false);
   const [termsModal, setTermsModal] = useState(false);
   const [inputValue, setInputValue] = useState(0);
+  const [isArtB, setIsArtB] = useState(false);//아트비구매 클릭시
+
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [provider, setProvider] = useRecoilState(providerState);
@@ -35,6 +39,7 @@ function NftTrade() {
   const [network, setNetwork] = useRecoilState(networkState);
   const [requireNetwork] = useRecoilState(requireNetworkState);
 
+  console.log("COPYRIGHT_DATA", COPYRIGHT_DATA)
   /* Setting WalletConnect */
   const providerOptions = {
     metamask: {
@@ -175,13 +180,13 @@ function NftTrade() {
               />
             </div>
           </div>
-          <div className="title">작품명 : 가을축제</div>
-          <div className="artist">작가명 : 남관</div>
+          <div className="title">작품명 : {COPYRIGHT_DATA[0].name}</div>
+          <div className="artist">작가명 :{COPYRIGHT_DATA[0].writer}</div>
         </Header>
         <Info1>
           <div className="period">
             <div className="title">판매기간</div>
-            <div className="time">2021.09.26 12:00 ~ 2021.12.30 24:00</div>
+            <div className="time">{COPYRIGHT_DATA[0].term}</div>
           </div>
           <div className="product">
             <img
@@ -211,7 +216,7 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">ArtB</div>
+              <div className="name"></div>
             </div>
             <div className="right">
               <div className="rest">80,000EA/</div>
@@ -252,7 +257,9 @@ function NftTrade() {
             />
           </Info2>
         )}
-        <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
+
+
+        <Info3>
           <div className="title">개당 저작권 가격</div>
           <div className="info">
             <div className="price">
@@ -277,14 +284,86 @@ function NftTrade() {
               }}
               style={{ height: "50px" }}
             />
-            <div className="unit">EA</div>
+            <div className="unit" style={{ paddingLeft: "10px" }}>EA</div>
           </div>
           <div className="restAmount">
             <div className="left">잔여수량:</div>
             <div className="right">80,000 EA</div>
           </div>
 
-          {/* <HashLink to={"/payment/terms"} > */}
+
+          {!isArtB ?
+            <div className="buttons">
+              <div
+                className="coinButton"
+                onClick={() => {
+                  setIsArtB(true)
+                }}
+              >
+                <div className="name">Artb 구매</div>
+              </div>
+              <div
+                className="cashButton"
+                onClick={() => {
+
+                }}
+              >
+                <div className="name">원화 구매</div>
+              </div>
+            </div>
+            :
+            <div className="buttons">
+              <div
+                className="payButton"
+                onClick={() => {
+                  if (account) {
+                    alert("지갑이 연결됐습니다.");
+                  } else {
+                    connect();
+                    console.log("account: ", account);
+                  }
+                }}
+                style={
+                  account
+                    ? { cursor: "not-allowed", opacity: "30%" }
+                    : { cursor: "pointer" }
+                }
+              >
+                <div className="name">
+                  {account
+                    ? account.slice(0, 8) + "..." + account.slice(-6)
+                    : "지갑연결"}</div>
+              </div>
+              <div
+                className="payButton"
+                onClick={() => {
+                  if (account) {
+                    setTermsModal(!termsModal);
+                    window.scrollTo(0, 0);
+                  } else {
+                    alert("지갑을 연결해 주세요");
+                  }
+                }}
+                style={
+                  account
+                    ? { cursor: "pointer" }
+                    : { cursor: "not-allowed", opacity: "30%" }
+                }
+              >
+                <div className="name">구매하기</div>
+              </div>
+            </div>
+          }
+          {termsModal ? <TermsOfUse setTermsModal={setTermsModal} /> : null}
+        </Info3>
+
+
+
+
+
+
+        {/* <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
+
 
           <div>
             <div
@@ -337,49 +416,16 @@ function NftTrade() {
             </div>
           </div>
           {termsModal ? <TermsOfUse setTermsModal={setTermsModal} /> : null}
-          {/* </HashLink> */}
 
-          {/* {payOpen ? (
-            <div className="buttons">
-              <HashLink to={"/payment/coin"}>
-                <div
-                  className="coinButton"
-                  onClick={() => {
-                    setPayOpen(!payOpen);
-                    console.log(payOpen);
-                  }}
-                >
-                  <div className="name">Artb 구매</div>
-                </div>
-              </HashLink>
-              <HashLink to={"/payment/cash"}>
-                <div
-                  className="cashButton"
-                  onClick={() => {
-                    setPayOpen(!payOpen);
-                  }}
-                >
-                  <div className="name">원화 구매</div>
-                </div>
-              </HashLink>
-            </div>
-          ) : (
-            <div
-              className="payButton"
-              onClick={() => {
-                setPayOpen(!payOpen);
-                setToggle1Open(false);
-                setToggle2Open(false);
-              }}
-            >
-              <img
-                src="/detail_pay.png"
-                style={{ width: "26px", height: "24px" }}
-              />
-              <div className="name">구매하기</div>
-            </div>
-          )} */}
-        </Info3>
+
+
+        </Info3> */}
+
+
+
+
+
+
         {payOpen ? (
           <></>
         ) : (
@@ -393,9 +439,9 @@ function NftTrade() {
               style={
                 toggle1Open
                   ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
+                    border: "1px solid rgba(226, 226, 226, 0.7)",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                  }
                   : {}
               }
             >
@@ -482,9 +528,9 @@ function NftTrade() {
               style={
                 toggle2Open
                   ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
+                    border: "1px solid rgba(226, 226, 226, 0.7)",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                  }
                   : {}
               }
             >

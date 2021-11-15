@@ -10,46 +10,37 @@ import { useRecoilState } from "recoil";
 function Gnb() {
   return (
     <Container>
-      <Contents>
-        <HashLink to={"/"}>
-          <Logo>
-            <img src="/gnb_logo.png" style={{ width: "162px", height: "56px" }} />
-          </Logo>
-        </HashLink>
-        {/* <Language /> */}
-        <Setting>
-          <Language>KR</Language>
-          <My>
-            <img
-              src="/gnb_profile.png"
-              style={{ width: "56px", height: "56px" }}
-            />
-          </My>
-        </Setting>
-      </Contents>
+      <HashLink to={"/"}>
+        <img src="/gnb_logo.png" style={{ width: "162px", height: "56px" }} />
+      </HashLink>
+      <Setting>
+        <Language>KR</Language>
+        <My>
+          <img
+            src="/gnb_profile.png"
+            style={{ width: "56px", height: "56px" }}
+          />
+        </My>
+      </Setting>
     </Container>
   );
 }
 
 const Container = styled.div`
+  display: flex;
   position: fixed;
   top: 0;
-  display: flex;
   width: 720px;
   height: 130px;
+  padding: 0 58px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
   background-color: white;
   z-index: 2;
   a {
     text-decoration: none;
   }
-`;
-
-const Contents = styled.div`
-  display: flex;
-  width: 660px;
-  margin: 0 58px;
-  align-items: center;
-  justify-content: space-between;
 `;
 
 const Setting = styled.div`
@@ -65,16 +56,7 @@ const Language = styled.div`
   cursor: pointer;
 `;
 
-const Logo = styled.div`
-  display: flex;
-  width: 162px;
-  height: 56px;
-  background-color: white;
-  cursor: pointer;
-`;
-
 const My = styled.div`
-  // background-color: red;
   cursor: pointer;
 `;
 
