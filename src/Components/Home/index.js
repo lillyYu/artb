@@ -15,7 +15,7 @@ function Home() {
         <IntroWrapper>
           <img
             src="test.png"
-            // style={{ top: "130px" }}
+          // style={{ top: "130px" }}
           />
           <Intro>
             <div className="Text_Style_5">한국 추상화의 아버지</div>
@@ -59,6 +59,7 @@ function Home() {
                   <div style={{ paddingBottom: "15px" }}>
                     {" "}
                     #ArtB 추천 저작권
+
                   </div>
                   <div
                     style={{
