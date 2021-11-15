@@ -14,7 +14,7 @@ module.exports = {
           `https://mainnet.infura.io/v3/52f7d11b90ec45f1ac9912d0fb864695`
         ),
       network_id: 1, // Ropsten's id
-      gas: 2000000, // Ropsten has a lower block limit than mainnet
+      gas: 5000000, // Ropsten has a lower block limit than mainnet
       skipDryRun: true,
     },
     ropsten: {

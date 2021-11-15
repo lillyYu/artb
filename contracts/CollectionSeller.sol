@@ -32,8 +32,8 @@ struct SalesType {
 
 
 contract CollectionSeller is Ownable {
-  uint8 lastRegisterId; //
-  mapping(uint8 => SalesType) public Goods;
+  uint256 lastRegisterId; //
+  mapping(uint256 => SalesType) public Goods;
   mapping(address => bool) public SellerWhitelist;
 
   event bought(address user, uint256 amount);
@@ -41,9 +41,10 @@ contract CollectionSeller is Ownable {
   event registerCollection(uint256 id);
   event registerPayment(uint256 id);
 
-  function buy(uint8 id, uint256 amount) public payable isOpen(Goods[id].start_time, Goods[id].end_time) {
+  function buy(uint256 id, uint256 amount) public payable isOpen(Goods[id].start_time, Goods[id].end_time) {
     require(Goods[id].is_active, "This sale is not active");
     require(Goods[id].collection.INVENTORY >= amount, "Not enough inventory");
+    require(amount > 0, "Amount must be greater than 0");
 
     Goods[id].payment.token.transferFrom(msg.sender, Goods[id].payment.receiver, amount*Goods[id].payment.amount);
 
@@ -56,8 +57,8 @@ contract CollectionSeller is Ownable {
     emit bought(msg.sender, amount);
   }
 
-  function GoodsRegistration(address erc20_address, address erc1155_address) public onlySeller returns(uint8) {
-    uint8 id = lastRegisterId++;
+  function GoodsRegistration(address erc20_address, address erc1155_address) public onlySeller returns(uint256) {
+    uint256 id = lastRegisterId++;
 
     Goods[id].payment.token = IERC20(erc20_address);
     Goods[id].collection.token = IERC1155(erc1155_address);
@@ -68,7 +69,7 @@ contract CollectionSeller is Ownable {
     return id;
   }
 
-  function GoodsRegCollection(uint8 id, uint256 tokenId, uint256 quantity) public onlySeller {
+  function GoodsRegCollection(uint256 id, uint256 tokenId, uint256 quantity) public onlySeller {
     require(Goods[id].seller == msg.sender, "You are not the seller of this item");
 
 
@@ -78,21 +79,21 @@ contract CollectionSeller is Ownable {
     Goods[id].collection.INVENTORY = quantity;
   }
 
-  function GoodsRegPayment(uint8 id, uint256 amount, address receiver) public onlySeller {
+  function GoodsRegPayment(uint256 id, uint256 amount, address receiver) public onlySeller {
     require(Goods[id].seller == msg.sender, "You are not the seller of this item");
 
     Goods[id].payment.amount = amount;
     Goods[id].payment.receiver = receiver;
   }
 
-  function GoodsSetTime(uint8 id, uint256 start, uint256 end) public onlySeller {
+  function GoodsSetTime(uint256 id, uint256 start, uint256 end) public onlySeller {
     require(Goods[id].seller == msg.sender, "You are not the seller of this item");
 
     Goods[id].start_time = start;
     Goods[id].end_time = end;
   }
 
-  function GoodsSetOpen(uint8 id, bool is_active) public onlySeller {
+  function GoodsSetOpen(uint256 id, bool is_active) public onlySeller {
     require(Goods[id].seller == msg.sender, "You are not the seller of this item");
 
     Goods[id].is_active = is_active;
