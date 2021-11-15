@@ -5,114 +5,116 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 
-// 추가로 필요한 기능들
-// 1. hNFT 토큰 전송
-// 2. 가격 변경
+
+
+struct PaymentType {
+    IERC20 token; // address of the payment Token 
+    uint256 amount; // amount of the payment
+    address receiver; // address of the receiver
+}
+
+struct CollectionType {
+  IERC1155 token; // NFT contract
+  uint256 tokenId; // tokenId of the NFT
+  uint256 QUANTITY; // Total quantity of this item
+  uint256 SOLD; // Total quantity of this item sold
+  uint256 INVENTORY; // Total quantity of this item in inventory
+}
+
+struct SalesType {
+  PaymentType payment; // Payment information
+  CollectionType collection; // Collection information
+  uint256 start_time; // Sales start time
+  uint256 end_time; // Sales end time
+  address seller; // Seller address
+  bool is_active; // Is the sale active
+}
+
 
 contract CollectionSeller is Ownable {
-  IERC1155 public NFT;
-  IERC20 public PAYMENT;
-  uint256 public PRICE = 0;
-  uint256 public STARTWHEN = 0; // FIXME this should be a timestamp
-  uint256 public STOPWHEN = 0; // FIXME this should be a timestamp
-  address public MINTER;
-
-  uint256 public lastSaleId = 0;
-  uint256 public lastRegisterId = 0;
-  uint256 public limitPerSale = 10;
-  mapping(uint256 => uint256) public tokenIdById;
-  mapping(uint256 => uint256) public amountBytokenId;
+  uint8 lastRegisterId; //
+  mapping(uint8 => SalesType) public Goods;
+  mapping(address => bool) public SellerWhitelist;
 
   event bought(address user, uint256 amount);
+  event registerNewOne(uint256 id);
+  event registerCollection(uint256 id);
+  event registerPayment(uint256 id);
 
-  constructor(
-    address _NFT,
-    address _PAYMENT,
-    uint256 _PRICE,
-    uint256 _STARTWHEN,
-    uint256 _STOPWHEN
-  ) public {
-    NFT = IERC1155(_NFT);
-    PAYMENT = IERC20(_PAYMENT);
-    PRICE = _PRICE;
-    STARTWHEN = _STARTWHEN;
-    STOPWHEN = _STOPWHEN;
-    MINTER = msg.sender;
-  }
+  function buy(uint8 id, uint256 amount) public payable isOpen(Goods[id].start_time, Goods[id].end_time) {
+    require(Goods[id].is_active, "This sale is not active");
+    require(Goods[id].collection.INVENTORY >= amount, "Not enough inventory");
 
-  function buy(uint256 tokenId, uint256 amount) public payable isOpen {
-    require(
-      amount <= amountBytokenId[tokenId],
-      "There are no more tokens to buy"
-    );
-    require(
-      amount <= limitPerSale,
-      "You can't buy at most limited amount at a time"
-    );
+    Goods[id].payment.token.transferFrom(msg.sender, Goods[id].payment.receiver, amount*Goods[id].payment.amount);
 
-    uint256 _before = PAYMENT.balanceOf(address(this));
-    PAYMENT.transferFrom(msg.sender, address(this), PRICE * amount);
-    uint256 _after = PAYMENT.balanceOf(address(this));
-    uint256 value = _after - _before;
+    Goods[id].collection.SOLD += amount;
+    Goods[id].collection.INVENTORY -= amount;
 
-    require(value == PRICE * amount, "You must pay the correct amount");
+    Goods[id].collection.token.safeTransferFrom(Goods[id].seller, msg.sender, Goods[id].collection.tokenId, amount, "0x0");
 
-    _buy(msg.sender, amount);
 
     emit bought(msg.sender, amount);
   }
 
-  function register(uint256 tokenId, uint256 amount) public onlyOwner {
-    tokenIdById[lastRegisterId++] = tokenId;
-    amountBytokenId[tokenId] = amount;
+  function GoodsRegistration(address erc20_address, address erc1155_address) public onlySeller returns(uint8) {
+    uint8 id = lastRegisterId++;
+
+    Goods[id].payment.token = IERC20(erc20_address);
+    Goods[id].collection.token = IERC1155(erc1155_address);
+    Goods[id].is_active = false;
+    Goods[id].seller = msg.sender;
+
+    emit registerNewOne(id);
+    return id;
   }
 
-  function registerById(
-    uint256 tokenId,
-    uint256 amount,
-    uint256 id
-  ) public onlyOwner {
-    if (tokenIdById[id] == 0) {
-      lastRegisterId = lastRegisterId + 1;
-    }
-    tokenIdById[id] = tokenId;
-    amountBytokenId[tokenId] = amount;
+  function GoodsRegCollection(uint8 id, uint256 tokenId, uint256 quantity) public onlySeller {
+    require(Goods[id].seller == msg.sender, "You are not the seller of this item");
+
+
+    Goods[id].collection.tokenId = tokenId;
+    Goods[id].collection.QUANTITY = quantity;
+    Goods[id].collection.SOLD = 0;
+    Goods[id].collection.INVENTORY = quantity;
   }
 
-  function _buy(address account, uint256 amount) internal {
-    NFT.safeTransferFrom(
-      MINTER,
-      account,
-      tokenIdById[lastSaleId++],
-      amount,
-      "0x0"
-    );
+  function GoodsRegPayment(uint8 id, uint256 amount, address receiver) public onlySeller {
+    require(Goods[id].seller == msg.sender, "You are not the seller of this item");
+
+    Goods[id].payment.amount = amount;
+    Goods[id].payment.receiver = receiver;
   }
 
-  function withdraw(uint256 amount) public onlyOwner {
-    PAYMENT.transfer(msg.sender, amount);
+  function GoodsSetTime(uint8 id, uint256 start, uint256 end) public onlySeller {
+    require(Goods[id].seller == msg.sender, "You are not the seller of this item");
+
+    Goods[id].start_time = start;
+    Goods[id].end_time = end;
   }
 
-  function setRegisterId(uint256 id) public onlyOwner {
-    lastRegisterId = id;
+  function GoodsSetOpen(uint8 id, bool is_active) public onlySeller {
+    require(Goods[id].seller == msg.sender, "You are not the seller of this item");
+
+    Goods[id].is_active = is_active;
   }
 
-  function setLastSaleId(uint256 id) public onlyOwner {
-    lastSaleId = id;
+
+  function addSeller(address user) public onlyOwner {
+    SellerWhitelist[user] = true;
   }
 
-  function setLimitPerSale(uint256 amount) public onlyOwner {
-    limitPerSale = amount;
+  function removeSeller(address user) public onlyOwner {
+    SellerWhitelist[user] = true;
   }
 
-  function setPeriod(uint256 start, uint256 end) public onlyOwner {
-    STARTWHEN = start;
-    STOPWHEN = end;
+  modifier onlySeller() {
+    require(SellerWhitelist[msg.sender] == true, "Only seller can perform this action");
+    _;
   }
 
-  modifier isOpen() {
+  modifier isOpen(uint256 from,uint256 to) {
     require(
-      block.timestamp >= STARTWHEN && block.timestamp <= STOPWHEN,
+      block.timestamp >= from && block.timestamp <= to,
       "The sale has not started yet or already end"
     );
     _;
