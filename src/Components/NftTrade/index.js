@@ -11,6 +11,7 @@ import Web3 from "web3";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { fromWei, toWei } from "web3-utils";
+import axios from "axios";
 // import { changeNetwork } from "./utils/Wallets";
 //store
 import {
@@ -21,7 +22,6 @@ import {
   requireNetworkState,
 } from "../../store/web3";
 import { web3ReaderState } from "../../store/read-web3";
-
 
 import TermsOfUse from "./Terms/TermsOfUse";
 
@@ -46,6 +46,18 @@ function NftTrade() {
       return;
     },
   });
+  const [nftInfo, setNftInfo] = useState([{
+    tokenId: "0",
+    address: "0x00",
+    quantity: "0",
+    sold: "0",
+    inventory: "0",
+    start_time: "1632625200000",
+    end_time: "1640876400000",
+    is_active: true,
+    price: "0",
+    payTokenAddress: "0x00"
+  }])
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);
@@ -98,10 +110,7 @@ function NftTrade() {
         .querySelectorAll("[id=WEB3_CONNECT_MODAL_ID]")[1]
         .remove();
     }
-    console.log("Connect!");
-    console.log("asdf", web3Modal);
     let provider = await web3Modal.connect();
-    console.log("provicer", provider);
     setProvider(provider);
     const web3 = new Web3(provider);
     setWeb3(web3);
@@ -140,11 +149,9 @@ function NftTrade() {
       console.log("info", info);
     });
     provider.on("accountsChanged", async (accounts) => {
-      console.log(accounts);
       setAccount(accounts[0]);
     });
     provider.on("chainChanged", async (chainId) => {
-      console.log(chainId);
       setNetwork(chainId);
     });
     provider.on("disconnect", async (error) => {
@@ -161,9 +168,9 @@ function NftTrade() {
   const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
   const ARTB_COLLECTION_SELLER_ABI = ARTB_COLLECTION_SELLER_INFO.abi;
 
-  const ABC_TOKEN_ADDRESS = ABC_TOKEN_INFO.networks[3].address;
-  const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[3].address;
-  const ARTB_COLLECTION_SELLER_ADDRESS = ARTB_COLLECTION_SELLER_INFO.networks[3].address;
+  const ABC_TOKEN_ADDRESS = ABC_TOKEN_INFO.networks[4].address;
+  const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[4].address;
+  const ARTB_COLLECTION_SELLER_ADDRESS = ARTB_COLLECTION_SELLER_INFO.networks[4].address;
 
   /* READ CONTRACT */
 
@@ -179,7 +186,7 @@ function NftTrade() {
     let result = {}
     const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI)
 
-    let allowance = await ABC_TOKEN_INSTANCE.methods.allowance(account, ABC_TOKEN_ADDRESS).call();
+    let allowance = await ABC_TOKEN_INSTANCE.methods.allowance(account, ARTB_COLLECTION_SELLER_ADDRESS).call();
 
     result = {
       // address: info.address,
@@ -191,6 +198,36 @@ function NftTrade() {
     };
 
     setUserInfo(result);
+  }
+
+  const loadNftInfo = async () => {
+    const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI)
+    const SELLER_INSTANCE = createContractInstance(web3_R.testnet, ARTB_COLLECTION_SELLER_ADDRESS, ARTB_COLLECTION_SELLER_ABI)
+    const COLLECTION_INSTANCE = createContractInstance(web3_R.testnet, ARTB_COLLECTION_ADDRESS, ARTB_COLLECTION_ABI)
+
+
+    const nftInformation = await SELLER_INSTANCE.methods.Goods("0").call();
+    const artInfoUri = await COLLECTION_INSTANCE.methods.uri("0").call();
+
+    const artInfo = await axios.get(`${artInfoUri.slice(0, -9)}/${"0"}.json`)
+
+    console.log("artInfo", artInfo)
+
+    let result = [{
+      tokenId: nftInformation.collection.tokenId,
+      address: nftInformation.collection.token,
+      quantity: nftInformation.collection.QUANTITY,
+      sold: nftInformation.collection.SOLD,
+      inventory: nftInformation.collection.INVENTORY,
+      start_time: nftInformation.start_time,
+      end_time: nftInformation.end_time,
+      is_active: nftInformation.is_active,
+      price: fromWei(nftInformation.payment.amount, "ether"),
+      payTokenAddress: nftInformation.payment.token
+    }]
+
+    setNftInfo(result)
+
   }
 
   const loadMethods = () => {
@@ -206,6 +243,8 @@ function NftTrade() {
       loadUserInfo();
     };
     const buy = async (nftM, amount, tokenId) => {
+      if (typeof amount != "string") amount = String(amount);
+
       await nftM.buy(tokenId, amount).send({ from: account });
       // loadUserInfo();
     };
@@ -218,13 +257,15 @@ function NftTrade() {
   }
 
   useEffect(() => {
-    if (account) loadMethods();
-    loadUserInfo();
+    if (account) {
+      loadMethods();
+      loadUserInfo();
+    }
   }, [account])
 
-
-  console.log("userInfo", userInfo)
-  console.log("nftMethods", nftMethods)
+  useEffect(() => {
+    loadNftInfo();
+  }, [])
 
   const data = COPYRIGHT_DATA[0]
   return (
@@ -238,8 +279,8 @@ function NftTrade() {
           </HashLink>
           <div className="basic">
             <div className="info">
-              <div className="status">{"판매중"}</div> {/* FIX ME */}
-              <div className="model">{"0x5CD9972"}</div> {/* FIX ME */}
+              <div className="status">{nftInfo[0].is_active ? "판매중" : "판매완료"}</div> {/* FIX ME by tokenId */}
+              <div className="model">{nftInfo[0].address.slice(0, 8) + "..." + nftInfo[0].address.slice(-6)}</div> {/* FIX ME */}
             </div>
             <div className="function">
               <img src="/detail_share.png" alt="" />
@@ -253,7 +294,7 @@ function NftTrade() {
         <Info1>
           <div className="period">
             <div className="title">판매기간</div>
-            <div className="time">{data.term}</div>
+            <div className="time">{loadPoolPeriod(nftInfo[0].start_time, nftInfo[0].end_time)}</div>
           </div>
           <div className="product">
             <img
@@ -286,8 +327,8 @@ function NftTrade() {
               <div className="name">{data.seller}</div>
             </div>
             <div className="right">
-              <div className="rest">{data.remainQuantity} EA/</div>
-              <div className="total">{data.totalQuantity} EA</div>
+              <div className="rest">{Number(nftInfo[0].inventory).toLocaleString()} EA/</div>
+              <div className="total">{Number(nftInfo[0].quantity).toLocaleString()} EA</div>
             </div>
           </div>
         </Info1>
@@ -298,7 +339,7 @@ function NftTrade() {
           <Info2>
             <div className="top">
               <div className="deadline">판매 마감일</div>
-              <div className="time">2021.12.30 24:00</div>
+              <div className="time">{"2021.12.30 24:00"}</div> {/* FIX ME */}
             </div>
             <Countdown
               date={new Date(2021, 11, 30, 24).getTime()}
@@ -331,7 +372,7 @@ function NftTrade() {
           <div className="title">개당 저작권 가격</div>
           <div className="info">
             <div className="price">
-              <div className="won">￦{data.price}</div>
+              <div className="won">￦{Number(data.price).toLocaleString()}</div> {/* FIX ME */}
               <div className="coin">≈ {String(Number(data.price) / Number(data.abcTokenValue)).slice(0, 4)} ABC</div>
             </div>
             <div className="restTime">
@@ -346,10 +387,14 @@ function NftTrade() {
             <input
               className="input"
               type="number"
-              placeholder="000,000"
+              placeholder="구매할 수량을 입력해주세요"
+              value={inputValue}
               onChange={(e) => {
-                setInputValue(e.target.value);
-
+                if (Number(e.target.value) < 0) {
+                  setInputValue("0");
+                } else {
+                  setInputValue(e.target.value);
+                }
               }}
               style={{ height: "50px" }}
             />
@@ -358,16 +403,14 @@ function NftTrade() {
           {isArtB ?
             <div className="restAmount">
               <div className="left">원화가치:</div>
-              <div className="right">{data.price * inputValue}</div>
+              <div className="right">{(data.price * inputValue).toLocaleString() + "원"}</div>
             </div>
             :
             <div className="restAmount">
               <div className="left">잔여수량:</div>
-              <div className="right">123,123,123</div>
+              <div className="right">{Number(nftInfo[0].inventory).toLocaleString()}</div>
             </div>
           }
-
-
 
           {!isArtB ?
             <div className="buttons">
@@ -402,7 +445,6 @@ function NftTrade() {
                     alert("지갑이 연결됐습니다.");
                   } else {
                     await connect();
-                    console.log("account: ", account);
                   }
                 }}
                 style={
@@ -440,7 +482,7 @@ function NftTrade() {
               </div>
             </div>
           }
-          {termsModal ? <TermsOfUse setTermsModal={setTermsModal} /> : null}
+          {termsModal ? <TermsOfUse setTermsModal={setTermsModal} nftMethods={nftMethods} inputValue={inputValue} /> : null}
         </Info3>
 
         {/* <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
@@ -622,6 +664,19 @@ function NftTrade() {
     </Container >
   );
 }
+
+const loadPoolPeriod = (startTime, endTime) => {
+  let ret = "21.01.01 00:00:00 ~ 21.01.30 00:00:00((UTC+9)+9)";
+  const formatter = (timestamp) => {
+    var d = new Date(Number(timestamp) * 1000);
+    const z = (x) => {
+      return x.toString().padStart(2, "0");
+    };
+    return `${new String(d.getFullYear()).substr(2, 3)}.${z(d.getMonth() + 1)}.${z(d.getDate())} ${z(d.getHours())}:${z(d.getMinutes())}:${z(d.getSeconds())}`;
+  };
+  ret = `${formatter(startTime)} ~ ${formatter(endTime)}`;
+  return ret;
+};
 
 const Container = styled.div`
   display: flex;
@@ -953,7 +1008,7 @@ const Info3 = styled.div`
 
   .inputBox {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     width: 430px;
     height: 70px;
@@ -964,23 +1019,23 @@ const Info3 = styled.div`
     border-radius: 10px;
     .input {
       font-weight: bold;
-      font-size: 30px;
-      color: rgba(0, 0, 0, 0.2);
+      font-size: 18px;
       border: 0px;
+      text-align: right;
     }
     input::-webkit-input-placeholder {
       font-weight: bold;
-      font-size: 30pt;
+      font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
     }
     input:-ms-input-placeholder {
       font-weight: bold;
-      font-size: 30pt;
+      font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
     }
     input::placeholder {
       font-weight: bold;
-      font-size: 30pt;
+      font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
     }
 
