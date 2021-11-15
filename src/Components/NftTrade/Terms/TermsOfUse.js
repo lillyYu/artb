@@ -13,27 +13,46 @@ function TermsOfUse({ setTermsModal }) {
           className="Text_Style_1"
           style={{ paddingBottom: "20px", cursor: "pointer" }}
           onClick={() => {
-            setTermsModal(false)
+            setTermsModal(false);
           }}
-        >{"< 전페이지로 돌아가기"}</div>
+        >
+          {"< 이전 페이지로 돌아가기"}
+        </div>
 
-        <div className="Text_Style_2" style={{ paddingBottom: "25px" }}>Artb 서비스 이용약관</div>
+        <div className="Text_Style_2" style={{ paddingBottom: "25px" }}>
+          Artb 서비스 이용약관
+        </div>
         {/* <div> */}
 
-        <div className="Text_Style_3">  *본 약관은 2021년 12월 13일로부터 적용됩니다. <br />
+        <div className="Text_Style_3">
+          {" "}
+          *본 약관은 2021년 12월 13일로부터 적용됩니다. <br />
           <br />
-          본 약관은 아트비글로벌(주)(이하 ”회사”)가 제공하는 Artb 및 관련 제반 플랫폼의 서비스(아래 정의) 이용과 관련하여 회사와 "회원"(아래 정의)의 권리, 의무 및 책임사항 등을 규정함을 목적으로 합니다.
+          본 약관은 아트비글로벌(주)(이하 ”회사”)가 제공하는 Artb 및 관련 제반
+          플랫폼의 서비스(아래 정의) 이용과 관련하여 회사와 "회원"(아래 정의)의
+          권리, 의무 및 책임사항 등을 규정함을 목적으로 합니다.
           <br />
-
           제2조 약관의 명시, 효력 및 변경
-          <br />회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알 수 있도록 서비스 초기 화면에 게시합니다.
-          <br />회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알 수 있도록 서비스 초기 화면에 게시합니다.
           <br />
-          <br />제2조 일반
-          <br />본 약관은 아트비글로벌(주)(이하 ”회사”)가 제공하는 Artb 및 관련 제반 플랫폼의 서비스(아래 정의) 이용과 관련하여 회사와 "회원"(아래 정의)의 권리, 의무 및 책임사항 등을 규정함을 목적으로 합니다.
-          <br />제2조 약관의 명시, 효력 및 변경
-          <br />회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알 수 있도록 서비스 초기 화면에 게시합니다.
-          <br />회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알 수 있도록 서비스 초기 화면에 게시합니다.
+          회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알
+          수 있도록 서비스 초기 화면에 게시합니다.
+          <br />
+          회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알
+          수 있도록 서비스 초기 화면에 게시합니다.
+          <br />
+          <br />
+          제2조 일반
+          <br />본 약관은 아트비글로벌(주)(이하 ”회사”)가 제공하는 Artb 및 관련
+          제반 플랫폼의 서비스(아래 정의) 이용과 관련하여 회사와 "회원"(아래
+          정의)의 권리, 의무 및 책임사항 등을 규정함을 목적으로 합니다.
+          <br />
+          제2조 약관의 명시, 효력 및 변경
+          <br />
+          회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알
+          수 있도록 서비스 초기 화면에 게시합니다.
+          <br />
+          회사는 본 약관의 내용을 서비스를 이용하고자 하는 자와 회원이 쉽게 알
+          수 있도록 서비스 초기 화면에 게시합니다.
         </div>
 
         {/* </div> */}
@@ -44,64 +63,58 @@ function TermsOfUse({ setTermsModal }) {
             window.scrollTo(0, 0);
           }}
         >
-          <AgreeButton className="Text_Style_4">
-            약관에 동의합니다.
-          </AgreeButton>
+          <AgreeButton className="Text_Style_4">약관에 동의합니다.</AgreeButton>
         </AgreeButtonWrapper>
         {privacyModal ? <Privacy setPrivacyModal={setPrivacyModal} /> : null}
         {/* </HashLink> */}
-
       </Contents>
     </Container>
-
   );
 }
 
 const Container = styled.div`
   // font-family: Pretendard;
   display: flex;
-  height:100%;
+  height: 100%;
   width: 720px;
   gap: 20px 0;
   flex-direction: column;
   align-items: center;
-
-
-  `;
+`;
 const Contents = styled.div`
-  padding:35px 59px;
-  box-sizing:border-box;
+  padding: 35px 59px;
+  box-sizing: border-box;
   position: absolute;
   /* top: 130px; */
-  background-color:#E5E5E5;
+  background-color: #e5e5e5;
   display: flex;
   flex-direction: column;
   width: 720px;
   left: 0px;
   top: 0px;
-  height:inherit;
-`
+  height: inherit;
+`;
 const AgreeButtonWrapper = styled.div`
-padding-top:31px;
-display:flex;
-justify-content: center;
-cursor: pointer;
-`
+  padding-top: 31px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+`;
 const AgreeButton = styled.div`
-display:flex;
-justify-content:center;
-align-items:center;
-width: 443px;
-height: 68px;
-background: rgba(255, 255, 255, 0.2);
-border: 1px solid rgba(0, 0, 0, 0.2);
-box-sizing: border-box;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-border-radius: 10px;
-:active{
-  background-color: #eb4632;
-  color:white;
-}
-
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 443px;
+  height: 68px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  color: #000000cc;
+  :active {
+    background-color: #eb4632;
+    color: white;
+  }
+`;
 export default TermsOfUse;

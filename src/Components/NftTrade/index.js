@@ -211,7 +211,7 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">artB</div>
+              <div className="name">ArtB</div>
             </div>
             <div className="right">
               <div className="rest">80,000EA/</div>
@@ -256,7 +256,7 @@ function NftTrade() {
           <div className="title">개당 저작권 가격</div>
           <div className="info">
             <div className="price">
-              <div className="won">￦ 100,000</div>
+              <div className="won">￦ 10,000</div>
               <div className="coin">≈ 33.3 ABC</div>
             </div>
             <div className="restTime">
@@ -281,11 +281,10 @@ function NftTrade() {
           </div>
           <div className="restAmount">
             <div className="left">잔여수량:</div>
-            <div className="right">123,123,123</div>
+            <div className="right">80,000 EA</div>
           </div>
 
           {/* <HashLink to={"/payment/terms"} > */}
-
 
           <div>
             <div
@@ -318,20 +317,16 @@ function NftTrade() {
               className="payButton"
               onClick={() => {
                 if (account) {
-
                   setTermsModal(!termsModal);
                   window.scrollTo(0, 0);
                 } else {
-                  alert("지갑을 연결해 주세요")
+                  alert("지갑을 연결해 주세요");
                 }
-
               }}
               style={
                 account
-                  ?
-                  { cursor: "pointer" }
-                  :
-                  { cursor: "not-allowed", opacity: "30%" }
+                  ? { cursor: "pointer" }
+                  : { cursor: "not-allowed", opacity: "30%" }
               }
             >
               <img
@@ -398,9 +393,9 @@ function NftTrade() {
               style={
                 toggle1Open
                   ? {
-                    border: "1px solid rgba(226, 226, 226, 0.7)",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                  }
+                      border: "1px solid rgba(226, 226, 226, 0.7)",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                    }
                   : {}
               }
             >
@@ -487,9 +482,9 @@ function NftTrade() {
               style={
                 toggle2Open
                   ? {
-                    border: "1px solid rgba(226, 226, 226, 0.7)",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                  }
+                      border: "1px solid rgba(226, 226, 226, 0.7)",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                    }
                   : {}
               }
             >
@@ -678,7 +673,6 @@ const Info1 = styled.div`
       .name {
         margin-left: 10px;
         color: #eb4632;
-
       }
     }
 
