@@ -141,7 +141,7 @@ function NftTrade() {
       onDisconnect(true);
     });
   }
-
+  const data = COPYRIGHT_DATA[0];
   return (
     <Container>
       <Contents>
@@ -180,13 +180,13 @@ function NftTrade() {
               />
             </div>
           </div>
-          <div className="title">작품명 : {COPYRIGHT_DATA[0].name}</div>
-          <div className="artist">작가명 :{COPYRIGHT_DATA[0].writer}</div>
+          <div className="title">작품명 : {data.name}</div>
+          <div className="artist">작가명 : {data.writer}</div>
         </Header>
         <Info1>
           <div className="period">
             <div className="title">판매기간</div>
-            <div className="time">{COPYRIGHT_DATA[0].term}</div>
+            <div className="time">{data.term}</div>
           </div>
           <div className="product">
             <img
@@ -216,11 +216,11 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name"></div>
+              <div className="name">{data.seller}</div>
             </div>
             <div className="right">
-              <div className="rest">80,000EA/</div>
-              <div className="total">100,000EA</div>
+              <div className="rest">{data.remainQuantity} EA/</div>
+              <div className="total">{data.totalQuantity} EA</div>
             </div>
           </div>
         </Info1>
@@ -263,8 +263,8 @@ function NftTrade() {
           <div className="title">개당 저작권 가격</div>
           <div className="info">
             <div className="price">
-              <div className="won">￦ 10,000</div>
-              <div className="coin">≈ 33.3 ABC</div>
+              <div className="won">￦{data.price}</div>
+              <div className="coin">≈ {String(Number(data.price) / Number(data.abcTokenValue)).slice(0, 4)} ABC</div>
             </div>
             <div className="restTime">
               <img
@@ -281,15 +281,24 @@ function NftTrade() {
               placeholder="000,000"
               onChange={(e) => {
                 setInputValue(e.target.value);
+
               }}
               style={{ height: "50px" }}
             />
             <div className="unit" style={{ paddingLeft: "10px" }}>EA</div>
           </div>
-          <div className="restAmount">
-            <div className="left">잔여수량:</div>
-            <div className="right">80,000 EA</div>
-          </div>
+          {isArtB ?
+            <div className="restAmount">
+              <div className="left">원화가치:</div>
+              <div className="right">{data.price * inputValue}</div>
+            </div>
+            :
+            <div className="restAmount">
+              <div className="left">잔여수량:</div>
+              <div className="right">123,123,123</div>
+            </div>
+          }
+
 
 
           {!isArtB ?
@@ -297,7 +306,12 @@ function NftTrade() {
               <div
                 className="coinButton"
                 onClick={() => {
+                  // console.log("value", inputValue)
+                  // inputValue == 0 ?
+                  //   alert("수량을 입력해주세요")
+                  //   :
                   setIsArtB(true)
+
                 }}
               >
                 <div className="name">Artb 구매</div>
