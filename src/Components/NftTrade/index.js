@@ -10,6 +10,7 @@ import { useRecoilState } from "recoil";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import { fromWei, toWei } from "web3-utils";
 // import { changeNetwork } from "./utils/Wallets";
 //store
 import {
@@ -19,10 +20,13 @@ import {
   networkState,
   requireNetworkState,
 } from "../../store/web3";
+import { web3ReaderState } from "../../store/read-web3";
+
 
 import TermsOfUse from "./Terms/TermsOfUse";
 
 import { COPYRIGHT_DATA } from "../../lib/loading_Data"
+import { createContractInstance } from "../../lib/Station";
 
 function NftTrade() {
   const [payOpen, setPayOpen] = useState(false);
@@ -31,15 +35,25 @@ function NftTrade() {
   const [termsModal, setTermsModal] = useState(false);
   const [inputValue, setInputValue] = useState(0);
   const [isArtB, setIsArtB] = useState(false);//아트비구매 클릭시
-
+  const [userInfo, setUserInfo] = useState({
+    allowance: 0,
+  });
+  const [nftMethods, setNftMethods] = useState({
+    approve: () => {
+      return;
+    },
+    buy: () => {
+      return;
+    },
+  });
 
   const [web3, setWeb3] = useRecoilState(web3State);
+  const [web3_R] = useRecoilState(web3ReaderState);
   const [provider, setProvider] = useRecoilState(providerState);
   const [account, setAccount] = useRecoilState(accountState);
   const [network, setNetwork] = useRecoilState(networkState);
   const [requireNetwork] = useRecoilState(requireNetworkState);
 
-  console.log("COPYRIGHT_DATA", COPYRIGHT_DATA)
   /* Setting WalletConnect */
   const providerOptions = {
     metamask: {
@@ -76,7 +90,6 @@ function NftTrade() {
     cacheProvider: true,
     providerOptions,
   });
-
   async function connect() {
     while (
       window.document.querySelectorAll("[id=WEB3_CONNECT_MODAL_ID]").length > 1
@@ -99,14 +112,12 @@ function NftTrade() {
 
     connectEventHandler(provider);
   }
-
   // function getAccount() {
   //   if (text) return text;
   //   // console.log(network, requireNetwork);
   //   let ret = account.slice(0, 8) + "..." + account.slice(-6);
   //   return ret;
   // }
-
   async function onDisconnect(event) {
     if (!event && web3 && web3.currentProvider && web3.currentProvider.close) {
       await web3.currentProvider.close();
@@ -121,7 +132,6 @@ function NftTrade() {
     //     document.querySelectorAll('[id=WEB3_CONNECT_MODAL_ID]')[1].remove();
     // }
   }
-
   function connectEventHandler(provider) {
     if (!provider.on) {
       return;
@@ -141,48 +151,105 @@ function NftTrade() {
       onDisconnect(true);
     });
   }
-  const data = COPYRIGHT_DATA[0];
+  /* SETTING INSTANCE */
+  const ABC_TOKEN_INFO = require("../../lib/contracts/ABCToken.json")
+  const ARTB_COLLECTION_INFO = require("../../lib/contracts/ArtbCollection.json")
+  const ARTB_COLLECTION_SELLER_INFO = require("../../lib/contracts/CollectionSeller.json")
+
+  const ERC20_ABI = require("../../lib/contracts/ERC20.json")
+  const ABC_TOKEN_ABI = ABC_TOKEN_INFO.abi;
+  const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
+  const ARTB_COLLECTION_SELLER_ABI = ARTB_COLLECTION_SELLER_INFO.abi;
+
+  const ABC_TOKEN_ADDRESS = ABC_TOKEN_INFO.networks[3].address;
+  const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[3].address;
+  const ARTB_COLLECTION_SELLER_ADDRESS = ARTB_COLLECTION_SELLER_INFO.networks[3].address;
+
+  /* READ CONTRACT */
+
+  // abc abi -> allowance, name, symbol, totalSupply
+  // seller abi -> PRICE, STARTWHEN, STOPWHEN, MINTER
+
+  /* WRITE CONTRACT */
+  // abc abi -> approve, balanceOf, 
+  // collection abi -> uri, balanceOf, 
+  // seller abi -> buy
+
+  const loadUserInfo = async () => {
+    let result = {}
+    const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI)
+
+    let allowance = await ABC_TOKEN_INSTANCE.methods.allowance(account, ABC_TOKEN_ADDRESS).call();
+
+    result = {
+      // address: info.address,
+      // available: fromWei(available, "ether"),
+      allowance: allowance,
+      // balance: balance,
+      // share: share,
+      // reward: reward,
+    };
+
+    setUserInfo(result);
+  }
+
+  const loadMethods = () => {
+    let result = {}
+    const ABC_TOKEN_INSTANCE = createContractInstance(web3, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI)
+    const SELLER_INSTANCE = createContractInstance(web3, ARTB_COLLECTION_SELLER_ADDRESS, ARTB_COLLECTION_SELLER_ABI)
+    let tokenId, amount;
+
+    // approve
+    const approve = async (tokenM, to, amount, account) => {
+      if (typeof amount != "string") amount = String(amount);
+      await tokenM.approve(to, toWei(amount, "ether")).send({ from: account });
+      loadUserInfo();
+    };
+    const buy = async (nftM, amount, tokenId) => {
+      await nftM.buy(tokenId, amount).send({ from: account });
+      // loadUserInfo();
+    };
+
+    result = {
+      approve: async () => await approve(ABC_TOKEN_INSTANCE.methods, ARTB_COLLECTION_SELLER_ADDRESS, "999999999", account),
+      buy: async (amount, tokenId = "0") => await buy(SELLER_INSTANCE.methods, amount, tokenId)
+    }
+    return setNftMethods(result);
+  }
+
+  useEffect(() => {
+    if (account) loadMethods();
+    loadUserInfo();
+  }, [account])
+
+
+  console.log("userInfo", userInfo)
+  console.log("nftMethods", nftMethods)
+
+  const data = COPYRIGHT_DATA[0]
   return (
     <Container>
       <Contents>
         <Header>
           <HashLink to={"/"}>
-            <div
-              className="back"
-              onClick={() => {
-                setPayOpen(false);
-              }}
-            >
+            <div className="back" onClick={() => setPayOpen(false)} >
               {payOpen ? "< 페이지로 돌아가기" : "< 이전 페이지로 돌아가기"}
             </div>
           </HashLink>
           <div className="basic">
             <div className="info">
-              <div className="status">판매중</div>
-              <div className="model">0x5CD9972</div>
+              <div className="status">{"판매중"}</div> {/* FIX ME */}
+              <div className="model">{"0x5CD9972"}</div> {/* FIX ME */}
             </div>
             <div className="function">
-              <img
-                src="/detail_share.png"
-                style={
-                  payOpen
-                    ? { display: "none" }
-                    : { width: "35px", height: "35px", cursor: "pointer" }
-                }
-              />
-              <img
-                src="/detail_refresh.png"
-                style={
-                  payOpen
-                    ? { display: "none" }
-                    : { width: "35px", height: "35px", cursor: "pointer" }
-                }
-              />
+              <img src="/detail_share.png" alt="" />
+              <img src="/detail_refresh.png" alt="" />
             </div>
           </div>
           <div className="title">작품명 : {data.name}</div>
           <div className="artist">작가명 : {data.writer}</div>
         </Header>
+
         <Info1>
           <div className="period">
             <div className="title">판매기간</div>
@@ -224,6 +291,7 @@ function NftTrade() {
             </div>
           </div>
         </Info1>
+
         {payOpen ? (
           <></>
         ) : (
@@ -329,11 +397,11 @@ function NftTrade() {
             <div className="buttons">
               <div
                 className="payButton"
-                onClick={() => {
+                onClick={async () => {
                   if (account) {
                     alert("지갑이 연결됐습니다.");
                   } else {
-                    connect();
+                    await connect();
                     console.log("account: ", account);
                   }
                 }}
@@ -350,9 +418,13 @@ function NftTrade() {
               </div>
               <div
                 className="payButton"
-                onClick={() => {
+                onClick={async () => {
                   if (account) {
-                    setTermsModal(!termsModal);
+                    if (userInfo.allowance > 0) {
+                      setTermsModal(!termsModal);
+                    } else {
+                      nftMethods.approve();
+                    }
                     window.scrollTo(0, 0);
                   } else {
                     alert("지갑을 연결해 주세요");
@@ -371,14 +443,7 @@ function NftTrade() {
           {termsModal ? <TermsOfUse setTermsModal={setTermsModal} /> : null}
         </Info3>
 
-
-
-
-
-
         {/* <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
-
-
           <div>
             <div
               className="payButton"
@@ -430,15 +495,7 @@ function NftTrade() {
             </div>
           </div>
           {termsModal ? <TermsOfUse setTermsModal={setTermsModal} /> : null}
-
-
-
         </Info3> */}
-
-
-
-
-
 
         {payOpen ? (
           <></>
@@ -562,40 +619,35 @@ function NftTrade() {
           </Toggle2>
         )}
       </Contents>
-    </Container>
+    </Container >
   );
 }
 
 const Container = styled.div`
-  /* position: absolute; */
+  display: flex;
   position: relative;
   margin-top: 130px;
-  display: flex;
-  flex-direction: column;
-  width: 720px;
+  width: 100%;
   background-color: #e2e2e2;
   a {
     text-decoration: none;
   }
 `;
-
 const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px 0;
-  width: 670px;
+  width: 100%;
   margin: 30px 25px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 `;
-
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  width: 670px;
-  padding: 0 70px;
-  padding-top: 35px;
+  width: 100%;
+  padding: 35px 70px 0 70px;
   box-sizing: border-box;
 
   .back {
@@ -609,9 +661,9 @@ const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .info {
       display: flex;
-      align-items: center;
       margin: 25px 0;
       gap: 0 20px;
       .status {
@@ -622,7 +674,6 @@ const Header = styled.div`
         height: 30px;
         font-size: 13px;
         color: #eb4632;
-        background-color: gray;
         background: rgba(235, 70, 50, 0.2);
         border-radius: 5px;
       }
@@ -634,6 +685,11 @@ const Header = styled.div`
     .function {
       display: flex;
       gap: 0 20px;
+      img {
+        width: 35px; 
+        height: 35px; 
+        cursor: pointer;
+      }
     }
   }
 
