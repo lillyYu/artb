@@ -209,10 +209,11 @@ function NftTrade() {
     const nftInformation = await SELLER_INSTANCE.methods.Goods("0").call();
     const artInfoUri = await COLLECTION_INSTANCE.methods.uri("0").call();
 
-    const artInfo = await axios.get(`${artInfoUri.slice(0, -9)}/${"0"}.json`)
+    // const artInfo = await axios.get(`${artInfoUri.slice(0, -9)}${"0"}.json`)
 
-    console.log("artInfo", artInfo)
+    // console.log("artInfo", artInfo)
 
+    console.log("nftInformation",nftInformation);
     let result = [{
       tokenId: nftInformation.collection.tokenId,
       address: nftInformation.collection.token,
@@ -668,7 +669,7 @@ function NftTrade() {
 const loadPoolPeriod = (startTime, endTime) => {
   let ret = "21.01.01 00:00:00 ~ 21.01.30 00:00:00((UTC+9)+9)";
   const formatter = (timestamp) => {
-    var d = new Date(Number(timestamp) * 1000);
+    var d = new Date(Number(timestamp.toString()) * 1000);
     const z = (x) => {
       return x.toString().padStart(2, "0");
     };
