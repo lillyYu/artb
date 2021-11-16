@@ -3,7 +3,7 @@ const ABCToken = artifacts.require("ABCToken");
 const ArtbCollection = artifacts.require("ArtbCollection");
 
 module.exports = async function (deployer, network, accounts) {
-  return;
+  // return;
   console.log(accounts[0]);
   const Token = await ABCToken.deployed();
   const NFT = await ArtbCollection.deployed();
