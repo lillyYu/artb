@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts start",
-    "build": "react-scripts build",
+    "build": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
