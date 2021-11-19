@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { HashLink } from "react-router-hash-link";
 
-function Privacy({ setPrivacyModal }) {
+function Privacy({ setPrivacyModal, nftMethods, inputValue }) {
   const [compeleteModal, setCompeleteModal] = useState(false);
   return (
     <Container className="Container">
@@ -54,7 +54,7 @@ function Privacy({ setPrivacyModal }) {
 
         <HashLink to={"/payment/coin"}>
           <AgreeButtonWrapper>
-            <AgreeButton className="Text_Style_4">
+            <AgreeButton className="Text_Style_4" onClick={() => nftMethods.buy(inputValue)}>
               약관에 동의합니다.
             </AgreeButton>
           </AgreeButtonWrapper>

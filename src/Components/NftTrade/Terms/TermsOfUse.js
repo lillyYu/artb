@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { HashLink } from "react-router-hash-link";
 // import { useRecoilState } from "recoil";
 import Privacy from "./Privacy";
-function TermsOfUse({ setTermsModal }) {
+function TermsOfUse({ setTermsModal, nftMethods, inputValue }) {
   const [privacyModal, setPrivacyModal] = useState(false);
   return (
     <Container className="Container">
@@ -65,7 +65,7 @@ function TermsOfUse({ setTermsModal }) {
         >
           <AgreeButton className="Text_Style_4">약관에 동의합니다.</AgreeButton>
         </AgreeButtonWrapper>
-        {privacyModal ? <Privacy setPrivacyModal={setPrivacyModal} /> : null}
+        {privacyModal ? <Privacy setPrivacyModal={setPrivacyModal} nftMethods={nftMethods} inputValue={inputValue} /> : null}
         {/* </HashLink> */}
       </Contents>
     </Container>

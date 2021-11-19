@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@walletconnect/web3-provider": "^1.6.6",
+    "axios": "^0.24.0",
     "react": "^17.0.2",
     "react-countdown": "^2.3.2",
     "react-dom": "^17.0.2",
@@ -23,8 +24,8 @@
     "web3modal": "^1.9.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts start",
+    "build": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
