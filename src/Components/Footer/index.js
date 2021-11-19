@@ -12,13 +12,15 @@ function Footer() {
                 <Info>{"사업자 등록 번호 : 521-88-02293"}</Info>
                 <Info>{"주소 : 서울특별시 송파구 백제고분로24길 16, 101호"}</Info>
                 <Info>{"대표자 : 이건용"}</Info>
+                <Info>{" 대표번호 : 02-552-2038"}</Info>
+
             </InfoWrapper>
         </Container>
     )
 }
 const Container = styled.div`
 width:100%;
-height: 100px;
+height: 120px;
 background-color:#111111;
 z-index: 1;
 display:flex;
