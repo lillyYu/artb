@@ -18,8 +18,8 @@ function App() {
       <Switch>
         <Route path="/payment/coin" component={PayCoin}></Route>
         <Route path="/payment/cash" component={PayCash}></Route>
-        <Route path="/payment" component={NftTrade}></Route>
-        <Route path="/" component={Home}></Route>
+        <Route path="/" component={NftTrade}></Route>
+        {/* <Route path="/" component={Home}></Route> */}
       </Switch>
       {/* <Switch>
         <Route path="/" component={Home}></Route>

@@ -52,13 +52,18 @@ function Privacy({ setPrivacyModal, nftMethods, inputValue }) {
           수 있도록 서비스 초기 화면에 게시합니다.
         </div>
 
-        <HashLink to={"/payment/coin"}>
-          <AgreeButtonWrapper>
-            <AgreeButton className="Text_Style_4" onClick={() => nftMethods.buy(inputValue)}>
-              약관에 동의합니다.
-            </AgreeButton>
-          </AgreeButtonWrapper>
-        </HashLink>
+        {/* <HashLink to={"/payment/coin"}> */}
+        <AgreeButtonWrapper>
+          <AgreeButton
+            className="Text_Style_4"
+            onClick={() =>
+              //  nftMethods.buy(inputValue)
+              setPrivacyModal(false)
+            }>
+            약관에 동의합니다.
+          </AgreeButton>
+        </AgreeButtonWrapper>
+        {/* </HashLink> */}
       </Contents>
     </Container>
   );
@@ -68,6 +73,7 @@ const Container = styled.div`
   // font-family: Pretendard;
   display: flex;
   width: 720px;
+  height: 100%;
   gap: 20px 0;
   flex-direction: column;
   align-items: center;
@@ -76,12 +82,14 @@ const Contents = styled.div`
   padding: 35px 59px;
   box-sizing: border-box;
   position: absolute;
+  /* top: 130px; */
   background-color: #e5e5e5;
   display: flex;
   flex-direction: column;
   width: 720px;
   left: 0px;
   top: 0px;
+  height: inherit;
 `;
 const AgreeButtonWrapper = styled.div`
   padding-top: 31px;

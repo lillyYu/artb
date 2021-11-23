@@ -59,8 +59,9 @@ function TermsOfUse({ setTermsModal, nftMethods, inputValue }) {
         {/* <HashLink to={"/payment/privacy"} style={{ textDecoration: "none" }}> */}
         <AgreeButtonWrapper
           onClick={() => {
-            setPrivacyModal(!privacyModal);
-            window.scrollTo(0, 0);
+            setTermsModal(false)
+            // setPrivacyModal(!privacyModal);
+            // window.scrollTo(0, 0);
           }}
         >
           <AgreeButton className="Text_Style_4">약관에 동의합니다.</AgreeButton>

@@ -24,6 +24,11 @@ import {
 import { web3ReaderState } from "../../store/read-web3";
 
 import TermsOfUse from "./Terms/TermsOfUse";
+import Privacy from "./Terms/Privacy";
+
+import WalletConnect from "./Popup/creditCard"
+import CreditcardPopup from "./Popup/walletConnect"
+import AccountTransferPopup from "./Popup/accountTransfer"
 
 import { COPYRIGHT_DATA } from "../../lib/loading_Data"
 import { createContractInstance } from "../../lib/Station";
@@ -33,8 +38,13 @@ function NftTrade() {
   const [toggle1Open, setToggle1Open] = useState(false);
   const [toggle2Open, setToggle2Open] = useState(false);
   const [termsModal, setTermsModal] = useState(false);
+  const [privacyModal, setPrivacyModal] = useState(false);
   const [inputValue, setInputValue] = useState(0);
   const [isArtB, setIsArtB] = useState(false);//아트비구매 클릭시
+  const [buyButton, setBuyButton] = useState(false);
+  const [walletPopup, setWalletPopup] = useState(false);
+  const [creditcardPopup, setCreditcardPopup] = useState(false);
+  const [transferPopup, setTransferPopup] = useState(false);
   const [userInfo, setUserInfo] = useState({
     allowance: 0,
   });
@@ -213,7 +223,7 @@ function NftTrade() {
 
     // console.log("artInfo", artInfo)
 
-    console.log("nftInformation",nftInformation);
+    console.log("nftInformation", nftInformation);
     let result = [{
       tokenId: nftInformation.collection.tokenId,
       address: nftInformation.collection.token,
@@ -285,7 +295,7 @@ function NftTrade() {
             </div>
             <div className="function">
               <img src="/detail_share.png" alt="" />
-              <img src="/detail_refresh.png" alt="" />
+              {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
           <div className="title">작품명 : {data.name}</div>
@@ -399,7 +409,7 @@ function NftTrade() {
               }}
               style={{ height: "50px" }}
             />
-            <div className="unit" style={{ paddingLeft: "10px" }}>EA</div>
+            <div className="unit" style={{ paddingLeft: "10px" }}>NFT</div>
           </div>
           {isArtB ?
             <div className="restAmount">
@@ -413,7 +423,90 @@ function NftTrade() {
             </div>
           }
 
-          {!isArtB ?
+          {!buyButton ?
+            <>
+              <div className="buttons">
+                <div
+                  className="coinButton"
+                  onClick={() => {
+                    // console.log("value", inputValue)
+                    // inputValue == 0 ?
+                    //   alert("수량을 입력해주세요")
+                    //   :
+                    setIsArtB(true)
+                    setBuyButton(!buyButton)
+                  }}
+                >
+                  <img className="icon" src="buy_icon.png" />
+                  <div
+                    className="name"
+                  >구매하기</div>
+                </div>
+              </div>
+              <div className="checkbox">
+                <input type="checkBox" className="box" />
+                <span>Artb 이용약관 </span><span style={{ color: "red" }}>(필수)</span>
+                <img
+                  className="arrow"
+                  src="arrow-right.png"
+                  onClick={async () => {
+                    setTermsModal(!termsModal);
+                    window.scrollTo(0, 0);
+                  }} />
+              </div>
+              <div className="checkbox">
+                <input type="checkBox" className="box" />
+                <span>Artb 개인정보 수집 및 이용약관 </span><span style={{ color: "red" }}>(필수)</span>
+                <img
+                  className="arrow"
+                  src="arrow-right.png"
+                  onClick={async () => {
+                    setPrivacyModal(!privacyModal);
+                    window.scrollTo(0, 0);
+                  }}
+                />
+              </div>
+              {termsModal ? <TermsOfUse setTermsModal={setTermsModal} nftMethods={nftMethods} inputValue={inputValue} /> : null}
+              {privacyModal ? <Privacy setPrivacyModal={setPrivacyModal} nftMethods={nftMethods} inputValue={inputValue} /> : null}
+            </>
+            :
+
+
+            <div className="buttons">
+              <div
+                className="coinButton"
+                onClick={() => {
+                  setWalletPopup(!walletPopup)
+                }}
+              >
+                <div className="name">지갑 연결</div>
+              </div>
+              {walletPopup ? <WalletConnect setWalletPopup={setWalletPopup} /> : null}
+              <div
+                className="coinButton"
+                onClick={() => {
+                  setTransferPopup(!transferPopup)
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <div className="name">계좌 이체로 구매</div>
+              </div>
+              {transferPopup ? <AccountTransferPopup setTransferPopup={setTransferPopup} /> : null}
+
+              <div
+                className="coinButton"
+                onClick={() => {
+                }}
+              >
+                <div className="name"
+                  onClick={() => {
+                    setCreditcardPopup(!creditcardPopup)
+                  }}>카드 결제로 구매</div>
+              </div>
+              {creditcardPopup ? <CreditcardPopup setCreditcardPopup={setCreditcardPopup} /> : null}
+            </div>
+          }
+          {/* {!isArtB ?
             <div className="buttons">
               <div
                 className="coinButton"
@@ -481,9 +574,9 @@ function NftTrade() {
               >
                 <div className="name">구매하기</div>
               </div>
-            </div>
-          }
-          {termsModal ? <TermsOfUse setTermsModal={setTermsModal} nftMethods={nftMethods} inputValue={inputValue} /> : null}
+            </div> */}
+
+          {/* {termsModal ? <TermsOfUse setTermsModal={setTermsModal} nftMethods={nftMethods} inputValue={inputValue} /> : null} */}
         </Info3>
 
         {/* <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
@@ -573,7 +666,7 @@ function NftTrade() {
               <Info4>
                 <div className="info">
                   <div className="title">Blockchain</div>
-                  <div className="detail">Ethereum ERC-1155(OpenSea)</div>
+                  <div className="detail">Etehreum ERC-1155 (OpenSea)</div>
                 </div>
                 <div className="info">
                   <div className="title">Contract</div>
@@ -588,18 +681,18 @@ function NftTrade() {
                 <div className="info">
                   <div className="title">작품관리번호</div>
                   <div className="detail">
-                    0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9
+                    0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
                   </div>
                 </div>
                 <div className="info">
                   <div className="title">등록자</div>
                   <div className="detail">
-                    0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9
+                    0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
                   </div>
                 </div>
                 <div className="info">
-                  <div className="title">설명</div>
-                  <div className="detail">
+                  {/* <div className="title">설명</div> */}
+                  {/* <div className="detail">
                     NFT에 관한 설명란입니다. <br />
                     <br />
                     혼인과 가족생활은 개인의 존엄과 양성의 평등을 기초로
@@ -621,7 +714,7 @@ function NftTrade() {
                     아니한다. 헌법재판소는 법률에 저촉되지 아니하는 범위안에서
                     심판에 관한 절차, 내부규율과 사무처리에 관한 규칙을 제정할
                     수 있다.
-                  </div>
+                  </div> */}
                 </div>
               </Info4>
             ) : (
@@ -629,7 +722,7 @@ function NftTrade() {
             )}
           </Toggle1>
         )}
-        {payOpen ? (
+        {/* {payOpen ? (
           <></>
         ) : (
           <Toggle2>
@@ -658,9 +751,9 @@ function NftTrade() {
                 style={{ width: "25px", height: "16px" }}
               />
             </div>
-            {/* <Info5></Info5> */}
+  
           </Toggle2>
-        )}
+        )} */}
       </Contents>
     </Container >
   );
@@ -962,7 +1055,7 @@ const Info3 = styled.div`
   gap: 10px 0;
   width: 530px;
   margin: 0 70px;
-  padding: 0 50px;
+  padding: 28px 50px 43px 50px;
   // height: 350px; // 임시
   height: fit-content; // 임시
   background-color: #f6f6f6;
@@ -972,7 +1065,7 @@ const Info3 = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 
   .title {
-    margin-top: 40px;
+
     font-size: 20px;
     color: rgba(0, 0, 0, 0.8);
   }
@@ -1023,21 +1116,31 @@ const Info3 = styled.div`
       font-size: 18px;
       border: 0px;
       text-align: right;
+      width:330px;
+      /* margin:auto;
+      margin-left:0; */
+
     }
     input::-webkit-input-placeholder {
       font-weight: bold;
       font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
+      padding-right:150px;
+
     }
     input:-ms-input-placeholder {
       font-weight: bold;
       font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
+
+      
     }
     input::placeholder {
       font-weight: bold;
       font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
+
+      
     }
 
     input::-webkit-outer-spin-button,
@@ -1067,7 +1170,7 @@ const Info3 = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px 0;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 
     .coinButton {
       display: flex;
@@ -1078,7 +1181,10 @@ const Info3 = styled.div`
       background: rgba(230, 71, 36, 0.8);
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
       border-radius: 10px;
-
+      .icon {
+        width:26px;
+        height:24px;
+      }
       .name {
         margin-left: 10px;
         font-weight: bold;
@@ -1125,6 +1231,19 @@ const Info3 = styled.div`
       color: #ffffff;
       /* cursor: pointer; */
     }
+
+    
+  }
+  .checkbox{
+      display:flex;
+
+    .box{
+      margin-right:19px;
+    }
+    .arrow{
+      margin:auto;
+      margin-right:15px;
+    }
   }
 `;
 
@@ -1137,7 +1256,7 @@ const Toggle1 = styled.div`
   border-radius: 10px;
   border: 1px solid rgba(226, 226, 226, 0.7);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-
+  margin-bottom:30px;
   .nftToggle {
     display: flex;
     align-items: center;
@@ -1154,6 +1273,7 @@ const Toggle1 = styled.div`
       font-weight: bold;
       font-size: 25px;
       color: rgba(0, 0, 0, 0.8);
+
     }
   }
 `;

@@ -6,8 +6,9 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { HashLink } from "react-router-hash-link";
 import { useRecoilState } from "recoil";
-
+import MyNFT from "./myNFT";
 function Gnb() {
+
   return (
     <Container>
       <HashLink to={"/"}>
@@ -15,12 +16,15 @@ function Gnb() {
       </HashLink>
       <Setting>
         <Language>KR</Language>
-        <My>
-          <img
-            src="/gnb_profile.png"
-            style={{ width: "56px", height: "56px" }}
-          />
-        </My>
+        <HashLink>
+          <My>
+            <img
+              src="/gnb_profile.png"
+              style={{ width: "56px", height: "56px" }}
+            />
+          </My>
+        </HashLink>
+
       </Setting>
     </Container>
   );
