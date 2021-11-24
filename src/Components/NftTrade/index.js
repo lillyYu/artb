@@ -473,6 +473,7 @@ function NftTrade() {
 
 
             <div className="buttons">
+              {walletPopup ? <WalletConnect setWalletPopup={setWalletPopup} /> : null}
               <div
                 className="coinButton"
                 onClick={() => {
@@ -481,7 +482,7 @@ function NftTrade() {
               >
                 <div className="name">지갑 연결</div>
               </div>
-              {walletPopup ? <WalletConnect setWalletPopup={setWalletPopup} /> : null}
+
               <div
                 className="coinButton"
                 onClick={() => {

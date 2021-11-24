@@ -108,11 +108,11 @@ const Contents = styled.div`
                     margin-bottom:7px;
                 }
             }
-        }
-        .collectionImg{
-            width:150px;
-            height:146px;
-            padding:35px 30px 53px 0px;
+            .collectionImg{
+                width:150px;
+                height:146px;
+                padding:35px 30px 53px 0px;
+            }
         }
         .price{
             display:flex;
