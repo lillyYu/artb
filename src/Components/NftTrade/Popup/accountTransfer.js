@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-
+import { HashLink } from "react-router-hash-link";
 
 function AccountTransferPopup({ setTransferPopup }) {
 
@@ -9,11 +9,11 @@ function AccountTransferPopup({ setTransferPopup }) {
             <Contents>
                 <div className="Text_Style_17">주문확인</div>
                 <div className="top">
-                    <img className="collectionImg" src="collection1.png" />
+                    <img className="collectionImg" src="/collection1.png" />
                     <div className="info">
                         <div className="Text_Style_18" style={{ marginBottom: "8px" }}>작가명</div>
                         <div className="Text_Style_19" style={{ marginBottom: "23px" }}>작품명 작품명 작품명</div>
-                        <div style={{ display: "flex" }}>
+                        <div className="buyQuantity" >
                             <div className="Text_Style_20"> 구매 갯수 </div>
                             <div className="Text_Style_21">4</div>
                         </div>
@@ -22,7 +22,6 @@ function AccountTransferPopup({ setTransferPopup }) {
 
                 <div style={{ borderBottom: "1px dashed #9E9E9E" }}></div>
                 <div className="price">
-
                     <div className="Text_Style_22">총 결제 가격</div>
                     <div className="Text_Style_23">₩ 100,000</div>
                 </div>
@@ -33,27 +32,30 @@ function AccountTransferPopup({ setTransferPopup }) {
 
                 <div className="recipient">
                     <div className="Text_Style_22">수령인*</div>
-                    <input className="nameInput"></input>
+                    <input
+                        className="nameInput"
+                        placeholder="수령인 이름"
+                    ></input>
                 </div>
                 <div className="address">
                     <div className="Text_Style_22">배송지명*</div>
-                    <input className="addressInput"></input>
-                    <div style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        width: "220px",
-                        height: "72px",
-                        backgroundColor: "#E64724",
-                        borderRadius: "4px"
-                    }}>
+                    <input
+                        className="addressInput"
+                        placeholder="우편번호"
+                    />
+                    <div className="searchCode">
                         <div className="Text_Style_25">우편번호 검색</div>
                     </div>
                 </div>
                 <div className="detail">
-
-                    <input className="detailInput"></input>
-                    <input className="detailInput"></input>
+                    <input
+                        className="detailInput"
+                        placeholder="상세 주소 1"
+                    />
+                    <input
+                        className="detailInput"
+                        placeholder="상세 주소 2"
+                    />
                 </div>
                 <div className="contact">
 
@@ -62,10 +64,11 @@ function AccountTransferPopup({ setTransferPopup }) {
                     <input className="contactInput"></input>
                     <input className="contactInput"></input>
                 </div>
-
-                <div className="button">
-                    <div className="Text_Style_26">결제하기</div>
-                </div>
+                <HashLink to={"/payment/coin"}>
+                    <div className="button">
+                        <div className="Text_Style_26">결제하기</div>
+                    </div>
+                </HashLink>
             </Contents>
         </Container>
     );
@@ -95,11 +98,16 @@ const Contents = styled.div`
 
         .top{
             display:flex;
-        }
-        .info{
-            flex-direction:column;
-            justify-content: center;
-            align-items: flex-start;
+            .info{
+         
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                .buyQuantity{
+                    display:flex;
+                    margin-bottom:7px;
+                }
+            }
         }
         .collectionImg{
             width:150px;
@@ -115,28 +123,76 @@ const Contents = styled.div`
         }
     
 
-         .recipient{
+        .recipient{
             display:flex;
             margin-top: 70px;
             justify-content: space-between;
             align-items: center;
+
             .nameInput{
-                width:450px;
+                width:425px;
                 height:72px;
- }}
+                font-size:24px;
+                padding-left:27px;
+
+
+          }
+            input::-webkit-input-placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+
+            }
+             input:-ms-input-placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+
+            }
+           input::placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+
+            }
+        }
         .address{
             display:flex;
             align-items: center;
             margin:15px 0px;
             gap:8px;
             .addressInput{
-                width:220px;
+                width:195px;
                 height:72px;
+                font-size:24px;
+                padding-left:27px;
+            }
+            input::-webkit-input-placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+     
+            }
+             input:-ms-input-placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+
+            }
+           input::placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+
             }
             .searchCode{
-                width:220px;
-                height:72px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 220px;
+                height: 74px;
                 background-color: #E64724;
+                border-radius: 4px;
             }
         }
         .detail{
@@ -145,10 +201,29 @@ const Contents = styled.div`
             align-items: flex-end;
             gap:15px;
             .detailInput{
-                width:450px;
+                width:425px;
                 height:72px;
+                font-size:24px;
+                padding-left:27px;
             }
-
+            input::-webkit-input-placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+           
+            }
+             input:-ms-input-placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+           
+            }
+           input::placeholder {
+                font-weight: bold;
+                font-size: 24px;
+                color: #CCCCCCCC;
+        
+            }
         }
         .contact{
             display:flex;
@@ -156,36 +231,23 @@ const Contents = styled.div`
             justify-content: space-between;
             margin: 15px 0px 60px 0px;
             .contactInput{
-                width:135px;
+                width:110px;
                 height:72px;
+                font-size:24px;
+                padding-left:27px;
             }
+          
         }
         .button{
             display:flex;
-            width:100%;
             height:113px;
             background: #E64724;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
             align-items: center;
             justify-content: center;
+            width: 672px; 
+            margin: 0px 0px 0px -59px;
         }
 `;
-const AgreeButtonWrapper = styled.div`
-  padding-top: 31px;
-  display: flex;
-  justify-content: center;
-`;
-const AgreeButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 443px;
-  height: 68px;
-  background:  #eb4632;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  color: #000000cc;
-`;
+
 export default AccountTransferPopup;

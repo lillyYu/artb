@@ -26,8 +26,8 @@ import { web3ReaderState } from "../../store/read-web3";
 import TermsOfUse from "./Terms/TermsOfUse";
 import Privacy from "./Terms/Privacy";
 
-import WalletConnect from "./Popup/creditCard"
-import CreditcardPopup from "./Popup/walletConnect"
+import WalletConnect from "./Popup/walletConnect"
+import CreditcardPopup from "./Popup/creditCard"
 import AccountTransferPopup from "./Popup/accountTransfer"
 
 import { COPYRIGHT_DATA } from "../../lib/loading_Data"

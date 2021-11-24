@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { React, useState } from 'react'
 
-function CreditcardPopup({ setWalletPopup }) {
+function CreditcardPopup({ setCreditcardPopup }) {
     return (
         <Container>
             <div className="background"
@@ -13,7 +13,7 @@ function CreditcardPopup({ setWalletPopup }) {
                 <Message1 className={"Text_Style_14"}>카드결제는 아직 준비중 입니다</Message1>
                 <Button
                     className={"Text_Style_15"}
-                    onClick={() => { setWalletPopup(false) }}
+                    onClick={() => { setCreditcardPopup(false) }}
                 >확인</Button>
             </div>
         </Container >

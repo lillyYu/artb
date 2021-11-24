@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { React, useState } from 'react'
 
-function WalletConnect({ setCreditcardPopup }) {
+function WalletConnect({ setWalletPopup }) {
     return (
         <Container>
             <div className="background"
@@ -24,7 +24,7 @@ function WalletConnect({ setCreditcardPopup }) {
                 </div>
                 <Button
                     className={"Text_Style_15"}
-                    onClick={() => { setCreditcardPopup(false) }}
+                    onClick={() => { setWalletPopup(false) }}
                 >지갑 연결</Button>
             </div>
         </Container >

@@ -5,6 +5,7 @@ import NftTrade from "./Components/NftTrade";
 import PayCoin from "./Components/NftTrade/Payment/coin";
 import PayCash from "./Components/NftTrade/Payment/cash";
 import Footer from "./Components/Footer";
+import MyNFT from "./Components/Gnb/myNFT";
 import TermsOfUse from "./Components/NftTrade/Terms/TermsOfUse";
 import Privacy from "./Components/NftTrade/Terms/Privacy";
 /* Libraries */
@@ -18,6 +19,7 @@ function App() {
       <Switch>
         <Route path="/payment/coin" component={PayCoin}></Route>
         <Route path="/payment/cash" component={PayCash}></Route>
+        <Route path="/mypage" component={MyNFT}></Route>
         <Route path="/" component={NftTrade}></Route>
         {/* <Route path="/" component={Home}></Route> */}
       </Switch>

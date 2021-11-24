@@ -263,30 +263,80 @@ code {
   letter-spacing: 0.375px;
   color: #ffffff;
 }
-/* .Text_Style_22 {
-
-} */
-/* .Text_Style_22 {
-
-} */
-/* .Text_Style_22 {
-
-} */
-/* .Text_Style_22 {
-
-} */
-/* .Text_Style_22 {
-
-} */
-/* .Text_Style_22 {
-
-} */
-/* .Text_Style_22 {
-
-} */
-/* .Text_Style_22 {
-
-} */
+.Text_Style_27 {
+  font-family: Noto Sans CJK KR;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 49px;
+  letter-spacing: -1px;
+  text-align: left;
+}
+.Text_Style_28 {
+  font-family: Noto Sans;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 37px;
+  letter-spacing: -0.699999988079071px;
+  text-align: left;
+}
+.Text_Style_29 {
+  font-family: Noto Sans CJK KR;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: -1px;
+  text-align: left;
+}
+.Text_Style_30 {
+  font-family: Noto Sans CJK KR;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -1px;
+  text-align: left;
+}
+.Text_Style_31 {
+  font-family: Noto Sans CJK KR;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #e64724cc;
+}
+.Text_Style_32 {
+  font-family: Noto Sans;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: -0.699999988079071px;
+  text-align: right;
+}
+.Text_Style_33 {
+  font-family: Noto Sans;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -0.699999988079071px;
+  text-align: right;
+}
+.Text_Style_34 {
+  font-family: Noto Sans;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -0.699999988079071px;
+  text-align: right;
+  color: #e8340c;
+}
 /* .Text_Style_22 {
 
 } */

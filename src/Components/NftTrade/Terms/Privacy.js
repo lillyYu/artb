@@ -52,7 +52,6 @@ function Privacy({ setPrivacyModal, nftMethods, inputValue }) {
           수 있도록 서비스 초기 화면에 게시합니다.
         </div>
 
-        {/* <HashLink to={"/payment/coin"}> */}
         <AgreeButtonWrapper>
           <AgreeButton
             className="Text_Style_4"
@@ -63,7 +62,6 @@ function Privacy({ setPrivacyModal, nftMethods, inputValue }) {
             약관에 동의합니다.
           </AgreeButton>
         </AgreeButtonWrapper>
-        {/* </HashLink> */}
       </Contents>
     </Container>
   );
