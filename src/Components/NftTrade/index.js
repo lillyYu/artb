@@ -26,11 +26,11 @@ import { web3ReaderState } from "../../store/read-web3";
 import TermsOfUse from "./Terms/TermsOfUse";
 import Privacy from "./Terms/Privacy";
 
-import WalletConnect from "./Popup/walletConnect"
-import CreditcardPopup from "./Popup/creditCard"
-import AccountTransferPopup from "./Popup/accountTransfer"
+import WalletConnect from "./Popup/walletConnect";
+import CreditcardPopup from "./Popup/creditCard";
+import AccountTransferPopup from "./Popup/accountTransfer";
 
-import { COPYRIGHT_DATA } from "../../lib/loading_Data"
+import { COPYRIGHT_DATA } from "../../lib/loading_Data";
 import { createContractInstance } from "../../lib/Station";
 
 function NftTrade() {
@@ -40,7 +40,7 @@ function NftTrade() {
   const [termsModal, setTermsModal] = useState(false);
   const [privacyModal, setPrivacyModal] = useState(false);
   const [inputValue, setInputValue] = useState(0);
-  const [isArtB, setIsArtB] = useState(false);//아트비구매 클릭시
+  const [isArtB, setIsArtB] = useState(false); //아트비구매 클릭시
   const [buyButton, setBuyButton] = useState(false);
   const [walletPopup, setWalletPopup] = useState(false);
   const [creditcardPopup, setCreditcardPopup] = useState(false);
@@ -56,18 +56,20 @@ function NftTrade() {
       return;
     },
   });
-  const [nftInfo, setNftInfo] = useState([{
-    tokenId: "0",
-    address: "0x00",
-    quantity: "0",
-    sold: "0",
-    inventory: "0",
-    start_time: "1632625200000",
-    end_time: "1640876400000",
-    is_active: true,
-    price: "0",
-    payTokenAddress: "0x00"
-  }])
+  const [nftInfo, setNftInfo] = useState([
+    {
+      tokenId: "0",
+      address: "0x00",
+      quantity: "0",
+      sold: "0",
+      inventory: "0",
+      start_time: "1632625200000",
+      end_time: "1640876400000",
+      is_active: true,
+      price: "0",
+      payTokenAddress: "0x00",
+    },
+  ]);
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);
@@ -169,18 +171,19 @@ function NftTrade() {
     });
   }
   /* SETTING INSTANCE */
-  const ABC_TOKEN_INFO = require("../../lib/contracts/ABCToken.json")
-  const ARTB_COLLECTION_INFO = require("../../lib/contracts/ArtbCollection.json")
-  const ARTB_COLLECTION_SELLER_INFO = require("../../lib/contracts/CollectionSeller.json")
+  const ABC_TOKEN_INFO = require("../../lib/contracts/ABCToken.json");
+  const ARTB_COLLECTION_INFO = require("../../lib/contracts/ArtbCollection.json");
+  const ARTB_COLLECTION_SELLER_INFO = require("../../lib/contracts/CollectionSeller.json");
 
-  const ERC20_ABI = require("../../lib/contracts/ERC20.json")
+  const ERC20_ABI = require("../../lib/contracts/ERC20.json");
   const ABC_TOKEN_ABI = ABC_TOKEN_INFO.abi;
   const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
   const ARTB_COLLECTION_SELLER_ABI = ARTB_COLLECTION_SELLER_INFO.abi;
 
   const ABC_TOKEN_ADDRESS = ABC_TOKEN_INFO.networks[4].address;
   const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[4].address;
-  const ARTB_COLLECTION_SELLER_ADDRESS = ARTB_COLLECTION_SELLER_INFO.networks[4].address;
+  const ARTB_COLLECTION_SELLER_ADDRESS =
+    ARTB_COLLECTION_SELLER_INFO.networks[4].address;
 
   /* READ CONTRACT */
 
@@ -188,15 +191,21 @@ function NftTrade() {
   // seller abi -> PRICE, STARTWHEN, STOPWHEN, MINTER
 
   /* WRITE CONTRACT */
-  // abc abi -> approve, balanceOf, 
-  // collection abi -> uri, balanceOf, 
+  // abc abi -> approve, balanceOf,
+  // collection abi -> uri, balanceOf,
   // seller abi -> buy
 
   const loadUserInfo = async () => {
-    let result = {}
-    const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI)
+    let result = {};
+    const ABC_TOKEN_INSTANCE = createContractInstance(
+      web3_R.testnet,
+      ABC_TOKEN_ADDRESS,
+      ABC_TOKEN_ABI
+    );
 
-    let allowance = await ABC_TOKEN_INSTANCE.methods.allowance(account, ARTB_COLLECTION_SELLER_ADDRESS).call();
+    let allowance = await ABC_TOKEN_INSTANCE.methods
+      .allowance(account, ARTB_COLLECTION_SELLER_ADDRESS)
+      .call();
 
     result = {
       // address: info.address,
@@ -208,13 +217,24 @@ function NftTrade() {
     };
 
     setUserInfo(result);
-  }
+  };
 
   const loadNftInfo = async () => {
-    const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI)
-    const SELLER_INSTANCE = createContractInstance(web3_R.testnet, ARTB_COLLECTION_SELLER_ADDRESS, ARTB_COLLECTION_SELLER_ABI)
-    const COLLECTION_INSTANCE = createContractInstance(web3_R.testnet, ARTB_COLLECTION_ADDRESS, ARTB_COLLECTION_ABI)
-
+    const ABC_TOKEN_INSTANCE = createContractInstance(
+      web3_R.testnet,
+      ABC_TOKEN_ADDRESS,
+      ABC_TOKEN_ABI
+    );
+    const SELLER_INSTANCE = createContractInstance(
+      web3_R.testnet,
+      ARTB_COLLECTION_SELLER_ADDRESS,
+      ARTB_COLLECTION_SELLER_ABI
+    );
+    const COLLECTION_INSTANCE = createContractInstance(
+      web3_R.testnet,
+      ARTB_COLLECTION_ADDRESS,
+      ARTB_COLLECTION_ABI
+    );
 
     const nftInformation = await SELLER_INSTANCE.methods.Goods("0").call();
     const artInfoUri = await COLLECTION_INSTANCE.methods.uri("0").call();
@@ -224,27 +244,36 @@ function NftTrade() {
     // console.log("artInfo", artInfo)
 
     console.log("nftInformation", nftInformation);
-    let result = [{
-      tokenId: nftInformation.collection.tokenId,
-      address: nftInformation.collection.token,
-      quantity: nftInformation.collection.QUANTITY,
-      sold: nftInformation.collection.SOLD,
-      inventory: nftInformation.collection.INVENTORY,
-      start_time: nftInformation.start_time,
-      end_time: nftInformation.end_time,
-      is_active: nftInformation.is_active,
-      price: fromWei(nftInformation.payment.amount, "ether"),
-      payTokenAddress: nftInformation.payment.token
-    }]
+    let result = [
+      {
+        tokenId: nftInformation.collection.tokenId,
+        address: nftInformation.collection.token,
+        quantity: nftInformation.collection.QUANTITY,
+        sold: nftInformation.collection.SOLD,
+        inventory: nftInformation.collection.INVENTORY,
+        start_time: nftInformation.start_time,
+        end_time: nftInformation.end_time,
+        is_active: nftInformation.is_active,
+        price: fromWei(nftInformation.payment.amount, "ether"),
+        payTokenAddress: nftInformation.payment.token,
+      },
+    ];
 
-    setNftInfo(result)
-
-  }
+    setNftInfo(result);
+  };
 
   const loadMethods = () => {
-    let result = {}
-    const ABC_TOKEN_INSTANCE = createContractInstance(web3, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI)
-    const SELLER_INSTANCE = createContractInstance(web3, ARTB_COLLECTION_SELLER_ADDRESS, ARTB_COLLECTION_SELLER_ABI)
+    let result = {};
+    const ABC_TOKEN_INSTANCE = createContractInstance(
+      web3,
+      ABC_TOKEN_ADDRESS,
+      ABC_TOKEN_ABI
+    );
+    const SELLER_INSTANCE = createContractInstance(
+      web3,
+      ARTB_COLLECTION_SELLER_ADDRESS,
+      ARTB_COLLECTION_SELLER_ABI
+    );
     let tokenId, amount;
 
     // approve
@@ -261,37 +290,52 @@ function NftTrade() {
     };
 
     result = {
-      approve: async () => await approve(ABC_TOKEN_INSTANCE.methods, ARTB_COLLECTION_SELLER_ADDRESS, "999999999", account),
-      buy: async (amount, tokenId = "0") => await buy(SELLER_INSTANCE.methods, amount, tokenId)
-    }
+      approve: async () =>
+        await approve(
+          ABC_TOKEN_INSTANCE.methods,
+          ARTB_COLLECTION_SELLER_ADDRESS,
+          "999999999",
+          account
+        ),
+      buy: async (amount, tokenId = "0") =>
+        await buy(SELLER_INSTANCE.methods, amount, tokenId),
+    };
     return setNftMethods(result);
-  }
+  };
 
   useEffect(() => {
     if (account) {
       loadMethods();
       loadUserInfo();
     }
-  }, [account])
+  }, [account]);
 
   useEffect(() => {
     loadNftInfo();
-  }, [])
+  }, []);
 
-  const data = COPYRIGHT_DATA[0]
+  const data = COPYRIGHT_DATA[0];
   return (
     <Container>
       <Contents>
         <Header>
           <HashLink to={"/"}>
-            <div className="back" onClick={() => setPayOpen(false)} >
+            <div className="back" onClick={() => setPayOpen(false)}>
               {payOpen ? "< 페이지로 돌아가기" : "< 이전 페이지로 돌아가기"}
             </div>
           </HashLink>
           <div className="basic">
             <div className="info">
-              <div className="status">{nftInfo[0].is_active ? "판매중" : "판매완료"}</div> {/* FIX ME by tokenId */}
-              <div className="model">{nftInfo[0].address.slice(0, 8) + "..." + nftInfo[0].address.slice(-6)}</div> {/* FIX ME */}
+              <div className="status">
+                {nftInfo[0].is_active ? "판매중" : "판매완료"}
+              </div>{" "}
+              {/* FIX ME by tokenId */}
+              <div className="model">
+                {nftInfo[0].address.slice(0, 8) +
+                  "..." +
+                  nftInfo[0].address.slice(-6)}
+              </div>{" "}
+              {/* FIX ME */}
             </div>
             <div className="function">
               <img src="/detail_share.png" alt="" />
@@ -305,7 +349,9 @@ function NftTrade() {
         <Info1>
           <div className="period">
             <div className="title">판매기간</div>
-            <div className="time">{loadPoolPeriod(nftInfo[0].start_time, nftInfo[0].end_time)}</div>
+            <div className="time">
+              {loadPoolPeriod(nftInfo[0].start_time, nftInfo[0].end_time)}
+            </div>
           </div>
           <div className="product">
             <img
@@ -338,8 +384,12 @@ function NftTrade() {
               <div className="name">{data.seller}</div>
             </div>
             <div className="right">
-              <div className="rest">{Number(nftInfo[0].inventory).toLocaleString()} EA/</div>
-              <div className="total">{Number(nftInfo[0].quantity).toLocaleString()} EA</div>
+              <div className="rest">
+                {Number(nftInfo[0].inventory).toLocaleString()} NFT/
+              </div>
+              <div className="total">
+                {Number(nftInfo[0].quantity).toLocaleString()} NFT
+              </div>
             </div>
           </div>
         </Info1>
@@ -378,13 +428,20 @@ function NftTrade() {
           </Info2>
         )}
 
-
         <Info3>
           <div className="title">개당 저작권 가격</div>
           <div className="info">
             <div className="price">
-              <div className="won">￦{Number(data.price).toLocaleString()}</div> {/* FIX ME */}
-              <div className="coin">≈ {String(Number(data.price) / Number(data.abcTokenValue)).slice(0, 4)} ABC</div>
+              <div className="won">￦{Number(data.price).toLocaleString()}</div>{" "}
+              {/* FIX ME */}
+              <div className="coin">
+                ≈{" "}
+                {String(Number(data.price) / Number(data.abcTokenValue)).slice(
+                  0,
+                  4
+                )}{" "}
+                ABC
+              </div>
             </div>
             <div className="restTime">
               <img
@@ -409,21 +466,27 @@ function NftTrade() {
               }}
               style={{ height: "50px" }}
             />
-            <div className="unit" style={{ paddingLeft: "10px" }}>NFT</div>
+            <div className="unit" style={{ paddingLeft: "10px" }}>
+              NFT
+            </div>
           </div>
-          {isArtB ?
+          {isArtB ? (
             <div className="restAmount">
               <div className="left">원화가치:</div>
-              <div className="right">{(data.price * inputValue).toLocaleString() + "원"}</div>
+              <div className="right">
+                {(data.price * inputValue).toLocaleString() + "원"}
+              </div>
             </div>
-            :
+          ) : (
             <div className="restAmount">
               <div className="left">잔여수량:</div>
-              <div className="right">{Number(nftInfo[0].inventory).toLocaleString()}</div>
+              <div className="right">
+                {Number(nftInfo[0].inventory).toLocaleString()}
+              </div>
             </div>
-          }
+          )}
 
-          {!buyButton ?
+          {!buyButton ? (
             <>
               <div className="buttons">
                 <div
@@ -433,30 +496,31 @@ function NftTrade() {
                     // inputValue == 0 ?
                     //   alert("수량을 입력해주세요")
                     //   :
-                    setIsArtB(true)
-                    setBuyButton(!buyButton)
+                    setIsArtB(true);
+                    setBuyButton(!buyButton);
                   }}
                 >
                   <img className="icon" src="buy_icon.png" />
-                  <div
-                    className="name"
-                  >구매하기</div>
+                  <div className="name">구매하기</div>
                 </div>
               </div>
               <div className="checkbox">
                 <input type="checkBox" className="box" />
-                <span>Artb 이용약관 </span><span style={{ color: "red" }}>(필수)</span>
+                <span>Artb 이용약관 </span>
+                <span style={{ color: "red" }}>(필수)</span>
                 <img
                   className="arrow"
                   src="arrow-right.png"
                   onClick={async () => {
                     setTermsModal(!termsModal);
                     window.scrollTo(0, 0);
-                  }} />
+                  }}
+                />
               </div>
               <div className="checkbox">
                 <input type="checkBox" className="box" />
-                <span>Artb 개인정보 수집 및 이용약관 </span><span style={{ color: "red" }}>(필수)</span>
+                <span>Artb 개인정보 수집 및 이용약관 </span>
+                <span style={{ color: "red" }}>(필수)</span>
                 <img
                   className="arrow"
                   src="arrow-right.png"
@@ -466,47 +530,83 @@ function NftTrade() {
                   }}
                 />
               </div>
-              {termsModal ? <TermsOfUse setTermsModal={setTermsModal} nftMethods={nftMethods} inputValue={inputValue} /> : null}
-              {privacyModal ? <Privacy setPrivacyModal={setPrivacyModal} nftMethods={nftMethods} inputValue={inputValue} /> : null}
+              {termsModal ? (
+                <TermsOfUse
+                  setTermsModal={setTermsModal}
+                  nftMethods={nftMethods}
+                  inputValue={inputValue}
+                />
+              ) : null}
+              {privacyModal ? (
+                <Privacy
+                  setPrivacyModal={setPrivacyModal}
+                  nftMethods={nftMethods}
+                  inputValue={inputValue}
+                />
+              ) : null}
             </>
-            :
-
-
+          ) : (
             <div className="buttons">
-              {walletPopup ? <WalletConnect setWalletPopup={setWalletPopup} /> : null}
+              {walletPopup ? (
+                <WalletConnect setWalletPopup={setWalletPopup} />
+              ) : null}
               <div
                 className="coinButton"
-                onClick={() => {
-                  setWalletPopup(!walletPopup)
-                }}
+                onClick={
+                  account ? () => {} : () => setWalletPopup(!walletPopup)
+                }
+                style={
+                  account
+                    ? { cursor: "not-allowed", opacity: "30%" }
+                    : { cursor: "pointer" }
+                }
               >
-                <div className="name">지갑 연결</div>
+                <div className="name">
+                  {" "}
+                  {account
+                    ? account.slice(0, 8) + "..." + account.slice(-6)
+                    : "지갑연결"}
+                </div>
               </div>
 
               <div
                 className="coinButton"
-                onClick={() => {
-                  setTransferPopup(!transferPopup)
-                  window.scrollTo(0, 0);
-                }}
+                onClick={
+                  account
+                    ? () => {
+                        setTransferPopup(!transferPopup);
+                        window.scrollTo(0, 0);
+                      }
+                    : () => {
+                        alert("먼저 지갑을 연결해주시기 바랍니다.");
+                      }
+                }
+                style={
+                  !account
+                    ? { cursor: "not-allowed", opacity: "30%" }
+                    : { cursor: "pointer" }
+                }
               >
                 <div className="name">계좌 이체로 구매</div>
               </div>
-              {transferPopup ? <AccountTransferPopup setTransferPopup={setTransferPopup} /> : null}
+              {transferPopup ? (
+                <AccountTransferPopup setTransferPopup={setTransferPopup} />
+              ) : null}
 
               <div
                 className="coinButton"
                 onClick={() => {
+                  setCreditcardPopup(!creditcardPopup);
                 }}
+                style={{ cursor: "pointer" }}
               >
-                <div className="name"
-                  onClick={() => {
-                    setCreditcardPopup(!creditcardPopup)
-                  }}>카드 결제로 구매</div>
+                <div className="name">카드 결제로 구매</div>
               </div>
-              {creditcardPopup ? <CreditcardPopup setCreditcardPopup={setCreditcardPopup} /> : null}
+              {creditcardPopup ? (
+                <CreditcardPopup setCreditcardPopup={setCreditcardPopup} />
+              ) : null}
             </div>
-          }
+          )}
           {/* {!isArtB ?
             <div className="buttons">
               <div
@@ -647,9 +747,9 @@ function NftTrade() {
               style={
                 toggle1Open
                   ? {
-                    border: "1px solid rgba(226, 226, 226, 0.7)",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                  }
+                      border: "1px solid rgba(226, 226, 226, 0.7)",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                    }
                   : {}
               }
             >
@@ -756,7 +856,7 @@ function NftTrade() {
           </Toggle2>
         )} */}
       </Contents>
-    </Container >
+    </Container>
   );
 }
 
@@ -767,7 +867,11 @@ const loadPoolPeriod = (startTime, endTime) => {
     const z = (x) => {
       return x.toString().padStart(2, "0");
     };
-    return `${new String(d.getFullYear()).substr(2, 3)}.${z(d.getMonth() + 1)}.${z(d.getDate())} ${z(d.getHours())}:${z(d.getMinutes())}:${z(d.getSeconds())}`;
+    return `${new String(d.getFullYear()).substr(2, 3)}.${z(
+      d.getMonth() + 1
+    )}.${z(d.getDate())} ${z(d.getHours())}:${z(d.getMinutes())}:${z(
+      d.getSeconds()
+    )}`;
   };
   ret = `${formatter(startTime)} ~ ${formatter(endTime)}`;
   return ret;
@@ -836,8 +940,8 @@ const Header = styled.div`
       display: flex;
       gap: 0 20px;
       img {
-        width: 35px; 
-        height: 35px; 
+        width: 35px;
+        height: 35px;
         cursor: pointer;
       }
     }
@@ -1066,7 +1170,6 @@ const Info3 = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 
   .title {
-
     font-size: 20px;
     color: rgba(0, 0, 0, 0.8);
   }
@@ -1117,31 +1220,25 @@ const Info3 = styled.div`
       font-size: 18px;
       border: 0px;
       text-align: right;
-      width:330px;
+      width: 330px;
       /* margin:auto;
       margin-left:0; */
-
     }
     input::-webkit-input-placeholder {
       font-weight: bold;
       font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
-      padding-right:150px;
-
+      padding-right: 150px;
     }
     input:-ms-input-placeholder {
       font-weight: bold;
       font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
-
-      
     }
     input::placeholder {
       font-weight: bold;
       font-size: 18px;
       color: rgba(0, 0, 0, 0.2);
-
-      
     }
 
     input::-webkit-outer-spin-button,
@@ -1182,9 +1279,10 @@ const Info3 = styled.div`
       background: rgba(230, 71, 36, 0.8);
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
       border-radius: 10px;
+      cursor: pointer;
       .icon {
-        width:26px;
-        height:24px;
+        width: 26px;
+        height: 24px;
       }
       .name {
         margin-left: 10px;
@@ -1232,18 +1330,17 @@ const Info3 = styled.div`
       color: #ffffff;
       /* cursor: pointer; */
     }
-
-    
   }
-  .checkbox{
-      display:flex;
+  .checkbox {
+    display: flex;
 
-    .box{
-      margin-right:19px;
+    .box {
+      margin-right: 19px;
     }
-    .arrow{
-      margin:auto;
-      margin-right:15px;
+    .arrow {
+      margin: auto;
+      margin-right: 15px;
+      cursor: pointer;
     }
   }
 `;
@@ -1257,7 +1354,7 @@ const Toggle1 = styled.div`
   border-radius: 10px;
   border: 1px solid rgba(226, 226, 226, 0.7);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-  margin-bottom:30px;
+  margin-bottom: 30px;
   .nftToggle {
     display: flex;
     align-items: center;
@@ -1274,7 +1371,6 @@ const Toggle1 = styled.div`
       font-weight: bold;
       font-size: 25px;
       color: rgba(0, 0, 0, 0.8);
-
     }
   }
 `;
