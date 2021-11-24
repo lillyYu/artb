@@ -26,7 +26,7 @@ function AccountTransferPopup({ setTransferPopup }) {
       phone: `010${middleNum}${lastNum}`,
     };
     let result = await axios.post(
-      "https://script.google.com/macros/s/AKfycbwJGL9Co06U58Ldw1cygcLMukn4EtmdoDy18X9SxtIGKcol2aCec1wNtJqAMw4oaJo0rA/exec",
+      "https://script.google.com/macros/s/AKfycbzNSxnPTUqdnQuOYEa5PCqKJdTXjW03TFmsnXZwtZvKbtua9qkJMACXDILVP-g8X4yvtw/exec",
       JSON.stringify(data)
     );
     console.log(result);
