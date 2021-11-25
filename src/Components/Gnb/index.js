@@ -11,9 +11,9 @@ function Gnb() {
 
   return (
     <Container>
-      <HashLink to={"/"}>
+      <div onClick={() => { window.location.reload() }}>
         <img src="/gnb_logo.png" style={{ width: "162px", height: "56px" }} />
-      </HashLink>
+      </div>
       <Setting>
         <Language>KR</Language>
         <HashLink to={"/mypage"}>

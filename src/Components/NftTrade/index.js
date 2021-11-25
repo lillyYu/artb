@@ -30,16 +30,18 @@ import WalletConnect from "./Popup/walletConnect";
 import CreditcardPopup from "./Popup/creditCard";
 import AccountTransferPopup from "./Popup/accountTransfer";
 
-import { COPYRIGHT_DATA } from "../../lib/loading_Data";
 import { createContractInstance } from "../../lib/Station";
 
 function NftTrade() {
   const [payOpen, setPayOpen] = useState(false);
   const [toggle1Open, setToggle1Open] = useState(false);
   const [toggle2Open, setToggle2Open] = useState(false);
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
   const [termsModal, setTermsModal] = useState(false);
   const [privacyModal, setPrivacyModal] = useState(false);
   const [inputValue, setInputValue] = useState(undefined);
+  const [totalValue, setTotalValue] = useState(undefined);
   const [isArtB, setIsArtB] = useState(false); //아트비구매 클릭시
   const [buyButton, setBuyButton] = useState(false);
   const [walletPopup, setWalletPopup] = useState(false);
@@ -74,103 +76,9 @@ function NftTrade() {
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);
-  const [provider, setProvider] = useRecoilState(providerState);
   const [account, setAccount] = useRecoilState(accountState);
-  const [network, setNetwork] = useRecoilState(networkState);
-  const [requireNetwork] = useRecoilState(requireNetworkState);
 
-  /* Setting WalletConnect */
-  const providerOptions = {
-    metamask: {
-      id: "injected",
-      name: "MetaMask",
-      type: "injected",
-      check: "isMetaMask",
-    },
-    walletconnect: {
-      package: WalletConnectProvider, // required
-      options: {
-        rpc: {
-          1: "https://eth-mainnet.alchemyapi.io/v2/2wgBGtGnTm3s0A0o23RY0BtXxgow1GAn",
-          3: "https://eth-ropsten.alchemyapi.io/v2/vn-ib6FVXaweiMUDJkOmOkXQm1jPacAj",
-        },
-        infuraId: "3fc11d1feb8944229a1cfba7bd62c8bc", // Required
-        network: "mainnet",
-        qrcodeModalOptions: {
-          mobileLinks: [
-            "rainbow",
-            "metamask",
-            "argent",
-            "trust",
-            "imtoken",
-            "pillar",
-          ],
-        },
-      },
-    },
-  };
-  let web3Modal = new Web3Modal({
-    // network: "mainnet",
-    // network: "ropsten",
-    cacheProvider: true,
-    providerOptions,
-  });
-  async function connect() {
-    while (
-      window.document.querySelectorAll("[id=WEB3_CONNECT_MODAL_ID]").length > 1
-    ) {
-      window.document
-        .querySelectorAll("[id=WEB3_CONNECT_MODAL_ID]")[1]
-        .remove();
-    }
-    let provider = await web3Modal.connect();
-    setProvider(provider);
-    const web3 = new Web3(provider);
-    setWeb3(web3);
-    const accounts = await web3.eth.getAccounts();
-    const network = await web3.eth.getChainId();
-    setAccount(accounts[0]);
-    setNetwork(network);
 
-    connectEventHandler(provider);
-  }
-  // function getAccount() {
-  //   if (text) return text;
-  //   // console.log(network, requireNetwork);
-  //   let ret = account.slice(0, 8) + "..." + account.slice(-6);
-  //   return ret;
-  // }
-  async function onDisconnect(event) {
-    if (!event && web3 && web3.currentProvider && web3.currentProvider.close) {
-      await web3.currentProvider.close();
-    }
-    setAccount(undefined);
-    setProvider(undefined);
-    setNetwork(undefined);
-    await web3Modal.clearCachedProvider();
-
-    // let els = document.querySelectorAll('[id=WEB3_CONNECT_MODAL_ID]')
-    // while (els.length>1) {
-    //     document.querySelectorAll('[id=WEB3_CONNECT_MODAL_ID]')[1].remove();
-    // }
-  }
-  function connectEventHandler(provider) {
-    if (!provider.on) {
-      return;
-    }
-    provider.on("open", async (info) => {
-      console.log("info", info);
-    });
-    provider.on("accountsChanged", async (accounts) => {
-      setAccount(accounts[0]);
-    });
-    provider.on("chainChanged", async (chainId) => {
-      setNetwork(chainId);
-    });
-    provider.on("disconnect", async (error) => {
-      onDisconnect(true);
-    });
-  }
   /* SETTING INSTANCE */
   const ABC_TOKEN_INFO = require("../../lib/contracts/ABCToken.json");
   const ARTB_COLLECTION_INFO = require("../../lib/contracts/ArtbCollection.json");
@@ -318,15 +226,16 @@ function NftTrade() {
     loadNftInfo();
   }, []);
 
-  const data = COPYRIGHT_DATA[0];
+  console.log(nftInfo)
+
   return (
     <Container>
       <Contents>
         <Header>
           <HashLink to={"/"}>
-            <div className="back" onClick={() => setPayOpen(false)}>
+            {/* <div className="back" onClick={() => setPayOpen(false)}>
               {payOpen ? "< 페이지로 돌아가기" : "< 이전 페이지로 돌아가기"}
-            </div>
+            </div> */}
           </HashLink>
           <div className="basic">
             <div className="info">
@@ -342,7 +251,7 @@ function NftTrade() {
               {/* FIX ME */}
             </div>
             <div className="function">
-              <img src="/detail_share.png" alt="" />
+              {/* <img src="/detail_share.png" alt="" /> */}
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
@@ -479,6 +388,7 @@ function NftTrade() {
 
                 else {
                   setInputValue(e.target.value);
+                  setTotalValue(45000 * e.target.value + 15000)
                 }
               }}
               style={{ height: "50px" }}
@@ -487,21 +397,21 @@ function NftTrade() {
               NFT
             </div>
           </div>
-          {isArtB ? (
-            <div className="restAmount">
-              <div className="left">원화가치:</div>
-              <div className="right">
-                {(data.price * inputValue).toLocaleString() + "원"}
-              </div>
+
+          <div className="restAmount">
+            <div className="left">총 결제 금액(거래 수수료 포함):</div>
+            <div className="right">
+              {(inputValue ? totalValue.toLocaleString() : "-") + "원"}
             </div>
-          ) : (
-            <div className="restAmount">
-              <div className="left">잔여수량:</div>
-              <div className="right">
-                {Number(nftInfo[0].inventory - 60000).toLocaleString()} NFT
-              </div>
+          </div>
+
+          <div className="restAmount">
+            <div className="left">잔여수량:</div>
+            <div className="right">
+              {Number(nftInfo[0].inventory - 60000).toLocaleString()} NFT
             </div>
-          )}
+          </div>
+
 
           {!buyButton ? (
             <>
@@ -509,20 +419,27 @@ function NftTrade() {
                 <div
                   className="coinButton"
                   onClick={() => {
-                    // console.log("value", inputValue)
-                    // inputValue == 0 ?
-                    //   alert("수량을 입력해주세요")
-                    //   :
-                    setIsArtB(true);
-                    setBuyButton(!buyButton);
+                    if (!inputValue) {
+                      alert("수량을 기입해주시기 바랍니다.")
+                    } else if (check1 && check2) {
+                      setIsArtB(true);
+                      setBuyButton(!buyButton);
+                    }
+                    else alert("필수 이용약관에 동의해주시기 바랍니다.")
                   }}
+                  style={inputValue && check1 && check2 ? {} : { cursor: "not-allowed", opacity: "30%" }}
                 >
                   <img className="icon" src="buy_icon.png" />
-                  <div className="name">구매하기</div>
+                  <div className="name" >구매하기</div>
                 </div>
               </div>
               <div className="checkbox">
-                <input type="checkBox" className="box" />
+                <input type="checkBox"
+                  className="box"
+                  onClick={() => {
+                    setCheck1(!check1)
+                    console.log(check1)
+                  }} />
                 <span>Artb 이용약관 </span>
                 <span style={{ color: "red" }}>(필수)</span>
                 <img
@@ -535,7 +452,12 @@ function NftTrade() {
                 />
               </div>
               <div className="checkbox">
-                <input type="checkBox" className="box" />
+                <input type="checkBox"
+                  className="box"
+                  onClick={() => {
+                    setCheck2(!check2)
+                    console.log(check2)
+                  }} />
                 <span>Artb 개인정보 수집 및 이용약관 </span>
                 <span style={{ color: "red" }}>(필수)</span>
                 <img
@@ -581,7 +503,7 @@ function NftTrade() {
                 <div className="name">
                   {" "}
                   {account
-                    ? account.slice(0, 8) + "..." + account.slice(-6)
+                    ? "지갑연결 완료"
                     : "지갑연결"}
                 </div>
               </div>
@@ -607,7 +529,7 @@ function NftTrade() {
                 <div className="name">계좌 이체로 구매</div>
               </div>
               {transferPopup ? (
-                <AccountTransferPopup setTransferPopup={setTransferPopup} />
+                <AccountTransferPopup setTransferPopup={setTransferPopup} amount={inputValue} totalValue={totalValue} address={nftInfo[0].address} />
               ) : null}
 
               <div

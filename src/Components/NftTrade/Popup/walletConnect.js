@@ -115,7 +115,7 @@ function WalletConnect({ setWalletPopup }) {
   }
   return (
     <Container>
-      <div className="background" onClick={() => {}}></div>
+      <div className="background" onClick={() => { setWalletPopup(false) }}></div>
       <div className="modal2">
         <div className={"Text_Style_14"} style={{ paddingBottom: "20px" }}>
           <br />
@@ -173,7 +173,7 @@ const Container = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 3;
+    z-index: 2;
     width: 596px;
     height: 536px;
     background-color: white;

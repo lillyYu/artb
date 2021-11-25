@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 //store
 import { accountState } from "../../../store/web3";
 
-function AccountTransferPopup({ setTransferPopup }) {
+function AccountTransferPopup({ setTransferPopup, amount, totalValue, address }) {
   const [account] = useRecoilState(accountState);
 
   const [name, setName] = useState("");
@@ -35,19 +35,22 @@ function AccountTransferPopup({ setTransferPopup }) {
   return (
     <Container className="Container">
       <Contents>
+        <div className="back" onClick={() => setTransferPopup(false)}>
+          {"< 이전 페이지로 돌아가기"}
+        </div>
         <div className="Text_Style_17">주문확인</div>
         <div className="top">
           <img className="collectionImg" src="/collection1.png" />
           <div className="info">
             <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
-              작가명
+              {address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "남관" : "-"}
             </div>
             <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
-              작품명 작품명 작품명
+              {address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "가을축제" : "-"}
             </div>
             <div className="buyQuantity">
-              <div className="Text_Style_20"> 구매 갯수 </div>
-              <div className="Text_Style_21">4</div>
+              <div className="Text_Style_20">{`구매 갯수 ${amount}`}</div>
+              {/* <div className="Text_Style_21">{amount}</div> */}
             </div>
           </div>
         </div>
@@ -55,7 +58,7 @@ function AccountTransferPopup({ setTransferPopup }) {
         <div style={{ borderBottom: "1px dashed #9E9E9E" }}></div>
         <div className="price">
           <div className="Text_Style_22">총 결제 가격</div>
-          <div className="Text_Style_23">₩ 100,000</div>
+          <div className="Text_Style_23">₩ {totalValue.toLocaleString()}</div>
         </div>
         <div className="Text_Style_24">
           <br />
@@ -143,6 +146,14 @@ const Contents = styled.div`
   top: 30px;
   height: inherit;
   border-radius: 10px;
+
+  .back {
+    font-weight: 500;
+    font-size: 20px;
+    color: #eb4632;
+    cursor: pointer;
+    margin-bottom: 50px;
+  }
 
   .top {
     display: flex;
