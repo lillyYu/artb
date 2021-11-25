@@ -11,8 +11,8 @@ function Gnb() {
 
   return (
     <Container>
-      <div onClick={() => { window.location.reload() }}>
-        <img src="/gnb_logo.png" style={{ width: "162px", height: "56px" }} />
+      <div onClick={() => { window.location.href = "/" }} >
+        <img src="/gnb_logo.png" style={{ width: "162px", height: "56px", cursor: "pointer" }} />
       </div>
       <Setting>
         <Language>KR</Language>

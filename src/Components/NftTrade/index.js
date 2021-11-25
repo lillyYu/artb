@@ -86,16 +86,15 @@ function NftTrade() {
 
   const ERC20_ABI = require("../../lib/contracts/ERC20.json");
   const ABC_TOKEN_ABI = ABC_TOKEN_INFO.abi;
-  const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
-  const ARTB_COLLECTION_SELLER_ABI = ARTB_COLLECTION_SELLER_INFO.abi;
-
   const ABC_TOKEN_ADDRESS = ABC_TOKEN_INFO.networks[4].address;
-  const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[4].address;
-  const ARTB_COLLECTION_SELLER_ADDRESS =
-    ARTB_COLLECTION_SELLER_INFO.networks[4].address;
+
+  const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
+  const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[1].address;
+
+  const ARTB_COLLECTION_SELLER_ABI = ARTB_COLLECTION_SELLER_INFO.abi;
+  const ARTB_COLLECTION_SELLER_ADDRESS = ARTB_COLLECTION_SELLER_INFO.networks[4].address;
 
   /* READ CONTRACT */
-
   // abc abi -> allowance, name, symbol, totalSupply
   // seller abi -> PRICE, STARTWHEN, STOPWHEN, MINTER
 
@@ -106,60 +105,42 @@ function NftTrade() {
 
   const loadUserInfo = async () => {
     let result = {};
-    const ABC_TOKEN_INSTANCE = createContractInstance(
-      web3_R.testnet,
-      ABC_TOKEN_ADDRESS,
-      ABC_TOKEN_ABI
-    );
-
-    let allowance = await ABC_TOKEN_INSTANCE.methods
-      .allowance(account, ARTB_COLLECTION_SELLER_ADDRESS)
-      .call();
+    const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI);
+    let allowance = await ABC_TOKEN_INSTANCE.methods.allowance(account, ARTB_COLLECTION_SELLER_ADDRESS).call();
 
     result = {
+      allowance: allowance,
       // address: info.address,
       // available: fromWei(available, "ether"),
-      allowance: allowance,
       // balance: balance,
       // share: share,
       // reward: reward,
     };
-
     setUserInfo(result);
   };
 
   const loadNftInfo = async () => {
-    const ABC_TOKEN_INSTANCE = createContractInstance(
-      web3_R.testnet,
-      ABC_TOKEN_ADDRESS,
-      ABC_TOKEN_ABI
-    );
-    const SELLER_INSTANCE = createContractInstance(
-      web3_R.testnet,
-      ARTB_COLLECTION_SELLER_ADDRESS,
-      ARTB_COLLECTION_SELLER_ABI
-    );
-    const COLLECTION_INSTANCE = createContractInstance(
-      web3_R.testnet,
-      ARTB_COLLECTION_ADDRESS,
-      ARTB_COLLECTION_ABI
-    );
+    // const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI);
+    const SELLER_INSTANCE = createContractInstance(web3_R.testnet, ARTB_COLLECTION_SELLER_ADDRESS, ARTB_COLLECTION_SELLER_ABI);
+    const COLLECTION_INSTANCE = createContractInstance(web3_R.mainnet, ARTB_COLLECTION_ADDRESS, ARTB_COLLECTION_ABI);
 
     const nftInformation = await SELLER_INSTANCE.methods.Goods("0").call();
-    const artInfoUri = await COLLECTION_INSTANCE.methods.uri("0").call();
+    const artInfoUri = await COLLECTION_INSTANCE.methods.uri("0").call(); // not using for now
 
-    // const artInfo = await axios.get(`${artInfoUri.slice(0, -9)}${"0"}.json`)
+    // const totalSupply = await COLLECTION_INSTANCE.methods.totalSupply().call();
+    const totalSupply = await COLLECTION_INSTANCE.methods.balanceOf("0x6f052fc672d33061972ebe3cb0c509fba13858ff", nftInformation.collection.tokenId).call(); // FIX ME
+    // const remainedNFT = await COLLECTION_INSTANCE.methods.balanceOf(ARTB_COLLECTION_ADDRESS, nftInformation.collection.tokenId).call();
 
-    // console.log("artInfo", artInfo)
-
+    console.log("totalSupply", totalSupply)
+    // console.log("remainedNFT", remainedNFT)
 
     let result = [
       {
         tokenId: nftInformation.collection.tokenId,
         address: nftInformation.collection.token,
-        quantity: nftInformation.collection.QUANTITY,
+        quantity: 100000,
         sold: nftInformation.collection.SOLD,
-        inventory: nftInformation.collection.INVENTORY,
+        inventory: totalSupply,
         start_time: nftInformation.start_time,
         end_time: nftInformation.end_time,
         is_active: nftInformation.is_active,
@@ -169,9 +150,6 @@ function NftTrade() {
     ];
 
     setNftInfo(result);
-    console.log("nftInfo", nftInfo);
-
-    console.log("artInfoUri", artInfoUri)
   };
 
   const loadMethods = () => {
@@ -233,10 +211,18 @@ function NftTrade() {
       <Contents>
         <Header>
           <HashLink to={"/"}>
-            {/* <div className="back" onClick={() => setPayOpen(false)}>
-              {payOpen ? "< 페이지로 돌아가기" : "< 이전 페이지로 돌아가기"}
-            </div> */}
+            <div className="back" onClick={() => {
+              setBuyButton(false)
+              setCheck1(false)
+              setCheck2(false)
+            }
+            }
+
+            >
+              {buyButton ? "< 이전 페이지로 돌아가기" : ""}
+            </div>
           </HashLink>
+
           <div className="basic">
             <div className="info">
               <div className="status">
@@ -795,7 +781,7 @@ function NftTrade() {
           </Toggle2>
         )} */}
       </Contents>
-    </Container>
+    </Container >
   );
 }
 

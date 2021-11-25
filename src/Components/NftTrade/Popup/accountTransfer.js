@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { HashLink } from "react-router-hash-link";
 import axios from "axios";
 import { useRecoilState } from "recoil";
@@ -18,7 +19,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
 
   const postInfo = async () => {
     let data = {
-      amount: "4",
+      amount: amount,
       details: "남관-가을축제",
       name: name,
       address: `${postAddress} ${detailAddress1} ${detailAddress2}`,
@@ -49,7 +50,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
               {address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "가을축제" : "-"}
             </div>
             <div className="buyQuantity">
-              <div className="Text_Style_20">{`구매 갯수 ${amount}`}</div>
+              <div className="Text_Style_20">{`신청 수량 ${amount} 개`}</div>
               {/* <div className="Text_Style_21">{amount}</div> */}
             </div>
           </div>
@@ -58,7 +59,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
         <div style={{ borderBottom: "1px dashed #9E9E9E" }}></div>
         <div className="price">
           <div className="Text_Style_22">총 결제 가격</div>
-          <div className="Text_Style_23">₩ {totalValue.toLocaleString()}</div>
+          <div className="Text_Style_23">{`₩ ${totalValue.toLocaleString()}`}</div>
         </div>
         <div className="Text_Style_24">
           <br />
@@ -116,11 +117,26 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
             onChange={(e) => setLastNum(e.target.value)}
           />
         </div>
-        <div className="button" onClick={postInfo}>
-          <HashLink to={"/payment/coin"}>
+        {(name && postAddress && detailAddress1 && detailAddress2 && middleNum && lastNum) ?
+          <Link to={{
+            pathname: "/payment/coin",
+            state: {
+              totalValue: totalValue,
+              amount: amount,
+            }
+          }}>
+            <div className="button"
+              onClick={postInfo}>
+              <div className="Text_Style_26">결제하기</div>
+            </div>
+          </Link>
+          : <div className="button"
+            onClick={() => { alert("필수 항목을 전부 입력해주시기 바랍니다.") }
+            }>
+
             <div className="Text_Style_26">결제하기</div>
-          </HashLink>
-        </div>
+          </div>
+        }
       </Contents>
     </Container>
   );

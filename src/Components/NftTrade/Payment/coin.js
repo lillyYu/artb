@@ -1,9 +1,12 @@
 import Gnb from "../../../Components/Gnb";
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { HashLink } from "react-router-hash-link";
 
-function Coin({}) {
+function Coin({ props, location }) {
+
+  // console.log("amount: ", location.state.amount)
+  // console.log("totalValue: ", location.state.totalValue)
   return (
     <Container className="Container">
       <Gnb />
@@ -28,7 +31,7 @@ function Coin({}) {
           <div className="Text_Style_29">입금 계좌 :</div>
           <div className="accountNum">
             <div className="Text_Style_30">301-0295-5774-33</div>
-            <div className="Text_Style_31">계좌복사하기</div>
+            {/* <div className="Text_Style_31">계좌복사하기</div> */}
           </div>
           <div className="Text_Style_29">
             농협은행 예금주 : 아트비글로벌(주)
@@ -44,18 +47,18 @@ function Coin({}) {
           </div>
           <div className="amount">
             <div className="Text_Style_33">45,000</div>
-            <div className="Text_Style_33">4</div>
-            <div className="Text_Style_34">180,000</div>
-            <div className="Text_Style_34">15,000</div>
+            <div className="Text_Style_33">{`${location.state.amount} NFT`}</div>
+            <div className="Text_Style_34">{`₩ ${(location.state.totalValue - 15000).toLocaleString()}`}</div>
+            <div className="Text_Style_34">₩ 15,000</div>
           </div>
         </div>
         <div className="line"></div>
         <div className="price">
           <div className="Text_Style_22">총 결제 가격</div>
-          <div className="Text_Style_23">₩ 100,000</div>
+          <div className="Text_Style_23">{`₩ ${(location.state.totalValue).toLocaleString()}`}</div>
         </div>
         <HashLink to={"/"}>
-          <div className="buttonWrapper">
+          <div className="buttonWrapper" style={{ cursor: "pointer" }}>
             <div className="button">메인으로 가기</div>
           </div>
         </HashLink>
