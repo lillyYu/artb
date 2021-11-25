@@ -15,15 +15,27 @@ function Gnb() {
         <img src="/gnb_logo.png" style={{ width: "162px", height: "56px", cursor: "pointer" }} />
       </div>
       <Setting>
-        <Language>KR</Language>
-        <HashLink to={"/mypage"}>
-          <My>
+        {/* <Language>KR</Language> */}
+
+        <My>
+          <div className="payImg">
             <img
-              src="/gnb_profile.png"
-              style={{ width: "56px", height: "56px" }}
+              src="/detail_pay.png"
+              style={{ width: "30px", height: "30px" }}
             />
-          </My>
-        </HashLink>
+            <div className="mouseHover">
+              <div>입금 계좌 :</div>
+              <div>301-0295-5774-33</div>
+              <div>농협은행 예금주 : 아트비글로벌(주)</div>
+            </div>
+          </div>
+        </My>
+
+        {/* <img
+          src="/detail_pay.png"
+          style={{ width: "56px", height: "56px", color: "rgba(230, 71, 36, 0.8)", cursor: "pointer" }}
+        /> */}
+
 
       </Setting>
     </Container>
@@ -52,6 +64,7 @@ const Setting = styled.div`
   gap: 0 20px;
   align-items: center;
   width: 120px;
+  justify-content:center;
 `;
 
 const Language = styled.div`
@@ -61,7 +74,39 @@ const Language = styled.div`
 `;
 
 const My = styled.div`
-  cursor: pointer;
+  display:flex;
+  flex-direction:column;
+  justify-content: center; 
+  align-items:center;
+  position: relative;
+  
+  .payImg{
+    display:flex;
+    justify-content: center; 
+    align-items:center;
+    margin: auto;
+    cursor:pointer;
+    padding: 10px;
+    border-radius:8px;
+    background-color: #E64724CC;
+  }
+
+  .mouseHover {
+    display: none;
+  }
+  
+  .payImg:hover .mouseHover{
+    display: flex;
+    flex-direction: column;
+    background-color: #e2e2e2;
+    border-radius:8px;
+    padding: 10px;
+    width: 250px;
+    position: absolute;
+    bottom: -70px;
+    right: 0;
+}
+
 `;
 
 export default Gnb;

@@ -11,7 +11,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
   const [account] = useRecoilState(accountState);
 
   const [name, setName] = useState("");
-  const [postAddress, setPostAddress] = useState("");
+  const [postAddress, setPostAddress] = useState(" ");
   const [detailAddress1, setDetailAddress1] = useState("");
   const [detailAddress2, setDetailAddress2] = useState("");
   const [middleNum, setMiddleNum] = useState("");
@@ -20,6 +20,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
   const postInfo = async () => {
     let data = {
       amount: amount,
+      totalPrice: totalValue,
       details: "남관-가을축제",
       name: name,
       address: `${postAddress} ${detailAddress1} ${detailAddress2}`,
@@ -27,7 +28,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
       phone: `010${middleNum}${lastNum}`,
     };
     let result = await axios.post(
-      "https://script.google.com/macros/s/AKfycbzNSxnPTUqdnQuOYEa5PCqKJdTXjW03TFmsnXZwtZvKbtua9qkJMACXDILVP-g8X4yvtw/exec",
+      "https://script.google.com/macros/s/AKfycbwaZg_d8KRwx2aoOCbzpvCYwK-SGheCJv0xQWeOHP__cCFsa3cb03PA-VN32O1DngO0-g/exec",
       JSON.stringify(data)
     );
     console.log(result);
@@ -44,13 +45,13 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
           <img className="collectionImg" src="/collection1.png" />
           <div className="info">
             <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
-              {address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "남관" : "-"}
+              {address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "남관" : "-"}
             </div>
             <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
-              {address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "가을축제" : "-"}
+              {address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "가을축제" : "-"}
             </div>
             <div className="buyQuantity">
-              <div className="Text_Style_20">{`신청 수량 ${amount} 개`}</div>
+              <div className="Text_Style_20">{`신청 수량 ${amount} NFT`}</div>
               {/* <div className="Text_Style_21">{amount}</div> */}
             </div>
           </div>
@@ -68,54 +69,60 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
           사은품 수령을 위해 주소를 적어 주세요
         </div>
 
-        <div className="recipient">
-          <div className="Text_Style_22">수령인*</div>
-          <input
-            className="nameInput"
-            placeholder="수령인 이름"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="address">
-          <div className="Text_Style_22">배송지명*</div>
-          <input
-            className="addressInput"
-            placeholder="우편번호"
-            value={postAddress}
-            onChange={(e) => setPostAddress(e.target.value)}
-          />
-          <div className="searchCode">
-            <div className="Text_Style_25">우편번호 검색</div>
+        <div className="userInfo" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+          <div className="recipient">
+            <div className="Text_Style_22">수령인*</div>
+            <input
+              className="nameInput"
+              placeholder="수령인 이름"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
-        </div>
-        <div className="detail">
-          <input
-            className="detailInput"
-            placeholder="상세 주소 1"
-            value={detailAddress1}
-            onChange={(e) => setDetailAddress1(e.target.value)}
-          />
-          <input
-            className="detailInput"
-            placeholder="상세 주소 2"
-            value={detailAddress2}
-            onChange={(e) => setDetailAddress2(e.target.value)}
-          />
-        </div>
-        <div className="contact">
-          <div className="Text_Style_22">연락처 1*</div>
-          <input className="contactInput" />
-          <input
-            className="contactInput"
-            value={middleNum}
-            onChange={(e) => setMiddleNum(e.target.value)}
-          />
-          <input
-            className="contactInput"
-            value={lastNum}
-            onChange={(e) => setLastNum(e.target.value)}
-          />
+          <div className="address">
+            <div className="Text_Style_22" >배송지*</div>
+            <div style={{ display: "flex", gap: "0 8px" }}>
+              <input
+                className="addressInput"
+                placeholder="우편번호"
+                value={postAddress}
+                onChange={(e) => setPostAddress(e.target.value)}
+              />
+              <div className="searchCode" style={{ cursor: "not-allowed" }}>
+                <div className="Text_Style_25" >우편번호 검색</div>
+              </div>
+            </div>
+          </div>
+          <div className="detail">
+            <input
+              className="detailInput"
+              placeholder="상세 주소 1"
+              value={detailAddress1}
+              onChange={(e) => setDetailAddress1(e.target.value)}
+            />
+            <input
+              className="detailInput"
+              placeholder="상세 주소 2"
+              value={detailAddress2}
+              onChange={(e) => setDetailAddress2(e.target.value)}
+            />
+          </div>
+          <div className="contact">
+            <div className="Text_Style_22">연락처*</div>
+            <div style={{ display: "flex", gap: "0 15px" }}>
+              <input className="contactInput" />
+              <input
+                className="contactInput"
+                value={middleNum}
+                onChange={(e) => setMiddleNum(e.target.value)}
+              />
+              <input
+                className="contactInput"
+                value={lastNum}
+                onChange={(e) => setLastNum(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
         {(name && postAddress && detailAddress1 && detailAddress2 && middleNum && lastNum) ?
           <Link to={{
@@ -228,7 +235,6 @@ const Contents = styled.div`
     display: flex;
     align-items: center;
     margin: 15px 0px;
-    gap: 8px;
     .addressInput {
       width: 195px;
       height: 72px;

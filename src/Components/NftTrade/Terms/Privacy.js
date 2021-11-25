@@ -29,6 +29,7 @@ function Privacy({ setPrivacyModal, nftMethods, inputValue }) {
         <AgreeButtonWrapper>
           <AgreeButton
             className="Text_Style_4"
+            style={{ cursor: "pointer" }}
             onClick={() =>
               //  nftMethods.buy(inputValue)
               setPrivacyModal(false)

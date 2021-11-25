@@ -137,7 +137,7 @@ function NftTrade() {
     let result = [
       {
         tokenId: nftInformation.collection.tokenId,
-        address: nftInformation.collection.token,
+        address: "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682",
         quantity: 100000,
         sold: nftInformation.collection.SOLD,
         inventory: totalSupply,
@@ -241,8 +241,8 @@ function NftTrade() {
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
-          <div className="title">{`작품명 : ${nftInfo[0].address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "가을축제" : "-"}`}</div>
-          <div className="artist">{`작가명 : ${nftInfo[0].address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "남관" : "-"}`}</div>
+          <div className="title">{`작품명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "가을축제" : "-"}`}</div>
+          <div className="artist">{`작가명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "남관" : "-"}`}</div>
         </Header>
 
         <Info1>
@@ -281,7 +281,7 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">{`${nftInfo[0].address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? "ArtB" : "-"}`}</div>
+              <div className="name">{`${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "ArtB" : "-"}`}</div>
             </div>
             <div className="right">
               <div className="rest">
@@ -333,7 +333,7 @@ function NftTrade() {
           <div className="info">
             <div className="price">
               <div className="won">
-                {`￦ ${nftInfo[0].address === "0x3b97D5c76311A57C56F8aDF043089823B8bb763a" ? Number("45000").toLocaleString() : "-"}`}
+                {`￦ ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? Number("45000").toLocaleString() : "-"}`}
                 {/* ￦{Number(data.price).toLocaleString()} */}
               </div>{" "}
               {/* FIX ME */}
@@ -697,14 +697,14 @@ function NftTrade() {
                 <div className="info">
                   <div className="title">Contract</div>
                   <div className="detail">
-                    0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9
+                    0x31B8696aa951771565EEcC9afBEB6F7eD87e2682
                   </div>
                 </div>
                 <div className="info">
                   <div className="title">카테고리</div>
                   <div className="detail">남관_가을축제_저작권</div>
                 </div>
-                <div className="info">
+                {/* <div className="info">
                   <div className="title">작품관리번호</div>
                   <div className="detail">
                     0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
@@ -715,7 +715,7 @@ function NftTrade() {
                   <div className="detail">
                     0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
                   </div>
-                </div>
+                </div> */}
                 <div className="info">
                   {/* <div className="title">설명</div> */}
                   {/* <div className="detail">
