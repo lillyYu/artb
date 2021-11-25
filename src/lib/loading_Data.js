@@ -3,11 +3,11 @@
 export const COPYRIGHT_DATA = [{
     name: "가을축제",
     writer: "남관",
-    term: "2021.09.26 12:00 ~ 2021.12.30 24:00",
+    term: "2021.11.25 15:00 ~ 2021.12.24 00:00",
     seller: "ArtB",
-    price: "10000",
+    price: "45000",
     totalQuantity: "100,000",
-    remainQuantity: "80,000",
+    remainQuantity: "40,000",
     abcTokenValue: "300"
 },
 {

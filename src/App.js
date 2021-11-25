@@ -6,8 +6,7 @@ import PayCoin from "./Components/NftTrade/Payment/coin";
 import PayCash from "./Components/NftTrade/Payment/cash";
 import Footer from "./Components/Footer";
 import MyNFT from "./Components/Gnb/myNFT";
-import TermsOfUse from "./Components/NftTrade/Terms/TermsOfUse";
-import Privacy from "./Components/NftTrade/Terms/Privacy";
+
 /* Libraries */
 import styled from "styled-components";
 import { Route, Switch } from "react-router-dom";
