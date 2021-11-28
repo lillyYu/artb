@@ -223,8 +223,6 @@ function NftTrade() {
     loadNftInfo();
   }, []);
 
-  console.log(nftInfo);
-
   return (
     <Container>
       <Contents>
@@ -317,7 +315,10 @@ function NftTrade() {
             </div>
             <div className="right">
               <div className="rest">
-                {Number(nftInfo[0].inventory - 60000).toLocaleString()} NFT/
+                {nftInfo[0].inventory != 0
+                  ? Number(nftInfo[0].inventory - 60000).toLocaleString()
+                  : 0}{" "}
+                NFT/
               </div>
               <div className="total">
                 {Number(nftInfo[0].quantity).toLocaleString()} NFT
