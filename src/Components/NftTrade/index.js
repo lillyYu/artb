@@ -41,6 +41,7 @@ function NftTrade() {
   const [termsModal, setTermsModal] = useState(false);
   const [privacyModal, setPrivacyModal] = useState(false);
   const [inputValue, setInputValue] = useState(undefined);
+  const [midValue, setMidValue] = useState(undefined);
   const [totalValue, setTotalValue] = useState(undefined);
   const [isArtB, setIsArtB] = useState(false); //아트비구매 클릭시
   const [buyButton, setBuyButton] = useState(false);
@@ -70,14 +71,12 @@ function NftTrade() {
       is_active: true,
       price: "0",
       payTokenAddress: "0x00",
-
     },
   ]);
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);
   const [account, setAccount] = useRecoilState(accountState);
-
 
   /* SETTING INSTANCE */
   const ABC_TOKEN_INFO = require("../../lib/contracts/ABCToken.json");
@@ -92,7 +91,8 @@ function NftTrade() {
   const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[1].address;
 
   const ARTB_COLLECTION_SELLER_ABI = ARTB_COLLECTION_SELLER_INFO.abi;
-  const ARTB_COLLECTION_SELLER_ADDRESS = ARTB_COLLECTION_SELLER_INFO.networks[4].address;
+  const ARTB_COLLECTION_SELLER_ADDRESS =
+    ARTB_COLLECTION_SELLER_INFO.networks[4].address;
 
   /* READ CONTRACT */
   // abc abi -> allowance, name, symbol, totalSupply
@@ -105,8 +105,14 @@ function NftTrade() {
 
   const loadUserInfo = async () => {
     let result = {};
-    const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI);
-    let allowance = await ABC_TOKEN_INSTANCE.methods.allowance(account, ARTB_COLLECTION_SELLER_ADDRESS).call();
+    const ABC_TOKEN_INSTANCE = createContractInstance(
+      web3_R.testnet,
+      ABC_TOKEN_ADDRESS,
+      ABC_TOKEN_ABI
+    );
+    let allowance = await ABC_TOKEN_INSTANCE.methods
+      .allowance(account, ARTB_COLLECTION_SELLER_ADDRESS)
+      .call();
 
     result = {
       allowance: allowance,
@@ -121,17 +127,30 @@ function NftTrade() {
 
   const loadNftInfo = async () => {
     // const ABC_TOKEN_INSTANCE = createContractInstance(web3_R.testnet, ABC_TOKEN_ADDRESS, ABC_TOKEN_ABI);
-    const SELLER_INSTANCE = createContractInstance(web3_R.testnet, ARTB_COLLECTION_SELLER_ADDRESS, ARTB_COLLECTION_SELLER_ABI);
-    const COLLECTION_INSTANCE = createContractInstance(web3_R.mainnet, ARTB_COLLECTION_ADDRESS, ARTB_COLLECTION_ABI);
+    const SELLER_INSTANCE = createContractInstance(
+      web3_R.testnet,
+      ARTB_COLLECTION_SELLER_ADDRESS,
+      ARTB_COLLECTION_SELLER_ABI
+    );
+    const COLLECTION_INSTANCE = createContractInstance(
+      web3_R.mainnet,
+      ARTB_COLLECTION_ADDRESS,
+      ARTB_COLLECTION_ABI
+    );
 
     const nftInformation = await SELLER_INSTANCE.methods.Goods("0").call();
     const artInfoUri = await COLLECTION_INSTANCE.methods.uri("0").call(); // not using for now
 
     // const totalSupply = await COLLECTION_INSTANCE.methods.totalSupply().call();
-    const totalSupply = await COLLECTION_INSTANCE.methods.balanceOf("0x6f052fc672d33061972ebe3cb0c509fba13858ff", nftInformation.collection.tokenId).call(); // FIX ME
+    const totalSupply = await COLLECTION_INSTANCE.methods
+      .balanceOf(
+        "0x6f052fc672d33061972ebe3cb0c509fba13858ff",
+        nftInformation.collection.tokenId
+      )
+      .call(); // FIX ME
     // const remainedNFT = await COLLECTION_INSTANCE.methods.balanceOf(ARTB_COLLECTION_ADDRESS, nftInformation.collection.tokenId).call();
 
-    console.log("totalSupply", totalSupply)
+    console.log("totalSupply", totalSupply);
     // console.log("remainedNFT", remainedNFT)
 
     let result = [
@@ -204,20 +223,20 @@ function NftTrade() {
     loadNftInfo();
   }, []);
 
-  console.log(nftInfo)
+  console.log(nftInfo);
 
   return (
     <Container>
       <Contents>
         <Header>
           <HashLink to={"/"}>
-            <div className="back" onClick={() => {
-              setBuyButton(false)
-              setCheck1(false)
-              setCheck2(false)
-            }
-            }
-
+            <div
+              className="back"
+              onClick={() => {
+                setBuyButton(false);
+                setCheck1(false);
+                setCheck2(false);
+              }}
             >
               {buyButton ? "< 이전 페이지로 돌아가기" : ""}
             </div>
@@ -241,8 +260,16 @@ function NftTrade() {
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
-          <div className="title">{`작품명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "가을축제" : "-"}`}</div>
-          <div className="artist">{`작가명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "남관" : "-"}`}</div>
+          <div className="title">{`작품명 : ${
+            nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+              ? "가을축제"
+              : "-"
+          }`}</div>
+          <div className="artist">{`작가명 : ${
+            nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+              ? "남관"
+              : "-"
+          }`}</div>
         </Header>
 
         <Info1>
@@ -281,7 +308,12 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">{`${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? "ArtB" : "-"}`}</div>
+              <div className="name">{`${
+                nftInfo[0].address ===
+                "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+                  ? "ArtB"
+                  : "-"
+              }`}</div>
             </div>
             <div className="right">
               <div className="rest">
@@ -333,7 +365,12 @@ function NftTrade() {
           <div className="info">
             <div className="price">
               <div className="won">
-                {`￦ ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682" ? Number("45000").toLocaleString() : "-"}`}
+                {`￦ ${
+                  nftInfo[0].address ===
+                  "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+                    ? Number("45000").toLocaleString()
+                    : "-"
+                }`}
                 {/* ￦{Number(data.price).toLocaleString()} */}
               </div>{" "}
               {/* FIX ME */}
@@ -368,13 +405,15 @@ function NftTrade() {
               onChange={(e) => {
                 if (Number(e.target.value) < 0) {
                   setInputValue("0");
-                } if (Number(e.target.value) > Number(nftInfo[0].inventory - 60000)) {
-                  return Number(nftInfo[0].inventory - 60000);
                 }
-
-                else {
+                if (
+                  Number(e.target.value) > Number(nftInfo[0].inventory - 60000)
+                ) {
+                  return Number(nftInfo[0].inventory - 60000);
+                } else {
                   setInputValue(e.target.value);
-                  setTotalValue(45000 * e.target.value + 15000)
+                  setMidValue(45000 * e.target.value);
+                  setTotalValue(45000 * e.target.value + 15000);
                 }
               }}
               style={{ height: "50px" }}
@@ -385,19 +424,23 @@ function NftTrade() {
           </div>
 
           <div className="restAmount">
-            <div className="left">총 결제 금액(거래 수수료 포함):</div>
+            <div className="left">총 금액:</div>
             <div className="right">
-              {(inputValue ? totalValue.toLocaleString() : "-") + "원"}
+              {(inputValue ? midValue.toLocaleString() : "-") + "원"}
             </div>
           </div>
 
           <div className="restAmount">
-            <div className="left">잔여수량:</div>
-            <div className="right">
-              {Number(nftInfo[0].inventory - 60000).toLocaleString()} NFT
-            </div>
+            <div className="left">이더리움 네트워크 수수료:</div>
+            <div className="right">15,000원</div>
           </div>
 
+          <div className="restAmount">
+            <div className="left">총 결제 금액:</div>
+            <div className="right">
+              {(inputValue ? totalValue.toLocaleString() : "-") + "원"}
+            </div>
+          </div>
 
           {!buyButton ? (
             <>
@@ -406,26 +449,31 @@ function NftTrade() {
                   className="coinButton"
                   onClick={() => {
                     if (!inputValue) {
-                      alert("수량을 기입해주시기 바랍니다.")
+                      alert("수량을 기입해주시기 바랍니다.");
                     } else if (check1 && check2) {
                       setIsArtB(true);
                       setBuyButton(!buyButton);
-                    }
-                    else alert("필수 이용약관에 동의해주시기 바랍니다.")
+                    } else alert("필수 이용약관에 동의해주시기 바랍니다.");
                   }}
-                  style={inputValue && check1 && check2 ? {} : { cursor: "not-allowed", opacity: "30%" }}
+                  style={
+                    inputValue && check1 && check2
+                      ? {}
+                      : { cursor: "not-allowed", opacity: "30%" }
+                  }
                 >
                   <img className="icon" src="buy_icon.png" />
-                  <div className="name" >구매하기</div>
+                  <div className="name">구매하기</div>
                 </div>
               </div>
               <div className="checkbox">
-                <input type="checkBox"
+                <input
+                  type="checkBox"
                   className="box"
                   onClick={() => {
-                    setCheck1(!check1)
-                    console.log(check1)
-                  }} />
+                    setCheck1(!check1);
+                    console.log(check1);
+                  }}
+                />
                 <span>Artb 이용약관 </span>
                 <span style={{ color: "red" }}>(필수)</span>
                 <img
@@ -438,12 +486,14 @@ function NftTrade() {
                 />
               </div>
               <div className="checkbox">
-                <input type="checkBox"
+                <input
+                  type="checkBox"
                   className="box"
                   onClick={() => {
-                    setCheck2(!check2)
-                    console.log(check2)
-                  }} />
+                    setCheck2(!check2);
+                    console.log(check2);
+                  }}
+                />
                 <span>Artb 개인정보 수집 및 이용약관 </span>
                 <span style={{ color: "red" }}>(필수)</span>
                 <img
@@ -478,7 +528,7 @@ function NftTrade() {
               <div
                 className="coinButton"
                 onClick={
-                  account ? () => { } : () => setWalletPopup(!walletPopup)
+                  account ? () => {} : () => setWalletPopup(!walletPopup)
                 }
                 style={
                   account
@@ -488,9 +538,7 @@ function NftTrade() {
               >
                 <div className="name">
                   {" "}
-                  {account
-                    ? "지갑연결 완료"
-                    : "지갑연결"}
+                  {account ? "지갑연결 완료" : "지갑연결"}
                 </div>
               </div>
 
@@ -499,12 +547,12 @@ function NftTrade() {
                 onClick={
                   account
                     ? () => {
-                      setTransferPopup(!transferPopup);
-                      window.scrollTo(0, 0);
-                    }
+                        setTransferPopup(!transferPopup);
+                        window.scrollTo(0, 0);
+                      }
                     : () => {
-                      alert("먼저 지갑을 연결해주시기 바랍니다.");
-                    }
+                        alert("먼저 지갑을 연결해주시기 바랍니다.");
+                      }
                 }
                 style={
                   !account
@@ -515,7 +563,12 @@ function NftTrade() {
                 <div className="name">계좌 이체로 구매</div>
               </div>
               {transferPopup ? (
-                <AccountTransferPopup setTransferPopup={setTransferPopup} amount={inputValue} totalValue={totalValue} address={nftInfo[0].address} />
+                <AccountTransferPopup
+                  setTransferPopup={setTransferPopup}
+                  amount={inputValue}
+                  totalValue={totalValue}
+                  address={nftInfo[0].address}
+                />
               ) : null}
 
               <div
@@ -672,9 +725,9 @@ function NftTrade() {
               style={
                 toggle1Open
                   ? {
-                    border: "1px solid rgba(226, 226, 226, 0.7)",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                  }
+                      border: "1px solid rgba(226, 226, 226, 0.7)",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                    }
                   : {}
               }
             >
@@ -781,7 +834,7 @@ function NftTrade() {
           </Toggle2>
         )} */}
       </Contents>
-    </Container >
+    </Container>
   );
 }
 
