@@ -41,7 +41,7 @@ function NftTrade() {
   const [check2, setCheck2] = useState(false);
   const [termsModal, setTermsModal] = useState(false);
   const [privacyModal, setPrivacyModal] = useState(false);
-  const [inputValue, setInputValue] = useState(undefined);
+  const [inputValue, setInputValue] = useState(0);
   const [midValue, setMidValue] = useState(undefined);
   const [totalValue, setTotalValue] = useState(undefined);
   const [isArtB, setIsArtB] = useState(false); //아트비구매 클릭시
@@ -402,7 +402,6 @@ function NftTrade() {
               placeholder="구매할 수량을 입력해주세요"
               value={inputValue}
               onChange={(e) => {
-                console.log("inputValue", inputValue)
                 if (Number(e.target.value) < 0) {
                   setInputValue("0");
                 }
@@ -440,7 +439,7 @@ function NftTrade() {
             </div>
           </div>
 
-          {(!account && !buyButton) ? (
+          {(!buyButton) ? (
             <>
               <div className="buttons">
                 <div
@@ -542,17 +541,28 @@ function NftTrade() {
 
               <div
                 className="coinButton"
-                onClick={
+                onClick={() => {
+                  if (!inputValue || inputValue < 1) {
+                    alert("수량을 기입해주시기 바랍니다.");
+                  } else if (!account) {
+                    alert("지갑연결이 필요합니다")
+                  } else {
+                    setTransferPopup(!transferPopup);
+                    window.scrollTo(0, 0);
+                  };
+                }}
 
-                  account
-                    ? () => {
-                      setTransferPopup(!transferPopup);
-                      window.scrollTo(0, 0);
-                    }
-                    : () => {
-                      alert("먼저 지갑을 연결해주시기 바랍니다.");
-                    }
-                }
+                // onClick={
+                //   account
+                //     ? () => {
+                //       setTransferPopup(!transferPopup);
+                //       window.scrollTo(0, 0);
+                //     }
+                //     : () => {
+                //       alert("먼저 지갑을 연결해주시기 바랍니다.");
+
+                //     }
+                // }
                 style={
                   !account
                     ? { cursor: "not-allowed", opacity: "30%" }
@@ -574,7 +584,7 @@ function NftTrade() {
               </div>
             </div>
           )}
-
+          {console.log("input", inputValue)}
           {/* {!isArtB ?
             <div className="buttons">
               <div
