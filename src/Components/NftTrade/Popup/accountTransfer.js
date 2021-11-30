@@ -81,7 +81,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
           </div>
           <div className="address">
             <div className="Text_Style_22" >배송지*</div>
-            <div style={{ display: "flex", gap: "0 8px" }}>
+            <div style={{ display: "flex", gap: "0 8px", width: "433px" }}>
               <input
                 className="addressInput"
                 placeholder="우편번호"
@@ -109,7 +109,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
           </div>
           <div className="contact">
             <div className="Text_Style_22">연락처*</div>
-            <div style={{ display: "flex", gap: "0 15px" }}>
+            <div style={{ display: "flex", gap: "0 15px", width: "433px", justifyContent: "space-between" }}>
               <input className="contactInput" />
               <input
                 className="contactInput"
@@ -243,7 +243,7 @@ const Contents = styled.div`
     align-items: center;
     gap:20px;
     .addressInput {
-      width: 173.5px;
+      width:48%;
       height: 72px;
       font-size: 24px;
       padding-left: 27px;
@@ -267,7 +267,7 @@ const Contents = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 220px;
+      width: 48%;
       height: 74px;
       background-color: #e64724;
       border-radius: 4px;
@@ -279,8 +279,9 @@ const Contents = styled.div`
     flex-direction: column;
     align-items: flex-end;
     gap: 20px;
+    width:400px;
     .detailInput {
-      width: 400px;
+      width: 100%;
       height: 72px;
       font-size: 24px;
       padding-left: 27px;
@@ -307,8 +308,9 @@ const Contents = styled.div`
     justify-content: space-between;
     margin-bottom: 60px;
     gap:20px;
+
     .contactInput {
-      width: 101.5px;
+      width:30%;
       height: 72px;
       font-size: 24px;
       padding-left: 27px;
