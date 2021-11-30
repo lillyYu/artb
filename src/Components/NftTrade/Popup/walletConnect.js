@@ -15,7 +15,7 @@ import {
   requireNetworkState,
 } from "../../../store/web3";
 
-function WalletConnect({ setWalletPopup }) {
+function WalletConnect({ setWalletPopup, setBuyButton }) {
   const [web3, setWeb3] = useRecoilState(web3State);
   const [provider, setProvider] = useRecoilState(providerState);
   const [account, setAccount] = useRecoilState(accountState);
@@ -141,6 +141,7 @@ function WalletConnect({ setWalletPopup }) {
             if (account) {
               await alert("지갑이 연결됐습니다.");
               await setWalletPopup(false);
+
             } else {
               await connect();
               await setWalletPopup(false);

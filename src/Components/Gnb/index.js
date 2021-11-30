@@ -4,33 +4,63 @@
 /* Libraries */
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import { HashLink } from "react-router-hash-link";
-import { useRecoilState } from "recoil";
-// import MyNFT from "./myNFT";
-function Gnb() {
+// import { HashLink } from "react-router-hash-link";
 
+import { useRecoilState } from "recoil";
+import WalletConnect from "./mypageWalletPopup";
+import { Route, Link } from 'react-router-dom';
+import MyNFT from "./myNFT";
+import {
+  web3State,
+  accountState,
+
+} from "../../store/web3";
+function Gnb() {
+  const [web3, setWeb3] = useRecoilState(web3State);
+  const [account, setAccount] = useRecoilState(accountState);
+  const [mypageWallet, setMypageWallet] = useState(false)
   return (
     <Container>
       <div onClick={() => { window.location.href = "/" }} >
         <img src="/gnb_logo.png" style={{ width: "162px", height: "56px", cursor: "pointer" }} />
       </div>
+      {mypageWallet ? <WalletConnect setMypageWallet={setMypageWallet} /> : null}
       <Setting>
         {/* <Language>KR</Language> */}
+        {account ?
+          <Link
+            to={{
+              pathname: "/mypage",
 
-        <My>
-          <div className="payImg">
+            }}
+
+          >
             <img
-              src="/detail_pay.png"
-              style={{ width: "30px", height: "30px" }}
+              src="/Union2.png"
+              style={{ width: "50px", height: "50px" }}
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
             />
-            <div className="mouseHover">
+          </Link>
+          :
+          <My>
+            <div className="payImg">
+              <img
+                src="/detail_pay.png"
+                style={{ width: "30px", height: "30px" }}
+                onClick={() => {
+                  setMypageWallet(!mypageWallet)
+                }}
+              />
+              {/* <div className="mouseHover">
               <div>입금 계좌 :</div>
               <div>301-0295-5774-33</div>
               <div>농협은행 예금주 : 아트비글로벌(주)</div>
+            </div> */}
             </div>
-          </div>
-        </My>
-
+          </My>
+        }
         {/* <img
           src="/detail_pay.png"
           style={{ width: "56px", height: "56px", color: "rgba(230, 71, 36, 0.8)", cursor: "pointer" }}
@@ -76,7 +106,7 @@ const Language = styled.div`
 const My = styled.div`
   display:flex;
   flex-direction:column;
-  justify-content: center; 
+  /* justify-content: flex-end;  */
   align-items:center;
   position: relative;
   
@@ -91,7 +121,7 @@ const My = styled.div`
     background-color: #E64724CC;
   }
 
-  .mouseHover {
+  /* .mouseHover {
     display: none;
   }
   
@@ -104,8 +134,8 @@ const My = styled.div`
     width: 250px;
     position: absolute;
     bottom: -70px;
-    right: 0;
-}
+    right: 0; */
+
 
 `;
 

@@ -1,20 +1,38 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { HashLink } from "react-router-hash-link";
+import { useRecoilState } from "recoil";
+import { Route, Link } from 'react-router-dom';
+import {
+  web3State,
+  accountState,
 
-function MyNFT() {
+} from "../../store/web3";
+
+function MyNFT({ }) {
   const [transterState, setTransferState] = useState(false); //입금상태에 따라 전송완료 혹은 입금확인중
+  const [account, setAccount] = useRecoilState(accountState);
+
   return (
     <Container className="Container">
       <Contents>
+        <Link to={{
+          pathname: "/",
+
+        }}>
+
+          <div className="back">
+            {"< 이전 페이지로 돌아가기"}
+          </div>
+        </Link>
         <div className="hello">
           <img className="unionImg" src="/Union.png" />
-          <div className="Text_Style_35">OOO님, 안녕하세요!</div>
+          <div className="Text_Style_35">회원님, 안녕하세요!</div>
         </div>
-        <div className="buttonWrapper">
+        {/* <div className="buttonWrapper">
           <img className="icon" src="/buy_icon.png" />
           <div className="button">내 메타마스크 지갑열기</div>
-        </div>
+        </div> */}
         <div className="owner">
           <img className="dot" src="/dot.png" />
           <div className="Text_Style_36">소유권</div>
@@ -24,25 +42,27 @@ function MyNFT() {
           <img className="collectionImg" src="/collection1.png" />
           <div className="info">
             <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
-              작가명
+              남관
             </div>
+
             <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
-              작품명 작품명 작품명
+              가을축제
             </div>
             <div className="buyQuantity">
               <div className="Text_Style_20"> 구매 갯수 </div>
               <div className="Text_Style_21">4</div>
+
             </div>
           </div>
-          <div className="rightContainer">
-            <div className="complete">
+          {/* <div className="rightContainer"> */}
+          {/* <div className="complete">
               <div className="Text_Style_20">전송완료</div>
-            </div>
-            <div className="Text_Style_34">120,000</div>
-          </div>
+            </div> */}
+          {/* <div className="Text_Style_34">120,000</div> */}
+          {/* </div> */}
         </div>
         <div className="line"></div>
-        <div className="top">
+        {/* <div className="top">
           <img className="collectionImg" src="/collection1.png" />
           <div className="info">
             <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
@@ -57,18 +77,20 @@ function MyNFT() {
             </div>
           </div>
           <div className="rightContainer">
-            <div className="complete">
+            {/* <div className="complete">
               <div className="Text_Style_20">입금확인중</div>
-            </div>
-            <div className="Text_Style_34">120,000</div>
+            </div> */}
+        {/* <div className="Text_Style_34">120,000</div>
           </div>
-        </div>
-        <div className="line"></div>
-        <HashLink to={"/payment/coin"}>
-          <div className="confirmDepositCode">
-            <div>입금계좌 확인하러 가기</div>
+        </div> */}
+        {/* <div className="line"></div> */}
+        <Link to={{
+          pathname: "/mypage/check",
+        }}>
+          <div className="confirmDepositCode" onClick={() => { window.scrollTo(0, 0); }}>
+            <div>입금계좌 확인하기</div>
           </div>
-        </HashLink>
+        </Link>
       </Contents>
     </Container>
   );
@@ -93,11 +115,18 @@ const Contents = styled.div`
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  .back {
+    font-weight: 500;
+    font-size: 20px;
+    color: #eb4632;
+    cursor: pointer;
+padding:35px 70px;
 
+  }
   .hello {
     display: flex;
     justify-content: center;
-    margin-top: 70px;
+    margin: 70px 0;
     .unionImg {
       width: 31px;
       height: 35px;
@@ -184,6 +213,9 @@ const Contents = styled.div`
     font-weight: 900;
     cursor: pointer;
     margin: 80px 0;
+
+    text-decoration: none;
+
   }
 `;
 export default MyNFT;

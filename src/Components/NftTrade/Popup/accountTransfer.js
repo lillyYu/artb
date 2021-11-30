@@ -31,7 +31,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
       "https://script.google.com/macros/s/AKfycbwaZg_d8KRwx2aoOCbzpvCYwK-SGheCJv0xQWeOHP__cCFsa3cb03PA-VN32O1DngO0-g/exec",
       JSON.stringify(data)
     );
-    console.log(result);
+    console.log(totalValue);
   };
 
   return (
@@ -133,14 +133,16 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
             }
           }}>
             <div className="button"
-              onClick={postInfo}>
+              onClick={() => {
+                postInfo()
+                window.scrollTo(0, 0);
+              }}>
               <div className="Text_Style_26">결제하기</div>
             </div>
           </Link>
           : <div className="button"
             onClick={() => { alert("필수 항목을 전부 입력해주시기 바랍니다.") }
             }>
-
             <div className="Text_Style_26">결제하기</div>
           </div>
         }

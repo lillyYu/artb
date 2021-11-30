@@ -23,9 +23,10 @@ import {
 } from "../../store/web3";
 import { web3ReaderState } from "../../store/read-web3";
 
+//이용약관
 import TermsOfUse from "./Terms/TermsOfUse";
 import Privacy from "./Terms/Privacy";
-
+//팝업
 import WalletConnect from "./Popup/walletConnect";
 import CreditcardPopup from "./Popup/creditCard";
 import AccountTransferPopup from "./Popup/accountTransfer";
@@ -150,7 +151,7 @@ function NftTrade() {
       .call(); // FIX ME
     // const remainedNFT = await COLLECTION_INSTANCE.methods.balanceOf(ARTB_COLLECTION_ADDRESS, nftInformation.collection.tokenId).call();
 
-    console.log("totalSupply", totalSupply);
+
     // console.log("remainedNFT", remainedNFT)
 
     let result = [
@@ -222,9 +223,10 @@ function NftTrade() {
   useEffect(() => {
     loadNftInfo();
   }, []);
-
+  console.log("buyButton", buyButton)
   return (
     <Container>
+
       <Contents>
         <Header>
           <HashLink to={"/"}>
@@ -258,16 +260,14 @@ function NftTrade() {
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
-          <div className="title">{`작품명 : ${
-            nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-              ? "가을축제"
-              : "-"
-          }`}</div>
-          <div className="artist">{`작가명 : ${
-            nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-              ? "남관"
-              : "-"
-          }`}</div>
+          <div className="title">{`작품명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+            ? "가을축제"
+            : "-"
+            }`}</div>
+          <div className="artist">{`작가명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+            ? "남관"
+            : "-"
+            }`}</div>
         </Header>
 
         <Info1>
@@ -306,12 +306,11 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">{`${
-                nftInfo[0].address ===
+              <div className="name">{`${nftInfo[0].address ===
                 "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-                  ? "ArtB"
-                  : "-"
-              }`}</div>
+                ? "ArtB"
+                : "-"
+                }`}</div>
             </div>
             <div className="right">
               <div className="rest">
@@ -366,12 +365,11 @@ function NftTrade() {
           <div className="info">
             <div className="price">
               <div className="won">
-                {`￦ ${
-                  nftInfo[0].address ===
+                {`￦ ${nftInfo[0].address ===
                   "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-                    ? Number("45000").toLocaleString()
-                    : "-"
-                }`}
+                  ? Number("45000").toLocaleString()
+                  : "-"
+                  }`}
                 {/* ￦{Number(data.price).toLocaleString()} */}
               </div>{" "}
               {/* FIX ME */}
@@ -404,17 +402,16 @@ function NftTrade() {
               placeholder="구매할 수량을 입력해주세요"
               value={inputValue}
               onChange={(e) => {
+                console.log("inputValue", inputValue)
                 if (Number(e.target.value) < 0) {
                   setInputValue("0");
                 }
-                if (
-                  Number(e.target.value) > Number(nftInfo[0].inventory - 60000)
-                ) {
-                  return Number(nftInfo[0].inventory - 60000);
+                if (Number(e.target.value) > Number(nftInfo[0].inventory - 60000)) {
+                  setInputValue(Number(nftInfo[0].inventory - 60000));
                 } else {
-                  setInputValue(e.target.value);
                   setMidValue(45000 * e.target.value);
                   setTotalValue(45000 * e.target.value + 15000);
+                  setInputValue(e.target.value);
                 }
               }}
               style={{ height: "50px" }}
@@ -443,7 +440,7 @@ function NftTrade() {
             </div>
           </div>
 
-          {!buyButton ? (
+          {(!account && !buyButton) ? (
             <>
               <div className="buttons">
                 <div
@@ -523,13 +520,11 @@ function NftTrade() {
             </>
           ) : (
             <div className="buttons">
-              {walletPopup ? (
-                <WalletConnect setWalletPopup={setWalletPopup} />
-              ) : null}
+
               <div
                 className="coinButton"
                 onClick={
-                  account ? () => {} : () => setWalletPopup(!walletPopup)
+                  account ? () => { } : () => setWalletPopup(!walletPopup)
                 }
                 style={
                   account
@@ -548,12 +543,12 @@ function NftTrade() {
                 onClick={
                   account
                     ? () => {
-                        setTransferPopup(!transferPopup);
-                        window.scrollTo(0, 0);
-                      }
+                      setTransferPopup(!transferPopup);
+                      window.scrollTo(0, 0);
+                    }
                     : () => {
-                        alert("먼저 지갑을 연결해주시기 바랍니다.");
-                      }
+                      alert("먼저 지갑을 연결해주시기 바랍니다.");
+                    }
                 }
                 style={
                   !account
@@ -581,11 +576,9 @@ function NftTrade() {
               >
                 <div className="name">카드 결제로 구매</div>
               </div>
-              {creditcardPopup ? (
-                <CreditcardPopup setCreditcardPopup={setCreditcardPopup} />
-              ) : null}
             </div>
           )}
+
           {/* {!isArtB ?
             <div className="buttons">
               <div
@@ -726,9 +719,9 @@ function NftTrade() {
               style={
                 toggle1Open
                   ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
+                    border: "1px solid rgba(226, 226, 226, 0.7)",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+                  }
                   : {}
               }
             >
@@ -835,6 +828,12 @@ function NftTrade() {
           </Toggle2>
         )} */}
       </Contents>
+      {creditcardPopup ? (
+        <CreditcardPopup setCreditcardPopup={setCreditcardPopup} />
+      ) : null}
+      {walletPopup ? (
+        <WalletConnect setWalletPopup={setWalletPopup} setBuyButton={setBuyButton} />
+      ) : null}
     </Container>
   );
 }
