@@ -502,21 +502,23 @@ function NftTrade() {
                     window.scrollTo(0, 0);
                   }}
                 />
+                {termsModal ? (
+                  <TermsOfUse
+                    setTermsModal={setTermsModal}
+                    nftMethods={nftMethods}
+                    inputValue={inputValue}
+                  />
+                ) : null}
+                {privacyModal ? (
+                  <Privacy
+                    setPrivacyModal={setPrivacyModal}
+                    nftMethods={nftMethods}
+                    inputValue={inputValue}
+                  />
+                ) : null}
               </div>
-              {termsModal ? (
-                <TermsOfUse
-                  setTermsModal={setTermsModal}
-                  nftMethods={nftMethods}
-                  inputValue={inputValue}
-                />
-              ) : null}
-              {privacyModal ? (
-                <Privacy
-                  setPrivacyModal={setPrivacyModal}
-                  nftMethods={nftMethods}
-                  inputValue={inputValue}
-                />
-              ) : null}
+
+
             </>
           ) : (
             <div className="buttons">
@@ -541,6 +543,7 @@ function NftTrade() {
               <div
                 className="coinButton"
                 onClick={
+
                   account
                     ? () => {
                       setTransferPopup(!transferPopup);
@@ -558,14 +561,7 @@ function NftTrade() {
               >
                 <div className="name">계좌 이체로 구매</div>
               </div>
-              {transferPopup ? (
-                <AccountTransferPopup
-                  setTransferPopup={setTransferPopup}
-                  amount={inputValue}
-                  totalValue={totalValue}
-                  address={nftInfo[0].address}
-                />
-              ) : null}
+
 
               <div
                 className="coinButton"
@@ -828,6 +824,14 @@ function NftTrade() {
           </Toggle2>
         )} */}
       </Contents>
+      {transferPopup ? (
+        <AccountTransferPopup
+          setTransferPopup={setTransferPopup}
+          amount={inputValue}
+          totalValue={totalValue}
+          address={nftInfo[0].address}
+        />
+      ) : null}
       {creditcardPopup ? (
         <CreditcardPopup setCreditcardPopup={setCreditcardPopup} />
       ) : null}
