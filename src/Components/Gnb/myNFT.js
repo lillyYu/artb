@@ -90,6 +90,7 @@ function MyNFT({ }) {
               </div>
               <div className="buyQuantity">
                 <div className="Text_Style_20"> 구매 갯수 </div>
+                {/* <div className="Text_Style_21" style={{ marginLeft: "15px" }}>{`${balanceAmount} NFT`}</div> */}
                 <div className="Text_Style_21" style={{ marginLeft: "15px" }}>{`${balanceAmount} NFT`}</div>
 
               </div>

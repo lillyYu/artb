@@ -69,7 +69,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
           사은품 수령을 위해 주소를 적어 주세요
         </div>
 
-        <div className="userInfo" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+        <div className="userInfo" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "20px" }}>
           <div className="recipient">
             <div className="Text_Style_22">수령인*</div>
             <input
@@ -210,6 +210,7 @@ const Contents = styled.div`
     margin-top: 70px;
     justify-content: space-between;
     align-items: center;
+    gap:10px;
 
     .nameInput {
       width: 425px;
@@ -236,7 +237,7 @@ const Contents = styled.div`
   .address {
     display: flex;
     align-items: center;
-    margin: 15px 0px;
+    gap:10px;
     .addressInput {
       width: 195px;
       height: 72px;
@@ -273,7 +274,7 @@ const Contents = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 15px;
+    gap: 20px;
     .detailInput {
       width: 425px;
       height: 72px;
@@ -300,7 +301,8 @@ const Contents = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 15px 0px 60px 0px;
+    margin-bottom: 60px;
+    gap:10px;
     .contactInput {
       width: 110px;
       height: 72px;
