@@ -9,9 +9,47 @@ import {
 
 } from "../../store/web3";
 
+import { web3ReaderState } from "../../store/read-web3";
+
+import { createContractInstance } from "../../lib/Station";
+
 function MyNFT({ }) {
   const [transterState, setTransferState] = useState(false); //입금상태에 따라 전송완료 혹은 입금확인중
+  const [balanceAmount, setBalanceAmount] = useState("0")
+
+
+  const [web3, setWeb3] = useRecoilState(web3State);
+  const [web3_R] = useRecoilState(web3ReaderState);
   const [account, setAccount] = useRecoilState(accountState);
+  console.log("account", account)
+
+
+  const ARTB_COLLECTION_INFO = require("../../lib/contracts/ArtbCollection.json");
+
+  const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
+  const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[1].address;
+
+  const loadAmount = async () => {
+
+    const COLLECTION_INSTANCE = createContractInstance(
+      web3_R.mainnet,
+      ARTB_COLLECTION_ADDRESS,
+      ARTB_COLLECTION_ABI
+    );
+
+    const balance = await COLLECTION_INSTANCE.methods.balanceOf(account, "0").call()
+
+    setBalanceAmount(balance)
+
+  }
+
+  useEffect(() => {
+    if (account) {
+      loadAmount();
+    }
+  }, [account]);
+
+  // console.log("balanceAmount", balanceAmount)
 
   return (
     <Container className="Container">
@@ -35,32 +73,35 @@ function MyNFT({ }) {
         </div> */}
         <div className="owner">
           <img className="dot" src="/dot.png" />
-          <div className="Text_Style_36">소유권</div>
+          <div className="Text_Style_36">회원님의 소유권</div>
         </div>
+        {balanceAmount == "0" ?
+          <div className="top Text_Style_36" style={{ marginTop: "25px", opacity: "50%" }}>보유 중인 NFT가 없습니다.</div>
+          :
+          <div className="top">
+            <img className="collectionImg" src="/collection1.png" />
+            <div className="info">
+              <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
+                남관
+              </div>
 
-        <div className="top">
-          <img className="collectionImg" src="/collection1.png" />
-          <div className="info">
-            <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
-              남관
-            </div>
+              <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
+                가을축제
+              </div>
+              <div className="buyQuantity">
+                <div className="Text_Style_20"> 구매 갯수 </div>
+                <div className="Text_Style_21" style={{ marginLeft: "15px" }}>{`${balanceAmount} NFT`}</div>
 
-            <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
-              가을축제
+              </div>
             </div>
-            <div className="buyQuantity">
-              <div className="Text_Style_20"> 구매 갯수 </div>
-              <div className="Text_Style_21">4</div>
-
-            </div>
-          </div>
-          {/* <div className="rightContainer"> */}
-          {/* <div className="complete">
+            {/* <div className="rightContainer"> */}
+            {/* <div className="complete">
               <div className="Text_Style_20">전송완료</div>
             </div> */}
-          {/* <div className="Text_Style_34">120,000</div> */}
-          {/* </div> */}
-        </div>
+            {/* <div className="Text_Style_34">120,000</div> */}
+            {/* </div> */}
+          </div>
+        }
         <div className="line"></div>
         {/* <div className="top">
           <img className="collectionImg" src="/collection1.png" />
