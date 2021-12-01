@@ -72,12 +72,15 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
         <div className="userInfo" >
           <div className="recipient">
             <div className="Text_Style_22">수령인*</div>
-            <input
-              className="nameInput"
-              placeholder="수령인 이름"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <div>
+
+              <input
+                className="nameInput"
+                placeholder="수령인 이름"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
           </div>
           <div className="address">
             <div className="Text_Style_22" >배송지*</div>

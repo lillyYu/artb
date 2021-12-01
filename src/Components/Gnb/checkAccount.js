@@ -5,42 +5,42 @@ import { HashLink } from "react-router-hash-link";
 
 function CheckAccount() {
 
-    // console.log("amount: ", location.state.amount)
-    // console.log("totalValue: ", location.state.totalValue)
-    return (
-        <Container className="Container">
-            <Gnb />
-            <Contents>
-                <img className="collectionImg" src="/collection1.png" />
-                <div className="Text_Style_27" style={{ padding: "0px 55px" }}>
-                    <br />
-                    아트비에 오신 여러분
-                    <br />
-                    환영 합니다.
-                </div>
-                <div className="Text_Style_28" style={{ padding: "0px 55px" }}>
-                    <br />
-                    신청하신 수량에 맞는 원화를
-                    <br />
-                    아래 계좌로 입금하시면,
-                    <br />
-                    NFT저작권이 24시간 이내로
-                    <br />
-                    구매자 지갑으로 전송됩니다.
-                </div>
-                <div className="line"></div>
-                <div className="accountInfo">
-                    <div className="Text_Style_29">입금 계좌 :</div>
-                    <div className="accountNum">
-                        <div className="Text_Style_30">301-0295-5774-33</div>
-                        {/* <div className="Text_Style_31">계좌복사하기</div> */}
-                    </div>
-                    <div className="Text_Style_29">
-                        농협은행 예금주 : 아트비글로벌(주)
-                    </div>
-                </div>
-                <div className="line"></div>
-                {/* <div className="depositInfo">
+  // console.log("amount: ", location.state.amount)
+  // console.log("totalValue: ", location.state.totalValue)
+  return (
+    <Container className="Container">
+      <Gnb />
+      <Contents>
+        <img className="collectionImg" src="/collection1.png" />
+        <div className="Text_Style_27" style={{ padding: "0px 55px" }}>
+          <br />
+          아트비에 오신 여러분
+          <br />
+          환영 합니다.
+        </div>
+        <div className="Text_Style_28" style={{ padding: "0px 55px" }}>
+          <br />
+          신청하신 수량에 맞는 원화를
+          <br />
+          아래 계좌로 입금하시면,
+          <br />
+          NFT저작권이 24시간 이내로
+          <br />
+          구매자 지갑으로 전송됩니다.
+        </div>
+        <div className="line"></div>
+        <div className="accountInfo">
+          <div className="Text_Style_29">입금 계좌 :</div>
+          <div className="accountNum">
+            <div className="Text_Style_30">317-0024-1598-21</div>
+            {/* <div className="Text_Style_31">계좌복사하기</div> */}
+          </div>
+          <div className="Text_Style_29">
+            농협은행 예금주 : 아트비글로벌(주)
+          </div>
+        </div>
+        <div className="line"></div>
+        {/* <div className="depositInfo">
           <div className="deposit">
             <div className="Text_Style_32">개당 가격</div>
             <div className="Text_Style_32">신청 수량</div>
@@ -59,14 +59,14 @@ function CheckAccount() {
           <div className="Text_Style_22">총 결제 가격</div>
           <div className="Text_Style_23">{`₩ ${(location.state.totalValue).toLocaleString()}`}</div>
         </div> */}
-                <HashLink to={"/mypage"}>
-                    <div className="buttonWrapper" style={{ cursor: "pointer" }} onClick={() => { window.scrollTo(0, 0); }}>
-                        <div className="button">마이페이지로 가기</div>
-                    </div>
-                </HashLink>
-            </Contents>
-        </Container>
-    );
+        <HashLink to={"/mypage"}>
+          <div className="buttonWrapper" style={{ cursor: "pointer" }} onClick={() => { window.scrollTo(0, 0); }}>
+            <div className="button">마이페이지로 가기</div>
+          </div>
+        </HashLink>
+      </Contents>
+    </Container>
+  );
 }
 const Container = styled.div`
   display: flex;

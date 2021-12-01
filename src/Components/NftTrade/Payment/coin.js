@@ -30,7 +30,7 @@ function Coin({ props, location }) {
         <div className="accountInfo">
           <div className="Text_Style_29">입금 계좌 :</div>
           <div className="accountNum">
-            <div className="Text_Style_30">301-0295-5774-33</div>
+            <div className="Text_Style_30">317-0024-1598-21</div>
             {/* <div className="Text_Style_31">계좌복사하기</div> */}
           </div>
           <div className="Text_Style_29">
