@@ -372,7 +372,7 @@ const Contents = styled.div`
       justify-content: center;
       align-items: center;
       width: 100%;
-      height: 74px;
+      height: 72px;
       background-color: #e64724;
       border-radius: 4px;
       cursor: pointer;
@@ -385,7 +385,7 @@ const Contents = styled.div`
       flex-direction: column;
       align-items: flex-end;
       gap: 20px;
-      width: 400px;
+      width: 430px;
       .detailInput {
         width: 100%;
         height: 72px;
