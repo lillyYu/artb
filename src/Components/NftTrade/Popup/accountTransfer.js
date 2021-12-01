@@ -379,7 +379,6 @@ const Contents = styled.div`
     }
   }
 
-
     .detail {
       display: flex;
       flex-direction: column;
