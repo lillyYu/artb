@@ -40,12 +40,12 @@ function WalletConnect({ setMypageWallet }) {
                 network: "mainnet",
                 qrcodeModalOptions: {
                     mobileLinks: [
-                        "rainbow",
+                        // "rainbow",
                         "metamask",
-                        "argent",
-                        "trust",
-                        "imtoken",
-                        "pillar",
+                        // "argent",
+                        // "trust",
+                        // "imtoken",
+                        // "pillar",
                     ],
                 },
             },
