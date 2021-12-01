@@ -84,7 +84,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
           </div>
           <div className="address">
             <div className="Text_Style_22" >배송지*</div>
-            <div style={{ display: "flex", gap: "0 8px", width: "433px" }}>
+            <div style={{ display: "flex", gap: "0 8px", width: "430px", justifyContent: "space-between" }}>
               <input
                 className="addressInput"
                 placeholder="우편번호"
@@ -112,7 +112,7 @@ function AccountTransferPopup({ setTransferPopup, amount, totalValue, address })
           </div>
           <div className="contact">
             <div className="Text_Style_22">연락처*</div>
-            <div style={{ display: "flex", gap: "0 15px", width: "433px", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", gap: "0 15px", width: "430px", justifyContent: "space-between" }}>
               <input className="contactInput" />
               <input
                 className="contactInput"
@@ -212,6 +212,12 @@ const Contents = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 20px;
+  input {
+    margin:0px;
+    box-sizing:border-box;
+    width: 430px;
+  }
+
   .recipient {
     display: flex;
     margin-top: 70px;
@@ -220,7 +226,7 @@ const Contents = styled.div`
     gap:20px;
 
     .nameInput {
-      width: 400px;
+      /* width: 400px; */
       height: 72px;
       font-size: 24px;
       padding-left: 27px;
@@ -244,9 +250,9 @@ const Contents = styled.div`
   .address {
     display: flex;
     align-items: center;
-    gap:20px;
+    gap: 0 20px;
     .addressInput {
-      width:48%;
+      /* width:48%; */
       height: 72px;
       font-size: 24px;
       padding-left: 27px;
@@ -270,7 +276,7 @@ const Contents = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 48%;
+      width: 100%;
       height: 74px;
       background-color: #e64724;
       border-radius: 4px;
@@ -282,9 +288,9 @@ const Contents = styled.div`
     flex-direction: column;
     align-items: flex-end;
     gap: 20px;
-    width:400px;
+    /* width:400px; */
     .detailInput {
-      width: 100%;
+      /* width: 100%; */
       height: 72px;
       font-size: 24px;
       padding-left: 27px;
