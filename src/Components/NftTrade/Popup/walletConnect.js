@@ -76,6 +76,13 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
 
     connectEventHandler(provider);
   }
+
+  function openAndroidMetaMaskLink() {
+    window.open('https://play.google.com/store/apps/details?id=io.metamask')
+  }
+  function openIosMetaMaskLink() {
+    window.open('https://apps.apple.com/us/app/metamask/id1438144202?_branch_match_id=875919044007830634&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz00tScxNLM7WSywo0MvJzMvWL8529DB2SnSztAQA5G46IyQAAAA%3D')
+  }
   // function getAccount() {
   //   if (text) return text;
   //   // console.log(network, requireNetwork);
@@ -123,33 +130,95 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
           <br />
           METAMASK 지갑 연결이 필요합니다
         </div>
-        <div className={"Text_Style_16"} style={{ paddingBottom: "50px" }}>
+        <div className={"Text_Style_16"} style={{
+          paddingBottom: "40px",
+          paddingLeft: "26px",
+          paddingRight: "26px"
+        }}>
           <br />왜 메타마스크가 필요한가요?
           <br />
           <br />
-          메타마스크란 개인지갑을 편리하고 안전하게 관리할수
+          메타마스크란 1천만명 이상이 사용하는 글로벌 암호화폐 지갑이며, 프라이빗 키(Private Key)를 생성해주기 때문에 여러분의 NFT를 가장 안전하게 보관할 수 있는 방법입니다.
           <br />
-          있는 암호화폐 지갑입니다. 프라이빗 키(private key)를
           <br />
-          생성해주기에 여러분의 NFT 보안을 위해 메타마스크
-          <br />
-          지갑연결이 필요합니다.
+          아래 버튼을 통해 메타마스크를 연결해주세요.
         </div>
-        <Button
-          className={"Text_Style_15"}
-          onClick={async () => {
-            if (account) {
-              await alert("지갑이 연결됐습니다.");
-              await setWalletPopup(false);
+        <div style={{
+          paddingLeft: "45px",
+          paddingRight: "45px",
+          width: "calc( 100% - 90px )"
+        }}>
+          <h1 style={{
+            fontSize: "24px",
+            fontWeight: 700,
+            paddingBottom: "14px"
+          }}>1. 메타마스크 지갑 앱 설치</h1>
+          <div style={{
+            display: "flex",
+            paddingBottom: '13px'
+          }}>
+            <Button
+                className={"Text_Style_15"}
+                style={{
+                  marginRight: "14px",
+                }}
+                onClick={() => {
+                  openAndroidMetaMaskLink();
+                }}
+            >
+              안드로이드
+            </Button>
+            <Button
+                className={"Text_Style_15"}
+                style={{
+                  marginLeft: "14px",
+                }}
+                onClick={() => {
+                  openIosMetaMaskLink();
+                }}
+            >
+              아이폰
+            </Button>
+          </div>
 
-            } else {
-              await connect();
-              await setWalletPopup(false);
-            }
-          }}
-        >
-          지갑 연결
-        </Button>
+          <div style={{
+            fontWeight: 700,
+            fontSize: '15px'
+          }}>앱 설치 및 지갑 생성 후 아래 지갑 연결 버튼을 클릭 해주세요.</div>
+
+          <div style={{
+            paddingTop: '39px'
+          }}>
+            <h1 style={{
+              fontSize: "24px",
+              fontWeight: 700,
+              paddingBottom: "14px"
+            }}>2. 메타마스크 연결</h1>
+
+            <div style={{
+              display: "flex",
+              paddingBottom: '13px'
+            }}>
+
+              <Button
+                  className={"Text_Style_15"}
+                  onClick={async () => {
+                    if (account) {
+                      await alert("지갑이 연결됐습니다.");
+                      await setWalletPopup(false);
+
+                    } else {
+                      await connect();
+                      await setWalletPopup(false);
+                    }
+                  }}
+              >
+                지갑 연결
+              </Button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </Container>
   );
@@ -176,7 +245,7 @@ const Container = styled.div`
     transform: translate(-50%, -50%);
     z-index: 2;
     width: 596px;
-    height: 536px;
+    // height: 536px;
     background-color: white;
     border-radius: 10px;
     opacity: 1;
@@ -190,9 +259,10 @@ const Container = styled.div`
 
 const Button = styled.div`
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
-  width: 443px;
+  // width: 443px;
   height: 68px;
   cursor: pointer;
   background: rgba(230, 71, 36, 0.8);
@@ -200,4 +270,5 @@ const Button = styled.div`
   border-radius: 10px;
   cursor: pointer;
 `;
+
 export default WalletConnect;
