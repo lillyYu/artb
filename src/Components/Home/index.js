@@ -11,197 +11,134 @@ import { useRecoilState } from "recoil";
 function Home() {
   return (
     <Container className="container">
-      <Contents>
-        <IntroWrapper>
-          <img src="test.png" style={{ top: "130px" }} />
-          <Intro>
-            <div className="Text_Style_5">한국 추상화의 아버지</div>
-            <div className="Text_Style_6" style={{ paddingTop: "30px" }}>
-              남관
-            </div>
-            <Bottom>
-              <Left>
-                <div className="Text_Style_7" style={{ paddingTop: "100px" }}>
-                  <br /> 총 183점의
-                  <br /> 예술품을
-                  <br /> 이제 NFT로 만나보세요
-                </div>
-                <div className="Text_Style_8" style={{ paddingTop: "30px" }}>
-                  남관 컬렉션 저작권 판매
+      <IntroWrapper>
+        <Intro>
+          <div className="Text_Style_5">한국 추상화의 아버지</div>
+          <div className="Text_Style_6" style={{ paddingTop: "30px" }}>
+            남관
+          </div>
+          <Bottom>
+            <Left>
+              <div
+                className="Text_Style_7"
+                style={{
+                  fontSize: "27px",
+                  paddingTop: "100px",
+                  width: "325px",
+                }}
+              >
+                <br />
+                <span>총 </span>
+                <span style={{ fontSize: "30px" }}>183</span>
+                <span>점의</span>
+                <br /> 예술품을
+                <br /> 이제 NFT로 만나보세요
+              </div>
+              <div className="Text_Style_8" style={{ paddingTop: "30px" }}>
+                남관 컬렉션 저작권 판매
+              </div>
+              <div
+                className="Text_Style_9"
+                style={{ padding: "15px 0px 20px 0px" }}
+              >
+                2021.09.25 - 2021.12.30
+              </div>
+              <HashLink to={"/payment"} style={{ textDecoration: "none" }}>
+                <ButtonWrapper>
+                  <DetailButton>자세히보기</DetailButton>
+                </ButtonWrapper>
+              </HashLink>
+            </Left>
+            <Right>
+              <div style={{ display: "flex" }}>
+                <div style={{ paddingBottom: "15px" }}>
+                  #ArtB 추천 저작권
                 </div>
                 <div
-                  className="Text_Style_9"
-                  style={{ padding: "15px 0px 20px 0px" }}
-                >
-                  2021.09.25 - 2021.12.30
-                </div>
-                <HashLink to={"/payment"} style={{ textDecoration: "none" }}>
-                  <ButtonWrapper>
-                    <DetailButton>자세히보기</DetailButton>
-                  </ButtonWrapper>
-                </HashLink>
-              </Left>
-              <Right>
-                <div style={{ paddingBottom: "15px" }}>
-                  {" "}
-                  #아트비가 추천 저작권
-                </div>
-                <img src="recomend_1.png" />
-              </Right>
-            </Bottom>
-          </Intro>
-        </IntroWrapper>
-
-        <RecomendWrapper>
-          <div style={{ position: "absolute", top: "130px" }}>
-            <img src="recomend.png" />
-            <Recomend>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "113px",
-                }}
-              >
-                <img src="Line_1.png" style={{ width: "79px" }} />
-              </div>
-              <div className="Text_Style_10" style={{ padding: "40px 0px" }}>
-                ArtB 추천 저작권
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  paddingLeft: "250px",
-                  overflow: "hidden",
-                }}
-              >
-                <img
-                  src="recomend_1.png"
                   style={{
-                    width: "250px",
-                    height: "350px",
-                    marginRight: "20px",
+                    display: "flex",
+                    height: "20px",
+                    alignItems: "center",
                   }}
-                />
-                <img
-                  src="recomend_1.png"
-                  style={{ width: "250px", height: "350px" }}
-                />
+                >
+                  <img
+                    src="logo.png"
+                    style={{
+                      width: "15px",
+                      height: "17px",
+                      marginLeft: "3px",
+                    }}
+                  />
+                </div>
               </div>
-              <div
-                className="Text_Style_11"
+              <img
+                src="recomend_1.png"
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "40px",
+                  width: "221px",
+                  height: "291px",
+                  boxShadow: "0px 0px 20px gray",
+                  blur: "20px",
                 }}
-              >
-                컬렉션 작품
-              </div>
-              <div
-                className="Text_Style_12"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "40px",
-                }}
-              >
-                작품명 소개
-              </div>
-              <div
-                className="Text_Style_13"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "54px 50px",
-                }}
-              >
-                세부 작품명 소개자리입니다. 이달의 작가를 소개하고 작품을
-                안내합니다. 100자 이내로 작성하고 작품이 잘 드러날 수 있는
-                콘텐츠를 작성합니다.
-              </div>
-            </Recomend>
-          </div>
-        </RecomendWrapper>
+              />
+            </Right>
+          </Bottom>
+        </Intro>
+        <Bar>
+          <img src="bar.png" />
+        </Bar>
+      </IntroWrapper>
 
-        <ProjectWrapper>
-          <P_Background src="artB_project.png" />
-        </ProjectWrapper>
-      </Contents>
+      <RecomendWrapper className="recomendWrapper">
+        <div className="topLine"></div>
+        <div className="Text_Style_10 title" >
+          ArtB 추천 저작권
+        </div>
+        <div className="recommend_images">
+          <img src="recomend_1.png" alt="" />
+          <img src="recomend_2.png" alt="" />
+        </div>
+        <div className="Text_Style_11 subTitle" >
+          컬렉션 작품
+        </div>
+        <div className="Text_Style_12 infoTitle">
+          NFT 정보
+        </div>
+        <div className="Text_Style_13 nftInfo">
+          <div>작가명 : 남관</div>
+          <div>작품명 : 가을축제</div>
+          <div>제작연도 : 1984</div>
+          <div>규격(cm) : 200x300.5</div>
+        </div>
+        {/* </Recomend> */}
+      </RecomendWrapper>
+
+      <ProjectWrapper>
+        <Background src="artB_project.png" />
+      </ProjectWrapper>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  gap: 20px 0;
   flex-direction: column;
+  margin-top: 130px;
   align-items: center;
 `;
-
-const Contents = styled.div`
-  top: 130px;
-  display: flex;
-  flex-direction: column;
-  width: 720px;
-`;
-
 const IntroWrapper = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
-  width: 720px;
-  top: 130px; ;
+  width: 100%;
+  height: 1000px;
+  background: rgba(226, 226, 226, 0.33);
 `;
 const Intro = styled.div`
-  position: absolute;
-  padding: 0px 82px;
-  top: 130px;
+  margin: 152px 82px 0 82px;
 `;
 const Bottom = styled.div`
   display: flex;
 `;
 const Left = styled.div``;
-const Right = styled.div`
-  padding-top: 110px;
-  margin-left: 25px;
-`;
-
-const RecomendWrapper = styled.div`
-  position: relative;
-`;
-
-const LineImg = styled.img`
-  display: flex;
-  justify-content: center;
-  width: 79px;
-`;
-
-const Recomend = styled.div`
-  top: 0;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 720px;
-`;
-
-const P_Background = styled.img`
-  display: flex;
-  width: 720px;
-`;
-
-const ProjectWrapper = styled.div`
-  position: absolute;
-  top: 2273px; ;
-`;
-
-const ArtBProject = styled.div`
-  background-color: #e5e5e5;
-  display: flex;
-  flex-direction: column;
-  width: 720px;
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -226,4 +163,78 @@ const DetailButton = styled.div`
   line-height: 18px;
   color: #eb4632;
 `;
+const Right = styled.div`
+  padding-top: 110px;
+  /* margin-left: 25px; */
+`;
+const Bar = styled.div`
+  bottom: 150px;
+`;
+
+
+const RecomendWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 1132px;
+  background-image: url("./recomend_bg.png");
+  align-items: center;
+
+  .topLine {
+    width: 79px;
+    height: 3px;
+    margin-top: 122px;
+    background-color: #EB4632;
+  }
+  .title {
+    padding: 40px 0px
+  }
+  .recommend_images {
+    display: flex;
+    gap: 0 20px;
+    width: -webkit-fill-available;
+    padding-left: 234px;
+    overflow: hidden;
+
+    img {
+      width: 250px;
+      height: 350px;
+      border-radius: 10px;
+    }
+  }
+  .subTitle {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+  }
+  .infoTitle {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+  }
+  .nftInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px 0;
+    justify-content: center;
+    padding: 54px 50px;
+  }
+`;
+
+
+const ProjectWrapper = styled.div`
+  margin-top: -5px;
+`;
+const Background = styled.img`
+  display: flex;
+  width: 720px;
+`;
+
+const ArtBProject = styled.div`
+  background-color: #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  width: 720px;
+`;
+
 export default Home;
