@@ -308,6 +308,7 @@ const Contents = styled.div`
   align-items: flex-end;
   gap: 20px;
   input {
+    border: solid 2px black;
     margin:0px;
     box-sizing:border-box;
     width: 430px;
