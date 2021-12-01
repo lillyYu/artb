@@ -347,7 +347,7 @@ const Contents = styled.div`
     align-items: center;
     gap: 0 20px;
     .addressInput {
-      /* width:48%; */
+      width:100%;
       height: 72px;
       font-size: 24px;
       padding-left: 27px;
