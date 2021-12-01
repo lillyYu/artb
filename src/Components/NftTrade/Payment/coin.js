@@ -34,7 +34,7 @@ function Coin({ props, location }) {
             {/* <div className="Text_Style_31">계좌복사하기</div> */}
           </div>
           <div className="Text_Style_29">
-            농협은행 예금주 : 아트비글로벌(주)
+            농협은행 예금주 : 아트비글로벌 주식회사
           </div>
         </div>
         <div className="line"></div>
