@@ -311,6 +311,7 @@ const Contents = styled.div`
     margin:0px;
     box-sizing:border-box;
     width: 430px;
+    border: solid 2px black;
   }
 
   .recipient {
