@@ -281,7 +281,7 @@ function NftTrade() {
           <div className="product">
             <img
               src="/detail_product.png"
-              style={{ width: "530px", height: "530px" }}
+              style={{ width: "530px", height: "294px" }}
             />
           </div>
           <div className="info1">
@@ -960,7 +960,7 @@ const Info1 = styled.div`
   flex-direction: column;
   width: 530px;
   margin: 0 70px;
-  height: 720px; // 임시
+  padding-bottom: 50px;
   background-color: #f6f6f6;
   border-radius: 10px;
   border: 1px solid rgba(226, 226, 226, 0.7);
