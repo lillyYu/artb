@@ -447,6 +447,7 @@ function NftTrade() {
 
           {!buyButton ? (
             <>
+              <div style={{ height: '30px' }} />
               <div className="checkbox">
                 <input
                   type="checkBox"
@@ -501,7 +502,6 @@ function NftTrade() {
                   />
                 ) : null}
               </div>
-
               <div className="buttons notBuy">
                 <div
                   className="coinButton"
