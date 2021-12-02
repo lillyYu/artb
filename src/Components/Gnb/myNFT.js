@@ -104,6 +104,12 @@ function MyNFT({ }) {
           </div>
         }
         <div className="line"></div>
+        <div className="text__content">
+          <p className="text__header">Q. 대금 이체(결제) 완료했는데 구매내역이 안보여요</p>
+          <p className="text__line">먼저 영업일 기준 1일 이내 담당자가 대금 이체 결과를 확인합니다. </p>
+          <p className="text__line">확인 된 이후 실제 NFT가 전송되기 시작하며 이더리움 네트워크 상황에 따라 24시간 정도 추가 소요가 될 수 있습니다. </p>
+          <p className="text__line">약 2일 정도 후 다시 확인해보시기 바라며, NFT 전송이 완료되면 따로 문자(SMS)도 전송 드리겠습니다.</p>
+        </div>
         {/* <div className="top">
           <img className="collectionImg" src="/collection1.png" />
           <div className="info">
@@ -232,6 +238,23 @@ padding:35px 70px;
   .line {
     border-bottom: 1px dashed #9e9e9e;
     margin: 0px 30px;
+  }
+  
+  .text__content {
+    width: 80%;
+    max-width: 670px;
+    margin: auto;
+    padding-top: 35px;
+
+    font-size: 25px;
+
+    .text__header {
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+    .text__line {
+      margin-bottom: 25px;
+    }
   }
   .rightContainer {
     display: flex;
