@@ -281,7 +281,7 @@ function NftTrade() {
           <div className="product">
             <img
               src="/detail_product.png"
-              style={{ width: "530px", height: "530px" }}
+              style={{ width: "530px", height: "294px" }}
             />
           </div>
           <div className="info1">
@@ -447,27 +447,7 @@ function NftTrade() {
 
           {!buyButton ? (
             <>
-              <div className="buttons">
-                <div
-                  className="coinButton"
-                  onClick={() => {
-                    if (!inputValue) {
-                      alert("수량을 기입해주시기 바랍니다.");
-                    } else if (check1 && check2) {
-                      setIsArtB(true);
-                      setBuyButton(!buyButton);
-                    } else alert("필수 이용약관에 동의해주시기 바랍니다.");
-                  }}
-                  style={
-                    inputValue && check1 && check2
-                      ? {}
-                      : { cursor: "not-allowed", opacity: "30%" }
-                  }
-                >
-                  <img className="icon" src="buy_icon.png" />
-                  <div className="name">구매하기</div>
-                </div>
-              </div>
+              <div style={{ height: '30px' }} />
               <div className="checkbox">
                 <input
                   type="checkBox"
@@ -521,6 +501,27 @@ function NftTrade() {
                     inputValue={inputValue}
                   />
                 ) : null}
+              </div>
+              <div className="buttons notBuy">
+                <div
+                  className="coinButton"
+                  onClick={() => {
+                    if (!inputValue) {
+                      alert("수량을 기입해주시기 바랍니다.");
+                    } else if (check1 && check2) {
+                      setIsArtB(true);
+                      setBuyButton(!buyButton);
+                    } else alert("필수 이용약관에 동의해주시기 바랍니다.");
+                  }}
+                  style={
+                    inputValue && check1 && check2
+                      ? {}
+                      : { cursor: "not-allowed", opacity: "30%" }
+                  }
+                >
+                  <img className="icon" src="buy_icon.png" />
+                  <div className="name">구매하기</div>
+                </div>
               </div>
             </>
           ) : (
@@ -959,7 +960,7 @@ const Info1 = styled.div`
   flex-direction: column;
   width: 530px;
   margin: 0 70px;
-  height: 720px; // 임시
+  padding-bottom: 50px;
   background-color: #f6f6f6;
   border-radius: 10px;
   border: 1px solid rgba(226, 226, 226, 0.7);
@@ -1260,6 +1261,10 @@ const Info3 = styled.div`
     }
   }
 
+  .buttons.notBuy {
+    margin-bottom: 0;
+    padding-top: 32px;
+  }
   .buttons {
     display: flex;
     flex-direction: column;
