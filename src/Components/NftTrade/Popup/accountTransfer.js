@@ -33,7 +33,7 @@ function AccountTransferPopup({
       name: name,
       address: `${postAddress} ${detailAddress1} ${detailAddress2}`,
       wallet: account,
-      phone: `010${middleNum}${lastNum}`,
+      phone: `+8210${middleNum}${lastNum}`,
     };
     let result = await axios.post(
       "https://script.google.com/macros/s/AKfycbwwRZwwiFYlbYU_93XO8wcRNp4i60g-Rj6A6sLRAxcckjKRJDFudLJFQTA7WKuua5p7yw/exec",
