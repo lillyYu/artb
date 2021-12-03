@@ -36,7 +36,7 @@ function AccountTransferPopup({
       phone: `010${middleNum}${lastNum}`,
     };
     let result = await axios.post(
-      "https://script.google.com/macros/s/AKfycbwaZg_d8KRwx2aoOCbzpvCYwK-SGheCJv0xQWeOHP__cCFsa3cb03PA-VN32O1DngO0-g/exec",
+      "https://script.google.com/macros/s/AKfycbwwRZwwiFYlbYU_93XO8wcRNp4i60g-Rj6A6sLRAxcckjKRJDFudLJFQTA7WKuua5p7yw/exec",
       JSON.stringify(data)
     );
     console.log(totalValue);
@@ -125,11 +125,15 @@ function AccountTransferPopup({
             </div>
           </div>
           <div className="address">
-
-            <div className="Text_Style_22" >배송지*</div>
-            <div style={{ display: "flex", gap: "0 8px", width: "430px", justifyContent: "space-between" }}>
-
-
+            <div className="Text_Style_22">배송지*</div>
+            <div
+              style={{
+                display: "flex",
+                gap: "0 8px",
+                width: "430px",
+                justifyContent: "space-between",
+              }}
+            >
               <input
                 className="addressInput"
                 placeholder="우편번호"
@@ -165,8 +169,14 @@ function AccountTransferPopup({
           <div className="contact">
             <div className="Text_Style_22">연락처*</div>
 
-            <div style={{ display: "flex", gap: "0 15px", width: "430px", justifyContent: "space-between" }}>
-
+            <div
+              style={{
+                display: "flex",
+                gap: "0 15px",
+                width: "430px",
+                justifyContent: "space-between",
+              }}
+            >
               <input className="contactInput" />
               <input
                 className="contactInput"
@@ -182,11 +192,11 @@ function AccountTransferPopup({
           </div>
         </div>
         {name &&
-          postAddress &&
-          detailAddress1 &&
-          detailAddress2 &&
-          middleNum &&
-          lastNum ? (
+        postAddress &&
+        detailAddress1 &&
+        detailAddress2 &&
+        middleNum &&
+        lastNum ? (
           <Link
             to={{
               pathname: "/payment/coin",
@@ -302,83 +312,83 @@ const Contents = styled.div`
     gap: 33px;
   }
 
-.userInfo{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 20px;
-  input {
-    margin:0px;
-    box-sizing:border-box;
-    width: 430px;
-    border: solid 1px gray;
-  }
-
-  .recipient {
+  .userInfo {
     display: flex;
-    margin-top: 70px;
-    justify-content: space-between;
-    align-items: center;
-    gap:20px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+    input {
+      margin: 0px;
+      box-sizing: border-box;
+      width: 430px;
+      border: solid 1px gray;
+    }
 
-    .nameInput {
-      /* width: 400px; */
-      height: 72px;
-      font-size: 24px;
-      padding-left: 27px;
-    }
-    input::-webkit-input-placeholder {
-      font-weight: bold;
-      font-size: 24px;
-      color: #cccccccc;
-    }
-    input:-ms-input-placeholder {
-      font-weight: bold;
-      font-size: 24px;
-      color: #cccccccc;
-    }
-    input::placeholder {
-      font-weight: bold;
-      font-size: 24px;
-      color: #cccccccc;
-    }
-  }
-  .address {
-    display: flex;
-    align-items: center;
-    gap: 0 20px;
-    .addressInput {
-      width:100%;
-      height: 72px;
-      font-size: 24px;
-      padding-left: 27px;
-    }
-    input::-webkit-input-placeholder {
-      font-weight: bold;
-      font-size: 24px;
-      color: #cccccccc;
-    }
-    input:-ms-input-placeholder {
-      font-weight: bold;
-      font-size: 24px;
-      color: #cccccccc;
-    }
-    input::placeholder {
-      font-weight: bold;
-      font-size: 24px;
-      color: #cccccccc;
-    }
-    .searchCode {
+    .recipient {
       display: flex;
-      justify-content: center;
+      margin-top: 70px;
+      justify-content: space-between;
       align-items: center;
-      width: 100%;
-      height: 72px;
-      background-color: #e64724;
-      border-radius: 4px;
-      cursor: pointer;
+      gap: 20px;
+
+      .nameInput {
+        /* width: 400px; */
+        height: 72px;
+        font-size: 24px;
+        padding-left: 27px;
+      }
+      input::-webkit-input-placeholder {
+        font-weight: bold;
+        font-size: 24px;
+        color: #cccccccc;
+      }
+      input:-ms-input-placeholder {
+        font-weight: bold;
+        font-size: 24px;
+        color: #cccccccc;
+      }
+      input::placeholder {
+        font-weight: bold;
+        font-size: 24px;
+        color: #cccccccc;
+      }
     }
-  }
+    .address {
+      display: flex;
+      align-items: center;
+      gap: 0 20px;
+      .addressInput {
+        width: 100%;
+        height: 72px;
+        font-size: 24px;
+        padding-left: 27px;
+      }
+      input::-webkit-input-placeholder {
+        font-weight: bold;
+        font-size: 24px;
+        color: #cccccccc;
+      }
+      input:-ms-input-placeholder {
+        font-weight: bold;
+        font-size: 24px;
+        color: #cccccccc;
+      }
+      input::placeholder {
+        font-weight: bold;
+        font-size: 24px;
+        color: #cccccccc;
+      }
+      .searchCode {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 72px;
+        background-color: #e64724;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
 
     .detail {
       display: flex;
