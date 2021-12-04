@@ -41,6 +41,7 @@ function App() {
 
 const Container = styled.div`
   width: 720px;
+  padding-bottom: 110px;
 `;
 
 export default App;

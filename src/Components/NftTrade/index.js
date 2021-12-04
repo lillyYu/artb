@@ -29,6 +29,7 @@ import Privacy from "./Terms/Privacy";
 import WalletConnect from "./Popup/walletConnect";
 import CreditcardPopup from "./Popup/creditCard";
 import AccountTransferPopup from "./Popup/accountTransfer";
+import NavBottom from "./NavBottom";
 
 import { createContractInstance } from "../../lib/Station";
 import { Container, Contents, Header, Info1, Info2, Info3, Info4, Toggle1, Toggle2 } from './index.styles';
@@ -588,6 +589,7 @@ function NftTrade() {
           setBuyButton={setBuyButton}
         />
       ) : null}
+      <NavBottom account={account} connect={() => { }} setTermsModal={setTermsModal} termsModal={termsModal} />
     </Container>
   );
 }
