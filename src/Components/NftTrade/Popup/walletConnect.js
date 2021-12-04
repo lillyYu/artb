@@ -146,7 +146,7 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
           paddingRight: "45px",
           width: "calc( 100% - 90px )"
         }}>
-          {/* <h1 style={{
+          <h1 style={{
             fontSize: "24px",
             fontWeight: 700,
             paddingBottom: "14px"
@@ -156,24 +156,24 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
             paddingBottom: '13px'
           }}>
             <Button
-                className={"Text_Style_15"}
-                style={{
-                  marginRight: "14px",
-                }}
-                onClick={() => {
-                  openAndroidMetaMaskLink();
-                }}
+              className={"Text_Style_15"}
+              style={{
+                marginRight: "14px",
+              }}
+              onClick={() => {
+                openAndroidMetaMaskLink();
+              }}
             >
               안드로이드
             </Button>
             <Button
-                className={"Text_Style_15"}
-                style={{
-                  marginLeft: "14px",
-                }}
-                onClick={() => {
-                  openIosMetaMaskLink();
-                }}
+              className={"Text_Style_15"}
+              style={{
+                marginLeft: "14px",
+              }}
+              onClick={() => {
+                openIosMetaMaskLink();
+              }}
             >
               아이폰
             </Button>
@@ -182,16 +182,16 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
           <div style={{
             fontWeight: 700,
             fontSize: '15px'
-          }}>앱 설치 및 지갑 생성 후 아래 지갑 연결 버튼을 클릭 해주세요.</div> */}
+          }}>앱 설치 및 지갑 생성 후 아래 지갑 연결 버튼을 클릭 해주세요.</div>
 
           <div style={{
             paddingTop: '39px'
           }}>
-            {/* <h1 style={{
+            <h1 style={{
               fontSize: "24px",
               fontWeight: 700,
               paddingBottom: "14px"
-            }}>2. 메타마스크 연결</h1> */}
+            }}>2. 메타마스크 연결</h1>
 
             <div style={{
               display: "flex",
