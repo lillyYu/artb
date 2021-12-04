@@ -15,8 +15,11 @@ a {
 export const Contents = styled.div`
 display: flex;
 flex-direction: column;
-gap: 20px 0;
+
 width: 100%;
+gap: 20px 0;
+padding-bottom: 20px;
+
 background-color: #ffffff;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 `;
@@ -499,15 +502,13 @@ display: flex;
 flex-direction: column;
 background: #F6F6F6;
 
-margin-bottom: 30px;
-
 .nftToggle {
   display: flex;
   align-items: center;
   padding: 0 70px;
   justify-content: space-between;
   height: 80px;  
-     
+
   cursor: pointer;
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -550,28 +551,25 @@ box-sizing: border-box;
 export const Toggle2 = styled.div`
 display: flex;
 flex-direction: column;
-margin: 0 70px 35px;
-width: 530px;
-background-color: rgba(191, 191, 191, 0.2);
-border-radius: 10px;
-border: 1px solid rgba(226, 226, 226, 0.7);
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 
 .historyToggle {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 50px;
-  width: 530px;
-  height: 80px; // 임시
+  padding: 0 70px;
+  height: 80px; 
   background-color: #f6f6f6;
-  box-sizing: border-box;
-  border-radius: 10px;
   cursor: pointer;
 
+  cursor: pointer;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: rgba(226, 226, 226, 0.7);
+
   .title {
-    font-weight: bold;
-    font-size: 25px;
+    font-weight: normal;
+    font-size: 26px;
     color: rgba(0, 0, 0, 0.8);
   }
 }
