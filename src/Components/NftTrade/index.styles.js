@@ -296,6 +296,7 @@ background: #FFFFFF;
     border-radius: 10px;
     background: #EDEDED;
     width: 338px;
+    box-shadow: 0px 20px 20px rgb(44 44 44 / 20%);
 
     .logo {
       width: 18px; 
@@ -324,7 +325,8 @@ background: #FFFFFF;
     border-radius: 10px;
     background: #EDEDED;
     width: 338px;
-
+    box-shadow: 0px 20px 20px rgb(44 44 44 / 20%);
+    
     .logo {
       margin-bottom: 8px;
       width: 28px;
