@@ -7,15 +7,16 @@ const NavBottomWrapper = styled.div`
   justify-content: center;
   position: fixed;
   bottom: 0;
-  width: calc(100vw - 12.5rem);
-  max-width: calc(720px - 12.5rem);
-  padding: 2.875rem 6.25rem;
+  width: calc(100vw - 4.5rem);
+  max-width: calc(720px - 4.5rem);
+  padding: 2.875rem 2.25rem;
 
   background: #e64724;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 
   .payButton {
     width: 100%;
+    cursor: pointer;
 
     .name {
       font-weight: bold;
@@ -36,42 +37,14 @@ const NavBottomWrapper = styled.div`
   }
 `;
 
-function NavBottom({ account, connect, setTermsModal, termsModal }) {
+function NavBottom({ onClickLeft, onClickRight }) {
   return (
     <NavBottomWrapper>
-      <div
-        className="payButton"
-        onClick={() => {
-          if (account) {
-            alert("지갑이 연결됐습니다.");
-          } else {
-            // connect();
-            console.log("account: ", account);
-          }
-        }}
-        style={
-          account
-            ? { cursor: "not-allowed", opacity: "30%" }
-            : { cursor: "pointer" }
-        }
-      >
-        {/* <img src="/detail_pay.png" style={{ width: "26px", height: "24px" }} /> */}
-        <div className="name">
-          {account
-            ? account.slice(0, 8) + "..." + account.slice(-6)
-            : "계좌이체 구매"}
-        </div>
+      <div className="payButton" onClick={onClickLeft}>
+        <div className="name">계좌이체 구매</div>
       </div>
       <div className="hr" />
-      <div
-        className="payButton"
-        onClick={() => {
-          console.log("asdf");
-          // setTermsModal(!termsModal);
-        }}
-        style={{ cursor: "pointer" }}
-      >
-        {/* <img src="/detail_pay.png" style={{ width: "26px", height: "24px" }} /> */}
+      <div className="payButton" onClick={onClickRight}>
         <div className="name">카드결제 구매</div>
       </div>
     </NavBottomWrapper>
