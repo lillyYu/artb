@@ -277,7 +277,8 @@ function NftTrade() {
             <div className="title">판매기간</div>
             <div className="time">
               {/* {loadPoolPeriod(nftInfo[0].start_time, nftInfo[0].end_time)} */}
-              {loadPoolPeriod(1638331200, 1640271600)}
+              {/* {loadPoolPeriod(1638331200, 1640271600)} */}
+              2021.11.25 15:00 ~ 2021.12.24 23:59
             </div>
           </div>
           <div className="product">
@@ -588,7 +589,7 @@ function NftTrade() {
           setBuyButton={setBuyButton}
         />
       ) : null}
-      <NavBottom account={account} connect={() => { }} setTermsModal={setTermsModal} termsModal={termsModal} />
+      <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />
     </Container>
   );
 }
