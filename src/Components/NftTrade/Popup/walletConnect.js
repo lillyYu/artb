@@ -138,17 +138,15 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
           <br />왜 메타마스크가 필요한가요?
           <br />
           <br />
-          메타마스크란 1천만명 이상이 사용하는 글로벌 암호화폐 지갑이며, 프라이빗 키(Private Key)를 생성해주기 때문에 여러분의 NFT를 가장 안전하게 보관할 수 있는 방법입니다.
+          메타마스크란 개인지갑을 편리하고 안전하게 관리할수 있는 암호화폐 지갑입니다. 프라이빗 키(private key)를 생성해주기에 여러분의 NFT 보안을 위해 메타마스크 지갑연결이 필요합니다.
           <br />
-          <br />
-          아래 버튼을 통해 메타마스크를 연결해주세요.
         </div>
         <div style={{
           paddingLeft: "45px",
           paddingRight: "45px",
           width: "calc( 100% - 90px )"
         }}>
-          <h1 style={{
+          {/* <h1 style={{
             fontSize: "24px",
             fontWeight: 700,
             paddingBottom: "14px"
@@ -184,16 +182,16 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
           <div style={{
             fontWeight: 700,
             fontSize: '15px'
-          }}>앱 설치 및 지갑 생성 후 아래 지갑 연결 버튼을 클릭 해주세요.</div>
+          }}>앱 설치 및 지갑 생성 후 아래 지갑 연결 버튼을 클릭 해주세요.</div> */}
 
           <div style={{
             paddingTop: '39px'
           }}>
-            <h1 style={{
+            {/* <h1 style={{
               fontSize: "24px",
               fontWeight: 700,
               paddingBottom: "14px"
-            }}>2. 메타마스크 연결</h1>
+            }}>2. 메타마스크 연결</h1> */}
 
             <div style={{
               display: "flex",
@@ -201,17 +199,17 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
             }}>
 
               <Button
-                  className={"Text_Style_15"}
-                  onClick={async () => {
-                    if (account) {
-                      await alert("지갑이 연결됐습니다.");
-                      await setWalletPopup(false);
+                className={"Text_Style_15"}
+                onClick={async () => {
+                  if (account) {
+                    await alert("지갑이 연결됐습니다.");
+                    await setWalletPopup(false);
 
-                    } else {
-                      await connect();
-                      await setWalletPopup(false);
-                    }
-                  }}
+                  } else {
+                    await connect();
+                    await setWalletPopup(false);
+                  }
+                }}
               >
                 지갑 연결
               </Button>
