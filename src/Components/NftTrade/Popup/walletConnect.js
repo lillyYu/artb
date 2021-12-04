@@ -22,6 +22,7 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
   const [network, setNetwork] = useRecoilState(networkState);
   const [requireNetwork] = useRecoilState(requireNetworkState);
   /* Setting WalletConnect */
+
   const providerOptions = {
     metamask: {
       id: "injected",
@@ -73,7 +74,6 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
     const network = await web3.eth.getChainId();
     setAccount(accounts[0]);
     setNetwork(network);
-
     connectEventHandler(provider);
   }
 
@@ -255,7 +255,7 @@ const Container = styled.div`
   }
 `;
 
-const Button = styled.div`
+export const Button = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
