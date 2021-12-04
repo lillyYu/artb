@@ -90,6 +90,7 @@ width: 100%;
 padding-bottom: 50px;
 background-color: #ffffff;
 
+
 .period {
   display: flex;
   gap: 0 22px;
@@ -200,94 +201,65 @@ export const Info2 = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
-gap: 15px 0;
-width: 530px;
-margin: 0 70px;
-padding: 0 50px;
-height: 170px; // 임시
-background-color: #f6f6f6;
+position: relative;
+width: 100%;
+padding: 0 70px 135px 70px;
+background-color: #ffffff;
 box-sizing: border-box;
-border-radius: 10px;
-border: 1px solid rgba(226, 226, 226, 0.7);
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+
+&:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 6px;
+    background: #E64724;
+    left: calc(50% - 25px);
+    right: auto;
+}
+
+.wrapper {
+    padding: 20px;
+    border: 1px solid rgba(226, 226, 226, 0.7);
+    box-sizing: border-box;
+    border-radius: 15px;
+}
 
 .top {
-  display: flex;
-  justify-content: space-between;
-
+    letter-spacing: -0.7px;
   .deadline {
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.8);
+    font-size: 25px;
+    color: #000000;
   }
   .time {
-    font-size: 20px;
-    color: rgba(100, 100, 100, 0.8);
+    margin-top: 15px;
+    font-size: 25px;
+    color: #646464;
   }
 }
 
 .bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin: auto;
+  margin-top: 27px;
+  gap: 20px;
 
-  .day {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50px;
-
-    .digit {
-      font-size: 30px;
-      color: rgba(230, 71, 36, 0.8);
-    }
-    .unit {
-      font-size: 20px;
-      color: rgba(100, 100, 100, 0.8);
-    }
-  }
-  .time {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50px;
-
-    .digit {
-      font-size: 30px;
-      color: rgba(230, 71, 36, 0.8);
-    }
-    .unit {
-      font-size: 20px;
-      color: rgba(100, 100, 100, 0.8);
-    }
-  }
-  .minute {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50px;
-
-    .digit {
-      font-size: 30px;
-      color: rgba(230, 71, 36, 0.8);
-    }
-    .unit {
-      font-size: 20px;
-      color: rgba(100, 100, 100, 0.8);
-    }
-  }
-  .second {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50px;
-
-    .digit {
-      font-size: 30px;
-      color: rgba(230, 71, 36, 0.8);
-    }
-    .unit {
-      font-size: 20px;
-      color: rgba(100, 100, 100, 0.8);
-    }
+  .section {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      .digit {
+        font-weight: bold;
+        font-size: 32px;
+        line-height: 32px;
+        color: rgba(230, 71, 36, 0.8);
+      }
+      .unit {
+        font-size: 24px;
+        line-height: 24px;
+        color: rgba(100, 100, 100, 0.8);
+      }
   }
 }
 `;
