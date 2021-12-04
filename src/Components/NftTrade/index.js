@@ -332,33 +332,35 @@ function NftTrade() {
           <></>
         ) : (
           <Info2>
-            <div className="top">
-              <div className="deadline">판매 마감일</div>
-              <div className="time">{"2021.12.24 00:00"}</div> {/* FIX ME */}
+            <div className="wrapper">
+              <div className="top">
+                <div className="deadline">판매마감일</div>
+                <div className="time">모든 NFT가 판매 될 경우 조기 마감될 수 있습니다.</div> {/* FIX ME */}
+              </div>
+              <Countdown
+                date={new Date(2021, 11, 23, 24).getTime()}
+                renderer={({ days, hours, minutes, seconds }) => (
+                  <div className="bottom">
+                    <div className="day section">
+                      <div className="digit">{zeroPad(days)}</div>
+                      <div className="unit">일</div>
+                    </div>
+                    <div className="time section">
+                      <div className="digit">{zeroPad(hours)}</div>
+                      <div className="unit">시간</div>
+                    </div>
+                    <div className="minute section">
+                      <div className="digit">{zeroPad(minutes)}</div>
+                      <div className="unit">분</div>
+                    </div>
+                    <div className="second section">
+                      <div className="digit">{zeroPad(seconds)}</div>
+                      <div className="unit">초</div>
+                    </div>
+                  </div>
+                )}
+              />
             </div>
-            <Countdown
-              date={new Date(2021, 11, 23, 24).getTime()}
-              renderer={({ days, hours, minutes, seconds }) => (
-                <div className="bottom">
-                  <div className="day">
-                    <div className="digit">{zeroPad(days)}</div>
-                    <div className="unit">일</div>
-                  </div>
-                  <div className="time">
-                    <div className="digit">{zeroPad(hours)}</div>
-                    <div className="unit">시간</div>
-                  </div>
-                  <div className="minute">
-                    <div className="digit">{zeroPad(minutes)}</div>
-                    <div className="unit">분</div>
-                  </div>
-                  <div className="second">
-                    <div className="digit">{zeroPad(seconds)}</div>
-                    <div className="unit">초</div>
-                  </div>
-                </div>
-              )}
-            />
           </Info2>
         )}
 
