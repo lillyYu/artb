@@ -475,14 +475,6 @@ function NftTrade() {
                 setToggle1Open(!toggle1Open);
                 setToggle2Open(false);
               }}
-              style={
-                toggle1Open
-                  ? {
-                    border: "1px solid rgba(226, 226, 226, 0.7)",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                  }
-                  : {}
-              }
             >
               <div className="title">NFT 정보</div>
               <img
@@ -510,7 +502,7 @@ function NftTrade() {
                   <div className="title">카테고리</div>
                   <div className="detail">남관_가을축제_저작권</div>
                 </div>
-                {/* <div className="info">
+                <div className="info">
                   <div className="title">작품관리번호</div>
                   <div className="detail">
                     0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
@@ -521,7 +513,7 @@ function NftTrade() {
                   <div className="detail">
                     0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
                   </div>
-                </div> */}
+                </div>
                 <div className="info">
                   {/* <div className="title">설명</div> */}
                   {/* <div className="detail">
@@ -554,7 +546,7 @@ function NftTrade() {
             )}
           </Toggle1>
         )}
-        {/* {payOpen ? (
+        {payOpen ? (
           <></>
         ) : (
           <Toggle2>
@@ -583,9 +575,9 @@ function NftTrade() {
                 style={{ width: "25px", height: "16px" }}
               />
             </div>
-  
+
           </Toggle2>
-        )} */}
+        )}
       </Contents>
       {transferPopup ? (
         <AccountTransferPopup
