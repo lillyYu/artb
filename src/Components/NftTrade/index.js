@@ -260,14 +260,16 @@ function NftTrade() {
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
-          <div className="title">{`작품명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+          <div className="title">가을축제, 남관</div>
+          <div className="artist">1984년, 200x300(cm), Oil Painting</div>
+          {/* <div className="title">{`작품명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
             ? "가을축제"
             : "-"
             }`}</div>
           <div className="artist">{`작가명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
             ? "남관"
             : "-"
-            }`}</div>
+            }`}</div> */}
         </Header>
 
         <Info1>
@@ -281,36 +283,36 @@ function NftTrade() {
           <div className="product">
             <img
               src="/detail_product.png"
-              style={{ width: "530px", height: "294px" }}
             />
           </div>
           <div className="info1">
-            <div className="left">
+            {/* <div className="left">
               <div className="like">
-                {/* <img
+                <img
                   src="/detail_like.png"
                   style={{ width: "32px", height: "28px" }}
-                ></img> */}
-                {/* <div className="amount">15</div> */}
+                ></img>
+                <div className="amount">15</div>
               </div>
               <div className="look">
-                {/* <img
+                <img
                   src="/detail_look.png"
                   style={{ width: "38px", height: "25px" }}
-                ></img> */}
-                {/* <div className="amount">120,000</div> */}
+                ></img>
+                <div className="amount">120,000</div>
               </div>
             </div>
-            <div className="right">잔여 수량/총 발행량</div>
+            <div className="right">잔여 수량/총 발행량</div> */}
           </div>
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">{`${nftInfo[0].address ===
+              <div className="name">(주)아트비글로벌</div>
+              {/* <div className="name">{`${nftInfo[0].address ===
                 "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
                 ? "ArtB"
                 : "-"
-                }`}</div>
+                }`}</div> */}
             </div>
             <div className="right">
               <div className="rest">

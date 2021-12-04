@@ -17,9 +17,7 @@ display: flex;
 flex-direction: column;
 gap: 20px 0;
 width: 100%;
-margin: 30px 25px;
-background-color: white;
-border-radius: 10px;
+background-color: #ffffff;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 `;
 export const Header = styled.div`
@@ -43,22 +41,23 @@ box-sizing: border-box;
 
   .info {
     display: flex;
-    margin: 25px 0;
+    margin: 49px 0;
     gap: 0 20px;
     .status {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 55px;
-      height: 30px;
-      font-size: 13px;
+      padding: 10px 5px;
+      font-size: 20px;
       color: #eb4632;
       background: rgba(235, 70, 50, 0.2);
       border-radius: 5px;
     }
     .model {
-      font-size: 20px;
-      color: rgba(100, 100, 100, 0.8);
+        font-size: 24px;
+      display: flex;
+      align-items: center;
+      color: #646464;
     }
   }
   .function {
@@ -74,41 +73,48 @@ box-sizing: border-box;
 
 .title {
   font-weight: bold;
-  font-size: 25px;
+  font-size: 34px;
+  color: rgba(0, 0, 0, 0.9);
 }
 .artist {
-  margin-top: 5px;
-  font-size: 20px;
-  color: rgba(0, 0, 0, 0.8);
+  margin-top: 15px;
+  font-size: 24px;
+  color: #646464;
 }
 `;
 
 export const Info1 = styled.div`
 display: flex;
 flex-direction: column;
-width: 530px;
-margin: 0 70px;
+width: 100%;
 padding-bottom: 50px;
-background-color: #f6f6f6;
-border-radius: 10px;
-border: 1px solid rgba(226, 226, 226, 0.7);
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+background-color: #ffffff;
 
 .period {
   display: flex;
-  gap: 0 10px;
-  padding: 15px 0;
-  justify-content: center;
-  font-size: 20px;
+  gap: 0 22px;
+  padding: 30px 70px;
+  justify-content: flext-start;
+  align-items: center;
   .title {
     color: rgba(0, 0, 0, 0.8);
+    font-size: 24px;
+    letter-spacing: -1px;
+    font-weight: bold;
   }
   .time {
-    color: rgba(100, 100, 100, 0.8);
+    color: #646464;
+    font-size: 28px;
+    line-height: 28px;
+    letter-spacing: -0.7px;
   }
 }
 
 .product {
+    width: 100%;
+    img {
+        width: 100%;
+    }
 }
 
 .info1 {
@@ -156,29 +162,35 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 25px;
+  margin: 0 70px;
   margin-top: 10px;
 
   .left {
     display: flex;
-    font-size: 25px;
+    font-size: 26px;
     .seller {
+      letter-spacing: -0.7px;
       color: rgba(0, 0, 0, 0.8);
     }
     .name {
       margin-left: 10px;
-      color: #eb4632;
+      color: #EB4632;
+      letter-spacing: -1px;
+      font-weight: bold;
     }
   }
 
   .right {
     display: flex;
     font-size: 25px;
-    font-weight: bold;
+    letter-spacing: -1px;
+    text-align: right;
     .rest {
+      font-weight: bold;
       color: rgba(0, 0, 0, 0.8);
     }
     .total {
+      font-weight: 500;
       color: rgba(100, 100, 100, 0.8);
     }
   }
