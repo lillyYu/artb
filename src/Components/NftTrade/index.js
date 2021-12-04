@@ -225,7 +225,7 @@ function NftTrade() {
   useEffect(() => {
     loadNftInfo();
   }, []);
-  console.log("buyButton", buyButton);
+
   return (
     <Container>
       <Contents>
@@ -590,7 +590,7 @@ function NftTrade() {
           setBuyButton={setBuyButton}
         />
       ) : null}
-      <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />
+      <NavBottom onClickLeft={() => { }} onClickRight={() => { setWalletPopup(true) }} />
     </Container>
   );
 }

@@ -1,5 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import {
+  web3State,
+  providerState,
+  accountState,
+  networkState,
+  requireNetworkState,
+} from "../../../store/web3";
 
 const NavBottomWrapper = styled.div`
   display: flex;
@@ -38,6 +46,8 @@ const NavBottomWrapper = styled.div`
 `;
 
 function NavBottom({ onClickLeft, onClickRight }) {
+  const [account, setAccount] = useRecoilState(accountState);
+  console.log(account);
   return (
     <NavBottomWrapper>
       <div className="payButton" onClick={onClickLeft}>
