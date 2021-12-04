@@ -168,7 +168,7 @@ const WalletDisconnectModal = () => {
 function NavBottom({ onClickLeft, onClickRight }) {
   const [account, setAccount] = useRecoilState(accountState);
   const [openModal, setOpenModal] = useState(true);
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleModal = () => {
     setOpenModal(!openModal);
@@ -191,7 +191,13 @@ function NavBottom({ onClickLeft, onClickRight }) {
         <div className="payButton left" onClick={onClickLeft}>
           <div className="name">계좌이체 구매</div>
         </div>
-        <div className="payButton right" onClick={onClickRight}>
+        <div
+          className="payButton right"
+          onClick={() => {
+            setIsDisabled(true);
+            onClickRight();
+          }}
+        >
           <div className="name">카드결제 구매</div>
         </div>
       </div>

@@ -589,7 +589,7 @@ function NftTrade() {
           setBuyButton={setBuyButton}
         />
       ) : null}
-      <NavBottom onClickLeft={() => { }} onClickRight={() => { setWalletPopup(true) }} />
+      <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />
     </Container>
   );
 }
