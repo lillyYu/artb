@@ -556,14 +556,6 @@ function NftTrade() {
                 setToggle2Open(!toggle2Open);
                 setToggle1Open(false);
               }}
-              style={
-                toggle2Open
-                  ? {
-                    border: "1px solid rgba(226, 226, 226, 0.7)",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                  }
-                  : {}
-              }
             >
               <div className="title">저작권 구매기록</div>
               <img
