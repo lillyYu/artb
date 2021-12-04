@@ -257,7 +257,7 @@ function NftTrade() {
               {/* FIX ME */}
             </div>
             <div className="function">
-              {/* <img src="/detail_share.png" alt="" /> */}
+              <img src="/detail_share.png" alt="" />
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
