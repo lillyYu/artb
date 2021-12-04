@@ -326,7 +326,7 @@ background: #FFFFFF;
     background: #EDEDED;
     width: 338px;
     box-shadow: 0px 20px 20px rgb(44 44 44 / 20%);
-    
+
     .logo {
       margin-bottom: 8px;
       width: 28px;
@@ -497,28 +497,26 @@ background: #FFFFFF;
 export const Toggle1 = styled.div`
 display: flex;
 flex-direction: column;
-margin: 0 70px;
-width: 530px;
-background-color: rgba(191, 191, 191, 0.2);
-border-radius: 10px;
-border: 1px solid rgba(226, 226, 226, 0.7);
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+background: #F6F6F6;
+
 margin-bottom: 30px;
+
 .nftToggle {
   display: flex;
   align-items: center;
+  padding: 0 70px;
   justify-content: space-between;
-  padding: 0 50px;
-  width: 530px;
-  height: 80px; // 임시
-  background-color: #f6f6f6;
-  box-sizing: border-box;
-  border-radius: 10px;
+  height: 80px;  
+     
   cursor: pointer;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: rgba(226, 226, 226, 0.7);
 
   .title {
-    font-weight: bold;
-    font-size: 25px;
+    font-weight: normal;
+    font-size: 26px;
     color: rgba(0, 0, 0, 0.8);
   }
 }
@@ -527,10 +525,10 @@ margin-bottom: 30px;
 export const Info4 = styled.div`
 display: flex;
 flex-direction: column;
+background-color: #ffffff;
 gap: 10px 0;
-padding: 30px 50px;
-width: 530px;
-//   height: 500px; // 임시
+padding: 30px 80px;
+width: 100%;
 height: fit-content;
 box-sizing: border-box;
 
