@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import {
@@ -9,6 +9,8 @@ import {
   requireNetworkState,
 } from "../../../store/web3";
 import { Button } from "../Popup/walletConnect";
+
+import WalletWeb3Controller from "../../../utilities/wallet";
 
 const NavBottomWrapper = styled.div`
   display: flex;
@@ -81,6 +83,7 @@ const NavBottomWrapper = styled.div`
 const Header = styled.div`
   position: relative;
   background: #ffffff;
+
   img {
     width: 18px;
     height: 9px;
@@ -136,7 +139,7 @@ const WalletModalWrapper = styled.div`
   }
 `;
 
-const WalletDisconnectModal = () => {
+const WalletModal = ({ connect }) => {
   return (
     <WalletModalWrapper>
       <p className="title">최초 구매시 “지갑연결"을 완료해야합니다</p>
@@ -148,12 +151,7 @@ const WalletDisconnectModal = () => {
       </p>
 
       <div className="bottom">
-        <Button
-          className="Text_Style_15"
-          onClick={() => {
-            console.log("connect wallet");
-          }}
-        >
+        <Button className="Text_Style_15" onClick={connect}>
           지갑 연결
         </Button>
         <p>연결에 어려움이 있으시면.</p>
@@ -166,25 +164,55 @@ const WalletDisconnectModal = () => {
 };
 
 function NavBottom({ onClickLeft, onClickRight }) {
-  const [account, setAccount] = useRecoilState(accountState);
-  const [openModal, setOpenModal] = useState(true);
+  // const [account, setAccount] = useRecoilState(accountState);
+  const [account, setAccount] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const handleModal = () => {
-    setOpenModal(!openModal);
+  const WalletProvider = useMemo(
+    () =>
+      new WalletWeb3Controller({
+        callbackConnect: (res) => {
+          setOpenModal(false);
+        },
+        callbackDisconnect: () => {},
+      }),
+    []
+  );
+
+  const openWalletModal = () => {
+    setIsDisabled(true);
+    setOpenModal(true);
+  };
+
+  const closeWalletModal = () => {
+    setIsDisabled(false);
+    setOpenModal(false);
+  };
+
+  const handleConnectWallet = async () => {
+    if (account) {
+      await alert("지갑이 연결됐습니다.");
+      closeWalletModal();
+    } else {
+      const { account: accountResponse, network: neworkResponse } =
+        await WalletProvider.connect();
+      if (Boolean(accountResponse)) setAccount(accountResponse);
+      closeWalletModal();
+    }
   };
 
   return (
     <NavBottomWrapper disabled={isDisabled}>
-      {Boolean(openModal && isDisabled) && <div className="shadow" />}
-      {Boolean(openModal && isDisabled) && (
+      {Boolean(openModal) && <div className="shadow" />}
+      {Boolean(openModal) && (
         <Header>
           <img
             src="/detail_toggleClose.png"
             alt="header-toggle"
-            onClick={handleModal}
+            onClick={openWalletModal}
           />
-          <WalletDisconnectModal />
+          <WalletModal connect={handleConnectWallet} />
         </Header>
       )}
       <div className="button-group">
@@ -194,7 +222,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
         <div
           className="payButton right"
           onClick={() => {
-            setIsDisabled(true);
+            openWalletModal();
             onClickRight();
           }}
         >
