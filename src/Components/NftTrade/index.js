@@ -20,6 +20,7 @@ import {
   networkState,
   requireNetworkState,
 } from "../../store/web3";
+import { ntfInforState } from "../../store/ntf";
 import { web3ReaderState } from "../../store/read-web3";
 
 //이용약관
@@ -61,20 +62,7 @@ function NftTrade() {
       return;
     },
   });
-  const [nftInfo, setNftInfo] = useState([
-    {
-      tokenId: "0",
-      address: "0x00",
-      quantity: "0",
-      sold: "0",
-      inventory: "0",
-      start_time: "1632625200000",
-      end_time: "1640876400000",
-      is_active: true,
-      price: "0",
-      payTokenAddress: "0x00",
-    },
-  ]);
+  const [nftInfo, setNftInfo] = useRecoilState(ntfInforState);
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);

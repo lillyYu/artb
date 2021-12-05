@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { ntfInforState } from "../../../store/ntf";
+import { useRecoilState } from "recoil";
+import { useMemo, useState } from "react";
 
 const ContentWrapper = styled.div`
   padding: 40px;
@@ -266,6 +269,29 @@ const CheckBox = styled.div`
 `;
 
 const BankTransferModal = () => {
+  const [nftInfo, setNftInfo] = useRecoilState(ntfInforState);
+  const [count, setCount] = useState(1);
+
+  const ntfInventory = useMemo(
+    () =>
+      nftInfo[0].inventory != 0
+        ? Number(nftInfo[0].inventory - 60000).toLocaleString()
+        : 0,
+    [nftInfo]
+  );
+
+  const handleDecrease = () => {
+    setCount((prev) => {
+      if (prev === 1) return 1;
+      return prev - 1;
+    });
+  };
+
+  const handleIncrease = () => {
+    setCount((prev) => {
+      return prev + 1;
+    });
+  };
   return (
     <>
       <ContentWrapper>
@@ -281,12 +307,16 @@ const BankTransferModal = () => {
         </HeaderSection>
 
         <BodySection>
-          <div className="quantity">잔여 수량 : 123,123,123</div>
+          <div className="quantity">잔여 수량 : {ntfInventory}</div>
           <div className="calculator">
             <div className="calculator__button-group">
-              <div className="decrease">-</div>
-              <input type="number" />
-              <div className="increase">+</div>
+              <div className="decrease" onClick={handleDecrease}>
+                -
+              </div>
+              <input type="number" value={count} onChange={() => {}} />
+              <div className="increase" onClick={handleIncrease}>
+                +
+              </div>
             </div>
             <div className="calculator__unit">
               <p className="unit__title">수량 1개</p>
@@ -344,5 +374,29 @@ const BankTransferModal = () => {
     </>
   );
 };
+
+// <input
+//   className="input"
+//   type="number"
+//   placeholder="구매할 수량을 입력해주세요"
+//   value={count}
+//   ref={inputDerection}
+//   onClick={() => {
+//     inputDerection.current.focus();
+//   }}
+//   onChange={(e) => {
+//     if (Number(e.target.value) < 0) {
+//       setCount("0");
+//     }
+//     if (Number(e.target.value) > Number(nftInfo[0].inventory - 60000)) {
+//       setCount(Number(nftInfo[0].inventory - 60000));
+//     } else {
+//       setMidValue(45000 * e.target.value);
+//       setTotalValue(45000 * e.target.value + 15000);
+//       setCount(e.target.value);
+//     }
+//   }}
+//   style={{ height: "50px" }}
+// />;
 
 export default BankTransferModal;
