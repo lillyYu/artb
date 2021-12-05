@@ -54,6 +54,7 @@ const NavBottomWrapper = styled.div`
     .payButton.left {
       background: ${(props) => (props.disabled ? "#A4A4A4" : "inherit")};
       cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
+      pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
       &:after {
         content: "";
         position: absolute;
@@ -68,6 +69,7 @@ const NavBottomWrapper = styled.div`
     .payButton.right {
       background: ${(props) => (props.disabled ? "#A4A4A4" : "inherit")};
       cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
+      pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
       &:after {
         content: "";
         position: absolute;
