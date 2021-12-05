@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const ContentWrapper = styled.div`
   padding: 40px;
+  padding-bottom: 0;
 `;
 
 const HeaderSection = styled.div`
@@ -212,62 +213,55 @@ const BottomSection = styled.div`
   }
 `;
 
-const CheckBox = styled.label`
-  display: block;
+const CheckBox = styled.div`
   position: relative;
-  padding-left: 35px;
+  padding-left: 65px;
   cursor: pointer;
   font-size: 24px;
   line-height: 24px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  flex-grow: 1;
 
-  a {
+  .high-light {
     color: #e64724;
   }
 
-  & input {
-    position: absolute;
-    opacity: 0;
+  & label {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
     cursor: pointer;
-  }
-  .checkmark {
+    height: 28px;
+    left: 20px;
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
+    top: -3px;
+    width: 28px;
   }
 
-  &:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-
-  & input:checked ~ .checkmark {
-    background-color: #e64724;
-  }
-
-  .checkmark:after {
+  & label:after {
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
     content: "";
+    height: 6px;
+    left: 7px;
+    opacity: 0;
     position: absolute;
-    display: none;
+    top: 8px;
+    transform: rotate(-45deg);
+    width: 12px;
   }
 
-  & input:checked ~ .checkmark:after {
-    display: block;
+  & input[type="checkbox"] {
+    visibility: hidden;
   }
 
-  & .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
+  & input[type="checkbox"]:checked + label {
+    background-color: #000000;
+    border-color: #000000;
+  }
+
+  & input[type="checkbox"]:checked + label:after {
+    opacity: 1;
   }
 `;
 
@@ -319,19 +313,30 @@ const BankTransferModal = () => {
         </BodySection>
       </ContentWrapper>
       <BottomSection>
-        <div className="term__row">
-          <CheckBox htmlFor="terms-and-conditions">
-            Artb 이용약관 <a href="#">(필수)</a>
+        <div
+          className="term__row"
+          onClick={() => {
+            console.log("redirect");
+          }}
+        >
+          <CheckBox>
+            Artb 이용약관 <span className="high-light">(필수)</span>
             <input type="checkbox" id="terms-and-conditions" />
-            <span className="checkmark"></span>
+            <label htmlFor="terms-and-conditions"></label>
           </CheckBox>
           <img src="/detail_toggleClose.png" alt="arrow-right" />
         </div>
-        <div className="term__row">
-          <CheckBox htmlFor="infor-collection-and-term-of-use">
-            Artb 개인정보 수집 및 이용약관 <a href="#">(필수)</a>
+        <div
+          className="term__row"
+          onClick={() => {
+            console.log("redirect");
+          }}
+        >
+          <CheckBox>
+            Artb 개인정보 수집 및 이용약관{" "}
+            <span className="high-light">(필수)</span>
             <input type="checkbox" id="infor-collection-and-term-of-use" />
-            <span className="checkmark"></span>
+            <label htmlFor="infor-collection-and-term-of-use"></label>
           </CheckBox>
           <img src="/detail_toggleClose.png" alt="arrow-right" />
         </div>
