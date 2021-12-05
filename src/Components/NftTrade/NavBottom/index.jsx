@@ -9,6 +9,7 @@ import {
   requireNetworkState,
 } from "../../../store/web3";
 import { Button } from "../Popup/walletConnect";
+import BankTransferModal from "./BankTransferModal";
 
 import WalletWeb3Controller from "../../../utilities/wallet";
 
@@ -84,7 +85,7 @@ const Header = styled.div`
   position: relative;
   background: #ffffff;
 
-  img {
+  img.arrow {
     width: 18px;
     height: 9px;
 
@@ -166,63 +167,87 @@ const WalletModal = ({ connect }) => {
 function NavBottom({ onClickLeft, onClickRight }) {
   // const [account, setAccount] = useRecoilState(accountState);
   const [account, setAccount] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
+  const [openWalletModal, setOpenWalletModal] = useState(false);
+  const [openBankTransferModal, setOpenBankTransferModal] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const WalletProvider = useMemo(
     () =>
       new WalletWeb3Controller({
         callbackConnect: (res) => {
-          setOpenModal(false);
+          setOpenWalletModal(false);
         },
         callbackDisconnect: () => {},
       }),
     []
   );
 
-  const openWalletModal = () => {
+  const handleOpenWalletModal = () => {
     setIsDisabled(true);
-    setOpenModal(true);
+    setOpenWalletModal(true);
   };
 
-  const closeWalletModal = () => {
+  const handleCloseWalletModal = () => {
     setIsDisabled(false);
-    setOpenModal(false);
+    setOpenWalletModal(false);
   };
 
   const handleConnectWallet = async () => {
     if (account) {
       await alert("지갑이 연결됐습니다.");
-      closeWalletModal();
+      handleCloseWalletModal();
     } else {
       const { account: accountResponse, network: neworkResponse } =
         await WalletProvider.connect();
       if (Boolean(accountResponse)) setAccount(accountResponse);
-      closeWalletModal();
+      handleCloseWalletModal();
     }
+  };
+
+  const handleOpenBankTransferModal = () => {
+    setIsDisabled(true);
+    setOpenBankTransferModal(true);
+  };
+
+  const handleCloseBankTransferModal = () => {
+    setIsDisabled(false);
+    setOpenBankTransferModal(false);
   };
 
   return (
     <NavBottomWrapper disabled={isDisabled}>
-      {Boolean(openModal) && <div className="shadow" />}
-      {Boolean(openModal) && (
+      {Boolean(openWalletModal || openBankTransferModal) && (
+        <div className="shadow" />
+      )}
+      {Boolean(openWalletModal || openBankTransferModal) && (
         <Header>
           <img
+            className="arrow"
             src="/detail_toggleClose.png"
             alt="header-toggle"
-            onClick={openWalletModal}
+            onClick={() => {
+              handleCloseWalletModal();
+              handleCloseBankTransferModal();
+            }}
           />
-          <WalletModal connect={handleConnectWallet} />
+          {openWalletModal && <WalletModal connect={handleConnectWallet} />}
+          {openBankTransferModal && <BankTransferModal />}
         </Header>
       )}
       <div className="button-group">
-        <div className="payButton left" onClick={onClickLeft}>
+        <div
+          className="payButton left"
+          onClick={() => {
+            handleOpenBankTransferModal();
+            onClickLeft();
+          }}
+        >
           <div className="name">계좌이체 구매</div>
         </div>
         <div
           className="payButton right"
           onClick={() => {
-            openWalletModal();
+            handleOpenWalletModal();
             onClickRight();
           }}
         >
