@@ -2,6 +2,7 @@ import Gnb from "../../../Components/Gnb";
 import styled from "styled-components";
 import React, { useState, useEffect, } from "react";
 import { HashLink } from "react-router-hash-link";
+import { formatNumber } from "../../../utilities/helper"
 
 function Coin({ props, location }) {
 
@@ -48,14 +49,14 @@ function Coin({ props, location }) {
           <div className="amount">
             <div className="Text_Style_33">45,000</div>
             <div className="Text_Style_33">{`${location.state.amount} NFT`}</div>
-            <div className="Text_Style_34">{`₩ ${(location.state.totalValue - 15000).toLocaleString()}`}</div>
-            <div className="Text_Style_34">₩ 15,000</div>
+            <div className="Text_Style_34">{`₩ ${formatNumber(location.state.totalValue - 15000)}`}</div>
+            <div className={location.state.amount <= 2 ? "Text_Style_34" : "Text_Style_34 line-through"}>₩ 15,000</div>
           </div>
         </div>
         <div className="line"></div>
         <div className="price">
           <div className="Text_Style_22">총 결제 가격</div>
-          <div className="Text_Style_23">{`₩ ${(location.state.totalValue).toLocaleString()}`}</div>
+          <div className="Text_Style_23">{`₩ ${formatNumber(location.state.totalValue)}`}</div>
         </div>
         <HashLink to={"/"}>
           <div className="buttonWrapper" style={{ cursor: "pointer" }} onClick={() => { window.scrollTo(0, 0); }}>
@@ -81,7 +82,7 @@ const Contents = styled.div`
   flex-direction: column;
   /* gap: 20px 0; */
   width: 100%;
-  margin: 30px 25px;
+  // margin: 30px 25px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
@@ -120,6 +121,10 @@ const Contents = styled.div`
       flex-direction: column;
       align-items: flex-end;
       gap: 16px;
+
+      .line-through {
+        text-decoration: line-through;
+      }
     }
   }
   .price {
