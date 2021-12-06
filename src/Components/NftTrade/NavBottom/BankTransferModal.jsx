@@ -200,6 +200,9 @@ const PriceAndFee = styled.div`
       margin-left: 10px;
       font-weight: bold;
     }
+    .line-through {
+      text-decoration: line-through;
+    }
   }
 `;
 
@@ -360,7 +363,9 @@ const BankTransferModal = ({ handleValidateTerm }) => {
                 이더리움 네트워크 수수료
                 <span>3개 이상 구매시 무료</span>
               </p>
-              <p className="count">15,000</p>
+              <p className={count <= 2 ? "count" : "count line-through"}>
+                15,000
+              </p>
             </div>
           </PriceAndFee>
           <div className="result">
