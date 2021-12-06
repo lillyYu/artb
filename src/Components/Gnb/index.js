@@ -6,19 +6,19 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 // import { HashLink } from "react-router-hash-link";
 
-import { useRecoilState } from "recoil";
-import WalletConnect from "./mypageWalletPopup";
+// import { useRecoilState } from "recoil";
+// import WalletConnect from "./mypageWalletPopup";
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import {
-  web3State,
-  accountState,
+// import {
+//   web3State,
+//   accountState,
 
-} from "../../store/web3";
+// } from "../../store/web3";
 
 function Gnb() {
-  const [web3, setWeb3] = useRecoilState(web3State);
-  const [account, setAccount] = useRecoilState(accountState);
-  const [mypageWallet, setMypageWallet] = useState(false);
+  // const [web3, setWeb3] = useRecoilState(web3State);
+  // const [account, setAccount] = useRecoilState(accountState);
+  // const [mypageWallet, setMypageWallet] = useState(false);
   const history = useHistory();
   const location = useLocation();
   const isHome = location.pathname === '/'
@@ -31,7 +31,22 @@ function Gnb() {
           left: 'calc(50% - 81px)'
         } : {}} onClick={() => { history.push('/') }} />
       </div>
-      {mypageWallet ? <WalletConnect setMypageWallet={setMypageWallet} /> : null}
+      <Setting>
+        <Link
+          to={{
+            pathname: "/mypage",
+          }}
+        >
+          <img
+            src="/Union2.png"
+            style={{ width: "50px", height: "50px" }}
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+          />
+        </Link>
+      </Setting>
+      {/* {mypageWallet ? <WalletConnect setMypageWallet={setMypageWallet} /> : null}
       <Setting>
         {account ?
           <Link
@@ -60,7 +75,7 @@ function Gnb() {
             </div>
           </My>
         }
-      </Setting>
+      </Setting> */}
     </Container>
   );
 }

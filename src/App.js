@@ -41,7 +41,7 @@ function App() {
         <Route path="/" component={Home}></Route>
         <Route path="/trade" component={NftTrade}></Route>
       </Switch> */}
-      {location.pathname !== '/' && <Footer />}
+      {/* <Footer /> */}
     </Container>
   );
 }

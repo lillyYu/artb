@@ -580,7 +580,7 @@ function NftTrade() {
         />
       ) : null}
       <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />
-      <Footer />
+      {/* <Footer /> */}
     </Container>
   );
 }
