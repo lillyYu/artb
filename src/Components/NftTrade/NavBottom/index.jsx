@@ -216,6 +216,14 @@ function NavBottom({ onClickLeft, onClickRight }) {
     setOpenBankTransferModal(false);
   };
 
+  const handleValidateTerm = (checked) => {
+    if (Boolean(checked.term1 && checked.term2)) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  };
+
   return (
     <NavBottomWrapper disabled={isDisabled}>
       {Boolean(openWalletModal || openBankTransferModal) && (
@@ -233,13 +241,18 @@ function NavBottom({ onClickLeft, onClickRight }) {
             }}
           />
           {openWalletModal && <WalletModal connect={handleConnectWallet} />}
-          {openBankTransferModal && <BankTransferModal />}
+          {openBankTransferModal && (
+            <BankTransferModal handleValidateTerm={handleValidateTerm} />
+          )}
         </Header>
       )}
       <div className="button-group">
         <div
           className="payButton left"
           onClick={() => {
+            if (Boolean(openBankTransferModal)) {
+              return console.log("redirect");
+            }
             handleOpenBankTransferModal();
             onClickLeft();
           }}
@@ -249,6 +262,9 @@ function NavBottom({ onClickLeft, onClickRight }) {
         <div
           className="payButton right"
           onClick={() => {
+            if (Boolean(openBankTransferModal)) {
+              return alert("카드 결제 기능은 준비 중 입니다.");
+            }
             handleOpenWalletModal();
             onClickRight();
           }}
