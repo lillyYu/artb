@@ -3,6 +3,8 @@ import { ntfInforState } from "../../../store/ntf";
 import { useRecoilState } from "recoil";
 import { useMemo, useState } from "react";
 
+import { formatNumber } from "../../../utilities/helper";
+
 const ContentWrapper = styled.div`
   padding: 40px;
   padding-bottom: 0;
@@ -275,7 +277,7 @@ const BankTransferModal = () => {
   const ntfInventory = useMemo(
     () =>
       nftInfo[0].inventory != 0
-        ? Number(nftInfo[0].inventory - 60000).toLocaleString()
+        ? formatNumber(nftInfo[0].inventory - 60000)
         : 0,
     [nftInfo]
   );
@@ -320,13 +322,13 @@ const BankTransferModal = () => {
             </div>
             <div className="calculator__unit">
               <p className="unit__title">수량 1개</p>
-              <p className="unit__count">100,000</p>
+              <p className="unit__count">{formatNumber(45000 * count)}</p>
             </div>
           </div>
           <PriceAndFee>
             <div className="price__row">
               <p className="label">총 가격</p>
-              <p className="count">100,000</p>
+              <p className="count">{formatNumber(45000 * count)}</p>
             </div>
             <div className="fee__row">
               <p className="label">
@@ -338,7 +340,10 @@ const BankTransferModal = () => {
           </PriceAndFee>
           <div className="result">
             <p className="label">총 결제 가격</p>
-            <p className="count">₩ 115,000</p>
+            <p className="count">
+              ₩{" "}
+              {formatNumber(count <= 2 ? 45000 * count + 15000 : 45000 * count)}
+            </p>
           </div>
         </BodySection>
       </ContentWrapper>
