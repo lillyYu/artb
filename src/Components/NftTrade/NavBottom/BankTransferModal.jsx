@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { useMemo, useState } from "react";
 
 import { formatNumber } from "../../../utilities/helper";
+import { useHistory } from "react-router";
 
 const ContentWrapper = styled.div`
   padding: 40px;
@@ -202,19 +203,9 @@ const PriceAndFee = styled.div`
 
 const BottomSection = styled.div`
   background: #e5e5e5;
-  padding: 41px 60px 11px 60px;
+  padding: 41px 60px 15px 60px;
 
   .term__row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    img {
-      width: 12px;
-      height: 6px;
-      transform: rotate(-90deg);
-      cursor: pointer;
-    }
   }
 `;
 
@@ -224,7 +215,22 @@ const CheckBox = styled.div`
   cursor: pointer;
   font-size: 24px;
   line-height: 24px;
-  flex-grow: 1;
+
+  .title {
+    display: flex;
+    align-items: center;
+
+    span {
+      flex-grow: 1;
+    }
+
+    img {
+      width: 12px;
+      height: 6px;
+      transform: rotate(-90deg);
+      cursor: pointer;
+    }
+  }
 
   .high-light {
     color: #e64724;
@@ -273,6 +279,11 @@ const CheckBox = styled.div`
 const BankTransferModal = () => {
   const [nftInfo, setNftInfo] = useRecoilState(ntfInforState);
   const [count, setCount] = useState(1);
+  const [checked, setChecked] = useState({
+    term1: false,
+    term2: false,
+  });
+  const history = useHistory();
 
   const ntfInventory = useMemo(
     () =>
@@ -293,6 +304,14 @@ const BankTransferModal = () => {
     setCount((prev) => {
       return prev + 1;
     });
+  };
+
+  const handleChange = (event) => {
+    event.stopPropagation();
+    setChecked((prev) => ({
+      ...prev,
+      [event.target.name]: !prev[event.target.name],
+    }));
   };
   return (
     <>
@@ -348,60 +367,53 @@ const BankTransferModal = () => {
         </BodySection>
       </ContentWrapper>
       <BottomSection>
-        <div
-          className="term__row"
-          onClick={() => {
-            console.log("redirect");
-          }}
-        >
-          <CheckBox>
-            Artb 이용약관 <span className="high-light">(필수)</span>
-            <input type="checkbox" id="terms-and-conditions" />
-            <label htmlFor="terms-and-conditions"></label>
-          </CheckBox>
-          <img src="/detail_toggleClose.png" alt="arrow-right" />
-        </div>
-        <div
-          className="term__row"
-          onClick={() => {
-            console.log("redirect");
-          }}
-        >
-          <CheckBox>
-            Artb 개인정보 수집 및 이용약관{" "}
-            <span className="high-light">(필수)</span>
-            <input type="checkbox" id="infor-collection-and-term-of-use" />
-            <label htmlFor="infor-collection-and-term-of-use"></label>
-          </CheckBox>
-          <img src="/detail_toggleClose.png" alt="arrow-right" />
-        </div>
+        <CheckBox>
+          <div
+            className="title"
+            onClick={() => {
+              history.push("/term1");
+            }}
+          >
+            <span>
+              Artb 이용약관 <span className="high-light">(필수)</span>
+            </span>
+            <img src="/detail_toggleClose.png" alt="arrow-right" />
+          </div>
+          <input
+            name="term1"
+            checked={checked.term1}
+            type="checkbox"
+            id="terms-and-conditions"
+            onChange={handleChange}
+          />
+          <label htmlFor="terms-and-conditions"></label>
+        </CheckBox>
+
+        <CheckBox>
+          <div
+            className="title"
+            onClick={() => {
+              history.push("/term2");
+            }}
+          >
+            <span>
+              Artb 개인정보 수집 및 이용약관{" "}
+              <span className="high-light">(필수)</span>
+            </span>
+            <img src="/detail_toggleClose.png" alt="arrow-right" />
+          </div>
+          <input
+            name="term2"
+            type="checkbox"
+            checked={checked.term2}
+            onChange={handleChange}
+            id="infor-collection-and-term-of-use"
+          />
+          <label htmlFor="infor-collection-and-term-of-use"></label>
+        </CheckBox>
       </BottomSection>
     </>
   );
 };
-
-// <input
-//   className="input"
-//   type="number"
-//   placeholder="구매할 수량을 입력해주세요"
-//   value={count}
-//   ref={inputDerection}
-//   onClick={() => {
-//     inputDerection.current.focus();
-//   }}
-//   onChange={(e) => {
-//     if (Number(e.target.value) < 0) {
-//       setCount("0");
-//     }
-//     if (Number(e.target.value) > Number(nftInfo[0].inventory - 60000)) {
-//       setCount(Number(nftInfo[0].inventory - 60000));
-//     } else {
-//       setMidValue(45000 * e.target.value);
-//       setTotalValue(45000 * e.target.value + 15000);
-//       setCount(e.target.value);
-//     }
-//   }}
-//   style={{ height: "50px" }}
-// />;
 
 export default BankTransferModal;
