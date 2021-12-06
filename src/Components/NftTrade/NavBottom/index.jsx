@@ -182,7 +182,9 @@ function NavBottom({ onClickLeft, onClickRight }) {
         callbackConnect: (res) => {
           setOpenWalletModal(false);
         },
-        callbackDisconnect: () => {},
+        callbackDisconnect: () => {
+          console.log("wallet disconnected");
+        },
       }),
     []
   );
