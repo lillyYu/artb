@@ -3,6 +3,7 @@ import Web3Modal from "web3modal";
 import Web3 from "web3";
 
 class WalletWeb3Controller {
+    web3 = null;
     web3Modal = null;
     provider = null;
     account = null;
