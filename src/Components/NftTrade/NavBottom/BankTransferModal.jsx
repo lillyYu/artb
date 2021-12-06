@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ntfInforState } from "../../../store/ntf";
 import { useRecoilState } from "recoil";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { formatNumber } from "../../../utilities/helper";
 import { useHistory } from "react-router";
@@ -276,7 +276,7 @@ const CheckBox = styled.div`
   }
 `;
 
-const BankTransferModal = () => {
+const BankTransferModal = ({ handleValidateTerm }) => {
   const [nftInfo, setNftInfo] = useRecoilState(ntfInforState);
   const [count, setCount] = useState(1);
   const [checked, setChecked] = useState({
@@ -284,6 +284,10 @@ const BankTransferModal = () => {
     term2: false,
   });
   const history = useHistory();
+
+  useEffect(() => {
+    handleValidateTerm(checked);
+  }, [checked.term1, checked.term2]);
 
   const ntfInventory = useMemo(
     () =>
