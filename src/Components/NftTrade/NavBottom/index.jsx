@@ -168,8 +168,9 @@ const WalletModal = ({ connect }) => {
 };
 
 function NavBottom({ onClickLeft, onClickRight }) {
-  // const [account, setAccount] = useRecoilState(accountState);
-  const [account, setAccount] = useState(null);
+  const [account, setAccount] = useRecoilState(accountState);
+  const [web3, setWeb3] = useRecoilState(web3State);
+  const [provider, setProvider] = useRecoilState(providerState);
   const [openWalletModal, setOpenWalletModal] = useState(false);
   const [openBankTransferModal, setOpenBankTransferModal] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -198,11 +199,13 @@ function NavBottom({ onClickLeft, onClickRight }) {
 
   const handleConnectWallet = async () => {
     if (account) {
-      await alert("지갑이 연결됐습니다.");
+      alert("지갑이 연결됐습니다.");
       handleCloseWalletModal();
     } else {
       const { account: accountResponse, network: neworkResponse } =
         await WalletProvider.connect();
+      setWeb3(WalletProvider.web3);
+      setProvider(WalletProvider.provider);
       if (Boolean(accountResponse)) setAccount(accountResponse);
       handleCloseWalletModal();
     }
