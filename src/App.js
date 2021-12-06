@@ -9,14 +9,15 @@ import MyNFT from "./Components/Gnb/myNFT";
 import CheckAccount from "./Components/Gnb/checkAccount";
 import Term1 from './Components/Terms/Term1';
 import Term2 from './Components/Terms/Term2';
+import AccountTransferPopup from './Components/NftTrade/Popup/accountTransfer'
 
 /* Libraries */
 import styled from "styled-components";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 function App() {
-
+  const location = useLocation();
 
   return (
     <Container>
@@ -32,6 +33,7 @@ function App() {
           component={() => <NftTrade />} />
         <Route path="/term1" exact component={Term1} />
         <Route path="/term2" exact component={Term2} />
+        <Route path="/accountTransfer" exact component={AccountTransferPopup} />
         {/* <Route path="/" component={NftTrade}></Route> */}
         {/* <Route path="/" component={Home}></Route> */}
       </Switch>
@@ -39,14 +41,13 @@ function App() {
         <Route path="/" component={Home}></Route>
         <Route path="/trade" component={NftTrade}></Route>
       </Switch> */}
-      <Footer />
+      {location.pathname !== '/' && <Footer />}
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 720px;
-  padding-bottom: 110px;
 `;
 
 export default App;

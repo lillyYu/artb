@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import { ntfInforState } from "../../../store/ntf";
+
 import { useRecoilState } from "recoil";
 import { useEffect, useMemo, useState } from "react";
 
 import { formatNumber } from "../../../utilities/helper";
 import { useHistory } from "react-router";
+import { ntfInforState } from "../../../store/ntf";
+import { amountBuyState } from "../../../store/wallet";
 
 const ContentWrapper = styled.div`
   padding: 40px;
@@ -277,8 +279,8 @@ const CheckBox = styled.div`
 `;
 
 const BankTransferModal = ({ handleValidateTerm }) => {
-  const [nftInfo, setNftInfo] = useRecoilState(ntfInforState);
-  const [count, setCount] = useState(1);
+  const [nftInfo, _] = useRecoilState(ntfInforState);
+  const [count, setCount] = useRecoilState(amountBuyState);
   const [checked, setChecked] = useState({
     term1: false,
     term2: false,
@@ -338,7 +340,7 @@ const BankTransferModal = ({ handleValidateTerm }) => {
               <div className="decrease" onClick={handleDecrease}>
                 -
               </div>
-              <input type="number" value={count} onChange={() => {}} />
+              <input type="number" value={count} onChange={(event) => {}} />
               <div className="increase" onClick={handleIncrease}>
                 +
               </div>
