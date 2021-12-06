@@ -8,32 +8,36 @@ import React, { useState, useEffect } from "react";
 
 import { useRecoilState } from "recoil";
 import WalletConnect from "./mypageWalletPopup";
-import { Route, Link } from 'react-router-dom';
-import MyNFT from "./myNFT";
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import {
   web3State,
   accountState,
 
 } from "../../store/web3";
+
 function Gnb() {
   const [web3, setWeb3] = useRecoilState(web3State);
   const [account, setAccount] = useRecoilState(accountState);
-  const [mypageWallet, setMypageWallet] = useState(false)
+  const [mypageWallet, setMypageWallet] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
+  const isHome = location.pathname === '/'
   return (
     <Container>
-      <div onClick={() => { window.location.href = "/" }} >
-        <img src="/gnb_logo.png" style={{ width: "162px", height: "56px", cursor: "pointer" }} />
+      <div className="Gnb__left">
+        {!isHome && <img className="Gnb__goBack" src="/detail_toggleClose.png" onClick={() => { history.goBack(); }} />}
+        <img className="Gnb__logo" src="/gnb_logo.png" style={!isHome ? {
+          position: "absolute",
+          left: 'calc(50% - 81px)'
+        } : {}} onClick={() => { history.push('/') }} />
       </div>
       {mypageWallet ? <WalletConnect setMypageWallet={setMypageWallet} /> : null}
       <Setting>
-        {/* <Language>KR</Language> */}
         {account ?
           <Link
             to={{
               pathname: "/mypage",
-
             }}
-
           >
             <img
               src="/Union2.png"
@@ -53,20 +57,9 @@ function Gnb() {
                   setMypageWallet(!mypageWallet)
                 }}
               />
-              {/* <div className="mouseHover">
-              <div>입금 계좌 :</div>
-              <div>301-0295-5774-33</div>
-              <div>농협은행 예금주 : 아트비글로벌(주)</div>
-            </div> */}
             </div>
           </My>
         }
-        {/* <img
-          src="/detail_pay.png"
-          style={{ width: "56px", height: "56px", color: "rgba(230, 71, 36, 0.8)", cursor: "pointer" }}
-        /> */}
-
-
       </Setting>
     </Container>
   );
@@ -84,6 +77,23 @@ const Container = styled.div`
   justify-content: space-between;
   background-color: white;
   z-index: 2;
+
+  .Gnb__goBack {
+    transform: rotate(90deg);
+    width: 26px; 
+    height: 16px; 
+    cursor: pointer;
+  }
+  .Gnb__logo {
+    width: 162px; 
+    height: 56px; 
+    cursor: pointer;
+  }
+
+  .Gnb__left {
+    display: flex;
+    align-items: center;
+  }
   a {
     text-decoration: none;
   }
