@@ -8,15 +8,14 @@ import { useRecoilState } from "recoil";
 import { accountState } from "../../../store/web3";
 //daum postcode
 import DaumPostcode from "react-daum-postcode";
+import { ntfInforState } from "../../../store/ntf";
+import { amountBuyState } from "../../../store/wallet";
+import { formatNumber } from "../../../utilities/helper"
 
-function AccountTransferPopup({
-  setTransferPopup,
-  amount,
-  totalValue,
-  address,
-}) {
+function AccountTransferPopup() {
   const [account] = useRecoilState(accountState);
-
+  const [nftInfo, _] = useRecoilState(ntfInforState);
+  const [amount, setAmount] = useRecoilState(amountBuyState);
   const [name, setName] = useState("");
   const [postAddress, setPostAddress] = useState(" ");
   const [detailAddress1, setDetailAddress1] = useState("");
@@ -24,6 +23,8 @@ function AccountTransferPopup({
   const [middleNum, setMiddleNum] = useState("");
   const [lastNum, setLastNum] = useState("");
   const [postcodePopup, setPostcodePopup] = useState(false);
+
+  const totalValue = amount <= 2 ? 45000 * amount + 15000 : 45000 * amount;
 
   const postInfo = async () => {
     let data = {
@@ -76,20 +77,17 @@ function AccountTransferPopup({
   return (
     <Container className="Container">
       <Contents>
-        <div className="back" onClick={() => setTransferPopup(false)}>
-          {"< 이전 페이지로 돌아가기"}
-        </div>
         <div className="Text_Style_17">주문확인</div>
         <div className="top">
           <img className="collectionImg" src="/collection1.png" />
           <div className="info">
             <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
-              {address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+              {nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
                 ? "남관"
                 : "-"}
             </div>
             <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
-              {address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+              {nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
                 ? "가을축제"
                 : "-"}
             </div>
@@ -103,7 +101,7 @@ function AccountTransferPopup({
         <div style={{ borderBottom: "1px dashed #9E9E9E" }}></div>
         <div className="price">
           <div className="Text_Style_22">총 결제 가격</div>
-          <div className="Text_Style_23">{`₩ ${totalValue.toLocaleString()}`}</div>
+          <div className="Text_Style_23">{`₩ ${formatNumber(totalValue)}`}</div>
         </div>
         <div className="Text_Style_24">
           <br />
@@ -192,11 +190,11 @@ function AccountTransferPopup({
           </div>
         </div>
         {name &&
-        postAddress &&
-        detailAddress1 &&
-        detailAddress2 &&
-        middleNum &&
-        lastNum ? (
+          postAddress &&
+          detailAddress1 &&
+          detailAddress2 &&
+          middleNum &&
+          lastNum ? (
           <Link
             to={{
               pathname: "/payment/coin",
@@ -267,25 +265,13 @@ const Container = styled.div`
   align-items: center;
 `;
 const Contents = styled.div`
-  padding: 35px 59px;
   box-sizing: border-box;
-  position: absolute;
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 672px;
-  left: 26px;
-  top: 30px;
+  width: 100%;
   height: inherit;
-  border-radius: 10px;
-
-  .back {
-    font-weight: 500;
-    font-size: 20px;
-    color: #eb4632;
-    cursor: pointer;
-    margin-bottom: 50px;
-  }
+  padding: 150px 63px;
 
   .top {
     display: flex;
@@ -440,8 +426,9 @@ const Contents = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     align-items: center;
     justify-content: center;
-    width: 672px;
-    margin: 0px 0px 0px -59px;
+    width: 100vw;
+    max-width: 720px;
+    margin-left: -63px;
     cursor: pointer;
   }
 `;

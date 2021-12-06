@@ -12,6 +12,7 @@ import { Button } from "../Popup/walletConnect";
 import BankTransferModal from "./BankTransferModal";
 
 import WalletWeb3Controller from "../../../utilities/wallet";
+import { useHistory } from "react-router";
 
 const NavBottomWrapper = styled.div`
   display: flex;
@@ -172,6 +173,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
   const [openWalletModal, setOpenWalletModal] = useState(false);
   const [openBankTransferModal, setOpenBankTransferModal] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const history = useHistory();
 
   const WalletProvider = useMemo(
     () =>
@@ -251,7 +253,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
           className="payButton left"
           onClick={() => {
             if (Boolean(openBankTransferModal)) {
-              return console.log("redirect");
+              return history.push("/accountTransfer");
             }
             handleOpenBankTransferModal();
             onClickLeft();
