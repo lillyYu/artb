@@ -7,6 +7,8 @@ import PayCash from "./Components/NftTrade/Payment/cash";
 import Footer from "./Components/Footer";
 import MyNFT from "./Components/Gnb/myNFT";
 import CheckAccount from "./Components/Gnb/checkAccount";
+import Term1 from './Components/Terms/Term1';
+import Term2 from './Components/Terms/Term2';
 
 /* Libraries */
 import styled from "styled-components";
@@ -26,7 +28,10 @@ function App() {
         <Route path="/mypage" component={MyNFT}></Route>
         <Route
           path="/"
+          exact
           component={() => <NftTrade />} />
+        <Route path="/term1" exact component={Term1} />
+        <Route path="/term2" exact component={Term2} />
         {/* <Route path="/" component={NftTrade}></Route> */}
         {/* <Route path="/" component={Home}></Route> */}
       </Switch>
