@@ -75,82 +75,6 @@ const Contents = styled.div`
       color: #ffffff;
     }
   }
-  .owner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 17px;
-    .dot {
-      width: 10px;
-      height: 10px;
-    }
-  }
-  .top {
-    display: flex;
-    justify-content: space-evenly;
-    .collectionImg {
-      width: 150px;
-      height: 146px;
-      padding: 35px 30px 53px 0px;
-    }
-    .info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      .buyQuantity {
-        display: flex;
-        margin-bottom: 7px;
-      }
-    }
-  }
-  .line {
-    border-bottom: 1px dashed #9e9e9e;
-    margin: 0px 30px;
-  }
-  
-  .text__content {
-    width: 80%;
-    max-width: 670px;
-    margin: auto;
-    padding-top: 35px;
-
-    font-size: 25px;
-
-    .text__header {
-      font-weight: bold;
-      margin-bottom: 25px;
-    }
-    .text__line {
-      margin-bottom: 25px;
-    }
-  }
-  .rightContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    .complete {
-      width: 120px;
-      height: 39px;
-      background-color: #c4c4c4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-  .confirmDepositCode {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    font-size: 32px;
-    font-weight: 900;
-    cursor: pointer;
-    margin: 80px 0;
-
-    text-decoration: none;
-
-  }
 `;
 
 const NoBalanceWrapper = styled.div`
@@ -214,6 +138,209 @@ color: #FFFFFF;
 }
 `
 
+const DepositConfirmNotificationWrapper = styled.div`
+margin: 18px 42px;
+background: #F7F7F7;
+border-radius: 5px;
+padding: 22px 30px;
+
+.notification__title {
+  font-size: 26px;
+  line-height: 40px;
+  letter-spacing: -1px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.notification__content {
+  margin-top: 22px;
+  display: flex;
+  align-items: flex-end;
+  
+  line-height: 40px;
+  letter-spacing: -1px;
+  color: rgba(0, 0, 0, 0.8);
+
+  .bank__number {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .bank__name {
+    font-size: 24px;
+  }
+
+  .button__copy {
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 40px;
+    letter-spacing: -1px;
+    color: rgba(230, 71, 36, 0.8);
+    cursor: pointer;
+  }
+}
+`
+
+const DepositConfirmNotification = () => {
+  return <DepositConfirmNotificationWrapper>
+    <div className="notification__title">입금 계좌 :</div>
+    <div className="notification__content">
+      <div className="bank__infor">
+        <p className="bank__number">301-0295-5774-33</p>
+        <p className="bank__name">농협은행 예금주 : 아트비글로벌(주)</p>
+      </div>
+      <div className="button__copy" >계좌복사하기</div>
+    </div>
+  </DepositConfirmNotificationWrapper>
+}
+
+const OrderWrapper = styled.div`
+display: flex;
+padding: 33px 0;
+margin: 0 56px;
+
+cursor: pointer;
+border-bottom:  1px dashed #9E9E9E;
+
+.logo {
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 100%;
+}
+
+.content {
+  margin-left: 13px;
+  padding: 10px 0;
+
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .content__author {
+    font-size: 24px;
+    letter-spacing: -0.7px;
+    color: #646464;
+    margin-bottom: 8px;
+  }
+
+  .content__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: -1px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .content__bottom {
+    flex-grow: 1;
+    display:flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    .content__count {
+      font-size: 24px;
+      letter-spacing: -0.7px;
+      color: rgba(0, 0, 0, 0.8);
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .content__status {
+      padding: 5px 10px;
+      margin-right: 12px;
+
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: center;
+
+      color: #E64724;
+      background: rgba(230, 71, 36, 0.1);
+      border-radius: 5px;
+    }
+
+    .content__payment {
+      font-weight: bold;
+      font-size: 26px;
+      text-align: right;
+      letter-spacing: -0.7px;
+      color: rgba(230, 71, 36, 0.8);
+    }
+  }
+}
+`
+const Order = () => {
+  return <OrderWrapper>
+    <div className="logo" style={{ backgroundImage: `url(${"/detail_product.png"})` }} />
+    <div className="content">
+      <p className="content__author" >작가명</p>
+      <p className="content__title">작품명 작품명 작품명</p>
+      <div className="content__bottom">
+        <div className="content__count">구매 갯수 <span>4</span> </div>
+        <div><span className="content__status">입금확인중</span>
+          <span className="content__payment">120,000</span></div>
+      </div>
+    </div>
+  </OrderWrapper>
+}
+
+const OrderHistoryWrapper = styled.div`
+.title {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 23px;
+  text-align: center;
+  letter-spacing: -0.7px;
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 50px;
+}
+
+.footer {
+  padding: 27px 72px;
+  
+
+  .high-line {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+    color: #1D1D1D;
+  }
+
+  .content {
+    margin-top: 21px;
+    font-size: 22px;
+    line-height: 36px;
+    letter-spacing: -1.6px;
+    color: rgba(64, 64, 64, 0.8);
+  }
+}
+`;
+const OrderHistory = () => {
+  return <OrderHistoryWrapper>
+    <div className="title">주문내역</div>
+    {
+      [1, 2].map(item => <Order key={item} />)
+    }
+    {
+      true && <DepositConfirmNotification />
+    }
+    <div className="footer">
+      <p className="high-line">NFT 저작권 실물 카드 및 액자는 12월15일 부터 순차 배송 됩니다.</p>
+      <p className="content">
+        NFT 저작권이 실제 메타마스크에 전송되기 까지 <br />
+        이더리움 네트워크 상황에 따라 1~3일 정도 소요될 수 있습니다.<br />
+        NFT 소유권 카드 또는 필름 액자는 <br />
+        제작 상황에따라 3일 ~ 10일 소요될 수 있습니다.<br />
+      </p>
+    </div>
+  </OrderHistoryWrapper>
+}
+
 const NoBalance = () => {
   return <NoBalanceWrapper>
     <img src="/artb.png" alt="no-balance" className="banner" />
@@ -258,8 +385,8 @@ function MyNFT({ }) {
 
     const balance = await COLLECTION_INSTANCE.methods.balanceOf(account, "0").call()
 
-    setBalanceAmount(balance)
-
+    // setBalanceAmount(balance)
+    setBalanceAmount('1') // fake api
   }
 
   useEffect(() => {
@@ -288,15 +415,6 @@ function MyNFT({ }) {
   return (
     <Container className="Container">
       <Contents>
-        {/* <Link to={{
-          pathname: "/",
-
-        }}>
-
-          <div className="back">
-            {"< 이전 페이지로 돌아가기"}
-          </div>
-        </Link> */}
         <div className="hello">
           <img className="unionImg" src="/Union.png" />
           <div className="Text_Style_35">회원님, 안녕하세요!</div>
@@ -306,7 +424,7 @@ function MyNFT({ }) {
         </div>
 
         {
-          balanceAmount == "0" ? <NoBalance /> : <div>data</div>
+          balanceAmount == "0" ? <NoBalance /> : <OrderHistory />
         }
       </Contents>
       <Footer />
@@ -316,72 +434,3 @@ function MyNFT({ }) {
 
 
 export default MyNFT;
-
-{/* <div className="owner">
-          <img className="dot" src="/dot.png" />
-          <div className="Text_Style_36">회원님의 소유권</div>
-        </div> */}
-// {balanceAmount == "0" ?
-//           <div className="top Text_Style_36" style={{ marginTop: "25px", opacity: "50%" }}>보유 중인 NFT가 없습니다.</div>
-//           :
-//           <div className="top">
-//             <img className="collectionImg" src="/collection1.png" />
-//             <div className="info">
-//               <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
-//                 남관
-//               </div>
-
-//               <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
-//                 가을축제
-//               </div>
-//               <div className="buyQuantity">
-//                 <div className="Text_Style_20"> 구매 갯수 </div>
-//                 {/* <div className="Text_Style_21" style={{ marginLeft: "15px" }}>{`${balanceAmount} NFT`}</div> */}
-//                 <div className="Text_Style_21" style={{ marginLeft: "15px" }}>{`${balanceAmount} NFT`}</div>
-
-//               </div>
-//             </div>
-//             {/* <div className="rightContainer"> */}
-//             {/* <div className="complete">
-//               <div className="Text_Style_20">전송완료</div>
-//             </div> */}
-//             {/* <div className="Text_Style_34">120,000</div> */}
-//             {/* </div> */}
-//           </div>
-//         }
-//         <div className="line"></div>
-//         <div className="text__content">
-//           <p className="text__header">Q. 대금 이체(결제) 완료했는데 구매내역이 안보여요</p>
-//           <p className="text__line">먼저 영업일 기준 1일 이내 담당자가 대금 이체 결과를 확인합니다. </p>
-//           <p className="text__line">확인 된 이후 실제 NFT가 전송되기 시작하며 이더리움 네트워크 상황에 따라 24시간 정도 추가 소요가 될 수 있습니다. </p>
-//           <p className="text__line">약 2일 정도 후 다시 확인해보시기 바라며, NFT 전송이 완료되면 따로 문자(SMS)도 전송 드리겠습니다.</p>
-//         </div>
-//         {/* <div className="top">
-//           <img className="collectionImg" src="/collection1.png" />
-//           <div className="info">
-//             <div className="Text_Style_18" style={{ marginBottom: "8px" }}>
-//               작가명
-//             </div>
-//             <div className="Text_Style_19" style={{ marginBottom: "23px" }}>
-//               작품명 작품명 작품명
-//             </div>
-//             <div className="buyQuantity">
-//               <div className="Text_Style_20"> 구매 갯수 </div>
-//               <div className="Text_Style_21">4</div>
-//             </div>
-//           </div>
-//           <div className="rightContainer">
-//             {/* <div className="complete">
-//               <div className="Text_Style_20">입금확인중</div>
-//             </div> */}
-//         {/* <div className="Text_Style_34">120,000</div>
-//           </div>
-//         </div> */}
-//         {/* <div className="line"></div> */}
-//         <Link to={{
-//           pathname: "/mypage/check",
-//         }}>
-//           <div className="confirmDepositCode" onClick={() => { window.scrollTo(0, 0); }}>
-//             <div>입금계좌 확인하기</div>
-//           </div>
-//         </Link>
