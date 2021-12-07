@@ -21,6 +21,7 @@ const NavBottomWrapper = styled.div`
   bottom: 0;
   width: calc(100vw);
   max-width: 720px;
+  z-index: 2;
 
   .shadow {
     width: 100vw;

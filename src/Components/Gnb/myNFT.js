@@ -219,7 +219,9 @@ const NoBalance = () => {
     <img src="/artb.png" alt="no-balance" className="banner" />
     <div className="title">아직 구매한 가을축제 NFT가 없습니다.</div>
     <div className="button-wrapper">
-      <div className="button">구매하러 가기</div>
+      <Link to="/">
+        <div className="button">구매하러 가기</div>
+      </Link>
     </div>
   </NoBalanceWrapper>
 }
@@ -234,7 +236,6 @@ const Footer = () => {
 function MyNFT({ }) {
   const [transterState, setTransferState] = useState(false); //입금상태에 따라 전송완료 혹은 입금확인중
   const [balanceAmount, setBalanceAmount] = useState("0")
-
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);
