@@ -22,7 +22,7 @@ import {
 } from "../../store/web3";
 import { ntfInforState } from "../../store/ntf";
 import { web3ReaderState } from "../../store/read-web3";
-
+import { formatNumber } from "../../utilities/helper"
 //이용약관
 import TermsOfUse from "./Terms/TermsOfUse";
 import Privacy from "./Terms/Privacy";
@@ -306,12 +306,12 @@ function NftTrade() {
             <div className="right">
               <div className="rest">
                 {nftInfo[0].inventory != 0
-                  ? Number(nftInfo[0].inventory - 72000).toLocaleString()
+                  ? formatNumber(nftInfo[0].inventory - 72000)
                   : 0}{" "}
                 NFT/
               </div>
               <div className="total">
-                {Number(nftInfo[0].quantity).toLocaleString()} NFT
+                {formatNumber(nftInfo[0].quantity)} NFT
               </div>
             </div>
           </div>
