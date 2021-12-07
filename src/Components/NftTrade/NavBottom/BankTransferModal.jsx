@@ -208,7 +208,7 @@ const PriceAndFee = styled.div`
 
 const BottomSection = styled.div`
   background: #e5e5e5;
-  padding: 41px 60px 15px 60px;
+  padding: 41px 60px 12px 60px;
 
   .term__row {
   }
@@ -219,7 +219,9 @@ const CheckBox = styled.div`
   padding-left: 65px;
   cursor: pointer;
   font-size: 24px;
-  line-height: 24px;
+  line-height: 30px;
+  height: 30px;
+  margin-bottom: 30px;
 
   .title {
     display: flex;
@@ -249,7 +251,7 @@ const CheckBox = styled.div`
     height: 28px;
     left: 20px;
     position: absolute;
-    top: -3px;
+    top: 0px;
     width: 28px;
   }
 
@@ -268,7 +270,7 @@ const CheckBox = styled.div`
   }
 
   & input[type="checkbox"] {
-    visibility: hidden;
+    display: none;
   }
 
   & input[type="checkbox"]:checked + label {
