@@ -364,303 +364,50 @@ function NftTrade() {
         )}
 
         <Info3>
-          <div className="title">개당 저작권 가격</div>
-          <div className="info">
-            <div className="price">
-              <div className="won">
-                {`￦ ${nftInfo[0].address ===
-                    "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-                    ? Number("45000").toLocaleString()
-                    : "-"
-                  }`}
-                {/* ￦{Number(data.price).toLocaleString()} */}
-              </div>{" "}
-              {/* FIX ME */}
-              {/* <div className="coin">
-                ≈{" "}
-                {String(Number(data.price) / Number(data.abcTokenValue)).slice(
-                  0,
-                  4
-                )}{" "}
-                ABC
-              </div> */}
-            </div>
-            <div className="restTime">
+          <div className="title">모든 구매자 분께 NFT 카드 실물을 서비스로 드립니다.</div>
+          <div className="image__wrapper">
+            <div className="first__section">
+              <img className="logo" src="/Artb__only__text.svg" />
               <img
-                src="/detail_clock.png"
-                style={{ width: "25px", height: "25px" }}
+                className="main__image"
+                src="/detail_product.png"
               />
-              <Countdown
-                date={new Date(2021, 11, 23, 24).getTime()}
-                renderer={({ days, hours, minutes, seconds }) => (
-                  <div className="time">{zeroPad(days)}일 남음</div>
-                )}
-              />
+              <div className="bottom">남관 · 가을축제 · 1984 · 200 x 300 · Oil Painting</div>
             </div>
-          </div>
-          <div className="inputBox">
-            <input
-              className="input"
-              type="number"
-              placeholder="구매할 수량을 입력해주세요"
-              value={inputValue}
-              ref={inputDerection}
-              onClick={() => {
-                inputDerection.current.focus();
-              }}
-              onChange={(e) => {
-                if (Number(e.target.value) < 0) {
-                  setInputValue("0");
-                }
-                if (
-                  Number(e.target.value) > Number(nftInfo[0].inventory - 72000)
-                ) {
-                  setInputValue(Number(nftInfo[0].inventory - 72000));
-                } else {
-                  setMidValue(45000 * e.target.value);
-                  setTotalValue(45000 * e.target.value + 15000);
-                  setInputValue(e.target.value);
-                }
-              }}
-              style={{ height: "50px" }}
-            />
-            <div className="unit" style={{ paddingLeft: "10px" }}>
-              NFT
-            </div>
-          </div>
-
-          <div className="restAmount">
-            <div className="left">총 금액:</div>
-            <div className="right">
-              {(inputValue ? midValue.toLocaleString() : "-") + "원"}
-            </div>
-          </div>
-
-          <div className="restAmount">
-            <div className="left">이더리움 네트워크 수수료:</div>
-            <div className="right">15,000원</div>
-          </div>
-
-          <div className="restAmount">
-            <div className="left">총 결제 금액:</div>
-            <div className="right">
-              {(inputValue ? totalValue.toLocaleString() : "-") + "원"}
-            </div>
-          </div>
-
-          {!buyButton ? (
-            <>
-              <div style={{ height: "30px" }} />
-              <div className="checkbox">
-                <input
-                  type="checkBox"
-                  className="box"
-                  onClick={() => {
-                    setCheck1(!check1);
-                    console.log(check1);
-                  }}
-                />
-                <span>Artb 이용약관 </span>
-                <span style={{ color: "red" }}>(필수)</span>
-                <img
-                  className="arrow"
-                  src="arrow-right.png"
-                  onClick={async () => {
-                    setTermsModal(!termsModal);
-                    window.scrollTo(0, 0);
-                  }}
-                />
+            <div className="second__section">
+              <img className="logo" src="/Artb__only__text.svg" style={{ width: "18px", height: "11.08px" }} />
+              <div className="header__title">남관(南寬), 대한민국의 대표적 추상미술 작가</div>
+              <div className="sub__title">동양의 신비한 사상을 서양의 과학적 기법을 융합시킨 선구자적 아티스트</div>
+              <div className="stamp__wrapper">
+                <div className="header">저작권자</div>
+                <img className="signature" src="/친필싸인 1__signature.svg" />
+                <div className="sub__title">아트비글로벌</div>
+                <img className="stamp" src="/직인 1__stamp.svg" />
               </div>
-              <div className="checkbox">
-                <input
-                  type="checkBox"
-                  className="box"
-                  onClick={() => {
-                    setCheck2(!check2);
-                    console.log(check2);
-                  }}
-                />
-                <span>Artb 개인정보 수집 및 이용약관 </span>
-                <span style={{ color: "red" }}>(필수)</span>
-                <img
-                  className="arrow"
-                  src="arrow-right.png"
-                  onClick={async () => {
-                    setPrivacyModal(!privacyModal);
-                    window.scrollTo(0, 0);
-                  }}
-                />
-                {termsModal ? (
-                  <TermsOfUse
-                    setTermsModal={setTermsModal}
-                    nftMethods={nftMethods}
-                    inputValue={inputValue}
-                  />
-                ) : null}
-                {privacyModal ? (
-                  <Privacy
-                    setPrivacyModal={setPrivacyModal}
-                    nftMethods={nftMethods}
-                    inputValue={inputValue}
-                  />
-                ) : null}
-              </div>
-              <div className="buttons notBuy">
-                <div
-                  className="coinButton"
-                  onClick={() => {
-                    if (!inputValue) {
-                      alert("수량을 기입해주시기 바랍니다.");
-                    } else if (check1 && check2) {
-                      setIsArtB(true);
-                      setBuyButton(!buyButton);
-                    } else alert("필수 이용약관에 동의해주시기 바랍니다.");
-                  }}
-                  style={
-                    inputValue && check1 && check2
-                      ? {}
-                      : { cursor: "not-allowed", opacity: "30%" }
-                  }
-                >
-                  <img className="icon" src="buy_icon.png" />
-                  <div className="name">구매하기</div>
+              <div className="bottom">
+                <div className="left">
+                  <p>SERIAL NO.HAAIHD-001-0001</p>
+                </div>
+                <div className="right">
+                  <span>(주)아트비글로벌</span>
+                  <span>2021년 11월 25일</span>
                 </div>
               </div>
-            </>
-          ) : (
-            <div className="buttons">
-              <div
-                className="coinButton"
-                onClick={
-                  account ? () => { } : () => setWalletPopup(!walletPopup)
-                }
-                style={
-                  account
-                    ? { cursor: "not-allowed", opacity: "30%" }
-                    : { cursor: "pointer" }
-                }
-              >
-                <div className="name">
-                  {" "}
-                  {account ? "지갑연결 완료" : "지갑연결"}
-                </div>
-              </div>
-
-              <div
-                className="coinButton"
-                onClick={() => {
-                  if (!inputValue || inputValue < 1) {
-                    alert("수량을 기입해주시기 바랍니다.");
-                  } else if (!account) {
-                    alert("지갑연결이 필요합니다");
-                  } else {
-                    setTransferPopup(!transferPopup);
-                    window.scrollTo(0, 0);
-                  }
-                }}
-                // onClick={
-                //   account
-                //     ? () => {
-                //       setTransferPopup(!transferPopup);
-                //       window.scrollTo(0, 0);
-                //     }
-                //     : () => {
-                //       alert("먼저 지갑을 연결해주시기 바랍니다.");
-
-                //     }
-                // }
-                style={
-                  !account
-                    ? { cursor: "not-allowed", opacity: "30%" }
-                    : { cursor: "pointer" }
-                }
-              >
-                <div className="name">계좌 이체로 구매</div>
-              </div>
-
-              <div
-                className="coinButton"
-                onClick={() => {
-                  setCreditcardPopup(!creditcardPopup);
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                <div className="name">카드 결제로 구매</div>
-              </div>
             </div>
-          )}
-          {console.log("input", inputValue)}
-          {/* {!isArtB ?
-            <div className="buttons">
-              <div
-                className="coinButton"
-                onClick={() => {
-                  // console.log("value", inputValue)
-                  // inputValue == 0 ?
-                  //   alert("수량을 입력해주세요")
-                  //   :
-                  setIsArtB(true)
-
-                }}
-              >
-                <div className="name">Artb 구매</div>
-              </div>
-              <div
-                className="cashButton"
-                onClick={() => {
-
-                }}
-              >
-                <div className="name">원화 구매</div>
-              </div>
+          </div>
+          <div className="bottom__section">
+            <div className="header__title">
+              구매 금액에 따라 실물 필름을 초고화질로 스캔하여 <br />
+              실물화한 가을축제 액자가 제공됩니다.
             </div>
-            :
-            <div className="buttons">
-              <div
-                className="payButton"
-                onClick={async () => {
-                  if (account) {
-                    alert("지갑이 연결됐습니다.");
-                  } else {
-                    await connect();
-                  }
-                }}
-                style={
-                  account
-                    ? { cursor: "not-allowed", opacity: "30%" }
-                    : { cursor: "pointer" }
-                }
-              >
-                <div className="name">
-                  {account
-                    ? account.slice(0, 8) + "..." + account.slice(-6)
-                    : "지갑연결"}</div>
-              </div>
-              <div
-                className="payButton"
-                onClick={async () => {
-                  if (account) {
-                    if (userInfo.allowance > 0) {
-                      setTermsModal(!termsModal);
-                    } else {
-                      nftMethods.approve();
-                    }
-                    window.scrollTo(0, 0);
-                  } else {
-                    alert("지갑을 연결해 주세요");
-                  }
-                }}
-                style={
-                  account
-                    ? { cursor: "pointer" }
-                    : { cursor: "not-allowed", opacity: "30%" }
-                }
-              >
-                <div className="name">구매하기</div>
-              </div>
-            </div> */}
-
-          {/* {termsModal ? <TermsOfUse setTermsModal={setTermsModal} nftMethods={nftMethods} inputValue={inputValue} /> : null} */}
+            <div className="sub__title">
+              450만원 구매시 90x60cm <br />
+              900만원 구매시 120x90cm
+            </div>
+            <div className="wrapper__image">
+              <div className="image" />
+            </div>
+          </div>
         </Info3>
 
         {/* <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
