@@ -66,6 +66,29 @@ box-sizing: border-box;
   .function {
     display: flex;
     gap: 0 20px;
+    position: relative;
+
+    #copy__tooltip {
+      opacity: 0;
+      text-align: center;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: -25px;
+      left: -10px;
+    }
+    @keyframes disappear {
+      20% {
+        opacity: 0;
+      }
+      40% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
     img {
       width: 35px;
       height: 35px;

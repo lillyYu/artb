@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import styled from "styled-components";
+import React, { useMemo, useState, useEffect } from "react";
+
 import { useRecoilState } from "recoil";
 import {
   web3State,
@@ -10,139 +10,16 @@ import {
 } from "../../../store/web3";
 import { Button } from "../Popup/walletConnect";
 import BankTransferModal from "./BankTransferModal";
+import { openWalletPopupState } from "../../../store/wallet";
 
 import WalletWeb3Controller from "../../../utilities/wallet";
 import { useHistory } from "react-router";
-
-const NavBottomWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  bottom: 0;
-  width: calc(100vw);
-  max-width: 720px;
-  z-index: 2;
-
-  .shadow {
-    width: 100vw;
-    height: 100vh;
-    max-width: 720px;
-    background: #e5e5e5;
-    opacity: 0.6;
-  }
-
-  .button-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: ${(props) => (props.disabled ? "#A4A4A4" : "#e64724")};
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-
-    .payButton {
-      width: 50%;
-      padding: 2.875rem 0;
-      position: relative;
-
-      .name {
-        font-weight: bold;
-        font-size: 1.75rem;
-        line-height: 1.25rem;
-        letter-spacing: 0.375px;
-        color: #ffffff;
-        text-align: center;
-      }
-    }
-
-    .payButton.left {
-      background: ${(props) => (props.disabled ? "#A4A4A4" : "inherit")};
-      cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
-      pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
-      &:after {
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 26px;
-        background: rgba(255, 255, 255, 0.8);
-        top: calc(50% - 13px);
-        right: 0;
-      }
-    }
-
-    .payButton.right {
-      background: ${(props) => (props.disabled ? "#A4A4A4" : "inherit")};
-      cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
-      pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
-      &:after {
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 26px;
-        background: rgba(255, 255, 255, 0.8);
-        top: calc(50% - 13px);
-        left: 0;
-      }
-    }
-  }
-`;
-
-const Header = styled.div`
-  position: relative;
-  background: #ffffff;
-
-  img.arrow {
-    width: 18px;
-    height: 9px;
-
-    position: absolute;
-    top: -45px;
-    left: calc(50% - 77px);
-    padding: 21px 68px;
-
-    background-color: #ffffff;
-    border-radius: 20px 20px 0 0;
-    cursor: pointer;
-  }
-`;
-
-const WalletModalWrapper = styled.div`
-  padding: 80px 40px 40px 40px;
-
-  p {
-    margin-bottom: 25px;
-  }
-
-  .title {
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 40px;
-    line-height: 26px;
-    letter-spacing: -0.7px;
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .content {
-    font-size: 24px;
-    line-height: 40px;
-    letter-spacing: -0.7px;
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .bottom {
-    width: 80%;
-    margin: 75px auto 0 auto;
-    text-align: center;
-
-    p {
-      margin-top: 25px;
-      color: rgba(100, 100, 100, 0.8);
-    }
-
-    a {
-      text-decoration: underline;
-      color: rgba(100, 100, 100, 0.8);
-    }
-  }
-`;
+import {
+  NavBottomWrapper,
+  Header,
+  WalletModalWrapper,
+  FirstModalWrapper,
+} from "./index.styles";
 
 const WalletModal = ({ connect }) => {
   return (
@@ -168,14 +45,50 @@ const WalletModal = ({ connect }) => {
   );
 };
 
+const FirstModal = ({ openWalletPopup, openBankTransfer }) => {
+  return (
+    <FirstModalWrapper>
+      <div className="first-modal__header">
+        NFT 수령을 위해, <br />
+        먼저 “메타마스크 지갑 연결"이 필요합니다.
+      </div>
+      <div className="first-modal__body">
+        <div className="body__high-line">
+          메타마스크 앱(App)이 설치 되어 있습니까?
+        </div>
+        <div className="body__line">{`왜 메타마스크가 필요한가요? 메타마스크 소개 보기 >`}</div>
+      </div>
+      <div className="first-modal__bottom">
+        <div className="button--outline" onClick={openWalletPopup}>
+          아니요
+        </div>
+        <div className="button--contained" onClick={openBankTransfer}>
+          네, 설치 되어 있습니다.
+        </div>
+      </div>
+    </FirstModalWrapper>
+  );
+};
+
 function NavBottom({ onClickLeft, onClickRight }) {
   const [account, setAccount] = useRecoilState(accountState);
   const [web3, setWeb3] = useRecoilState(web3State);
   const [provider, setProvider] = useRecoilState(providerState);
+  const [network, setNetwork] = useRecoilState(networkState);
+
   const [openWalletModal, setOpenWalletModal] = useState(false);
   const [openBankTransferModal, setOpenBankTransferModal] = useState(false);
+  const [openFirstModal, setFirstModal] = useState(false);
+  const [isOpenWalletPopup, setIsOpenWalletPopup] =
+    useRecoilState(openWalletPopupState);
+  const [isHiddenNav, setIsHiddenNav] = useState(false);
+
   const [isDisabled, setIsDisabled] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    if (!isOpenWalletPopup) setIsHiddenNav(false);
+  }, [isOpenWalletPopup]);
 
   const WalletProvider = useMemo(
     () =>
@@ -209,6 +122,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
         await WalletProvider.connect();
       setWeb3(WalletProvider.web3);
       setProvider(WalletProvider.provider);
+      setNetwork(neworkResponse);
       if (Boolean(accountResponse)) setAccount(accountResponse);
       handleCloseWalletModal();
     }
@@ -232,22 +146,61 @@ function NavBottom({ onClickLeft, onClickRight }) {
     }
   };
 
+  const handleLeftBtn = () => {
+    if (Boolean(openBankTransferModal)) {
+      return history.push("/accountTransfer");
+    }
+    handleOpenBankTransferModal();
+    onClickLeft();
+  };
+
+  const handleRightBtn = () => {
+    if (Boolean(openBankTransferModal)) {
+      return alert("카드 결제 기능은 준비 중 입니다.");
+    }
+    handleOpenWalletModal();
+    onClickRight();
+  };
+
+  const handleOpenFirstModal = () => {
+    setIsDisabled(true);
+    setFirstModal(true);
+  };
+
+  const handleCloseFirstModal = () => {
+    setFirstModal(false);
+  };
   return (
-    <NavBottomWrapper disabled={isDisabled}>
-      {Boolean(openWalletModal || openBankTransferModal) && (
+    <NavBottomWrapper hidden={isHiddenNav} disabled={isDisabled}>
+      {Boolean(openWalletModal || openBankTransferModal || openFirstModal) && (
         <div className="shadow" />
       )}
-      {Boolean(openWalletModal || openBankTransferModal) && (
+      {Boolean(openWalletModal || openBankTransferModal || openFirstModal) && (
         <Header>
           <img
             className="arrow"
             src="/detail_toggleClose.png"
             alt="header-toggle"
             onClick={() => {
+              handleCloseFirstModal();
               handleCloseWalletModal();
               handleCloseBankTransferModal();
             }}
           />
+          {openFirstModal && (
+            <FirstModal
+              openWalletPopup={() => {
+                setIsOpenWalletPopup(true);
+                setIsDisabled(false);
+                setFirstModal(false);
+                setIsHiddenNav(true);
+              }}
+              openBankTransfer={() => {
+                handleCloseFirstModal();
+                handleOpenBankTransferModal();
+              }}
+            />
+          )}
           {openWalletModal && <WalletModal connect={handleConnectWallet} />}
           {openBankTransferModal && (
             <BankTransferModal handleValidateTerm={handleValidateTerm} />
@@ -258,11 +211,14 @@ function NavBottom({ onClickLeft, onClickRight }) {
         <div
           className="payButton left"
           onClick={() => {
-            if (Boolean(openBankTransferModal)) {
-              return history.push("/accountTransfer");
+            const isNotFirstStep = Boolean(
+              openWalletModal || openBankTransferModal
+            );
+            if (!isNotFirstStep) {
+              handleOpenFirstModal();
+            } else {
+              handleLeftBtn();
             }
-            handleOpenBankTransferModal();
-            onClickLeft();
           }}
         >
           <div className="name">계좌이체 구매</div>
@@ -270,11 +226,14 @@ function NavBottom({ onClickLeft, onClickRight }) {
         <div
           className="payButton right"
           onClick={() => {
-            if (Boolean(openBankTransferModal)) {
-              return alert("카드 결제 기능은 준비 중 입니다.");
+            const isNotFirstStep = Boolean(
+              openWalletModal || openBankTransferModal
+            );
+            if (!isNotFirstStep) {
+              handleOpenFirstModal();
+            } else {
+              handleRightBtn();
             }
-            handleOpenWalletModal();
-            onClickRight();
           }}
         >
           <div className="name">카드결제 구매</div>

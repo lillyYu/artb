@@ -20,6 +20,7 @@ import {
   networkState,
   requireNetworkState,
 } from "../../store/web3";
+import { openWalletPopupState } from "../../store/wallet";
 import { ntfInforState } from "../../store/ntf";
 import { web3ReaderState } from "../../store/read-web3";
 import { formatNumber } from "../../utilities/helper"
@@ -49,7 +50,7 @@ function NftTrade() {
   const [totalValue, setTotalValue] = useState(undefined);
   const [isArtB, setIsArtB] = useState(false); //아트비구매 클릭시
   const [buyButton, setBuyButton] = useState(false);
-  const [walletPopup, setWalletPopup] = useState(false);
+  const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
   const [creditcardPopup, setCreditcardPopup] = useState(false);
   const [transferPopup, setTransferPopup] = useState(false);
   const [userInfo, setUserInfo] = useState({
@@ -245,7 +246,22 @@ function NftTrade() {
               {/* FIX ME */}
             </div>
             <div className="function">
-              <img src="/detail_share.png" alt="" />
+              <img src="/detail_share.png" alt="" onClick={() => {
+                const shareLink = "https://www.artbshop.co.kr/"
+                if (!navigator.clipboard) {
+                  console.log('this browser not supported');
+                } else {
+                  const copyElm = document.getElementById("copy__tooltip");
+                  copyElm.style.visibility = "visible";
+                  copyElm.style.animationName = "disappear";
+                  copyElm.style.animationDuration = "2.5s";
+                  setTimeout(function () {
+                    copyElm.style.animationName = "none";
+                  }, 2400);
+                  navigator.clipboard.writeText(shareLink);
+                }
+              }} />
+              <span id="copy__tooltip">Copied!</span>
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
@@ -296,7 +312,7 @@ function NftTrade() {
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">(주)아트비글로벌</div>
+              <div className="name">아트비글로벌(주)</div>
               {/* <div className="name">{`${nftInfo[0].address ===
                 "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
                 ? "ArtB"
@@ -571,10 +587,10 @@ function NftTrade() {
       {creditcardPopup ? (
         <CreditcardPopup setCreditcardPopup={setCreditcardPopup} />
       ) : null}
-      {walletPopup ? (
+      {isOpenWalletPopup ? (
         <WalletConnect
-          setWalletPopup={setWalletPopup}
-          setBuyButton={setBuyButton}
+          setWalletPopup={setIsOpenWalletPopup}
+        // setBuyButton={setBuyButton}
         />
       ) : null}
       <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />

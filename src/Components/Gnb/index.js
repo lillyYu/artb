@@ -7,18 +7,19 @@ import React, { useState, useEffect } from "react";
 // import { HashLink } from "react-router-hash-link";
 
 import { useRecoilState } from "recoil";
-import WalletConnect from "./mypageWalletPopup";
+import WalletConnect from "../NftTrade/Popup/walletConnect";
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import {
   web3State,
   accountState,
 
 } from "../../store/web3";
+import { openWalletPopupState } from "../../store/wallet";
 
 function Gnb() {
   // const [web3, setWeb3] = useRecoilState(web3State);
   const [account, setAccount] = useRecoilState(accountState);
-  const [mypageWallet, setMypageWallet] = useState(false);
+  const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
   const history = useHistory();
   const location = useLocation();
   const isHome = location.pathname === '/'
@@ -46,7 +47,7 @@ function Gnb() {
           />
         </Link>
       </Setting> */}
-      {mypageWallet ? <WalletConnect setMypageWallet={setMypageWallet} /> : null}
+      {isOpenWalletPopup ? <WalletConnect setWalletPopup={setIsOpenWalletPopup} /> : null}
       <Setting>
         {account ?
           <Link
@@ -69,7 +70,7 @@ function Gnb() {
                 src="/detail_pay.png"
                 style={{ width: "30px", height: "30px" }}
                 onClick={() => {
-                  setMypageWallet(!mypageWallet)
+                  setIsOpenWalletPopup(!isOpenWalletPopup)
                 }}
               />
             </div>

@@ -21,7 +21,9 @@ const Container = styled.div`
   margin-top: 130px;
   width: 100%;
   min-height: calc(100vh - 130px);
-  background-color: #e2e2e2;
+  
+  background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   a {
     text-decoration: none;
   }
@@ -32,8 +34,6 @@ const Contents = styled.div`
   flex-grow: 1;
   gap: 20px 0;
   width: 100%;
-  background-color: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   .back {
     font-weight: 500;
     font-size: 20px;
@@ -63,7 +63,7 @@ const Contents = styled.div`
     }
     .button {
       padding: 33px 81px;
-      background: rgba(230, 71, 36, 0.8);
+      background: #F2CCC4;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
       border-radius: 10px;
       vertical-align: middle;
@@ -138,23 +138,24 @@ color: #FFFFFF;
 }
 `
 
-const DepositConfirmNotificationWrapper = styled.div`
-margin: 18px 42px;
+const BankDepositInformationWrapper = styled.div`
+margin: 38px 42px 46px 42px;
 background: #F7F7F7;
 border-radius: 5px;
 padding: 22px 30px;
 
-.notification__title {
+.bank-deposit-infor__title {
   font-size: 26px;
   line-height: 40px;
   letter-spacing: -1px;
   color: rgba(0, 0, 0, 0.8);
 }
 
-.notification__content {
+.bank-deposit-infor__content {
   margin-top: 22px;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   
   line-height: 40px;
   letter-spacing: -1px;
@@ -175,27 +176,64 @@ padding: 22px 30px;
     letter-spacing: -1px;
     color: rgba(230, 71, 36, 0.8);
     cursor: pointer;
+    position: relative;
+
+    #bank-deposit-infor__copy-tooltip {
+      opacity: 0;
+      font-size: 24px;
+      color: #000000;
+      position: absolute;
+      top: 34px;
+      left: 34px;
+    }
+    @keyframes disappear {
+      20% {
+        opacity: 0;
+      }
+      40% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
   }
 }
 `
 
-const DepositConfirmNotification = () => {
-  return <DepositConfirmNotificationWrapper>
-    <div className="notification__title">입금 계좌 :</div>
-    <div className="notification__content">
+const BankDepositInformation = () => {
+  return <BankDepositInformationWrapper>
+    <div className="bank-deposit-infor__title">입금 계좌 :</div>
+    <div className="bank-deposit-infor__content">
       <div className="bank__infor">
-        <p className="bank__number">301-0295-5774-33</p>
+        <p className="bank__number">317-0024-1598-21</p>
         <p className="bank__name">농협은행 예금주 : 아트비글로벌(주)</p>
       </div>
-      <div className="button__copy" >계좌복사하기</div>
+      <div className="button__copy" onClick={() => {
+        const copyText = "317-0024-1598-21"
+        if (!navigator.clipboard) {
+          console.log('this browser not supported');
+        } else {
+          const copyElm = document.getElementById("bank-deposit-infor__copy-tooltip");
+          copyElm.style.visibility = "visible";
+          copyElm.style.animationName = "disappear";
+          copyElm.style.animationDuration = "2.5s";
+          setTimeout(function () {
+            copyElm.style.animationName = "none";
+          }, 2400);
+          navigator.clipboard.writeText(copyText);
+        }
+      }} >계좌복사하기
+        <span id="bank-deposit-infor__copy-tooltip">Copied!</span>
+      </div>
     </div>
-  </DepositConfirmNotificationWrapper>
+  </BankDepositInformationWrapper>
 }
 
 const OrderWrapper = styled.div`
 display: flex;
 padding: 33px 0;
-margin: 0 56px;
+margin: 0 46px;
 
 cursor: pointer;
 border-bottom:  1px dashed #9E9E9E;
@@ -299,26 +337,7 @@ const OrderHistoryWrapper = styled.div`
   margin-bottom: 50px;
 }
 
-.footer {
-  padding: 27px 72px;
-  
 
-  .high-line {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 40px;
-    letter-spacing: -1.6px;
-    color: #1D1D1D;
-  }
-
-  .content {
-    margin-top: 21px;
-    font-size: 22px;
-    line-height: 36px;
-    letter-spacing: -1.6px;
-    color: rgba(64, 64, 64, 0.8);
-  }
-}
 `;
 const OrderHistory = () => {
   return <OrderHistoryWrapper>
@@ -326,18 +345,7 @@ const OrderHistory = () => {
     {
       [1, 2].map(item => <Order key={item} />)
     }
-    {
-      true && <DepositConfirmNotification />
-    }
-    <div className="footer">
-      <p className="high-line">NFT 저작권 실물 카드 및 액자는 12월15일 부터 순차 배송 됩니다.</p>
-      <p className="content">
-        NFT 저작권이 실제 메타마스크에 전송되기 까지 <br />
-        이더리움 네트워크 상황에 따라 1~3일 정도 소요될 수 있습니다.<br />
-        NFT 소유권 카드 또는 필름 액자는 <br />
-        제작 상황에따라 3일 ~ 10일 소요될 수 있습니다.<br />
-      </p>
-    </div>
+
   </OrderHistoryWrapper>
 }
 
@@ -358,6 +366,40 @@ const Footer = () => {
     <p className="label">고객센터 </p>
     <p className="phone"> 02-6953-2364</p>
   </FooterWrapper>
+}
+
+const GuideWrapper = styled.div`
+padding: 0 46px;
+margin-top: 116px;
+
+.high-line {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 40px;
+  letter-spacing: -1.6px;
+  color: #1D1D1D;
+}
+
+.content {
+  margin-top: 21px;
+
+  font-size: 26px;
+  line-height: 40px;
+  letter-spacing: -0.7px;
+  color: rgba(0, 0, 0, 0.8);
+}
+`;
+
+const Guide = () => {
+  return <GuideWrapper>
+    <p className="high-line">Q. 결제를 완료 했는데도 주문 내역이 없어요</p>
+    <p className="content">
+      A. NFT가 전송되기까지 이더리움 네트워크 상황에따라
+      1-2일 소요될 수 있습니다. 실제 전송이 완료되면 문자(SMS)
+      를 통해 안내드리겠습니다. 만약 2-3일 이상 NFT 수령을
+      못받으신 경우 고객센터(02-6953-2364)로 연락 부탁드립니다.
+    </p>
+  </GuideWrapper>
 }
 
 function MyNFT({ }) {
@@ -384,7 +426,6 @@ function MyNFT({ }) {
     );
 
     const balance = await COLLECTION_INSTANCE.methods.balanceOf(account, "0").call()
-
     // setBalanceAmount(balance)
     setBalanceAmount('1') // fake api
   }
@@ -401,17 +442,17 @@ function MyNFT({ }) {
     []
   );
 
-  const handleOpenWallet = async () => {
-    if (account) {
-      alert("지갑이 연결됐습니다.");
-    } else {
-      const { account: accountResponse, network: neworkResponse } =
-        await WalletProvider.connect();
-      setWeb3(WalletProvider.web3);
-      setProvider(WalletProvider.provider);
-      if (Boolean(accountResponse)) setAccount(accountResponse);
-    }
-  }
+  // const handleOpenWallet = async () => {
+  //   if (account) {
+  //     alert("지갑이 연결됐습니다.");
+  //   } else {
+  //     const { account: accountResponse, network: neworkResponse } =
+  //       await WalletProvider.connect();
+  //     setWeb3(WalletProvider.web3);
+  //     setProvider(WalletProvider.provider);
+  //     if (Boolean(accountResponse)) setAccount(accountResponse);
+  //   }
+  // }
   return (
     <Container className="Container">
       <Contents>
@@ -420,13 +461,18 @@ function MyNFT({ }) {
           <div className="Text_Style_35">회원님, 안녕하세요!</div>
         </div>
         <div className="buttonWrapper">
-          <div className="button" onClick={handleOpenWallet}><img className="icon" src="/detail_pay.png" />내 메타마스크 지갑열기</div>
+          <div className="button"
+          //  onClick={handleOpenWallet}
+          ><img className="icon" src="/detail_pay.png" />내 메타마스크 지갑열기</div>
         </div>
-
         {
           balanceAmount == "0" ? <NoBalance /> : <OrderHistory />
         }
       </Contents>
+      {
+        balanceAmount == "0" && <Guide />
+      }
+      <BankDepositInformation />
       <Footer />
     </Container>
   );
