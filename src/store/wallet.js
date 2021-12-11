@@ -8,4 +8,9 @@ export const amountBuyState = atom({
 export const openWalletPopupState = atom({
     key: "openWalletPopupState",
     default: false
+});
+
+export const balanceAmountState = atom({
+    key: "balanceAmountState",
+    default: 0
 })

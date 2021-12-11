@@ -9,7 +9,8 @@ import MyNFT from "./Components/Gnb/myNFT";
 import CheckAccount from "./Components/Gnb/checkAccount";
 import Term1 from './Components/Terms/Term1';
 import Term2 from './Components/Terms/Term2';
-import AccountTransferPopup from './Components/NftTrade/Popup/accountTransfer'
+import AccountTransferPopup from './Components/NftTrade/Popup/accountTransfer';
+import OrderDetail from './Components/Gnb/OrderDetail';
 
 /* Libraries */
 import styled from "styled-components";
@@ -26,7 +27,8 @@ function App() {
         <Route path="/payment/coin" component={PayCoin}></Route>
         <Route path="/payment/cash" component={PayCash}></Route>
         <Route path="/mypage/check" component={CheckAccount}></Route>
-        <Route path="/mypage" component={MyNFT}></Route>
+        <Route path="/mypage" exact component={MyNFT} />
+        <Route path="/mypage/orders/:id" exact component={OrderDetail} />
         <Route
           path="/"
           exact

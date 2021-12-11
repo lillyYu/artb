@@ -1,205 +1,21 @@
-import styled from "styled-components";
 import React, { useState, useEffect, useMemo } from "react";
 import { HashLink } from "react-router-hash-link";
 import { useRecoilState } from "recoil";
-import { Route, Link } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 import {
   web3State,
   accountState,
   providerState
 } from "../../store/web3";
+import { balanceAmountState } from "../../store/wallet"
 
 import { web3ReaderState } from "../../store/read-web3";
 
 import { createContractInstance } from "../../lib/Station";
 import WalletWeb3Controller from "../../utilities/wallet";
+import { formatNumber } from "../../utilities/helper"
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 130px;
-  width: 100%;
-  min-height: calc(100vh - 130px);
-  
-  background-color: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-  a {
-    text-decoration: none;
-  }
-`;
-const Contents = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  gap: 20px 0;
-  width: 100%;
-  .back {
-    font-weight: 500;
-    font-size: 20px;
-    color: #eb4632;
-    cursor: pointer;
-    padding:35px 70px;
-  }
-  .hello {
-    display: flex;
-    justify-content: center;
-    margin: 34px 0;
-    .unionImg {
-      width: 31px;
-      height: 35px;
-      padding-right: 30px;
-    }
-  }
-  .buttonWrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 60px;
-    cursor: pointer;
-    .icon {
-      width: 24px;
-      height: 22px;
-      margin-right: 5px;
-    }
-    .button {
-      padding: 33px 81px;
-      background: #F2CCC4;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-      border-radius: 10px;
-      vertical-align: middle;
-      font-family: Noto Sans CJK KR;
-      font-size: 25px;
-      line-height: 22px;
-      font-style: normal;
-      font-weight: 400;
-      color: #ffffff;
-    }
-  }
-`;
-
-const NoBalanceWrapper = styled.div`
-display: flex;
-align-items: center;
-flex-direction: column;
-
-.banner {
-  width: 165px;
-  height: 65px;
-  margin: 150px auto 50px auto;
-}
-
-.title {
-  font-size: 26px;
-  line-height: 40px;
-  text-align: center;
-  letter-spacing: -0.7px;
-  color: rgba(0, 0, 0, 0.8);
-  margin-bottom: 78px;
-}
-
-.button-wrapper {
-  width: 63%;
-  max-width: 453.5px;
-  .button {
-    background: rgba(145, 145, 145, 0.8);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-    padding: 33px 81px;
-    text-align: center;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 20px;
-    letter-spacing: 0.375px;
-    color: #FFFFFF;
-  }
-}
-`
-
-const FooterWrapper = styled.div`
-background: #525252;
-height: 90px;
-display: flex;
-justify-content: flex-end;
-align-items: center;
-padding: 0 25px;
-
-.label {
-  font-weight: 500;
-font-size: 24px;
-line-height: 49px;
-letter-spacing: -1px;
-color: rgba(255, 255, 255, 0.9);
-margin-right: 13px;
-}
-.phone {
-  font-size: 26px;
-line-height: 38px;
-color: #FFFFFF;
-}
-`
-
-const BankDepositInformationWrapper = styled.div`
-margin: 38px 42px 46px 42px;
-background: #F7F7F7;
-border-radius: 5px;
-padding: 22px 30px;
-
-.bank-deposit-infor__title {
-  font-size: 26px;
-  line-height: 40px;
-  letter-spacing: -1px;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.bank-deposit-infor__content {
-  margin-top: 22px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  
-  line-height: 40px;
-  letter-spacing: -1px;
-  color: rgba(0, 0, 0, 0.8);
-
-  .bank__number {
-    font-size: 32px;
-    font-weight: bold;
-  }
-  .bank__name {
-    font-size: 24px;
-  }
-
-  .button__copy {
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 40px;
-    letter-spacing: -1px;
-    color: rgba(230, 71, 36, 0.8);
-    cursor: pointer;
-    position: relative;
-
-    #bank-deposit-infor__copy-tooltip {
-      opacity: 0;
-      font-size: 24px;
-      color: #000000;
-      position: absolute;
-      top: 34px;
-      left: 34px;
-    }
-    @keyframes disappear {
-      20% {
-        opacity: 0;
-      }
-      40% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-  }
-}
-`
+import { Container, Contents, NoBalanceWrapper, FooterWrapper, BankDepositInformationWrapper, OrderWrapper, OrderHistoryWrapper, GuideWrapper } from './myNFT.styles';
 
 const BankDepositInformation = () => {
   return <BankDepositInformationWrapper>
@@ -230,122 +46,55 @@ const BankDepositInformation = () => {
   </BankDepositInformationWrapper>
 }
 
-const OrderWrapper = styled.div`
-display: flex;
-padding: 33px 0;
-margin: 0 46px;
-
-cursor: pointer;
-border-bottom:  1px dashed #9E9E9E;
-
-.logo {
-  width: 150px;
-  height: 150px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 100%;
+const initialOrder = {
+  id: '1006-id',
+  imageUrl: "/detail_product.png",
+  author: "작가명",
+  titleOfWork: "작품명 작품명 작품명",
+  purchaseNumber: 3,
+  status: '입금확인중',
 }
+const Order = ({
+  id,
+  imageUrl,
+  author,
+  titleOfWork,
+  purchaseNumber,
+  status,
+} = initialOrder) => {
+  const location = useLocation();
+  const history = useHistory();
 
-.content {
-  margin-left: 13px;
-  padding: 10px 0;
-
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: space-between;
-
-  .content__author {
-    font-size: 24px;
-    letter-spacing: -0.7px;
-    color: #646464;
-    margin-bottom: 8px;
-  }
-
-  .content__title {
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: -1px;
-    text-align: left;
-    color: rgba(0, 0, 0, 0.9);
-  }
-
-  .content__bottom {
-    flex-grow: 1;
-    display:flex;
-    align-items: flex-end;
-    justify-content: space-between;
-
-    .content__count {
-      font-size: 24px;
-      letter-spacing: -0.7px;
-      color: rgba(0, 0, 0, 0.8);
-
-      span {
-        font-weight: bold;
-      }
-    }
-
-    .content__status {
-      padding: 5px 10px;
-      margin-right: 12px;
-
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 24px;
-      text-align: center;
-
-      color: #E64724;
-      background: rgba(230, 71, 36, 0.1);
-      border-radius: 5px;
-    }
-
-    .content__payment {
-      font-weight: bold;
-      font-size: 26px;
-      text-align: right;
-      letter-spacing: -0.7px;
-      color: rgba(230, 71, 36, 0.8);
-    }
-  }
-}
-`
-const Order = () => {
-  return <OrderWrapper>
-    <div className="logo" style={{ backgroundImage: `url(${"/detail_product.png"})` }} />
+  return <OrderWrapper onClick={() => {
+    history.push(`${location.pathname}/orders/${id}`);
+  }}>
+    <div className="logo" style={{ backgroundImage: `url(${imageUrl})` }} />
     <div className="content">
-      <p className="content__author" >작가명</p>
-      <p className="content__title">작품명 작품명 작품명</p>
+      <p className="content__author" >{author}</p>
+      <p className="content__title">{titleOfWork}</p>
       <div className="content__bottom">
-        <div className="content__count">구매 갯수 <span>4</span> </div>
-        <div><span className="content__status">입금확인중</span>
-          <span className="content__payment">120,000</span></div>
+        <div className="content__count">구매 갯수 <span>{purchaseNumber}</span> </div>
+        {/* <div>
+          <span className="content__status">{status}</span>
+          <span className="content__payment">
+            {formatNumber(purchaseNumber <= 2 ? 45000 * purchaseNumber + 15000 : 45000 * purchaseNumber)}
+          </span>
+        </div> */}
       </div>
     </div>
   </OrderWrapper>
 }
 
-const OrderHistoryWrapper = styled.div`
-.title {
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 23px;
-  text-align: center;
-  letter-spacing: -0.7px;
-  color: rgba(0, 0, 0, 0.8);
-  margin-bottom: 50px;
-}
 
-
-`;
-const OrderHistory = () => {
+const OrderHistory = ({ data }) => {
   return <OrderHistoryWrapper>
     <div className="title">주문내역</div>
     {
-      [1, 2].map(item => <Order key={item} />)
+      data.map(item => <Order
+        key={item}
+        {...item}
+      />)
     }
-
   </OrderHistoryWrapper>
 }
 
@@ -368,27 +117,7 @@ const Footer = () => {
   </FooterWrapper>
 }
 
-const GuideWrapper = styled.div`
-padding: 0 46px;
-margin-top: 116px;
 
-.high-line {
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 40px;
-  letter-spacing: -1.6px;
-  color: #1D1D1D;
-}
-
-.content {
-  margin-top: 21px;
-
-  font-size: 26px;
-  line-height: 40px;
-  letter-spacing: -0.7px;
-  color: rgba(0, 0, 0, 0.8);
-}
-`;
 
 const Guide = () => {
   return <GuideWrapper>
@@ -402,20 +131,36 @@ const Guide = () => {
   </GuideWrapper>
 }
 
+export const WelcomeContent = () => {
+  return <>
+    <div className="hello">
+      <img className="unionImg" src="/Union.png" />
+      <div className="Text_Style_35">회원님, 안녕하세요!</div>
+    </div>
+    <div className="buttonWrapper">
+      <div className="button"
+      //  onClick={handleOpenWallet}
+      ><img className="icon" src="/detail_pay.png" />내 메타마스크 지갑열기</div>
+    </div>
+  </>
+}
+
+
+const ARTB_COLLECTION_INFO = require("../../lib/contracts/ArtbCollection.json");
+
+export const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
+export const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[1].address;
+
 function MyNFT({ }) {
   const [transterState, setTransferState] = useState(false); //입금상태에 따라 전송완료 혹은 입금확인중
-  const [balanceAmount, setBalanceAmount] = useState("0")
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);
   const [account, setAccount] = useRecoilState(accountState);
   const [provider, setProvider] = useRecoilState(providerState);
+  const [listOrder, setListOrder] = useState([]);
+  const [balanceAmount, setBalanceAmount] = useRecoilState(balanceAmountState);
 
-
-  const ARTB_COLLECTION_INFO = require("../../lib/contracts/ArtbCollection.json");
-
-  const ARTB_COLLECTION_ABI = ARTB_COLLECTION_INFO.abi;
-  const ARTB_COLLECTION_ADDRESS = ARTB_COLLECTION_INFO.networks[1].address;
 
   const loadAmount = async () => {
 
@@ -426,8 +171,11 @@ function MyNFT({ }) {
     );
 
     const balance = await COLLECTION_INSTANCE.methods.balanceOf(account, "0").call()
-    // setBalanceAmount(balance)
-    setBalanceAmount('1') // fake api
+    setBalanceAmount(balance);
+    setListOrder([{
+      ...initialOrder,
+      purchaseNumber: balance // this is balance
+    }]);
   }
 
   useEffect(() => {
@@ -456,21 +204,13 @@ function MyNFT({ }) {
   return (
     <Container className="Container">
       <Contents>
-        <div className="hello">
-          <img className="unionImg" src="/Union.png" />
-          <div className="Text_Style_35">회원님, 안녕하세요!</div>
-        </div>
-        <div className="buttonWrapper">
-          <div className="button"
-          //  onClick={handleOpenWallet}
-          ><img className="icon" src="/detail_pay.png" />내 메타마스크 지갑열기</div>
-        </div>
+        <WelcomeContent />
         {
-          balanceAmount == "0" ? <NoBalance /> : <OrderHistory />
+          listOrder.length === 0 ? <NoBalance /> : <OrderHistory data={listOrder} />
         }
       </Contents>
       {
-        balanceAmount == "0" && <Guide />
+        listOrder.length === 0 && <Guide />
       }
       <BankDepositInformation />
       <Footer />
