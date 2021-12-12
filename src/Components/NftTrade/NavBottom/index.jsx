@@ -137,7 +137,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
       setProvider(WalletProvider.provider);
       setNetwork(neworkResponse);
       if (Boolean(accountResponse)) setAccount(accountResponse);
-      setStepIndex((prevStep) => (prevStep !== 0 ? 3 : 0));
+      setStepIndex(3);
     } catch (error) {
       console.log(error);
     } finally {
@@ -149,7 +149,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
     if (account) {
       // alert("지갑이 연결됐습니다.");
       setIsOpenWalletPopup(false);
-      setStepIndex((prevStep) => (prevStep !== 0 ? 3 : 0));
+      setStepIndex(3);
     } else {
       connectingWallet();
     }
@@ -161,7 +161,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
       <FirstModal
         openWalletPopup={() => {
           setIsOpenWalletPopup(true);
-          setStepIndex(2);
+          setStepIndex(0);
           setIsDisabled(false);
           setIsHiddenNav(true);
         }}
