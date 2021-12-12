@@ -137,11 +137,11 @@ function NavBottom({ onClickLeft, onClickRight }) {
       setProvider(WalletProvider.provider);
       setNetwork(neworkResponse);
       if (Boolean(accountResponse)) setAccount(accountResponse);
+      setStepIndex((prevStep) => (prevStep !== 0 ? 3 : 0));
     } catch (error) {
       console.log(error);
     } finally {
       setIsOpenWalletPopup(false);
-      setStepIndex((prevStep) => (prevStep !== 0 ? 3 : 0));
     }
   };
 
@@ -219,6 +219,9 @@ function NavBottom({ onClickLeft, onClickRight }) {
         <WalletConnect
           setWalletPopup={setIsOpenWalletPopup}
           connectWallet={handleConnectWallet}
+          onCloseWalletPopup={() => {
+            setStepIndex(0);
+          }}
           // setBuyButton={setBuyButton}
         />
       ) : null}

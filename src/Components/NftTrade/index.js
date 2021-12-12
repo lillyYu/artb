@@ -33,6 +33,7 @@ import CreditcardPopup from "./Popup/creditCard";
 import AccountTransferPopup from "./Popup/accountTransfer";
 import NavBottom from "./NavBottom";
 import Footer from "../Footer";
+import copy from 'copy-text-to-clipboard';
 
 import { createContractInstance } from "../../lib/Station";
 import { Container, Contents, Header, Info1, Info2, Info3, Info4, Toggle1, Toggle2 } from './index.styles';
@@ -247,21 +248,22 @@ function NftTrade() {
             </div>
             <div className="function">
               <img src="/detail_share.png" alt="" onClick={() => {
-                const shareLink = "https://www.artbshop.co.kr/"
-                if (!navigator.clipboard) {
-                  console.log('this browser not supported');
-                } else {
-                  const copyElm = document.getElementById("copy__tooltip");
-                  copyElm.style.visibility = "visible";
-                  copyElm.style.animationName = "disappear";
-                  copyElm.style.animationDuration = "2.5s";
-                  setTimeout(function () {
-                    copyElm.style.animationName = "none";
-                  }, 2400);
-                  navigator.clipboard.writeText(shareLink);
-                }
+                const shareLink = "https://www.artbshop.co.kr/";
+                copy(shareLink);
+                // if (!navigator.clipboard) {
+                //   console.log('this browser not supported');
+                // } else {
+                //   const copyElm = document.getElementById("copy__tooltip");
+                //   copyElm.style.visibility = "visible";
+                //   copyElm.style.animationName = "disappear";
+                //   copyElm.style.animationDuration = "2.5s";
+                //   setTimeout(function () {
+                //     copyElm.style.animationName = "none";
+                //   }, 2400);
+                //   navigator.clipboard.writeText(shareLink);
+                // }
               }} />
-              <span id="copy__tooltip">Copied!</span>
+              {/* <span id="copy__tooltip">Copied!</span> */}
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>

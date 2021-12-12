@@ -14,6 +14,7 @@ import { web3ReaderState } from "../../store/read-web3";
 import { createContractInstance } from "../../lib/Station";
 import WalletWeb3Controller from "../../utilities/wallet";
 import { formatNumber } from "../../utilities/helper"
+import copy from 'copy-text-to-clipboard';
 
 import { Container, Contents, NoBalanceWrapper, FooterWrapper, BankDepositInformationWrapper, OrderWrapper, OrderHistoryWrapper, GuideWrapper } from './myNFT.styles';
 
@@ -26,21 +27,22 @@ const BankDepositInformation = () => {
         <p className="bank__name">농협은행 예금주 : 아트비글로벌(주)</p>
       </div>
       <div className="button__copy" onClick={() => {
-        const copyText = "317-0024-1598-21"
-        if (!navigator.clipboard) {
-          console.log('this browser not supported');
-        } else {
-          const copyElm = document.getElementById("bank-deposit-infor__copy-tooltip");
-          copyElm.style.visibility = "visible";
-          copyElm.style.animationName = "disappear";
-          copyElm.style.animationDuration = "2.5s";
-          setTimeout(function () {
-            copyElm.style.animationName = "none";
-          }, 2400);
-          navigator.clipboard.writeText(copyText);
-        }
+        const copyText = "317-0024-1598-21";
+        copy(copyText);
+        // if (!navigator.clipboard) {
+        //   console.log('this browser not supported');
+        // } else {
+        //   const copyElm = document.getElementById("bank-deposit-infor__copy-tooltip");
+        //   copyElm.style.visibility = "visible";
+        //   copyElm.style.animationName = "disappear";
+        //   copyElm.style.animationDuration = "2.5s";
+        //   setTimeout(function () {
+        //     copyElm.style.animationName = "none";
+        //   }, 2400);
+        //   navigator.clipboard.writeText(copyText);
+        // }
       }} >계좌복사하기
-        <span id="bank-deposit-infor__copy-tooltip">Copied!</span>
+        {/* <span id="bank-deposit-infor__copy-tooltip">Copied!</span> */}
       </div>
     </div>
   </BankDepositInformationWrapper>

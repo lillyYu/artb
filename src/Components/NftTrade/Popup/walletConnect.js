@@ -18,7 +18,7 @@ import {
 } from "../../../store/web3";
 import { openWalletPopupState } from "../../../store/wallet";
 
-function WalletConnect({ setWalletPopup, setBuyButton, connectWallet }) {
+function WalletConnect({ setWalletPopup, setBuyButton, connectWallet, onCloseWalletPopup }) {
   const [web3, setWeb3] = useRecoilState(web3State);
   const [provider, setProvider] = useRecoilState(providerState);
   const [account, setAccount] = useRecoilState(accountState);
@@ -64,7 +64,10 @@ function WalletConnect({ setWalletPopup, setBuyButton, connectWallet }) {
 
   return (
     <Container>
-      <div className="background" onClick={() => { setWalletPopup(false) }}></div>
+      <div className="background" onClick={() => {
+        setWalletPopup(false);
+        onCloseWalletPopup();
+      }}></div>
       <div className="modal2">
         <div className={"Text_Style_14"} style={{ marginBottom: "46px" }}>
           메타마스크 지갑 앱 설치
