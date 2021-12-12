@@ -587,12 +587,12 @@ function NftTrade() {
       {creditcardPopup ? (
         <CreditcardPopup setCreditcardPopup={setCreditcardPopup} />
       ) : null}
-      {isOpenWalletPopup ? (
+      {/* {isOpenWalletPopup ? (
         <WalletConnect
           setWalletPopup={setIsOpenWalletPopup}
         // setBuyButton={setBuyButton}
         />
-      ) : null}
+      ) : null} */}
       <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />
       {/* <Footer /> */}
     </Container>

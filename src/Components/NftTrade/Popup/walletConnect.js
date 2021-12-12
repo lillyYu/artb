@@ -18,7 +18,7 @@ import {
 } from "../../../store/web3";
 import { openWalletPopupState } from "../../../store/wallet";
 
-function WalletConnect({ setWalletPopup, setBuyButton }) {
+function WalletConnect({ setWalletPopup, setBuyButton, connectWallet }) {
   const [web3, setWeb3] = useRecoilState(web3State);
   const [provider, setProvider] = useRecoilState(providerState);
   const [account, setAccount] = useRecoilState(accountState);
@@ -130,7 +130,13 @@ function WalletConnect({ setWalletPopup, setBuyButton }) {
 
               <Button
                 className={"Text_Style_15"}
-                onClick={handleConnectWallet}
+                onClick={() => {
+                  if (Boolean(connectWallet)) {
+                    connectWallet();
+                  } else {
+                    handleConnectWallet()
+                  }
+                }}
                 style={{
                   padding: '16px 0'
                 }}
