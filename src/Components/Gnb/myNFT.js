@@ -142,7 +142,7 @@ export const WelcomeContent = () => {
     <div className="buttonWrapper">
       <div className="button"
       //  onClick={handleOpenWallet}
-      ><img className="icon" src="/detail_pay.png" />내 메타마스크 지갑열기</div>
+      ><img className="icon" src="/detail_pay.png" />지갑 연결 완료</div>
     </div>
   </>
 }
@@ -163,7 +163,7 @@ function MyNFT({ }) {
   const [listOrder, setListOrder] = useState([]);
   const [balanceAmount, setBalanceAmount] = useRecoilState(balanceAmountState);
 
-
+  const history = useHistory();
   const loadAmount = async () => {
 
     const COLLECTION_INSTANCE = createContractInstance(
@@ -181,8 +181,10 @@ function MyNFT({ }) {
   }
 
   useEffect(() => {
-    if (account) {
+    if (Boolean(account)) {
       loadAmount();
+    } else {
+      history.push('/')
     }
   }, [account]);
 

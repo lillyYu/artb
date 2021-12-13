@@ -42,13 +42,14 @@ width: 100%;
   justify-content: center;
   margin-bottom: 60px;
   cursor: pointer;
+ 
   .icon {
     width: 24px;
     height: 22px;
-    margin-right: 5px;
+    margin-right: 54px;
   }
   .button {
-    padding: 33px 81px;
+    padding: 33px 100px;
     background: #F2CCC4;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
