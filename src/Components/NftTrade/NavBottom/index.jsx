@@ -137,7 +137,7 @@ function NavBottom({ onClickLeft, onClickRight }) {
       setProvider(WalletProvider.provider);
       setNetwork(neworkResponse);
       if (Boolean(accountResponse)) setAccount(accountResponse);
-      setStepIndex(3);
+      setStepIndex((prev) => (prev !== 0 ? 3 : 0));
     } catch (error) {
       console.log(error);
     } finally {

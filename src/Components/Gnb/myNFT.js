@@ -208,11 +208,11 @@ function MyNFT({ }) {
       <Contents>
         <WelcomeContent />
         {
-          listOrder.length === 0 ? <NoBalance /> : <OrderHistory data={listOrder} />
+          balanceAmount == 0 ? <NoBalance /> : <OrderHistory data={listOrder} />
         }
       </Contents>
       {
-        listOrder.length === 0 && <Guide />
+        balanceAmount == 0 && <Guide />
       }
       <BankDepositInformation />
       <Footer />
