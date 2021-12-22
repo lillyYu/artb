@@ -51,8 +51,8 @@ const BankDepositInformation = () => {
 const initialOrder = {
   id: '1006-id',
   imageUrl: "/detail_product.png",
-  author: "작가명",
-  titleOfWork: "작품명 작품명 작품명",
+  author: "남관",
+  titleOfWork: "가을축제",
   purchaseNumber: 3,
   status: '입금확인중',
 }
