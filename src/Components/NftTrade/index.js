@@ -2,7 +2,6 @@
 // import Language from "../../lib/Language";
 
 /* Libraries */
-import styled from "styled-components";
 import React, { useState, useEffect, useRef } from "react";
 import Countdown, { zeroPad } from "react-countdown";
 import { HashLink } from "react-router-hash-link";
@@ -21,8 +20,10 @@ import {
   networkState,
   requireNetworkState,
 } from "../../store/web3";
+import { openWalletPopupState } from "../../store/wallet";
+import { ntfInforState } from "../../store/ntf";
 import { web3ReaderState } from "../../store/read-web3";
-
+import { formatNumber } from "../../utilities/helper"
 //이용약관
 import TermsOfUse from "./Terms/TermsOfUse";
 import Privacy from "./Terms/Privacy";
@@ -30,8 +31,12 @@ import Privacy from "./Terms/Privacy";
 import WalletConnect from "./Popup/walletConnect";
 import CreditcardPopup from "./Popup/creditCard";
 import AccountTransferPopup from "./Popup/accountTransfer";
+import NavBottom from "./NavBottom";
+import Footer from "../Footer";
+import copy from 'copy-text-to-clipboard';
 
 import { createContractInstance } from "../../lib/Station";
+import { Container, Contents, Header, Info1, Info2, Info3, Info4, Toggle1, Toggle2 } from './index.styles';
 
 function NftTrade() {
   const [payOpen, setPayOpen] = useState(false);
@@ -46,7 +51,7 @@ function NftTrade() {
   const [totalValue, setTotalValue] = useState(undefined);
   const [isArtB, setIsArtB] = useState(false); //아트비구매 클릭시
   const [buyButton, setBuyButton] = useState(false);
-  const [walletPopup, setWalletPopup] = useState(false);
+  const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
   const [creditcardPopup, setCreditcardPopup] = useState(false);
   const [transferPopup, setTransferPopup] = useState(false);
   const [userInfo, setUserInfo] = useState({
@@ -60,20 +65,7 @@ function NftTrade() {
       return;
     },
   });
-  const [nftInfo, setNftInfo] = useState([
-    {
-      tokenId: "0",
-      address: "0x00",
-      quantity: "0",
-      sold: "0",
-      inventory: "0",
-      start_time: "1632625200000",
-      end_time: "1640876400000",
-      is_active: true,
-      price: "0",
-      payTokenAddress: "0x00",
-    },
-  ]);
+  const [nftInfo, setNftInfo] = useRecoilState(ntfInforState);
 
   const [web3, setWeb3] = useRecoilState(web3State);
   const [web3_R] = useRecoilState(web3ReaderState);
@@ -223,7 +215,7 @@ function NftTrade() {
   useEffect(() => {
     loadNftInfo();
   }, []);
-  console.log("buyButton", buyButton);
+
   return (
     <Container>
       <Contents>
@@ -255,20 +247,36 @@ function NftTrade() {
               {/* FIX ME */}
             </div>
             <div className="function">
-              {/* <img src="/detail_share.png" alt="" /> */}
+              <img src="/detail_share.png" alt="" onClick={() => {
+                const shareLink = "https://www.artbshop.co.kr/";
+                copy(shareLink);
+                // if (!navigator.clipboard) {
+                //   console.log('this browser not supported');
+                // } else {
+                //   const copyElm = document.getElementById("copy__tooltip");
+                //   copyElm.style.visibility = "visible";
+                //   copyElm.style.animationName = "disappear";
+                //   copyElm.style.animationDuration = "2.5s";
+                //   setTimeout(function () {
+                //     copyElm.style.animationName = "none";
+                //   }, 2400);
+                //   navigator.clipboard.writeText(shareLink);
+                // }
+              }} />
+              {/* <span id="copy__tooltip">Copied!</span> */}
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
           </div>
-          <div className="title">{`작품명 : ${
-            nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-              ? "가을축제"
-              : "-"
-          }`}</div>
-          <div className="artist">{`작가명 : ${
-            nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-              ? "남관"
-              : "-"
-          }`}</div>
+          <div className="title">가을축제, 남관</div>
+          <div className="artist">1984년, 200x300(cm), Oil Painting</div>
+          {/* <div className="title">{`작품명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+            ? "가을축제"
+            : "-"
+            }`}</div>
+          <div className="artist">{`작가명 : ${nftInfo[0].address === "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
+            ? "남관"
+            : "-"
+            }`}</div> */}
         </Header>
 
         <Info1>
@@ -282,47 +290,46 @@ function NftTrade() {
           <div className="product">
             <img
               src="/detail_product.png"
-              style={{ width: "530px", height: "294px" }}
             />
           </div>
           <div className="info1">
-            <div className="left">
+            {/* <div className="left">
               <div className="like">
-                {/* <img
+                <img
                   src="/detail_like.png"
                   style={{ width: "32px", height: "28px" }}
-                ></img> */}
-                {/* <div className="amount">15</div> */}
+                ></img>
+                <div className="amount">15</div>
               </div>
               <div className="look">
-                {/* <img
+                <img
                   src="/detail_look.png"
                   style={{ width: "38px", height: "25px" }}
-                ></img> */}
-                {/* <div className="amount">120,000</div> */}
+                ></img>
+                <div className="amount">120,000</div>
               </div>
             </div>
-            <div className="right">잔여 수량/총 발행량</div>
+            <div className="right">잔여 수량/총 발행량</div> */}
           </div>
           <div className="info2">
             <div className="left">
               <div className="seller">판매자</div>
-              <div className="name">{`${
-                nftInfo[0].address ===
+              <div className="name">아트비글로벌(주)</div>
+              {/* <div className="name">{`${nftInfo[0].address ===
                 "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-                  ? "ArtB"
-                  : "-"
-              }`}</div>
+                ? "ArtB"
+                : "-"
+                }`}</div> */}
             </div>
             <div className="right">
               <div className="rest">
                 {nftInfo[0].inventory != 0
-                  ? Number(nftInfo[0].inventory - 72000).toLocaleString()
+                  ? formatNumber(nftInfo[0].inventory - 72000)
                   : 0}{" "}
                 NFT/
               </div>
               <div className="total">
-                {Number(nftInfo[0].quantity).toLocaleString()} NFT
+                {formatNumber(nftInfo[0].quantity)} NFT
               </div>
             </div>
           </div>
@@ -332,335 +339,83 @@ function NftTrade() {
           <></>
         ) : (
           <Info2>
-            <div className="top">
-              <div className="deadline">판매 마감일</div>
-              <div className="time">{"2021.12.24 00:00"}</div> {/* FIX ME */}
+            <div className="wrapper">
+              <div className="top">
+                <div className="deadline">판매마감일</div>
+                <div className="time">모든 NFT가 판매 될 경우 조기 마감될 수 있습니다.</div> {/* FIX ME */}
+              </div>
+              <Countdown
+                date={new Date(2021, 11, 23, 24).getTime()}
+                renderer={({ days, hours, minutes, seconds }) => (
+                  <div className="bottom">
+                    <div className="day section">
+                      <div className="digit">{zeroPad(days)}</div>
+                      <div className="unit">일</div>
+                    </div>
+                    <div className="time section">
+                      <div className="digit">{zeroPad(hours)}</div>
+                      <div className="unit">시간</div>
+                    </div>
+                    <div className="minute section">
+                      <div className="digit">{zeroPad(minutes)}</div>
+                      <div className="unit">분</div>
+                    </div>
+                    <div className="second section">
+                      <div className="digit">{zeroPad(seconds)}</div>
+                      <div className="unit">초</div>
+                    </div>
+                  </div>
+                )}
+              />
             </div>
-            <Countdown
-              date={new Date(2021, 11, 23, 24).getTime()}
-              renderer={({ days, hours, minutes, seconds }) => (
-                <div className="bottom">
-                  <div className="day">
-                    <div className="digit">{zeroPad(days)}</div>
-                    <div className="unit">일</div>
-                  </div>
-                  <div className="time">
-                    <div className="digit">{zeroPad(hours)}</div>
-                    <div className="unit">시간</div>
-                  </div>
-                  <div className="minute">
-                    <div className="digit">{zeroPad(minutes)}</div>
-                    <div className="unit">분</div>
-                  </div>
-                  <div className="second">
-                    <div className="digit">{zeroPad(seconds)}</div>
-                    <div className="unit">초</div>
-                  </div>
-                </div>
-              )}
-            />
           </Info2>
         )}
 
         <Info3>
-          <div className="title">개당 저작권 가격</div>
-          <div className="info">
-            <div className="price">
-              <div className="won">
-                {`￦ ${
-                  nftInfo[0].address ===
-                  "0x31B8696aa951771565EEcC9afBEB6F7eD87e2682"
-                    ? Number("45000").toLocaleString()
-                    : "-"
-                }`}
-                {/* ￦{Number(data.price).toLocaleString()} */}
-              </div>{" "}
-              {/* FIX ME */}
-              {/* <div className="coin">
-                ≈{" "}
-                {String(Number(data.price) / Number(data.abcTokenValue)).slice(
-                  0,
-                  4
-                )}{" "}
-                ABC
-              </div> */}
-            </div>
-            <div className="restTime">
+          <div className="title">모든 구매자 분께 NFT 카드 실물을 서비스로 드립니다.</div>
+          <div className="image__wrapper">
+            <div className="first__section">
+              <img className="logo" src="/Artb__only__text.svg" />
               <img
-                src="/detail_clock.png"
-                style={{ width: "25px", height: "25px" }}
+                className="main__image"
+                src="/detail_product.png"
               />
-              <Countdown
-                date={new Date(2021, 11, 23, 24).getTime()}
-                renderer={({ days, hours, minutes, seconds }) => (
-                  <div className="time">{zeroPad(days)}일 남음</div>
-                )}
-              />
+              <div className="bottom">남관 · 가을축제 · 1984 · 200 x 300 · Oil Painting</div>
             </div>
-          </div>
-          <div className="inputBox">
-            <input
-              className="input"
-              type="number"
-              placeholder="구매할 수량을 입력해주세요"
-              value={inputValue}
-              ref={inputDerection}
-              onClick={() => {
-                inputDerection.current.focus();
-              }}
-              onChange={(e) => {
-                if (Number(e.target.value) < 0) {
-                  setInputValue("0");
-                }
-                if (
-                  Number(e.target.value) > Number(nftInfo[0].inventory - 72000)
-                ) {
-                  setInputValue(Number(nftInfo[0].inventory - 72000));
-                } else {
-                  setMidValue(45000 * e.target.value);
-                  setTotalValue(45000 * e.target.value + 15000);
-                  setInputValue(e.target.value);
-                }
-              }}
-              style={{ height: "50px" }}
-            />
-            <div className="unit" style={{ paddingLeft: "10px" }}>
-              NFT
-            </div>
-          </div>
-
-          <div className="restAmount">
-            <div className="left">총 금액:</div>
-            <div className="right">
-              {(inputValue ? midValue.toLocaleString() : "-") + "원"}
-            </div>
-          </div>
-
-          <div className="restAmount">
-            <div className="left">이더리움 네트워크 수수료:</div>
-            <div className="right">15,000원</div>
-          </div>
-
-          <div className="restAmount">
-            <div className="left">총 결제 금액:</div>
-            <div className="right">
-              {(inputValue ? totalValue.toLocaleString() : "-") + "원"}
-            </div>
-          </div>
-
-          {!buyButton ? (
-            <>
-              <div style={{ height: "30px" }} />
-              <div className="checkbox">
-                <input
-                  type="checkBox"
-                  className="box"
-                  onClick={() => {
-                    setCheck1(!check1);
-                    console.log(check1);
-                  }}
-                />
-                <span>Artb 이용약관 </span>
-                <span style={{ color: "red" }}>(필수)</span>
-                <img
-                  className="arrow"
-                  src="arrow-right.png"
-                  onClick={async () => {
-                    setTermsModal(!termsModal);
-                    window.scrollTo(0, 0);
-                  }}
-                />
+            <div className="second__section">
+              <img className="logo" src="/Artb__only__text.svg" style={{ width: "18px", height: "11.08px" }} />
+              <div className="header__title">남관(南寬), 대한민국의 대표적 추상미술 작가</div>
+              <div className="sub__title">동양의 신비한 사상을 서양의 과학적 기법을 융합시킨 선구자적 아티스트</div>
+              <div className="stamp__wrapper">
+                <div className="header">저작권자</div>
+                <img className="signature" src="/친필싸인 1__signature.svg" />
+                <div className="sub__title">아트비글로벌</div>
+                <img className="stamp" src="/직인 1__stamp.svg" />
               </div>
-              <div className="checkbox">
-                <input
-                  type="checkBox"
-                  className="box"
-                  onClick={() => {
-                    setCheck2(!check2);
-                    console.log(check2);
-                  }}
-                />
-                <span>Artb 개인정보 수집 및 이용약관 </span>
-                <span style={{ color: "red" }}>(필수)</span>
-                <img
-                  className="arrow"
-                  src="arrow-right.png"
-                  onClick={async () => {
-                    setPrivacyModal(!privacyModal);
-                    window.scrollTo(0, 0);
-                  }}
-                />
-                {termsModal ? (
-                  <TermsOfUse
-                    setTermsModal={setTermsModal}
-                    nftMethods={nftMethods}
-                    inputValue={inputValue}
-                  />
-                ) : null}
-                {privacyModal ? (
-                  <Privacy
-                    setPrivacyModal={setPrivacyModal}
-                    nftMethods={nftMethods}
-                    inputValue={inputValue}
-                  />
-                ) : null}
-              </div>
-              <div className="buttons notBuy">
-                <div
-                  className="coinButton"
-                  onClick={() => {
-                    if (!inputValue) {
-                      alert("수량을 기입해주시기 바랍니다.");
-                    } else if (check1 && check2) {
-                      setIsArtB(true);
-                      setBuyButton(!buyButton);
-                    } else alert("필수 이용약관에 동의해주시기 바랍니다.");
-                  }}
-                  style={
-                    inputValue && check1 && check2
-                      ? {}
-                      : { cursor: "not-allowed", opacity: "30%" }
-                  }
-                >
-                  <img className="icon" src="buy_icon.png" />
-                  <div className="name">구매하기</div>
+              <div className="bottom">
+                <div className="left">
+                  <p>SERIAL NO.HAAIHD-001-0001</p>
+                </div>
+                <div className="right">
+                  <span>(주)아트비글로벌</span>
+                  <span>2021년 11월 25일</span>
                 </div>
               </div>
-            </>
-          ) : (
-            <div className="buttons">
-              <div
-                className="coinButton"
-                onClick={
-                  account ? () => {} : () => setWalletPopup(!walletPopup)
-                }
-                style={
-                  account
-                    ? { cursor: "not-allowed", opacity: "30%" }
-                    : { cursor: "pointer" }
-                }
-              >
-                <div className="name">
-                  {" "}
-                  {account ? "지갑연결 완료" : "지갑연결"}
-                </div>
-              </div>
-
-              <div
-                className="coinButton"
-                onClick={() => {
-                  if (!inputValue || inputValue < 1) {
-                    alert("수량을 기입해주시기 바랍니다.");
-                  } else if (!account) {
-                    alert("지갑연결이 필요합니다");
-                  } else {
-                    setTransferPopup(!transferPopup);
-                    window.scrollTo(0, 0);
-                  }
-                }}
-                // onClick={
-                //   account
-                //     ? () => {
-                //       setTransferPopup(!transferPopup);
-                //       window.scrollTo(0, 0);
-                //     }
-                //     : () => {
-                //       alert("먼저 지갑을 연결해주시기 바랍니다.");
-
-                //     }
-                // }
-                style={
-                  !account
-                    ? { cursor: "not-allowed", opacity: "30%" }
-                    : { cursor: "pointer" }
-                }
-              >
-                <div className="name">계좌 이체로 구매</div>
-              </div>
-
-              <div
-                className="coinButton"
-                onClick={() => {
-                  setCreditcardPopup(!creditcardPopup);
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                <div className="name">카드 결제로 구매</div>
-              </div>
             </div>
-          )}
-          {console.log("input", inputValue)}
-          {/* {!isArtB ?
-            <div className="buttons">
-              <div
-                className="coinButton"
-                onClick={() => {
-                  // console.log("value", inputValue)
-                  // inputValue == 0 ?
-                  //   alert("수량을 입력해주세요")
-                  //   :
-                  setIsArtB(true)
-
-                }}
-              >
-                <div className="name">Artb 구매</div>
-              </div>
-              <div
-                className="cashButton"
-                onClick={() => {
-
-                }}
-              >
-                <div className="name">원화 구매</div>
-              </div>
+          </div>
+          <div className="bottom__section">
+            <div className="header__title">
+              구매 금액에 따라 실물 필름을 초고화질로 스캔하여 <br />
+              실물화한 가을축제 액자가 제공됩니다.
             </div>
-            :
-            <div className="buttons">
-              <div
-                className="payButton"
-                onClick={async () => {
-                  if (account) {
-                    alert("지갑이 연결됐습니다.");
-                  } else {
-                    await connect();
-                  }
-                }}
-                style={
-                  account
-                    ? { cursor: "not-allowed", opacity: "30%" }
-                    : { cursor: "pointer" }
-                }
-              >
-                <div className="name">
-                  {account
-                    ? account.slice(0, 8) + "..." + account.slice(-6)
-                    : "지갑연결"}</div>
-              </div>
-              <div
-                className="payButton"
-                onClick={async () => {
-                  if (account) {
-                    if (userInfo.allowance > 0) {
-                      setTermsModal(!termsModal);
-                    } else {
-                      nftMethods.approve();
-                    }
-                    window.scrollTo(0, 0);
-                  } else {
-                    alert("지갑을 연결해 주세요");
-                  }
-                }}
-                style={
-                  account
-                    ? { cursor: "pointer" }
-                    : { cursor: "not-allowed", opacity: "30%" }
-                }
-              >
-                <div className="name">구매하기</div>
-              </div>
-            </div> */}
-
-          {/* {termsModal ? <TermsOfUse setTermsModal={setTermsModal} nftMethods={nftMethods} inputValue={inputValue} /> : null} */}
+            <div className="sub__title">
+              450만원 구매시 90x60cm <br />
+              900만원 구매시 120x90cm
+            </div>
+            <div className="wrapper__image">
+              <div className="image" />
+            </div>
+          </div>
         </Info3>
 
         {/* <Info3 style={payOpen ? { marginBottom: "35px" } : {}}>
@@ -727,14 +482,6 @@ function NftTrade() {
                 setToggle1Open(!toggle1Open);
                 setToggle2Open(false);
               }}
-              style={
-                toggle1Open
-                  ? {
-                      border: "1px solid rgba(226, 226, 226, 0.7)",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                    }
-                  : {}
-              }
             >
               <div className="title">NFT 정보</div>
               <img
@@ -762,7 +509,7 @@ function NftTrade() {
                   <div className="title">카테고리</div>
                   <div className="detail">남관_가을축제_저작권</div>
                 </div>
-                {/* <div className="info">
+                <div className="info">
                   <div className="title">작품관리번호</div>
                   <div className="detail">
                     0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
@@ -773,7 +520,7 @@ function NftTrade() {
                   <div className="detail">
                     0x8998f4097170970bA9D5Ef07A0d703C37f2d5657
                   </div>
-                </div> */}
+                </div>
                 <div className="info">
                   {/* <div className="title">설명</div> */}
                   {/* <div className="detail">
@@ -806,7 +553,7 @@ function NftTrade() {
             )}
           </Toggle1>
         )}
-        {/* {payOpen ? (
+        {payOpen ? (
           <></>
         ) : (
           <Toggle2>
@@ -816,14 +563,6 @@ function NftTrade() {
                 setToggle2Open(!toggle2Open);
                 setToggle1Open(false);
               }}
-              style={
-                toggle2Open
-                  ? {
-                    border: "1px solid rgba(226, 226, 226, 0.7)",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
-                  }
-                  : {}
-              }
             >
               <div className="title">저작권 구매기록</div>
               <img
@@ -835,27 +574,29 @@ function NftTrade() {
                 style={{ width: "25px", height: "16px" }}
               />
             </div>
-  
+
           </Toggle2>
-        )} */}
+        )}
       </Contents>
-      {transferPopup ? (
+      {/* {transferPopup ? (
         <AccountTransferPopup
           setTransferPopup={setTransferPopup}
           amount={inputValue}
           totalValue={totalValue}
           address={nftInfo[0].address}
         />
-      ) : null}
+      ) : null} */}
       {creditcardPopup ? (
         <CreditcardPopup setCreditcardPopup={setCreditcardPopup} />
       ) : null}
-      {walletPopup ? (
+      {/* {isOpenWalletPopup ? (
         <WalletConnect
-          setWalletPopup={setWalletPopup}
-          setBuyButton={setBuyButton}
+          setWalletPopup={setIsOpenWalletPopup}
+        // setBuyButton={setBuyButton}
         />
-      ) : null}
+      ) : null} */}
+      <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />
+      {/* <Footer /> */}
     </Container>
   );
 }
@@ -877,561 +618,5 @@ const loadPoolPeriod = (startTime, endTime) => {
   return ret;
 };
 
-const Container = styled.div`
-  display: flex;
-  position: relative;
-  margin-top: 130px;
-  width: 100%;
-  background-color: #e2e2e2;
-  a {
-    text-decoration: none;
-  }
-`;
-const Contents = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px 0;
-  width: 100%;
-  margin: 30px 25px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-`;
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 35px 70px 0 70px;
-  box-sizing: border-box;
-
-  .back {
-    font-weight: 500;
-    font-size: 20px;
-    color: #eb4632;
-    cursor: pointer;
-  }
-
-  .basic {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .info {
-      display: flex;
-      margin: 25px 0;
-      gap: 0 20px;
-      .status {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 55px;
-        height: 30px;
-        font-size: 13px;
-        color: #eb4632;
-        background: rgba(235, 70, 50, 0.2);
-        border-radius: 5px;
-      }
-      .model {
-        font-size: 20px;
-        color: rgba(100, 100, 100, 0.8);
-      }
-    }
-    .function {
-      display: flex;
-      gap: 0 20px;
-      img {
-        width: 35px;
-        height: 35px;
-        cursor: pointer;
-      }
-    }
-  }
-
-  .title {
-    font-weight: bold;
-    font-size: 25px;
-  }
-  .artist {
-    margin-top: 5px;
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.8);
-  }
-`;
-
-const Info1 = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 530px;
-  margin: 0 70px;
-  padding-bottom: 50px;
-  background-color: #f6f6f6;
-  border-radius: 10px;
-  border: 1px solid rgba(226, 226, 226, 0.7);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-
-  .period {
-    display: flex;
-    gap: 0 10px;
-    padding: 15px 0;
-    justify-content: center;
-    font-size: 20px;
-    .title {
-      color: rgba(0, 0, 0, 0.8);
-    }
-    .time {
-      color: rgba(100, 100, 100, 0.8);
-    }
-  }
-
-  .product {
-  }
-
-  .info1 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 25px;
-    margin-top: 30px;
-
-    .left {
-      display: flex;
-      gap: 0 15px;
-
-      .like {
-        display: flex;
-        align-items: center;
-        gap: 0 10px;
-
-        .amount {
-          margin-right: 10px;
-          font-size: 20px;
-          color: rgba(100, 100, 100, 0.8);
-        }
-      }
-      .look {
-        display: flex;
-        align-items: center;
-        gap: 0 10px;
-
-        .amount {
-          margin-right: 10px;
-          font-size: 20px;
-          color: rgba(100, 100, 100, 0.8);
-        }
-      }
-    }
-
-    .right {
-      font-size: 20px;
-      color: rgba(100, 100, 100, 0.8);
-    }
-  }
-
-  .info2 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 25px;
-    margin-top: 10px;
-
-    .left {
-      display: flex;
-      font-size: 25px;
-      .seller {
-        color: rgba(0, 0, 0, 0.8);
-      }
-      .name {
-        margin-left: 10px;
-        color: #eb4632;
-      }
-    }
-
-    .right {
-      display: flex;
-      font-size: 25px;
-      font-weight: bold;
-      .rest {
-        color: rgba(0, 0, 0, 0.8);
-      }
-      .total {
-        color: rgba(100, 100, 100, 0.8);
-      }
-    }
-  }
-`;
-const Info2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  gap: 15px 0;
-  width: 530px;
-  margin: 0 70px;
-  padding: 0 50px;
-  height: 170px; // 임시
-  background-color: #f6f6f6;
-  box-sizing: border-box;
-  border-radius: 10px;
-  border: 1px solid rgba(226, 226, 226, 0.7);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-
-  .top {
-    display: flex;
-    justify-content: space-between;
-
-    .deadline {
-      font-size: 20px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-    .time {
-      font-size: 20px;
-      color: rgba(100, 100, 100, 0.8);
-    }
-  }
-
-  .bottom {
-    display: flex;
-    justify-content: space-between;
-
-    .day {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50px;
-
-      .digit {
-        font-size: 30px;
-        color: rgba(230, 71, 36, 0.8);
-      }
-      .unit {
-        font-size: 20px;
-        color: rgba(100, 100, 100, 0.8);
-      }
-    }
-    .time {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50px;
-
-      .digit {
-        font-size: 30px;
-        color: rgba(230, 71, 36, 0.8);
-      }
-      .unit {
-        font-size: 20px;
-        color: rgba(100, 100, 100, 0.8);
-      }
-    }
-    .minute {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50px;
-
-      .digit {
-        font-size: 30px;
-        color: rgba(230, 71, 36, 0.8);
-      }
-      .unit {
-        font-size: 20px;
-        color: rgba(100, 100, 100, 0.8);
-      }
-    }
-    .second {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50px;
-
-      .digit {
-        font-size: 30px;
-        color: rgba(230, 71, 36, 0.8);
-      }
-      .unit {
-        font-size: 20px;
-        color: rgba(100, 100, 100, 0.8);
-      }
-    }
-  }
-`;
-const Info3 = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px 0;
-  width: 530px;
-  margin: 0 70px;
-  padding: 28px 50px 43px 50px;
-  // height: 350px; // 임시
-  height: fit-content; // 임시
-  background-color: #f6f6f6;
-  box-sizing: border-box;
-  border-radius: 10px;
-  border: 1px solid rgba(226, 226, 226, 0.7);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-
-  .title {
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .price {
-      display: flex;
-      align-items: center;
-
-      .won {
-        font-size: 30px;
-        color: rgba(0, 0, 0, 0.8);
-      }
-      .coin {
-        margin-left: 10px;
-        font-size: 20px;
-        color: #e64724;
-      }
-    }
-    .restTime {
-      display: flex;
-      align-items: flex-end;
-      .time {
-        margin-left: 10px;
-        font-size: 20px;
-        color: rgba(100, 100, 100, 0.8);
-      }
-    }
-  }
-
-  .inputBox {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 430px;
-    height: 70px;
-    padding: 0 25px;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-    .input {
-      font-weight: bold;
-      font-size: 18px;
-      border: 0px;
-      text-align: right;
-      width: 330px;
-      /* margin:auto;
-      margin-left:0; */
-    }
-    input::-webkit-input-placeholder {
-      font-weight: bold;
-      font-size: 18px;
-      color: rgba(0, 0, 0, 0.2);
-      padding-right: 150px;
-    }
-    input:-ms-input-placeholder {
-      font-weight: bold;
-      font-size: 18px;
-      color: rgba(0, 0, 0, 0.2);
-    }
-    input::placeholder {
-      font-weight: bold;
-      font-size: 18px;
-      color: rgba(0, 0, 0, 0.2);
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .unit {
-      font-size: 20px;
-      color: #000000;
-    }
-  }
-
-  .restAmount {
-    display: flex;
-    justify-content: flex-end;
-    font-size: 20px;
-    color: rgba(100, 100, 100, 0.6);
-
-    .right {
-      margin-left: 10px;
-    }
-  }
-
-  .buttons.notBuy {
-    margin-bottom: 0;
-    padding-top: 32px;
-  }
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px 0;
-    margin-bottom: 32px;
-
-    .coinButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 430px;
-      height: 70px;
-      background: rgba(230, 71, 36, 0.8);
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-      border-radius: 10px;
-      cursor: pointer;
-      .icon {
-        width: 26px;
-        height: 24px;
-      }
-      .name {
-        margin-left: 10px;
-        font-weight: bold;
-        font-size: 25px;
-        color: #ffffff;
-      }
-    }
-
-    .cashButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 430px;
-      height: 70px;
-      background: rgba(230, 71, 36, 0.8);
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-      border-radius: 10px;
-      cursor: pointer;
-
-      .name {
-        margin-left: 10px;
-        font-weight: bold;
-        font-size: 25px;
-        color: #ffffff;
-      }
-    }
-  }
-
-  .payButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    width: 430px;
-    height: 70px;
-    background: rgba(230, 71, 36, 0.8);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-
-    .name {
-      margin-left: 10px;
-      font-weight: bold;
-      font-size: 25px;
-      color: #ffffff;
-      /* cursor: pointer; */
-    }
-  }
-  .checkbox {
-    display: flex;
-
-    .box {
-      margin-right: 19px;
-    }
-    .arrow {
-      margin: auto;
-      margin-right: 15px;
-      cursor: pointer;
-    }
-  }
-`;
-
-const Toggle1 = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 70px;
-  width: 530px;
-  background-color: rgba(191, 191, 191, 0.2);
-  border-radius: 10px;
-  border: 1px solid rgba(226, 226, 226, 0.7);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-  margin-bottom: 30px;
-  .nftToggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 50px;
-    width: 530px;
-    height: 80px; // 임시
-    background-color: #f6f6f6;
-    box-sizing: border-box;
-    border-radius: 10px;
-    cursor: pointer;
-
-    .title {
-      font-weight: bold;
-      font-size: 25px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-  }
-`;
-
-const Info4 = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px 0;
-  padding: 30px 50px;
-  width: 530px;
-  //   height: 500px; // 임시
-  height: fit-content;
-  box-sizing: border-box;
-
-  .info {
-    .title {
-      font-size: 20px;
-      color: #c4c4c4;
-    }
-
-    .detail {
-      margin-top: 5px;
-      font-size: 20px;
-      color: rgba(0, 0, 0, 0.8);
-      line-height: 40px;
-    }
-  }
-`;
-
-const Toggle2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 70px 35px;
-  width: 530px;
-  background-color: rgba(191, 191, 191, 0.2);
-  border-radius: 10px;
-  border: 1px solid rgba(226, 226, 226, 0.7);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-
-  .historyToggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 50px;
-    width: 530px;
-    height: 80px; // 임시
-    background-color: #f6f6f6;
-    box-sizing: border-box;
-    border-radius: 10px;
-    cursor: pointer;
-
-    .title {
-      font-weight: bold;
-      font-size: 25px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-  }
-`;
 
 export default NftTrade;

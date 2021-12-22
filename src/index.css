@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+
 html,
 body,
 div,
@@ -130,12 +132,12 @@ body {
   align-items: center;
   /* min-width: 540px; */
   background-color: var(--pale-grey);
-  font-family: Pretendard;
+  font-family: Noto Sans;
 }
 @media (max-width: 750px) {
   body {
     min-width: 720px;
-    font-family: Pretendard;
+    font-family: Noto Sans;
     width: fit-content;
   }
 }

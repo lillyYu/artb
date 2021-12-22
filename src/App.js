@@ -7,14 +7,18 @@ import PayCash from "./Components/NftTrade/Payment/cash";
 import Footer from "./Components/Footer";
 import MyNFT from "./Components/Gnb/myNFT";
 import CheckAccount from "./Components/Gnb/checkAccount";
+import Term1 from './Components/Terms/Term1';
+import Term2 from './Components/Terms/Term2';
+import AccountTransferPopup from './Components/NftTrade/Popup/accountTransfer';
+import OrderDetail from './Components/Gnb/OrderDetail';
 
 /* Libraries */
 import styled from "styled-components";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 function App() {
-
+  const location = useLocation();
 
   return (
     <Container>
@@ -23,10 +27,15 @@ function App() {
         <Route path="/payment/coin" component={PayCoin}></Route>
         <Route path="/payment/cash" component={PayCash}></Route>
         <Route path="/mypage/check" component={CheckAccount}></Route>
-        <Route path="/mypage" component={MyNFT}></Route>
+        <Route path="/mypage" exact component={MyNFT} />
+        <Route path="/mypage/orders/:id" exact component={OrderDetail} />
         <Route
           path="/"
+          exact
           component={() => <NftTrade />} />
+        <Route path="/term1" exact component={Term1} />
+        <Route path="/term2" exact component={Term2} />
+        <Route path="/accountTransfer" exact component={AccountTransferPopup} />
         {/* <Route path="/" component={NftTrade}></Route> */}
         {/* <Route path="/" component={Home}></Route> */}
       </Switch>
@@ -34,7 +43,7 @@ function App() {
         <Route path="/" component={Home}></Route>
         <Route path="/trade" component={NftTrade}></Route>
       </Switch> */}
-      <Footer />
+      {/* <Footer /> */}
     </Container>
   );
 }
