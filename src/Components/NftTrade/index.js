@@ -422,9 +422,9 @@ function NftTrade() {
               </div>
               <div className="stamp__wrapper">
                 <div className="header">저작권자</div>
-                <img className="signature" src="/test.svg" />
+                <img className="signature" src="/친필싸인 1__signature.svg" />
                 <div className="sub__title">아트비글로벌</div>
-                <img className="stamp" src="/testStamp.svg" />
+                <img className="stamp" src="/직인 1__stamp.svg" />
               </div>
               <div className="bottom">
                 <div className="left">
