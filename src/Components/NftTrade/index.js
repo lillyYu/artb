@@ -23,7 +23,7 @@ import {
 import { openWalletPopupState } from "../../store/wallet";
 import { ntfInforState } from "../../store/ntf";
 import { web3ReaderState } from "../../store/read-web3";
-import { formatNumber } from "../../utilities/helper"
+import { formatNumber } from "../../utilities/helper";
 //이용약관
 import TermsOfUse from "./Terms/TermsOfUse";
 import Privacy from "./Terms/Privacy";
@@ -33,10 +33,20 @@ import CreditcardPopup from "./Popup/creditCard";
 import AccountTransferPopup from "./Popup/accountTransfer";
 import NavBottom from "./NavBottom";
 import Footer from "../Footer";
-import copy from 'copy-text-to-clipboard';
+import copy from "copy-text-to-clipboard";
 
 import { createContractInstance } from "../../lib/Station";
-import { Container, Contents, Header, Info1, Info2, Info3, Info4, Toggle1, Toggle2 } from './index.styles';
+import {
+  Container,
+  Contents,
+  Header,
+  Info1,
+  Info2,
+  Info3,
+  Info4,
+  Toggle1,
+  Toggle2,
+} from "./index.styles";
 
 function NftTrade() {
   const [payOpen, setPayOpen] = useState(false);
@@ -51,7 +61,8 @@ function NftTrade() {
   const [totalValue, setTotalValue] = useState(undefined);
   const [isArtB, setIsArtB] = useState(false); //아트비구매 클릭시
   const [buyButton, setBuyButton] = useState(false);
-  const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
+  const [isOpenWalletPopup, setIsOpenWalletPopup] =
+    useRecoilState(openWalletPopupState);
   const [creditcardPopup, setCreditcardPopup] = useState(false);
   const [transferPopup, setTransferPopup] = useState(false);
   const [userInfo, setUserInfo] = useState({
@@ -247,22 +258,26 @@ function NftTrade() {
               {/* FIX ME */}
             </div>
             <div className="function">
-              <img src="/detail_share.png" alt="" onClick={() => {
-                const shareLink = "https://www.artbshop.co.kr/";
-                copy(shareLink);
-                // if (!navigator.clipboard) {
-                //   console.log('this browser not supported');
-                // } else {
-                //   const copyElm = document.getElementById("copy__tooltip");
-                //   copyElm.style.visibility = "visible";
-                //   copyElm.style.animationName = "disappear";
-                //   copyElm.style.animationDuration = "2.5s";
-                //   setTimeout(function () {
-                //     copyElm.style.animationName = "none";
-                //   }, 2400);
-                //   navigator.clipboard.writeText(shareLink);
-                // }
-              }} />
+              <img
+                src="/detail_share.png"
+                alt=""
+                onClick={() => {
+                  const shareLink = "https://www.artbshop.co.kr/";
+                  copy(shareLink);
+                  // if (!navigator.clipboard) {
+                  //   console.log('this browser not supported');
+                  // } else {
+                  //   const copyElm = document.getElementById("copy__tooltip");
+                  //   copyElm.style.visibility = "visible";
+                  //   copyElm.style.animationName = "disappear";
+                  //   copyElm.style.animationDuration = "2.5s";
+                  //   setTimeout(function () {
+                  //     copyElm.style.animationName = "none";
+                  //   }, 2400);
+                  //   navigator.clipboard.writeText(shareLink);
+                  // }
+                }}
+              />
               {/* <span id="copy__tooltip">Copied!</span> */}
               {/* <img src="/detail_refresh.png" alt="" /> */}
             </div>
@@ -280,17 +295,16 @@ function NftTrade() {
         </Header>
 
         <Info1>
-          <div className="period">
+          {/* 판매기간 removal */}
+          {/* 판매기간 시간 removal <div className="period">
             <div className="title">판매기간</div>
-            <div className="time">
-              {/* {loadPoolPeriod(nftInfo[0].start_time, nftInfo[0].end_time)} */}
-              {loadPoolPeriod(1638331200, 1640271600)}
+            <div className="time"> */}
+          {/* {loadPoolPeriod(nftInfo[0].start_time, nftInfo[0].end_time)} */}
+          {/*TEMP {loadPoolPeriod(1638331200, 1640271600)}
             </div>
-          </div>
+          </div> */}
           <div className="product">
-            <img
-              src="/detail_product.png"
-            />
+            <img src="/detail_product.png" />
           </div>
           <div className="info1">
             {/* <div className="left">
@@ -335,15 +349,24 @@ function NftTrade() {
           </div>
         </Info1>
 
-        {payOpen ? (
+        {/* COUNTDOWN REMOVAL {payOpen ? (
           <></>
-        ) : (
-          <Info2>
-            <div className="wrapper">
+        ) : (*/}
+        <Info2>
+          <div className="bottom">
+            {/* <div className="day section">
+              <div className="digit">{zeroPad(days)}</div>
+              <div className="unit">일</div>
+            </div> */}
+          </div>
+          {/*</Info2><div className="wrapper">
               <div className="top">
                 <div className="deadline">판매마감일</div>
-                <div className="time">모든 NFT가 판매 될 경우 조기 마감될 수 있습니다.</div> {/* FIX ME */}
-              </div>
+                <div className="time">
+                  모든 NFT가 판매 될 경우 조기 마감될 수 있습니다.
+                </div>{" "} */}
+          {/* FIX ME */}
+          {/* COUNTDOWN REMOVAL </div>
               <Countdown
                 date={new Date(2021, 11, 23, 24).getTime()}
                 renderer={({ days, hours, minutes, seconds }) => (
@@ -368,29 +391,40 @@ function NftTrade() {
                 )}
               />
             </div>
-          </Info2>
-        )}
+          
+        )} */}
+        </Info2>
 
         <Info3>
-          <div className="title">모든 구매자 분께 NFT 카드 실물을 서비스로 드립니다.</div>
+          <div className="title">
+            모든 구매자 분께 NFT 카드 실물을 서비스로 드립니다.
+          </div>
           <div className="image__wrapper">
             <div className="first__section">
               <img className="logo" src="/Artb__only__text.svg" />
-              <img
-                className="main__image"
-                src="/detail_product.png"
-              />
-              <div className="bottom">남관 · 가을축제 · 1984 · 200 x 300 · Oil Painting</div>
+              <img className="main__image" src="/detail_product.png" />
+              <div className="bottom">
+                남관 · 가을축제 · 1984 · 200 x 300 · Oil Painting
+              </div>
             </div>
             <div className="second__section">
-              <img className="logo" src="/Artb__only__text.svg" style={{ width: "18px", height: "11.08px" }} />
-              <div className="header__title">남관(南寬), 대한민국의 대표적 추상미술 작가</div>
-              <div className="sub__title">동양의 신비한 사상을 서양의 과학적 기법을 융합시킨 선구자적 아티스트</div>
+              <img
+                className="logo"
+                src="/Artb__only__text.svg"
+                style={{ width: "18px", height: "11.08px" }}
+              />
+              <div className="header__title">
+                남관(南寬), 대한민국의 대표적 추상미술 작가
+              </div>
+              <div className="sub__title">
+                동양의 신비한 사상을 서양의 과학적 기법을 융합시킨 선구자적
+                아티스트
+              </div>
               <div className="stamp__wrapper">
                 <div className="header">저작권자</div>
-                <img className="signature" src="/친필싸인 1__signature.svg" />
+                <img className="signature" src="/test.svg" />
                 <div className="sub__title">아트비글로벌</div>
-                <img className="stamp" src="/직인 1__stamp.svg" />
+                <img className="stamp" src="/testStamp.svg" />
               </div>
               <div className="bottom">
                 <div className="left">
@@ -574,7 +608,6 @@ function NftTrade() {
                 style={{ width: "25px", height: "16px" }}
               />
             </div>
-
           </Toggle2>
         )}
       </Contents>
@@ -595,7 +628,7 @@ function NftTrade() {
         // setBuyButton={setBuyButton}
         />
       ) : null} */}
-      <NavBottom onClickLeft={() => { }} onClickRight={() => { }} />
+      <NavBottom onClickLeft={() => {}} onClickRight={() => {}} />
       {/* <Footer /> */}
     </Container>
   );
@@ -617,6 +650,5 @@ const loadPoolPeriod = (startTime, endTime) => {
   ret = `${formatter(startTime)} ~ ${formatter(endTime)}`;
   return ret;
 };
-
 
 export default NftTrade;
