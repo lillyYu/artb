@@ -1,3 +1,5 @@
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+
 /* Components */
 import Gnb from "./Components/Gnb";
 import Home from "./Components/Home";
@@ -12,6 +14,8 @@ import Term2 from './Components/Terms/Term2';
 import AccountTransferPopup from './Components/NftTrade/Popup/accountTransfer';
 import OrderDetail from './Components/Gnb/OrderDetail';
 
+import Slider from "./Components/Common/slider";
+
 /* Libraries */
 import styled from "styled-components";
 import { Route, Switch, useLocation } from "react-router-dom";
@@ -23,33 +27,57 @@ function App() {
   return (
     <Container>
       <Gnb />
-      <Switch>
-        <Route path="/payment/coin" component={PayCoin}></Route>
-        <Route path="/payment/cash" component={PayCash}></Route>
-        <Route path="/mypage/check" component={CheckAccount}></Route>
-        <Route path="/mypage" exact component={MyNFT} />
-        <Route path="/mypage/orders/:id" exact component={OrderDetail} />
-        <Route
-          path="/"
-          exact
-          component={() => <NftTrade />} />
-        <Route path="/term1" exact component={Term1} />
-        <Route path="/term2" exact component={Term2} />
-        <Route path="/accountTransfer" exact component={AccountTransferPopup} />
-        {/* <Route path="/" component={NftTrade}></Route> */}
-        {/* <Route path="/" component={Home}></Route> */}
-      </Switch>
+      <Slider width="1920" height="954" dotColors={["#111111", "#555555", "#999999"]} textColors={["#444444", "#555555", "#666666"]}>
+        <BodyA/>
+        <BodyB/>
+        <BodyC/>
+      </Slider>
       {/* <Switch>
-        <Route path="/" component={Home}></Route>
-        <Route path="/trade" component={NftTrade}></Route>
+        <Route path="/#1" component={BodyA} />
+        <Route path="/#2" component={BodyB} />
+        <Route path="/#3" component={BodyC} />
       </Switch> */}
-      {/* <Footer /> */}
+        {/* <Switch>
+          <Route path="/payment/coin" component={PayCoin} />
+          <Route path="/payment/cash" component={PayCash} />
+          <Route path="/mypage/check" component={CheckAccount} />
+          <Route path="/mypage" exact component={MyNFT} />
+          <Route path="/mypage/orders/:id" exact component={OrderDetail} />
+          <Route path="/" exact component={Home} />
+          <Route path="/term1" exact component={Term1} />
+          <Route path="/term2" exact component={Term2} />
+          <Route path="/accountTransfer" exact component={AccountTransferPopup} />
+        </Switch> */}
+      <Footer />
     </Container>
   );
 }
 
+function BodyA() {
+  return (
+    <Body style={{ backgroundColor: "#999999"}}></Body>
+  );
+}
+
+function BodyB() {
+  return (
+    <Body style={{ backgroundColor: "#888888"}}></Body>
+  );
+}
+
+function BodyC() {
+  return (
+    <Body style={{ backgroundColor: "#777777"}}></Body>
+  );
+}
+
 const Container = styled.div`
-  width: 720px;
+  width: 1920px;
 `;
+
+const Body = styled.div`
+  width: 100%;
+  height: 954px;
+`
 
 export default App;
