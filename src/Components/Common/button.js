@@ -51,9 +51,12 @@ function ImageButtonBody(props) {
 function RectButton(props) {
   return (
     <Container>
-      <Link to={props.src ? props.src : "#"}>
-        <RectButtonBody {...props} />
-      </Link>
+      {props.src ?
+        (<Link to={props.src}>
+          <RectButtonBody {...props} />
+        </Link>) :
+        (<a><RectButtonBody {...props} /></a>)
+      }
     </Container>
   );
 }

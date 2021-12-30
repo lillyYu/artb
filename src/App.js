@@ -1,8 +1,8 @@
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-
 /* Components */
 import Gnb from "./Components/Gnb";
 import Home from "./Components/Home";
+import Introduction from "./Components/Home/Introduction";
+import Benefit from "./Components/Home/Benefit";
 import NftTrade from "./Components/NftTrade";
 import PayCoin from "./Components/NftTrade/Payment/coin";
 import PayCash from "./Components/NftTrade/Payment/cash";
@@ -28,8 +28,8 @@ function App() {
     <Container>
       <Gnb />
       <Slider width="1920" height="954" dotColors={["#111111", "#555555", "#999999"]} textColors={["#444444", "#555555", "#666666"]}>
-        <BodyA/>
-        <BodyB/>
+        <Introduction />
+        <Benefit />
         <BodyC/>
       </Slider>
       {/* <Switch>
@@ -53,18 +53,6 @@ function App() {
   );
 }
 
-function BodyA() {
-  return (
-    <Body style={{ backgroundColor: "#999999"}}></Body>
-  );
-}
-
-function BodyB() {
-  return (
-    <Body style={{ backgroundColor: "#888888"}}></Body>
-  );
-}
-
 function BodyC() {
   return (
     <Body style={{ backgroundColor: "#777777"}}></Body>
@@ -76,7 +64,6 @@ const Container = styled.div`
 `;
 
 const Body = styled.div`
-  width: 100%;
   height: 954px;
 `
 
