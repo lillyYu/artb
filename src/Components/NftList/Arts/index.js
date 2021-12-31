@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import { RectButton } from "../../Common/button";
+import { ImageButton } from "../../Common/button";
 import Grid from "../../Common/grid";
 import Line from "../../Common/line";
 
@@ -16,8 +16,11 @@ function Arts(props) {
       gridData={props.data.map((node, index) => {
         return (
           <ArtsContainer>
-            <CardTop style={{height: `${props.colWidth}px]`}}>
-              <CardImage src={node.image}/>
+            <CardTop style={{ height: `${props.colWidth}px]` }}>
+              <CardImage src={node.image} />
+              <FavoriteBox style={{ position: "absolute", margin: `20px 0 0 ${props.colWidth - 46}px`}}>
+                <ImageButton img="/heart.svg" width="26" height="24" onClick={() => alert("favoite"+index)} />
+              </FavoriteBox>
             </CardTop>
             <CardBottom style={{ width: `${props.colWidth}px`, height: `${props.rowHeight * 0.44}px`, top: `${props.colWidth * 0.87}px` }}>
               <DescContainer style={{ width: `${props.colWidth - 40}px` }}>
@@ -160,6 +163,9 @@ const StatusText = styled.span`
   line-height: 20px;
   letter-spacing: 0em;
   color: #656565;
+`
+
+const FavoriteBox = styled.div`
 `
 
 const Gem = styled.img`
