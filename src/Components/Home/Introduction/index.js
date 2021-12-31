@@ -4,6 +4,20 @@ import Line from "../../Common/line";
 import { RectButton } from "../../Common/button";
 
 function Introduction() {
+  const total = 183;
+  const data = {
+    image: "/sample.png",
+    artist: "남관",
+    title: "가을축제",
+    year: 1984,
+    width: 200,
+    height: 300,
+    tech: "Oil painting",
+    price: 43000,
+    total: 100000,
+    remain: 38900
+  };
+  
   return (
     <Container>
       <DescArea>
@@ -13,75 +27,75 @@ function Introduction() {
           <ButtonBar />
         </ContentsArea>
       </DescArea>
-      <ArtsArea style={{ backgroundImage : "url(/sample.png)" }}></ArtsArea>
+      <ArtsArea style={{ backgroundImage : `url(${data.image})` }}></ArtsArea>
     </Container>
   );
-}
 
-function Board() {
-  return (
-    <TitleBoard>
-      <TitleContainer>
-        <TextBox style={{ fontFamily: "Montserrat", fontSize: "20px", fontWeight: "700", lineHeight: "26px", letterSpacing: "-0.02em" }}>
-          <Logo src="/small_logo.svg" />Art Block Chain Platform
-        </TextBox>
-        <TitleTextBox style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#000000" }}>
-          총 183점의 예술품을
-        </TitleTextBox>
-        <TitleTextBox style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#FF3D21" }}>
-          NFT로 만나보세요!
-        </TitleTextBox>
-      </TitleContainer>
-    </TitleBoard>
-  );
-}
+  function Board() {
+    return (
+      <TitleBoard>
+        <TitleContainer>
+          <TextBox style={{ fontFamily: "Montserrat", fontSize: "20px", fontWeight: "700", lineHeight: "26px", letterSpacing: "-0.02em" }}>
+            <Logo src="/small_logo.svg" />Art Block Chain Platform
+          </TextBox>
+          <TitleText style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#000000" }}>
+            총 {total}점의 예술품을
+          </TitleText>
+          <TitleText style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#FF3D21" }}>
+            NFT로 만나보세요!
+          </TitleText>
+        </TitleContainer>
+      </TitleBoard>
+    );
+  }
 
-function Description() {
-  return (
-    <DescContainer>
-      <TitleTextBox style={{ fontSize: "24px", lineHeight: "36px", letterSpacing: "-0.04em", color: "#FFFFFF", margin: "0 0 20px 0" }}>
-        가을축제
-      </TitleTextBox>
-      <TableRow>
-        <HeaderBox>아티스트</HeaderBox>
-        <DataBox>남관</DataBox>
-      </TableRow>
-      <TableRow>
-        <HeaderBox>작품년도</HeaderBox>
-        <DataBox>1984년도</DataBox>
-      </TableRow>
-      <TableRow>
-        <HeaderBox>작품크기</HeaderBox>
-        <DataBox>200x300(cm)</DataBox>
-      </TableRow>
-      <TableRow>
-        <HeaderBox>작품기법</HeaderBox>
-        <DataBox>Oil Painting</DataBox>
-      </TableRow>
-      <Line color="#FFFFFF" lineStyle={{ margin: "20px 0" }} />
-      <TableRow>
-        <TextBox>
-          <Gem src="/gem.svg" />
-          <HeaderBox>38,900 / 100,000</HeaderBox>
-        </TextBox>
-        <TitleTextBox style={{ fontSize: "18px", lineHeight: "28px", letterSpacing: "-0.04em", color: "#FFFFFF" }}>43,000원</TitleTextBox>
-      </TableRow>
-    </DescContainer>
-  );
-}
+  function Description() {
+    return (
+      <DescContainer>
+        <TitleText style={{ fontSize: "24px", lineHeight: "36px", letterSpacing: "-0.04em", color: "#FFFFFF", margin: "0 0 20px 0" }}>
+          {data.title}
+        </TitleText>
+        <TableRow>
+          <HeaderText>아티스트</HeaderText>
+          <DataText>{data.artist}</DataText>
+        </TableRow>
+        <TableRow>
+          <HeaderText>작품년도</HeaderText>
+          <DataText>{data.year}년도</DataText>
+        </TableRow>
+        <TableRow>
+          <HeaderText>작품크기</HeaderText>
+          <DataText>{data.width}x{data.height}(cm)</DataText>
+        </TableRow>
+        <TableRow>
+          <HeaderText>작품기법</HeaderText>
+          <DataText>{data.tech}</DataText>
+        </TableRow>
+        <Line color="#FFFFFF" lineStyle={{ margin: "20px 0" }} />
+        <TableRow>
+          <TextBox>
+            <Gem src="/gem_white.svg" />
+            <HeaderText>{Intl.NumberFormat().format(data.remain)} / {Intl.NumberFormat().format(data.total)}</HeaderText>
+          </TextBox>
+          <TitleText style={{ fontSize: "18px", lineHeight: "28px", letterSpacing: "-0.04em", color: "#FFFFFF" }}>{Intl.NumberFormat().format(data.price)}원</TitleText>
+        </TableRow>
+      </DescContainer>
+    );
+  }
 
-function ButtonBar() {
-  return (
-    <ButtonContainer>
-      <RectButton width="52" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('왼쪽')}><Arrow src="/left_arrow.svg" /></RectButton>
-      <RectButton width="52" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('오른쪽')}><Arrow src="/right_arrow.svg" /></RectButton>
-      <RectButton width="160" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('더 알아보기')}>
-        <TitleTextBox style={{ fontSize: "16px", lineHeight: "24px", letterSpacing: "-0.02em", color: "#FF3D21" }}>
-          더 알아보기
-        </TitleTextBox>
-      </RectButton>
-    </ButtonContainer>
-  );
+  function ButtonBar() {
+    return (
+      <ButtonContainer>
+        <RectButton width="52" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('왼쪽')}><Arrow src="/left_arrow.svg" /></RectButton>
+        <RectButton width="52" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('오른쪽')}><Arrow src="/right_arrow.svg" /></RectButton>
+        <RectButton width="160" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('더 알아보기')}>
+          <TitleText style={{ fontSize: "16px", lineHeight: "24px", letterSpacing: "-0.02em", color: "#FF3D21" }}>
+            더 알아보기
+          </TitleText>
+        </RectButton>
+      </ButtonContainer>
+    );
+  }  
 }
 
 const Container = styled.div`
@@ -135,7 +149,7 @@ const Logo = styled.img`
   margin: 0 10px 0 0;
 `
 
-const TitleTextBox = styled.span`
+const TitleText = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -155,7 +169,7 @@ const TableRow = styled.div`
   margin: 0 0 4px 0;
 `
 
-const HeaderBox = styled.span`
+const HeaderText = styled.span`
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-weight: 400;
@@ -164,7 +178,7 @@ const HeaderBox = styled.span`
   color: #FFFFFF;
 `
 
-const DataBox = styled.span`
+const DataText = styled.span`
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-weight: 500;

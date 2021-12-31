@@ -5,9 +5,15 @@ import styled from "styled-components";
 function TextButton(props) {
   return (
     <Container>
-      <Link to={props.src ? props.src : "#"}>
-        <TextButtonBody {...props} />
-      </Link>
+      {
+        props.src ?
+        (<Link to={props.src}>
+          <TextButtonBody {...props} />
+        </Link>) :
+        (<a>
+          <TextButtonBody {...props} />
+        </a>)
+      }
     </Container>
   );  
 }
@@ -29,9 +35,15 @@ function TextButtonBody(props) {
 function ImageButton(props) {
   return (
     <Container>
-      <Link to={props.src ? props.src : "#"}>
-        <ImageButtonBody {...props} />
-      </Link>
+      {
+        props.src ?
+        (<Link to={props.src}>
+          <ImageButtonBody {...props} />
+        </Link>) :
+        (<a>
+          <ImageButtonBody {...props} />
+        </a>)
+      }
     </Container>
   );
 }
@@ -51,11 +63,14 @@ function ImageButtonBody(props) {
 function RectButton(props) {
   return (
     <Container>
-      {props.src ?
+      {
+        props.src ?
         (<Link to={props.src}>
           <RectButtonBody {...props} />
         </Link>) :
-        (<a><RectButtonBody {...props} /></a>)
+        (<a>
+          <RectButtonBody {...props} />
+        </a>)
       }
     </Container>
   );
