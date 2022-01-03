@@ -4,6 +4,7 @@ import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import NftList from "./Components/NftList";
 import Notice from "./Components/CS/Notice";
+import NoticeRead from "./Components/CS/Notice/read";
 
 import NftTrade from "./Components/NftTrade";
 import PayCoin from "./Components/NftTrade/Payment/coin";
@@ -27,9 +28,10 @@ function App() {
     <Container>
       <Gnb />
       <Switch>
+        <Route path="/notice/:id" component={NoticeRead} />
         <Route path="/notice" component={Notice} />
         <Route path="/list" component={NftList} />
-        <Route path="/" component={Home} />
+        <Route exact path="/" component={Home} />
       </Switch>
       <Footer />
     </Container>

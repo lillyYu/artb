@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import Pagination from "../../Common/pagination";
 
 function Notice() {
   const [datas, setDatas] = useState([
@@ -58,122 +60,149 @@ function Notice() {
     <Container>
       <Paint />
       <Banner>
-        <BannerMainFrame>
+        <BannerLeft>
           <EngTitle>Help center</EngTitle>
-          <BottomFrame>
-            <MainTitle>공지사항</MainTitle>
-            <SubFrame>
-              <SubMenuFrame>
-                <SubMenuTitle className="selected">공지사항</SubMenuTitle>
-                <RectCurrentBar />
-              </SubMenuFrame>
-              <SubMenuFrame>
-                <SubMenuTitle>자주 묻는 질문</SubMenuTitle>
-              </SubMenuFrame>
-              <SubMenuFrame>
-                <SubMenuTitle>다운로드</SubMenuTitle>
-              </SubMenuFrame>
-              <SubMenuFrame>
-                <SubMenuTitle>1:1 문의</SubMenuTitle>
-              </SubMenuFrame>
-            </SubFrame>
-          </BottomFrame>
-        </BannerMainFrame>
-        <RouteFrame>
+          <MainTitle>공지사항</MainTitle>
           <RouteFrameText>홈 &gt; 고객센터 &gt; 공지사항</RouteFrameText>
-        </RouteFrame>
+        </BannerLeft>
+        <BannerRight>
+          <SubMenuFrame>
+            <SubMenuTitle className="selected">공지사항</SubMenuTitle>
+            <RectCurrentBar />
+          </SubMenuFrame>
+          <SubMenuFrame>
+            <SubMenuTitle>자주 묻는 질문</SubMenuTitle>
+          </SubMenuFrame>
+          <SubMenuFrame>
+            <SubMenuTitle>다운로드</SubMenuTitle>
+          </SubMenuFrame>
+          <SubMenuFrame>
+            <SubMenuTitle>1:1 문의</SubMenuTitle>
+          </SubMenuFrame>
+        </BannerRight>
       </Banner>
-      <Content>
-          <ContentNotice>
-            {datas.map(i => <NoticeItem></NoticeItem>)}
-          </ContentNotice>
-      </Content>
+      <NoticeBox>
+        {datas.map((i) => (
+          <Link to={`/notice/${i.id}`} style={{ textDecoration: 'none' }} >
+            <NoticeRow>
+              <NoticeNo>{i.id}</NoticeNo>
+              <NoticeHeader>{i.title}</NoticeHeader>
+              <NoticeDate>{i.createdAt}</NoticeDate>
+            </NoticeRow>
+          </Link>
+        ))}
+      </NoticeBox>
+      <PageBar>
+        <Pagination
+          curPage={1}
+          pagePerItems={16}
+          totalCount={160}
+          pagePerDisplay={5}
+          changeCallback={(p) => {}}
+          pageStyle={{ margin: "80px 0 0 0" }}
+        />
+      </PageBar>
+      <ToTopBtn>
+        <Ellipse src="/Ellipse.svg" />
+        <UpArrow src="/up_arrow.png" />
+      </ToTopBtn>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  height: 1700px;
+  align-items: center;
   background-color: #303030;
 `;
 
+const NoticeBox = styled.div`
+  display: flex;
+  width: 1300px;
+  flex-direction: column;
+  margin: 80px 0 0 0;
+`;
+
+const NoticeRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 1300px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0px 0px 30px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px);
+  border-radius: 5px;
+  margin: 0 0 20px 0;
+`;
+
+const NoticeNo = styled.span`
+  display: flex;
+  width: 160px;
+  height: 80px;
+  font-family: Spoqa Han Sans Neo;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NoticeHeader = styled.span`
+  display: flex;
+  width: 978px;
+  height: 80px;
+  font-family: Spoqa Han Sans Neo;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  justify-content: start;
+  align-items: center;
+`;
+const NoticeDate = styled.span`
+  display: flex;
+  font-family: Spoqa Han Sans Neo;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  width: 160px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Paint = styled.div`
-  position: flex;
+  position: absolute;
   width: 1025px;
   height: 639px;
-  left: -350px;
-  top: -131px;
+  left: -150px;
+  top: 100px;
   background: url(paint.png);
 `;
 
 const Banner = styled.div`
-  position: absolute;
-  width: 1920px;
+  display: flex;
+  flex-direction: row;
+  width: 1300px;
   height: 263px;
-  left: 0px;
-  top: 100px;
+  margin: 100px 0 0 0;
+  z-index: 999;
 `;
 
-const BannerMainFrame = styled.div`
-  /* Frame 7468 */
+const BannerLeft = styled.div``;
 
-  /* Auto Layout */
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  position: absolute;
-  width: 1300px;
-  height: 111px;
-  left: 310px;
-  top: 80px;
-`;
-
-const BottomFrame = styled.div`
+const BannerRight = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
-  padding: 0px;
-
-  position: static;
-  width: 1300px;
-  height: 75px;
-  left: 0px;
-  top: 36px;
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 10px 0px;
-`;
-
-const SubFrame = styled.div`
-  /* Frame 7462 */
-
-  /* Auto Layout */
-
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-
-  position: static;
-  width: 489px;
-  height: 52px;
-  right: 0px;
-  top: 11.5px;
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 0px 0px;
 `;
 
 const SubMenuFrame = styled.div`
@@ -218,19 +247,6 @@ const RectCurrentBar = styled.div`
   order: 0;
   flex-grow: 0;
   margin: 10px 0px;
-`;
-
-const RouteFrame = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-
-  position: absolute;
-  width: 1300px;
-  height: 32px;
-  left: 310px;
-  top: 231px;
 `;
 
 const RouteFrameText = styled.span`
@@ -311,6 +327,7 @@ const MainTitle = styled.span`
   /* white */
 
   color: #ffffff;
+  margin: 0 0 66px 0;
 `;
 
 const SubMenuTitle = styled.span`
@@ -342,97 +359,34 @@ const SubMenuTitle = styled.span`
   flex-grow: 0;
   margin: 0px 10px;
 
+  cursor: pointer;
+
   &.selected {
     font-weight: bold;
   }
 `;
 
-const Content = styled.div`
-/* Frame 7611 */
-
-
-/* Auto Layout */
-
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 0px;
-
-position: absolute;
-width: 1300px;
-left: 310px;
-top: 443px;
-`;
-
-const ContentNotice = styled.div`
-  /* Frame 7455 */
-
-  /* Auto Layout */
-
+const PageBar = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  position: static;
-  width: 1300px;
-  height: 980px;
-  left: 0px;
-  top: 0px;
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 80px 0px;
-`;
-
-const NoticeItem = styled.div`
-  /* 공지사항 */
-
-  /* Auto Layout */
-
-  display: flex;
-  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  padding: 0px;
-
-  position: static;
-  width: 1300px;
-  height: 80px;
-  left: 0px;
-  top: 0px;
-
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0px 0px 30px rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(30px);
-  /* Note: backdrop-filter has minimal browser support */
-
-  border-radius: 5px;
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 20px 0px;
 `;
 
-const ContentPagination = styled.div`
-  /* pagenation set */
+const ToTopBtn = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align_items: center;
+  top: 50%;
+  right: 100px;
+`;
 
-  position: static;
-  width: 460px;
-  height: 40px;
-  left: 420px;
-  top: 1060px;
+const Ellipse = styled.img`
+  position: absolute;
+`;
 
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 80px 0px;
+const UpArrow = styled.img`
+  position: absolute;
+  top: 26px;
 `;
 export default Notice;

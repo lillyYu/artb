@@ -14,7 +14,7 @@ import Slider from "../Common/slider";
 function Home() {
   return (
     <Slider width="1920" height="954" dotColors={["#FFFFFF", "#FF3D21", "#FF3D21"]} textColors={["#FFFFFF", "#303030", "#303030"]}>
-      <Introduction />
+      <Introduction />      
       <Benefit />
       <NtfList/>
     </Slider>
