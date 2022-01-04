@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
@@ -82,12 +82,36 @@ function RectButtonBody(props) {
       {
         border: `${props.bdColor ? ("solid 1px " + props.bdColor) : ("")}`,
         backgroundColor: `${props.bgColor ? (props.bgColor) : ("none")}`,
-        width: `${props.bdColor ? props.width - 2 : props.width}px`,
-        height: `${props.width ? props.height - 2 : props.height}px`,
+        width: `${props.width}px`,
+        height: `${props.height}px`,
         ...props.btnStyle
       }}>
       {props.children}
     </RectBox>
+  );
+}
+
+function UpDownButton(props) {
+  return (
+    <UpDownContainer style={{ width: props.width, height: props.height }}>
+      <RectButton onClick={() => 0 < props.amount ? props.setAmount(props.amount - 1) : {}}
+        width={props.btnBoxStyle.width}
+        height={props.btnBoxStyle.height}
+        bgColor={props.btnBoxStyle.bgColor}
+        bdColor={props.btnBoxStyle.bdColor}
+        btnStyle={{borderRadius: "2px 0px 0px 2px"}} >
+        <ImageButton img={props.minusSrc} btnStyle={props.btnStyle} />
+      </RectButton>
+      <StatusText style={props.textStyle}>{props.amount}</StatusText>
+      <RectButton onClick={() => props.setAmount(props.amount + 1)}
+        width={props.btnBoxStyle.width}
+        height={props.btnBoxStyle.height}
+        bgColor={props.btnBoxStyle.bgColor}
+        bdColor={props.btnBoxStyle.bdColor}
+        btnStyle={{borderRadius: "0px 2px 2px 0px"}} >
+        <ImageButton img={props.plusSrc} btnStyle={props.btnStyle} />
+      </RectButton>
+    </UpDownContainer>
   );
 }
 
@@ -113,7 +137,16 @@ const ImageBox = styled.img`
 const RectBox = styled.span`
   display: flex;  
   justify-content: center;
-  align-items: center;    
+  align-items: center;
+  box-sizing: content-box;
 `
 
-export { TextButton, ImageButton, RectButton };
+const UpDownContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const StatusText = styled.span`
+`
+
+export { TextButton, ImageButton, RectButton, UpDownButton };

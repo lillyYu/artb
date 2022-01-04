@@ -6,6 +6,7 @@ import { RectButton } from "../../Common/button";
 function Introduction() {
   const total = 183;
   const data = {
+    id: 1,
     image: "/sample.png",
     artist: "남관",
     title: "가을축제",
@@ -88,7 +89,7 @@ function Introduction() {
       <ButtonContainer>
         <RectButton width="52" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('왼쪽')}><Arrow src="/left_arrow.svg" /></RectButton>
         <RectButton width="52" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('오른쪽')}><Arrow src="/right_arrow.svg" /></RectButton>
-        <RectButton width="160" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} onClick={() => alert('더 알아보기')}>
+        <RectButton src={`/detail/${data.id}`} width="160" height="52" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} >
           <TitleText style={{ fontSize: "16px", lineHeight: "24px", letterSpacing: "-0.02em", color: "#FF3D21" }}>
             더 알아보기
           </TitleText>
