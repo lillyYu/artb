@@ -3,59 +3,30 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "../../Common/pagination";
 
-function Notice() {
-  const [datas, setDatas] = useState([
-    {
-      id: 10,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 9,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 8,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 7,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 6,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 5,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 4,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 3,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 2,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-    {
-      id: 1,
-      title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
-      createdAt: "2022.01.03",
-    },
-  ]);
+function NoticeRead({ match }) {
+  const [notice, setNotice] = useState({
+    id: 9,
+    title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
+    content:
+      "텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트",
+    image: "/read_sample.jpg",
+    createdAt: "2022.01.03",
+  });
+  const [before, setBefore] = useState({
+    id: 8,
+    title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
+    createdAt: "2022.01.03",
+  });
+  const [after, setAfter] = useState({
+    id: 10,
+    title: "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세",
+    createdAt: "2022.01.03",
+  });
+
+  useEffect(() => {
+    console.log(match.params.id);
+  }, []);
+
   return (
     <Container>
       <Paint />
@@ -63,7 +34,9 @@ function Notice() {
         <BannerLeft>
           <EngTitle>Help center</EngTitle>
           <MainTitle>공지사항</MainTitle>
-          <RouteFrameText>홈 &gt; 고객센터 &gt; 공지사항</RouteFrameText>
+          <RouteFrameText>
+            홈 &gt; 고객센터 &gt; 공지사항 &gt; 공지사항 상세
+          </RouteFrameText>
         </BannerLeft>
         <BannerRight>
           <SubMenuFrame>
@@ -82,29 +55,31 @@ function Notice() {
         </BannerRight>
       </Banner>
       <NoticeBox>
-        {datas.map((i) => (
-          <>
-            <Link to={`/notice/${i.id}`} style={{ textDecoration: "none" }}>
-              <NoticeRow>
-                <NoticeNo>{i.id}</NoticeNo>
-                <NoticeHeader>{i.title}</NoticeHeader>
-                <NoticeDate>{i.createdAt}</NoticeDate>
-              </NoticeRow>
-            </Link>
-            <div style={{ marginBottom: 20 }} />
-          </>
-        ))}
+        <ReadFrame>
+          <TitleFrame>
+            <ReadTitle>{notice.title}</ReadTitle>
+            <ReadDate>{notice.createdAt}</ReadDate>
+          </TitleFrame>
+          <ReadBar />
+          <ReadContent>{notice.content}</ReadContent>
+          {notice.image ? <ReadImage src={notice.image} /> : null}
+        </ReadFrame>
+        <Link to={`/notice/${before.id}`} style={{ textDecoration: "none" }}>
+          <NoticeRow>
+            <NoticeNo>이전</NoticeNo>
+            <NoticeHeader>{before.title}</NoticeHeader>
+            <NoticeDate>{before.createdAt}</NoticeDate>
+          </NoticeRow>
+        </Link>
+        <div style={{ marginBottom: 20 }} />
+        <Link to={`/notice/${after.id}`} style={{ textDecoration: "none" }}>
+          <NoticeRow>
+            <NoticeNo>다음</NoticeNo>
+            <NoticeHeader>{after.title}</NoticeHeader>
+            <NoticeDate>{after.createdAt}</NoticeDate>
+          </NoticeRow>
+        </Link>
       </NoticeBox>
-      <PageBar>
-        <Pagination
-          curPage={1}
-          pagePerItems={16}
-          totalCount={160}
-          pagePerDisplay={5}
-          changeCallback={(p) => {}}
-          pageStyle={{ margin: "80px 0 0 0" }}
-        />
-      </PageBar>
       <ToTopBtn>
         <Ellipse src="/Ellipse.svg" />
         <UpArrow src="/up_arrow.png" />
@@ -126,6 +101,90 @@ const NoticeBox = styled.div`
   width: 1300px;
   flex-direction: column;
   margin: 80px 0 0 0;
+  z-index: 1;
+`;
+
+const ReadFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  background: #ffffff;
+  /* shadow */
+
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+
+  margin: 0 0 40px 0;
+`;
+
+const TitleFrame = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const ReadTitle = styled.span`
+  width: 1170px;
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+  /* identical to box height, or 156% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.04em;
+
+  /* black */
+
+  color: #000000;
+`;
+
+const ReadDate = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+  /* identical to box height, or 156% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.04em;
+
+  /* dark-dark */
+
+  color: #303030;
+`;
+
+const ReadBar = styled.div`
+  position: static;
+  width: 1220px;
+  height: 1px;
+  background: #000000;
+  opacity: 0.5;
+  margin: 20px 0 20px 0;
+`;
+
+const ReadContent = styled.div`
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 28px;
+  /* or 156% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.04em;
+
+  /* dark-dark */
+
+  color: #303030;
+`;
+
+const ReadImage = styled.img`
+  margin: 20px 0 0 0;
 `;
 
 const NoticeRow = styled.div`
@@ -186,7 +245,7 @@ const Paint = styled.div`
   height: 639px;
   left: -150px;
   top: 100px;
-  background: url(paint.png);
+  background: url(/paint.png);
 `;
 
 const Banner = styled.div`
@@ -391,4 +450,4 @@ const UpArrow = styled.img`
   position: absolute;
   top: 26px;
 `;
-export default Notice;
+export default NoticeRead;
