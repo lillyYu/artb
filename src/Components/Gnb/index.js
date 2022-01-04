@@ -152,42 +152,10 @@ function Gnb() {
             </TextButton>
           </SubTab>
           <SubTab>
-            <TextButton
-              src="/notice"
-              width="128"
-              height="26"
-              onClick={handleNav}
-              className={url === "notice" ? "on" : ""}
-            >
-              공지사항
-            </TextButton>
-            <TextButton
-              src="/faq"
-              width="128"
-              height="26"
-              onClick={handleNav}
-              className={url === "faq" ? "on" : ""}
-            >
-              자주 묻는 질문
-            </TextButton>
-            <TextButton
-              src="/download"
-              width="128"
-              height="26"
-              onClick={handleNav}
-              className={url === "download" ? "on" : ""}
-            >
-              다운로드
-            </TextButton>
-            <TextButton
-              src="/qna"
-              width="128"
-              height="26"
-              onClick={handleNav}
-              className={url === "qna" ? "on" : ""}
-            >
-              1:1 문의
-            </TextButton>
+            <TextButton src="/hp/notice" width="128" height="26" onClick={handleNav} className={url === "notice" ? "on" : ""}>공지사항</TextButton>
+            <TextButton src="/hp/faq" width="128" height="26" onClick={handleNav} className={url === "faq" ? "on" : ""}>자주 묻는 질문</TextButton>
+            <TextButton src="/hp/download" width="128" height="26" onClick={handleNav} className={url === "download" ? "on" : ""}>다운로드</TextButton>
+            <TextButton src="/hp/qna" width="128" height="26" onClick={handleNav} className={url === "qna" ? "on" : ""}>1:1 문의</TextButton>
           </SubTab>
         </TabArea>
       </SubMenu>

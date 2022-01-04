@@ -10,7 +10,7 @@ function Line(props) {
         height: props.height ? props.height : 1,
         background: props.color,
         padding: 0,
-        width: props.width ? props.width : "100%",
+        width: props.width ? `${props.width}px` : "100%",
         opacity: props.opacity ? props.opacity : "1",
         ...props.lineStyle
       }} />
