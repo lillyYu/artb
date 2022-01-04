@@ -5,8 +5,6 @@ import Home from "./Components/Home";
 import NftList from "./Components/NftList";
 import NftDetail from "./Components/NftList/NftDetail";
 import Hp from "./Components/Hp";
-import Notice from "./Components/CS/Notice";
-import NoticeRead from "./Components/CS/Notice/read";
 
 import NftTrade from "./Components/NftTrade";
 import PayCoin from "./Components/NftTrade/Payment/coin";
@@ -31,9 +29,8 @@ function App() {
       <Gnb />
       <Switch>
         <Route path="/detail/:id" component={NftDetail} />
+        <Route path="/hp/:sub/:id" component={Hp} />
         <Route path="/hp/:sub" component={Hp} />
-        <Route path="/notice/:id" component={NoticeRead} />
-        <Route path="/notice" component={Notice} />
         <Route path="/list" component={NftList} />
         <Route exact path="/" component={Home} />
       </Switch>

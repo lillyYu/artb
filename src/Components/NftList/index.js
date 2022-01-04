@@ -47,6 +47,7 @@ function NftList() {
                   <Arts width="1300" height={507 * parseInt(datas.length / 4)} cols="4" rows={parseInt(datas.length / 4)} colWidth="310" rowHeight="481" data={datas} />
                   <PageBar>
                     <Pagination
+                      type={0}
                       curPage={page}
                       pagePerItems={16}
                       totalCount={160}
