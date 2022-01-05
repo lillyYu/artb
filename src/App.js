@@ -5,6 +5,8 @@ import Home from "./Components/Home";
 import NftList from "./Components/NftList";
 import NftDetail from "./Components/NftList/NftDetail";
 import Hp from "./Components/Hp";
+import Payment from "./Components/NftList/Payment";
+import Complete from "./Components/NftList/Complete";
 
 import NftTrade from "./Components/NftTrade";
 import PayCoin from "./Components/NftTrade/Payment/coin";
@@ -31,6 +33,8 @@ function App() {
         <Route path="/detail/:id" component={NftDetail} />
         <Route path="/hp/:sub/:id" component={Hp} />
         <Route path="/hp/:sub" component={Hp} />
+        <Route path="/payment/:id" component={Payment} />
+        <Route path="/complete/:id" component={Complete}/ >
         <Route path="/list" component={NftList} />
         <Route exact path="/" component={Home} />
       </Switch>

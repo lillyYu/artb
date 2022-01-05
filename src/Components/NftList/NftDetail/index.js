@@ -6,6 +6,7 @@ import Line from "../../Common/line";
 
 function NftDetail(props) {
   const datas = {
+    id: props.match.params.id,
     src: "/desc_sample.png",
     title: "가을축제",
     artist: "남관",
@@ -149,7 +150,7 @@ function NftDetail(props) {
           <RectButton width="60" height="60" onClick={() => alert("favorite")} bdColor="#CBCBCB" bgColor="#FFFFFF" btnStyle={{ borderRadius: "5px" }} >
             <Favorite src="/favorite.svg" />
           </RectButton>
-          <RectButton width={430} height={60} bgColor="#FF3D21" onClick={() => alert("Buy")}
+          <RectButton width={430} height={60} bgColor="#FF3D21" src={`/payment/${datas.id}`}
             btnStyle={{
               fontFamily: "Spoqa Han Sans Neo", fontSize: "16px", fontWeight: "700", lineHeight: "24px", letterSpacing: "-0.02em", borderRadius: "5px", color: "#FFFFFF"
             }} >NFT 구매</RectButton>
