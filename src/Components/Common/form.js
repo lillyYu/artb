@@ -57,13 +57,13 @@ function ABInput(props) {
       <InputBox type={props.pass === true && hidden === true ? "password" : "text"}
         placeholder={props.placeholder}
         size={props.size}
-        style={{ width: props.width - 16 * 3 - 20, height: props.height - 14 * 2 }}
+        style={{ width: props.width - (props.cancel === false ? 0 : 16 * 3) - 20, height: props.height - 14 * 2 }}
         value={text}
         onChange={changeInput} />
       {
         props.pass === true ?
           <ImageButton width={16} height={16} img="/eye_icon.svg" onClick={toggleInput} /> :
-          <ImageButton width={16} height={16} img="/cancel_circle.svg" btnStyle={{ display: flag === true ? "flex" : "none" }} onClick={clearInput} />
+          (props.cancel === false ? <></> : <ImageButton width={16} height={16} img="/cancel_circle.svg" btnStyle={{ display: flag === true ? "flex" : "none" }} onClick={clearInput} />)
       }
     </InputContainer>
   );

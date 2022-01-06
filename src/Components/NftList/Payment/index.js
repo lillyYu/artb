@@ -29,8 +29,7 @@ function Payment(props) {
   }
 
   const toPay = (e) => {
-    console.log("topay!");
-    if (myData.agree === true)
+    if (agree === true)
       history.push("/complete/1");
     else {
       setPopupData({

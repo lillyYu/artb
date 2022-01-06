@@ -115,10 +115,26 @@ function UpDownButton(props) {
   );
 }
 
+function UpButton() {
+  const handleTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  return (
+    <UpButtonContainer onClick={handleTop}>
+      <Arrow />
+    </UpButtonContainer>    
+  )
+}
+
 const Container = styled.div`
   a {
     text-decoration: none;
   }
+
   cursor: pointer;  
 `
 
@@ -149,4 +165,26 @@ const UpDownContainer = styled.div`
 const StatusText = styled.span`
 `
 
-export { TextButton, ImageButton, RectButton, UpDownButton };
+const UpButtonContainer = styled.div`
+  display: flex;
+  cursor: pointer;
+  position: fixed;
+  right: 2%;
+  top: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);  
+  justify-content: center;
+  align-items: center;    
+`
+
+const Arrow = styled.img`
+  display: flex;
+  width: 28px;
+  height: 28px;
+  content: url(/arrow_up.svg);
+`
+
+export { TextButton, ImageButton, RectButton, UpDownButton, UpButton };

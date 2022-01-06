@@ -5,6 +5,7 @@ import Download from "./Download";
 import Notice from "./Notice";
 import NoticeRead from "./Notice/read";
 import Lnb from "./Lnb";
+import { UpButton } from "../Common/button";
 
 function Hp(props) {
   return (
@@ -24,9 +25,7 @@ function Hp(props) {
             default: return null
           }
           })()}
-          <UpButton onClick={() => alert("up!")}>
-            <Arrow />
-          </UpButton>
+          <UpButton />
         </BodyArea>
       </HelpCenter>
     </Container>
@@ -57,29 +56,6 @@ const BodyArea = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-`
-
-const UpButton = styled.div`
-  display: flex;
-  cursor: pointer;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  left: 170px;
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  background: #FFFFFF;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
-`
-
-const Arrow = styled.img`
-  display: flex;
-  width: 28px;
-  height: 28px;
-  content: url(/arrow_up.svg);
-  justify-content: center;
-  align-items: center;  
 `
 
 export default Hp;

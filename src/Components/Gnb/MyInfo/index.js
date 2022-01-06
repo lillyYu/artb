@@ -16,7 +16,7 @@ function MyInfo(props) {
               <TailText>{props.count}개</TailText>
             </SubtitleContainer>
           </TitleContainer>
-          <ImageButton src="/myinfo" img="/mypage_icon.svg" width={24} height={24} />
+          <ImageButton src="/mypage" img="/mypage_icon.svg" width={24} height={24} />
         </StatusContainer>
       </StatusBox>
     </Container>
