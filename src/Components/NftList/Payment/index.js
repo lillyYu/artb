@@ -12,6 +12,7 @@ function Payment(props) {
   const [popup, setPopup] = useState(false);
   const [amount, setAmount] = useState(1);
   const [fees, setFees] = useState(15000);
+  const [agree, setAgree] = useState(false);
   const [popupData, setPopupData] = useState({
     warn: false,
     title: '',
@@ -53,8 +54,9 @@ function Payment(props) {
     console.log(value);
   }
 
-  const setAgree = (value) => {
+  const setAgreeCallback = (value) => {
     myData.agree = value;
+    setAgree(value);
   }
 
   const datas = {
@@ -185,11 +187,11 @@ function Payment(props) {
           <ABCheckBox checked={false} onChangeCallback={setAutoSave} />
           <TextField style={{margin: "0 0 0 10px"}}>자동저장</TextField>
         </AutoSaveBox>
-        <AgreeBox>
+        <AgreeBox onClick={() => setAgree(!agree)}>
           <AgreeContainer>
             <AgreeHeader>
               <AgreeHeaderText>아래의 유의사항에 동의합니다.</AgreeHeaderText>
-              <ABCheckBox checked={false} onChangeCallback={setAgree} />
+              <ABCheckBox checked={agree} onChangeCallback={setAgreeCallback} />
             </AgreeHeader>
             <AgreeDescBox>
               <AgreeDesc>

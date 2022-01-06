@@ -17,17 +17,23 @@ function ABInput(props) {
   const [hidden, setHidden] = useState(true);
   const [text, setText] = useState('');
 
-  const changeInput = (e) => {    
+  const changeInput = (e) => {
     if (props.pass !== true) {
       if ( 0 < e.target.value.length)
         setFlag(true);
       else
         setFlag(false);
     }
+
+    let inputText = e.target.value;
+
+    if (props.number === true) {
+      inputText = inputText.replace(/[^0-9]/g, '');
+    }
     
-    setText(e.target.value);
+    setText(inputText);
     if( props.onChangeCallback )
-      props.onChangeCallback(e.target.value);
+      props.onChangeCallback(inputText);
   }
 
   const clearInput = () => {
@@ -48,8 +54,9 @@ function ABInput(props) {
       border: props.require === true && text === '' ? "1px solid #D1504B" : "1px solid #C5C5C5",
       ...props.style
     }}>
-      <InputBox type={props.pass === true && hidden === true ? "password" : (props.number === true ? "number" : "text")}
+      <InputBox type={props.pass === true && hidden === true ? "password" : "text"}
         placeholder={props.placeholder}
+        size={props.size}
         style={{ width: props.width - 16 * 3 - 20, height: props.height - 14 * 2 }}
         value={text}
         onChange={changeInput} />

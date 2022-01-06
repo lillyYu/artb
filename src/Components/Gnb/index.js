@@ -16,6 +16,7 @@ import { TextButton, ImageButton, RectButton } from "../Common/button.js";
 import Grid from "../Common/grid.js";
 
 import SignDiag from "./signDiag";
+import MyInfo from "./MyInfo";
 
 function Gnb() {
   // const [web3, setWeb3] = useRecoilState(web3State);
@@ -35,6 +36,7 @@ function Gnb() {
   // const isHome = location.pathname === '/'
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMode, setDialogMode] = useState('join');
+  const [logined, setLogined] = useState(false);
 
   return (
     <Container>
@@ -56,44 +58,7 @@ function Gnb() {
             고객센터
           </TextButton>
         </MenuArea>
-        <ButtonArea>
-          <RectButton
-            width="160"
-            height="60"
-            bdColor="#FF3D21"
-            bgColor="var(--white)"
-            btnStyle={{
-              fontSize: "20px",
-              fontWeight: "700",
-              color: "#FF3D21",
-              borderRadius: "5px",
-            }}
-            onClick={() => {
-              setOpenDialog(!openDialog);
-              setDialogMode('join')
-            }}
-          >
-            회원가입
-          </RectButton>
-          <SignDiag openDialog={openDialog} mode={dialogMode}/>
-          <RectButton
-            width="160"
-            height="60"
-            bgColor="#FF3D21"
-            btnStyle={{
-              fontSize: "20px",
-              fontWeight: "700",
-              color: "#FFFFFF",
-              borderRadius: "5px",
-            }}
-            onClick={() => {
-              setOpenDialog(!openDialog);
-              setDialogMode('login')
-            }}
-          >
-            로그인
-          </RectButton>
-        </ButtonArea>
+        { logined === true ? <MyInfo name="이건용" count="13"/> : <ButtonBar/> }
       </MainMenu>
       <SubMenu className={over === true ? "on" : ""}>
         <TabArea
@@ -161,6 +126,50 @@ function Gnb() {
       </SubMenu>
     </Container>
   );
+
+  function ButtonBar() {
+    return (
+      <ButtonArea>
+        <RectButton
+          width="160"
+          height="60"
+          bdColor="#FF3D21"
+          bgColor="var(--white)"
+          btnStyle={{
+            fontSize: "20px",
+            fontWeight: "700",
+            color: "#FF3D21",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setOpenDialog(!openDialog);
+            setDialogMode('join')
+          }}
+        >
+          회원가입
+        </RectButton>
+        <SignDiag openDialog={openDialog} mode={dialogMode}/>
+        <RectButton
+          width="160"
+          height="60"
+          bgColor="#FF3D21"
+          btnStyle={{
+            fontSize: "20px",
+            fontWeight: "700",
+            color: "#FFFFFF",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setLogined(true);
+            // setOpenDialog(!openDialog);
+            // setDialogMode('login')
+          }}
+        >
+          로그인
+        </RectButton>
+      </ButtonArea>      
+    )
+  }
 }
 
 const Container = styled.div`

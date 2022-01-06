@@ -285,7 +285,7 @@ function Complete(props) {
   function ButtonBar() {
     return (
       <ButtonContainer>
-        <RectButton width={160} height={60} bdColor="#C5C5C5"
+        <RectButton src="/" width={160} height={60} bdColor="#C5C5C5"
           btnStyle={{
             borderRadius: "5px",
             fontFamily: "Spoqa Han Sans Neo",
