@@ -115,10 +115,50 @@ function UpDownButton(props) {
   );
 }
 
+function UpButton() {
+  const handleTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  return (
+    <UpButtonContainer onClick={handleTop}>
+      <Arrow />
+    </UpButtonContainer>    
+  )
+}
+
+function SwitchButton(props) {
+  const [sw, setSw] = useState(0);
+
+  const switchChange = (index) => {
+    setSw(index);
+
+    if( props.onChangeCallback )
+      props.onChangeCallback(index);
+  }
+
+  return (
+    <SwitchArea style={{ width: `${props.width}px`, height: `${props.height}px` }}>
+      {props.options.map((opt, index) => {
+        return (
+        <SwitchContainer>
+          <SwitchRadio style={{ width: `${props.optionWidth}px`, height: `${props.optionHeight}px`}} checked={sw === index} onChange={() => switchChange(index)} />
+          <SwitchShape style={{ width: `${props.optionWidth}px`, height: `${props.optionHeight}px`}} className={sw === index ? "on" : "off"}>{opt}</SwitchShape>
+          </SwitchContainer>)
+      })
+      }
+    </SwitchArea>
+  )
+}
+
 const Container = styled.div`
   a {
     text-decoration: none;
   }
+
   cursor: pointer;  
 `
 
@@ -149,4 +189,71 @@ const UpDownContainer = styled.div`
 const StatusText = styled.span`
 `
 
-export { TextButton, ImageButton, RectButton, UpDownButton };
+const UpButtonContainer = styled.div`
+  display: flex;
+  cursor: pointer;
+  position: fixed;
+  right: 2%;
+  top: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);  
+  justify-content: center;
+  align-items: center;    
+`
+
+const Arrow = styled.img`
+  display: flex;
+  width: 28px;
+  height: 28px;
+  content: url(/arrow_up.svg);
+`
+
+const SwitchArea = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const SwitchContainer = styled.div`
+  .on {
+    background: #FF3D21;
+    color: #FFFFFF;    
+    font-weight: 700;
+  }
+
+  .off{
+    background: #FFFFFF;
+    color: #656565;    
+    border: 1px solid #EEEEEE;
+    font-weight: 400;
+  }
+`
+
+const SwitchRadio = styled.input.attrs({ type: 'radio' })`
+  cursor: pointer;
+  position: absolute;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  opacity: 0;
+`
+
+const SwitchShape = styled.span`
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Spoqa Han Sans Neo;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+`
+
+export { TextButton, ImageButton, RectButton, UpDownButton, UpButton, SwitchButton };

@@ -5,6 +5,11 @@ import Grid from "../../Common/grid";
 import Line from "../../Common/line";
 
 function Arts(props) {
+  const onChangeFavorite = (index) => {
+    if (props.onChangeCallback)
+      props.onChangeCallback(index);
+  }
+
   return (
     <Grid
       width={props.width}
@@ -17,39 +22,57 @@ function Arts(props) {
         return (
           <ArtsContainer>
             <CardTop style={{ height: `${props.colWidth}px]` }}>
-              <CardImage src={node.image} />
+              <CardImage src={node.data.image} />
               <FavoriteBox style={{ position: "absolute", margin: `20px 0 0 ${props.colWidth - 46}px`}}>
-                <ImageButton img="/heart.svg" width="26" height="24" onClick={() => alert("favoite"+index)} />
+                <ImageButton img="/heart.svg" width="26" height="24" onClick={() => onChangeFavorite(index)} />
               </FavoriteBox>
             </CardTop>
             <CardBottom style={{ width: `${props.colWidth}px`, height: `${props.rowHeight * 0.44}px`, top: `${props.colWidth * 0.87}px` }}>
               <DescContainer style={{ width: `${props.colWidth - 40}px` }}>
                 <TableRow>
-                  <Artist>{node.artist}</Artist>
+                  <Artist>{node.type === 0 ? node.data.artist : `${node.data.born} ~ ${node.data.death}`}</Artist>
                 </TableRow>
                 <TitleRow>
-                  <TitleText>{node.title}</TitleText>
+                  <TitleText>{node.type === 0 ? node.data.title : node.data.artist}</TitleText>
                 </TitleRow>
-                <TableRow>
-                  <HeaderText>작품년도</HeaderText>
-                  <DataText>{node.year}년도</DataText>
-                </TableRow>
-                <TableRow>
-                  <HeaderText>작품크기</HeaderText>
-                  <DataText>{node.width}x{node.height}(cm)</DataText>
-                </TableRow>
-                <TableRow>
-                  <HeaderText>작품기법</HeaderText>
-                  <DataText>{node.tech}</DataText>
-                </TableRow>
-                <Line color="#EEEEEE" lineStyle={{ margin: "10px 0" }} />
-                <TableRow>
-                  <TextBox>
-                    <Gem src="/gem_black.svg" />
-                    <StatusText>{Intl.NumberFormat().format(node.remain)} / {Intl.NumberFormat().format(node.total)}</StatusText>
-                  </TextBox>
-                  <Price>{Intl.NumberFormat().format(node.price)}원</Price>
-                </TableRow>
+                {node.type === 0 ?
+                  <>
+                    <TableRow>
+                      <HeaderText>작품년도</HeaderText>
+                      <DataText>{node.data.year}년도</DataText>
+                    </TableRow>
+                    <TableRow>
+                      <HeaderText>작품크기</HeaderText>
+                      <DataText>{node.data.width}x{node.data.height}(cm)</DataText>
+                    </TableRow>
+                    <TableRow>
+                      <HeaderText>작품기법</HeaderText>
+                      <DataText>{node.data.tech}</DataText>
+                    </TableRow>
+                    <Line color="#EEEEEE" lineStyle={{ margin: "10px 0" }} />
+                    <TableRow>
+                      <TextBox>
+                        <Gem src="/gem_black.svg" />
+                        <StatusText>{Intl.NumberFormat().format(node.data.remain)} / {Intl.NumberFormat().format(node.data.total)}</StatusText>
+                      </TextBox>
+                      <Price>{Intl.NumberFormat().format(node.data.price)}원</Price>
+                    </TableRow>
+                  </> :
+                  <>
+                    <TableRow>
+                      <DescText style={{height: "44px"}}>{node.data.desc}</DescText>
+                    </TableRow>
+                    <Line color="#EEEEEE" lineStyle={{ margin: "10px 0" }} />
+                    <TableRow>
+                      <StatusText>NFT 저작권수 (진행중)</StatusText>
+                      <StatusValueText>{Intl.NumberFormat().format(node.data.count)}개</StatusValueText>
+                    </TableRow>
+                    <TableRow>
+                      <StatusText>NFT 평균 가격</StatusText>
+                      <StatusValueText>{Intl.NumberFormat().format(node.data.avgPrice)}원</StatusValueText>
+                    </TableRow>
+                  </>
+                }
               </DescContainer>
             </CardBottom>
           </ArtsContainer>
@@ -162,6 +185,25 @@ const StatusText = styled.span`
   font-weight: 500;
   line-height: 20px;
   letter-spacing: 0em;
+  color: #656565;
+`
+
+const StatusValueText = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0em;
+  color: #000000;
+`
+
+const DescText = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.02em;
   color: #656565;
 `
 

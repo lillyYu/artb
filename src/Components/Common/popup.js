@@ -38,11 +38,49 @@ function Popup(props) {
   );
 }
 
+function PopupDialog(props) {
+  return (
+    <DialogContainer>
+      <DialogCard>
+        <DialogArea>
+          <DialogTitleArea style={{margin: `0 0 ${props.children ? 20 : 0}px 0`}}>
+            {props.icon ? <DialogTitleIcon src={props.icon} /> : <></>}
+            <DialogTitleText>{props.title}</DialogTitleText>
+            {props.subtitle ? props.subtitle.map((line) => {
+              return <DialogSubtitleText>{line}</DialogSubtitleText>
+            }) : <></>}
+          </DialogTitleArea>
+          {props.children}
+          <DialogButtonContainer>
+            <DialogButtonArea style={{ width: `${props.buttons.length * 160 + (props.buttons.length - 1) * 10}px`}}>
+              {props.buttons.map((button) => {
+                return (
+                  <RectButton width={160} height={52} bgColor={button.bgColor} bdColor={button.bdColor} onClick={button.click} btnStyle={button.style}>
+                    {button.name}
+                  </RectButton>
+                )
+              })}
+            </DialogButtonArea>
+          </DialogButtonContainer>
+        </DialogArea>
+      </DialogCard>
+    </DialogContainer>
+  )
+}
+
+function PopupDialogCustom(props) {
+  return (
+    <DialogContainer>
+      {props.children}
+    </DialogContainer>
+  )
+}
+
 const Container = styled.div`
   display: flex;
   width: 1920px;
   position: absolute;
-  z-index:2;
+  z-index: 50;
   justify-content: center;
   transition: 0.4s;
 `
@@ -100,4 +138,77 @@ const CloseIcon = styled.img`
   content: url(/close_icon.svg);
 `
 
-export default Popup;
+const DialogContainer = styled.div`
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  overflow:hidden;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+`
+
+const DialogCard = styled.div`
+  display: flex;
+  background: #FFFFFF;
+  box-shadow: 0px -4px 10px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;  
+  width: 640px;
+  justify-content: center;
+`
+
+const DialogArea = styled.div`
+  display: flex;
+  width: 560px;
+  margin: 40px 0;
+  flex-direction: column;
+`
+
+const DialogTitleIcon = styled.img`
+  width: 80px;
+  height: 80px;
+  margin: 0 0 20px 0;
+`
+
+const DialogTitleArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const DialogTitleText = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  margin: 0 0 10px 0;
+`
+
+const DialogSubtitleText = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.04em;
+  color: #656565;
+`
+
+const DialogButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 0 0;
+`
+
+const DialogButtonArea = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+export { Popup, PopupDialog, PopupDialogCustom };
