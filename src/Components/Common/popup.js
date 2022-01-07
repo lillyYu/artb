@@ -39,10 +39,12 @@ function Popup(props) {
 }
 
 function PopupDialog(props) {
+  const width = props.width ? props.width : 640;
+
   return (
     <DialogContainer>
-      <DialogCard>
-        <DialogArea>
+      <DialogCard style={{ width: `${width}px` }}>
+        <DialogArea style={{ width: `${width - 80}px` }}>
           <DialogTitleArea style={{margin: `0 0 ${props.children ? 20 : 0}px 0`}}>
             {props.icon ? <DialogTitleIcon src={props.icon} /> : <></>}
             <DialogTitleText>{props.title}</DialogTitleText>
@@ -157,13 +159,11 @@ const DialogCard = styled.div`
   background: #FFFFFF;
   box-shadow: 0px -4px 10px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;  
-  width: 640px;
   justify-content: center;
 `
 
 const DialogArea = styled.div`
   display: flex;
-  width: 560px;
   margin: 40px 0;
   flex-direction: column;
 `
