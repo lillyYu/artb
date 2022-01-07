@@ -38,9 +38,16 @@ function Gnb() {
   const [dialogMode, setDialogMode] = useState('join');
   const [logined, setLogined] = useState(false);
 
+  const loginCallback = () => {
+    setOpenDialog(false);
+    setLogined(true);
+  }
+
   return (
     <Container>
-      <SignDiag openDialog={openDialog} mode={dialogMode}/>
+      <PopupContainer>
+        { openDialog ? <SignDiag loginCallback={loginCallback} mode={dialogMode} /> : <></> }
+      </PopupContainer>
       <MainMenu>
         <LogoArea>
           <ImageButton src="/" img="/gnb_logo.svg" width="115.56" height="40" />
@@ -160,9 +167,8 @@ function Gnb() {
             borderRadius: "5px",
           }}
           onClick={() => {
-            setLogined(true);
-            // setOpenDialog(!openDialog);
-            // setDialogMode('login')
+            setOpenDialog(!openDialog);
+            setDialogMode('login')
           }}
         >
           로그인
@@ -179,6 +185,12 @@ const Container = styled.div`
     display: flex;
   }
 `;
+
+const PopupContainer = styled.div`
+  display: flex;
+  width: 1px;
+  height: 1px;
+`
 
 const MainMenu = styled.div`
   display: flex;

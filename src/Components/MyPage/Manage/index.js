@@ -1,28 +1,103 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 import Line from "../../Common/line";
 import { ABInput, ABLabel, ABCheckBox } from "../../Common/form";
 import { TextButton, RectButton } from "../../Common/button";
 import { PopupDialog } from "../../Common/popup";
 
+import { popupState } from "../../../store/web2";
+
 function Manage() {
   const [agree, setAgree] = useState(false);
   const history = useHistory();
+  const [popup, setPopup] = useRecoilState(popupState);
   const [popupDialog, setPopupDialog] = useState({
     flag: false,
     mode: 0,
   });
+  const myData = {
+    name: "김아름",
+    phone: "01012341234",
+    post: "06192",
+    addr1: "서울특별시 강남구 테헤란로64길 16-8",
+    addr2: "금척빌딩 2층",
+    wallet: "0x2131345645645654545",
+    email: "paoijdpfjaopjf@naver.com",
+    password: "potjpoejaopjdfpojapodjfpo"
+  }
+  const [manageInfo, setManageInfo] = useState(myData);
+
   const setAgreeCallback = (value) => {
     setAgree(value);
   }
+
+  const changeWallet = (value) => {
+    manageInfo.wallet = value;
+  }
+
+  const changeName = (value) => {
+    manageInfo.name = value;
+  }
+  
+  const changePhone = (value) => {
+    manageInfo.phone = value;
+  }
+  
+  const changePost = (value) => {
+    manageInfo.post = value;
+  }  
+
+  const changeAddr1 = (value) => {
+    manageInfo.addr1 = value;
+  }  
+
+  const changeAddr2 = (value) => {
+    manageInfo.addr2 = value;
+  }    
 
   const closePopup = () => {
     setPopupDialog({
       flag: false,
       mode: 0
     });
+  }
+
+  const validForm = () => {
+    if (0 < manageInfo.name.length &&
+      0 < manageInfo.phone.length &&
+      0 < manageInfo.post.length &&
+      0 < manageInfo.addr1.length &&
+      0 < manageInfo.addr2.length &&
+      0 < manageInfo.wallet.length) {
+      return true;
+    }
+
+    return false;
+  }
+
+  const modify = () => {
+    if (!agree) {
+      setPopup({
+        flag: true,
+        warn: true,
+        title: "유의사항 동의 필요",
+        subtitle: "유의사항에 동의해주시기 바랍니다."
+      });
+    }
+    else if (!validForm()) {
+      setPopup({
+        flag: true,
+        warn: true,
+        title: "입력사항 확인 필요",
+        subtitle: "입력사항을 확인해주시기 바랍니다."
+      });      
+    }
+    else {
+
+    }
   }
 
   const callSignout = () => {
@@ -48,10 +123,10 @@ function Manage() {
       <MemberInfoArea>
         <TitleBox>회원정보</TitleBox>
         <ABLabel require={true}>이메일 아이디</ABLabel>
-        <ABInput readOnly={true} width={640} height={52} style={{ margin: "0 0 20px 0" }} />
+        <ABInput value={manageInfo.email} readOnly={true} width={640} height={52} style={{ margin: "0 0 20px 0" }} />
         <ABLabel require={true}>비밀번호</ABLabel>
         <FormRow style={{margin: "0 0 20px 0"}}>
-          <ABInput readOnly={true} pass={true} width={556} height={52} style={{ margin: "0 4px 0 0" }} />        
+          <ABInput value={manageInfo.password} readOnly={true} pass={true} width={556} height={52} style={{ margin: "0 4px 0 0" }} />        
           <RectButton width={80} height={52} bgColor="#FF3D21" onClick={() => setPopupDialog({flag: true, mode: 0}) } btnStyle={{
             fontFamily: "Spoqa Han Sans Neo",
             fontSize: "16px",
@@ -63,12 +138,12 @@ function Manage() {
           }}>변경</RectButton>
         </FormRow>
         <ABLabel require={true}>성함</ABLabel>
-        <ABInput width={640} height={52} style={{ margin: "0 0 20px 0" }} />        
+        <ABInput value={manageInfo.name} charOnly={true} width={640} height={52} style={{ margin: "0 0 20px 0" }} onChangeCallback={changeName} />        
         <ABLabel require={true}>전화번호</ABLabel>
-        <ABInput number={true} width={640} height={52} style={{ margin: "0 0 20px 0" }} />                
+        <ABInput value={manageInfo.phone} size={11} number={true} width={640} height={52} style={{ margin: "0 0 20px 0" }} onChangeCallback={changePhone} />                
         <ABLabel require={true}>주소</ABLabel>
         <FormRow style={{margin: "0 0 10px 0"}}>
-          <ABInput number={true} width={556} height={52} style={{ margin: "0 4px 0 0" }} />        
+          <ABInput value={manageInfo.post} readOnly={true} number={true} width={556} height={52} style={{ margin: "0 4px 0 0" }} onChangeCallback={changePost} />        
           <RectButton width={80} height={52} bgColor="#FF3D21" btnStyle={{
             fontFamily: "Spoqa Han Sans Neo",
             fontSize: "16px",
@@ -79,8 +154,8 @@ function Manage() {
             borderRadius: "5px"
           }}>우편번호</RectButton>
         </FormRow>
-        <ABInput width={640} height={52} style={{ margin: "0 0 10px 0" }} />
-        <ABInput width={640} height={52} style={{ margin: "0 0 40px 0" }} />
+        <ABInput value={manageInfo.addr1} width={640} height={52} style={{ margin: "0 0 10px 0" }} onChangeCallback={changeAddr1} />
+        <ABInput value={manageInfo.addr2} width={640} height={52} style={{ margin: "0 0 40px 0" }} onChangeCallback={changeAddr2} />
       </MemberInfoArea>
     )
   }
@@ -90,7 +165,7 @@ function Manage() {
       <WalletAddrArea>
         <TitleBox>NFT 지갑 주소</TitleBox>
         <ABLabel>NFT 지갑 주소</ABLabel>
-        <ABInput width={640} height={52} style={{ margin: "0 0 20px 0" }} />
+        <ABInput value={manageInfo.wallet} wallet={true} width={640} height={52} style={{ margin: "0 0 20px 0" }} onChangeCallback={changeWallet} />
         <AgreeBox onClick={() => setAgree(!agree)}>
           <AgreeContainer>
             <AgreeHeader>
@@ -124,7 +199,7 @@ function Manage() {
           </AgreeContainer>
         </AgreeBox>
         <BottomArea>
-          <RectButton width={160} height={52} bgColor="#FF3D21" btnStyle={{
+          <RectButton width={160} height={52} bgColor="#FF3D21" onClick={modify} btnStyle={{
             fontFamily: "Spoqa Han Sans Neo",
             fontSize: "16px",
             fontWeight: "700",
@@ -203,7 +278,7 @@ function Manage() {
         ]
       }>
         <ABLabel require={true}>새로운 비밀번호</ABLabel>
-        <ABInput require={true} width={560} height={52} placeholder="새로운 비밀번호를 입력해 주세요."/>
+        <ABInput pass={true} require={true} width={560} height={52} placeholder="새로운 비밀번호를 입력해 주세요."/>
       </PopupDialog>
     )
   }

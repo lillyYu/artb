@@ -13,9 +13,9 @@ function ABLabel(props) {
 }
 
 function ABInput(props) {
-  const [flag, setFlag] = useState(false);
   const [hidden, setHidden] = useState(true);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(props.value ? props.value : "");
+  const [flag, setFlag] = useState(0 < text.length ? true : false);
   const buttonCount = (props.cancel === false ? 0 : 1) + (props.pass === true ? 1 : 0);
 
   const changeInput = (e) => {
@@ -26,6 +26,12 @@ function ABInput(props) {
 
     if (props.number === true) {
       inputText = inputText.replace(/[^0-9]/g, "");
+    }
+    else if (props.wallet === true) {
+      inputText = inputText.replace(/[^a-fx0-9]/g, "");
+    }
+    else if (props.charOnly === true) {
+      inputText = inputText.replace(/[^a-zA-Zㄱ-힣\s]/g, "");
     }
 
     setText(inputText);
@@ -59,7 +65,7 @@ function ABInput(props) {
         <InputBox
           type={props.pass === true && hidden === true ? "password" : "text"}
           placeholder={props.placeholder}
-          size={props.size}
+          maxLength={props.size}
           style={{
             width: props.width - (16 + buttonCount * 16 + buttonCount * 20 + 20),
             height: props.height - 14 * 2,
@@ -75,7 +81,7 @@ function ABInput(props) {
             width={16}
             height={16}
             img="/cancel_circle.svg"
-            btnStyle={{ visibility: flag === true ? "visible" : "hidden" }}
+            btnStyle={{ display: (flag === false || props.readOnly === true) ? "none" : "flex" }}
             onClick={clearInput}
           />
         }
@@ -84,7 +90,7 @@ function ABInput(props) {
             width={16}
             height={16}
             img="/eye_icon.svg"
-            btnStyle={{ display: "flex" }}
+            btnStyle={{ display: props.readOnly === true ? "none" : "flex" }}
             onClick={toggleInput}
           /> : <></>
         }
@@ -110,12 +116,13 @@ function ABCheckBox(props) {
 }
 
 function ABRadio(props) {
-  const [check, setCheck] = useState(0);
+  const [check, setCheck] = useState(props.value ? props.value : 0);
 
   const changeRadio = (e) => {
-    setCheck(parseInt(e.target.value));
+    const tempValue = parseInt(e.target.value);
+    setCheck(tempValue);
 
-    if (props.onChangeCallback) props.onChangeCallback(e.target.value);
+    if (props.onChangeCallback) props.onChangeCallback(tempValue);
   };
 
   return (

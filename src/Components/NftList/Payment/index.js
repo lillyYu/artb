@@ -12,6 +12,7 @@ function Payment(props) {
   const [amount, setAmount] = useState(1);
   const [fees, setFees] = useState(15000);
   const [agree, setAgree] = useState(false);
+  const [deliverySw, setDeliverySw] = useState(0);
   const [popup, setPopup] = useState({
     flag: false,
     warn: false,
@@ -21,8 +22,16 @@ function Payment(props) {
   const myData = {
     address: '',
     autoSave: false,
-    agree: false
+    agree: false,
+    delivery: {
+      name: "김성함",
+      phone: "01012345678",
+      post: "19982",
+      addr1: "서울시 무슨구 무슨동 125-54번지",
+      addr2: "무슨오피스텔 204호"
+    }
   }
+  const [deliveryInfo, setDeliveryInfo] = useState(myData.delivery);  
 
   const closeCallback = () => {
     setPopup({
@@ -33,17 +42,36 @@ function Payment(props) {
     });
   }
 
+  const validForm = () => {
+    if (0 < deliveryInfo.name.length &&
+      0 < deliveryInfo.phone.length &&
+      0 < deliveryInfo.post.length &&
+      0 < deliveryInfo.addr1.length &&
+      0 < deliveryInfo.addr2.length)
+      return true;
+    else
+      return false;
+  }
+
   const toPay = (e) => {
-    if (agree === true)
-      history.push("/complete/1");
-    else {
+    if (agree !== true) {
       setPopup({
         flag: true,
         warn: true,
         title: "유의사항 동의 필요",
         subtitle: "유의사항에 동의해주시기 바랍니다."
-      });
+      });      
     }
+    else if( validForm() === false ) {
+      setPopup({
+        flag: true,
+        warn: true,
+        title: "입력사항 확인 필요",
+        subtitle: "입력사항을 확인해주시기 바랍니다."
+      });            
+    }
+    else
+      history.push("/complete/1");
   }
 
   const setWalletAddress = (value) => {
@@ -55,8 +83,41 @@ function Payment(props) {
   }
 
   const setRadio = (value) => {
-    console.log(value);
+    setDeliverySw(value);
+
+    if (value === 0) {
+      setDeliveryInfo(myData.delivery);
+    }
+    else {
+      setDeliveryInfo({
+        name: "",
+        phone: "",
+        post: "",
+        addr1: "",
+        addr2: ""
+      })
+    }
   }
+
+  const setDeliveryName = (value) => {
+    deliveryInfo.name = value;
+  }
+
+  const setDeliveryPhone = (value) => {
+    deliveryInfo.phone = value;
+  }
+
+  const setDeliveryPost = (value) => {
+    deliveryInfo.post = value;
+  }
+
+  const setDeliveryAddr1 = (value) => {
+    deliveryInfo.addr1 = value;
+  }
+
+  const setDeliveryAddr2 = (value) => {
+    deliveryInfo.addr2 = value;
+  }  
 
   const setAgreeCallback = (value) => {
     myData.agree = value;
@@ -186,7 +247,7 @@ function Payment(props) {
       <WalletArea>
         <TitleBox>NFT 지갑 주소</TitleBox>
         <ABLabel require={true} style={{ margin: "0 0 4px 0" }}>NFT 지갑 주소</ABLabel>
-        <ABInput require={false} pass={false} width={720} height={52} placeholder="NFT 수령을 받기 위한 지갑 주소를 입력해주세요." onChangeCallback={setWalletAddress} />
+        <ABInput require={false} wallet={true} pass={false} width={720} height={52} placeholder="NFT 수령을 받기 위한 지갑 주소를 입력해주세요." onChangeCallback={setWalletAddress} />
         <AutoSaveBox>
           <ABCheckBox checked={false} onChangeCallback={setAutoSave} />
           <TextField style={{margin: "0 0 0 10px"}}>자동저장</TextField>
@@ -317,14 +378,14 @@ function Payment(props) {
           <DeliverySubtitleText>NFT를 구매하신 모든분께 드리는 사은품 수령을 위해 주소를 적어 주세요</DeliverySubtitleText>
         </TitleBox>
         <ABLabel style={{margin: "20px 0"}}>배송지 선택</ABLabel>
-        <ABRadio onChangeCallback={setRadio} tags={["회원 정보와 동일", "새로입력"]} />
+        <ABRadio value={deliverySw} onChangeCallback={setRadio} tags={["회원 정보와 동일", "새로입력"]} />
         <ABLabel require={true} style={{ margin: "34px 0 4px 0" }}>성함</ABLabel>
-        <ABInput require={true} width={720} height={52} placeholder="성함을 입력해 주세요." />
+        <ABInput require={true} charOnly={true} width={720} height={52} placeholder="성함을 입력해 주세요." value={deliveryInfo.name} onChangeCallback={setDeliveryName} />
         <ABLabel require={true} style={{ margin: "20px 0 4px 0" }}>전화번호</ABLabel>
-        <ABInput number={true} require={true} width={720} height={52} placeholder="전화번호를 입력해 주세요." />
+        <ABInput number={true} size={11} require={true} width={720} height={52} placeholder="전화번호를 입력해 주세요." value={deliveryInfo.phone} onChangeCallback={setDeliveryPhone} />
         <ABLabel require={true} style={{ margin: "20px 0 4px 0" }}>주소</ABLabel>
         <PostContainer>
-          <ABInput number={true} require={true} width={636} height={52} placeholder="우편 번호" />
+          <ABInput readOnly={true} number={true} require={true} width={636} height={52} placeholder="우편 번호" value={deliveryInfo.post} onChangeCallback={setDeliveryPost} />
           <RectButton width={80} height={52} bgColor="#FF3D21" btnStyle={{
             fontFamily: "Spoqa Han Sans Neo",
             fontSize: "16px",
@@ -336,8 +397,8 @@ function Payment(props) {
             margin: "0 0 0 4px"
           }}>우편번호</RectButton>
         </PostContainer>
-        <ABInput require={true} width={720} height={52} placeholder="기본 주소" style={{margin: "10px 0"}} />
-        <ABInput require={true} width={720} height={52} placeholder="상세 주소" />
+        <ABInput require={true} width={720} height={52} placeholder="기본 주소" style={{margin: "10px 0"}} value={deliveryInfo.addr1} onChangeCallback={setDeliveryAddr1} />
+        <ABInput require={true} width={720} height={52} placeholder="상세 주소" value={deliveryInfo.addr2} onChangeCallback={setDeliveryAddr2} />
       </DeliveryArea>
     );
   }

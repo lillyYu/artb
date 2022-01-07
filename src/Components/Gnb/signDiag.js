@@ -177,7 +177,7 @@ function Join() {
   );
 }
 
-function Login() {
+function Login(props) {
   return (
     <>
       <InputItem>
@@ -213,7 +213,7 @@ function Login() {
           color: "#FFF",
           borderRadius: "5px",
         }}
-        onClick={() => {}}
+        onClick={props.loginCallback}
       >
         로그인
       </RectButton>
@@ -268,27 +268,12 @@ function JoinComplete() {
   );
 }
 
-function SignDiag({ openDialog, mode }) {
-  const [scrollbar, setScrollbar] = useState(true);
-  const [type, setType] = useState(mode);
-  const [page, setPage] = useState(<></>);
-
-  useEffect(() => {
-    if (type == "join") {
-      setScrollbar(true);
-      setPage(<Join />);
-    } else if (type == "joinComplete") {
-      setScrollbar(false);
-      setPage(<JoinComplete />);
-    } else if (type == "login") {
-      setScrollbar(false);
-      setPage(<Login />);
-    }
-  }, [type]);
+function SignDiag(props) {
+  const [type, setType] = useState(props.mode);
+  const scrollbar = props.mode === "join" ? true : false;
 
   return (
     <Container
-      className={openDialog ? "show" : "hide"}
       style={{
         paddingRight: scrollbar ? 12 : 40,
         width: scrollbar ? 526 : 496,
@@ -297,7 +282,7 @@ function SignDiag({ openDialog, mode }) {
       <Top>
         <Logo src="/logo_red.png" />
         <MenuFrame style={{ paddingLeft: 150 }}>
-          {type == "join" || type == "joinComplete" ? (
+          {type === "join" || type === "joinComplete" ? (
             <MenuDisabled
               onClick={() => {
                 setType("login");
@@ -313,7 +298,7 @@ function SignDiag({ openDialog, mode }) {
           )}
         </MenuFrame>
         <MenuFrame>
-          {type == "login" ? (
+          {type === "login" ? (
             <MenuDisabled
               onClick={() => {
                 setType("join");
@@ -329,7 +314,14 @@ function SignDiag({ openDialog, mode }) {
           )}
         </MenuFrame>
       </Top>
-      {page}
+      {(() => {
+        switch (type) {
+          case "join": return <Join />
+          case "login": return <Login loginCallback={props.loginCallback} />
+          case "joinComplete": return <JoinComplete />
+          default: return null
+        }
+      })()}
     </Container>
   );
 }
@@ -340,7 +332,7 @@ const Container = styled.div`
   align-items: flex-start;
   padding: 40px 12px 40px 40px;
 
-  position: absolute;
+  position: relative;
   width: 528px;
   height: 714px;
   left: 310px;
