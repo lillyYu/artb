@@ -16,12 +16,11 @@ function ABInput(props) {
   const [flag, setFlag] = useState(false);
   const [hidden, setHidden] = useState(true);
   const [text, setText] = useState("");
+  const buttonCount = (props.cancel === false ? 0 : 1) + (props.pass === true ? 1 : 0);
 
   const changeInput = (e) => {
-    if (props.pass !== true) {
-      if (0 < e.target.value.length) setFlag(true);
-      else setFlag(false);
-    }
+    if (0 < e.target.value.length) setFlag(true);
+    else setFlag(false);
 
     let inputText = e.target.value;
 
@@ -56,38 +55,40 @@ function ABInput(props) {
         ...props.style,
       }}
     >
-      <InputBox
-        type={props.pass === true && hidden === true ? "password" : "text"}
-        placeholder={props.placeholder}
-        size={props.size}
-        style={{
-          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 20,
-          height: props.height - 14 * 2,
-          color: props.readOnly === true ? "#CBCBCB" : "#000000",
-        }}
-        value={text}
-        onChange={changeInput}
-        readOnly={props.readOnly}
-      />
-      {props.pass === true ? (
-        <ImageButton
-          width={16}
-          height={16}
-          img="/eye_icon.svg"
-          btnStyle={{ display: flag === true ? "flex" : "none" }}
-          onClick={toggleInput}
+      <InputArea style={{ width: props.width - 16 - 20 }}>
+        <InputBox
+          type={props.pass === true && hidden === true ? "password" : "text"}
+          placeholder={props.placeholder}
+          size={props.size}
+          style={{
+            width: props.width - (16 + buttonCount * 16 + buttonCount * 20 + 20),
+            height: props.height - 14 * 2,
+            color: props.readOnly === true ? "#CBCBCB" : "#000000",
+            background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF"
+          }}
+          value={text}
+          onChange={changeInput}
+          readOnly={props.readOnly}
         />
-      ) : props.cancel === false ? (
-        <></>
-      ) : (
-        <ImageButton
-          width={16}
-          height={16}
-          img="/cancel_circle.svg"
-          btnStyle={{ display: flag === true ? "flex" : "none" }}
-          onClick={clearInput}
-        />
-      )}
+        { props.cancel === true ? <></> :
+          <ImageButton
+            width={16}
+            height={16}
+            img="/cancel_circle.svg"
+            btnStyle={{ visibility: flag === true ? "visible" : "hidden" }}
+            onClick={clearInput}
+          />
+        }
+        { props.pass === true ?
+          <ImageButton
+            width={16}
+            height={16}
+            img="/eye_icon.svg"
+            btnStyle={{ display: "flex" }}
+            onClick={toggleInput}
+          /> : <></>
+        }
+      </InputArea>
     </InputContainer>
   );
 }
@@ -162,13 +163,11 @@ const RequireField = styled.span`
 
 const InputContainer = styled.div`
   display: flex;
-  flex-direction: row;
   border-radius: 5px;
-  align-items: center;
+  
 `;
 
 const InputBox = styled.input`
-  margin: 14px 20px 14px 16px;
   outline: none;
   border: 0;
   font-family: Spoqa Han Sans Neo;
@@ -181,6 +180,14 @@ const InputBox = styled.input`
     color: #c5c5c5;
   }
 `;
+
+const InputArea = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 14px 20px 14px 16px;
+  align-items: center;
+`
 
 const ABCheckContainer = styled.div`
   display: flex;
