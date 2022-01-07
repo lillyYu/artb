@@ -61,7 +61,7 @@ function ABInput(props) {
         placeholder={props.placeholder}
         size={props.size}
         style={{
-          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 55,
+          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 20,
           height: props.height - 14 * 2,
           color: props.readOnly === true ? "#CBCBCB" : "#000000",
         }}
@@ -136,7 +136,7 @@ function ABPassword(props) {
         size={props.size}
         readOnly={props.readOnly}
         style={{
-          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 55,
+          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 50,
           height: props.height - 14 * 2,
           background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
           color: props.readOnly === true ? "#CBCBCB" : "#000000",
