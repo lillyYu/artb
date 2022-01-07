@@ -5,15 +5,15 @@ import { useHistory } from "react-router-dom";
 import Line from "../../Common/line";
 import { RectButton, UpDownButton } from "../../Common/button";
 import { ABLabel, ABInput, ABCheckBox, ABRadio } from "../../Common/form";
-import Popup from "../../Common/popup";
+import { Popup } from "../../Common/popup";
 
 function Payment(props) {
   const history = useHistory();
-  const [popup, setPopup] = useState(false);
   const [amount, setAmount] = useState(1);
   const [fees, setFees] = useState(15000);
   const [agree, setAgree] = useState(false);
-  const [popupData, setPopupData] = useState({
+  const [popup, setPopup] = useState({
+    flag: false,
     warn: false,
     title: '',
     subtitle: ''
@@ -25,19 +25,24 @@ function Payment(props) {
   }
 
   const closeCallback = () => {
-    setPopup(false);
+    setPopup({
+      flag: false,
+      warn: false,
+      title: "",
+      subtitle: ""
+    });
   }
 
   const toPay = (e) => {
     if (agree === true)
       history.push("/complete/1");
     else {
-      setPopupData({
+      setPopup({
+        flag: true,
         warn: true,
         title: "유의사항 동의 필요",
         subtitle: "유의사항에 동의해주시기 바랍니다."
       });
-      setPopup(true);
     }
   }
 
@@ -69,7 +74,7 @@ function Payment(props) {
 
   return (
     <Container>
-      {popup ? <Popup onClose={closeCallback} warn={popupData.warn} title={popupData.title} subtitle={popupData.subtitle}/> : <></> }
+      {popup.flag ? <Popup onClose={closeCallback} warn={popup.warn} title={popup.title} subtitle={popup.subtitle}/> : <></> }
       <PaymentArea>
         <LocationBar />
         <OrderInfo />

@@ -52,17 +52,24 @@ function ABInput(props) {
       width: props.width,
       height: props.height,
       border: props.require === true && text === '' ? "1px solid #D1504B" : "1px solid #C5C5C5",
+      background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
       ...props.style
     }}>
       <InputBox type={props.pass === true && hidden === true ? "password" : "text"}
         placeholder={props.placeholder}
         size={props.size}
-        style={{ width: props.width - (props.cancel === false ? 0 : 16 * 3) - 20, height: props.height - 14 * 2 }}
+        readOnly={props.readOnly}
+        style={{
+          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 20, height: props.height - 14 * 2,
+          background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
+          color: props.readOnly === true ? "#CBCBCB" : "#000000"
+        }}
         value={text}
-        onChange={changeInput} />
+        onChange={changeInput}
+      />
       {
         props.pass === true ?
-          <ImageButton width={16} height={16} img="/eye_icon.svg" onClick={toggleInput} /> :
+          <ImageButton width={16} height={16} img="/eye_icon.svg" btnStyle={{ display: flag === true ? "flex" : "none" }} onClick={toggleInput} /> :
           (props.cancel === false ? <></> : <ImageButton width={16} height={16} img="/cancel_circle.svg" btnStyle={{ display: flag === true ? "flex" : "none" }} onClick={clearInput} />)
       }
     </InputContainer>

@@ -4,14 +4,15 @@ import { useHistory } from "react-router-dom";
 
 import Lnb from "./Lnb";
 import Purchase from "../NftList/Purchase";
+import Favorite from "./Favorite";
+import Manage from "./Manage";
 
-import { RectButton, UpButton } from "../Common/button";
+import { RectButton, UpButton, SwitchButton } from "../Common/button";
 import { ABInput } from "../Common/form";
 import Pagination from "../Common/pagination";
 
 function MyPage(props) {
   const history = useHistory();
-  const [sw, setSw] = useState(0);
   const [page, setPage] = useState(1);
   const myData = {
     name: "이건용",
@@ -23,6 +24,9 @@ function MyPage(props) {
     NFTWait: 12,
     NFTFinish: 13, 
     NFTOwn: 14,
+  }
+  const search = {
+    filter: 0,
   }
   const [searchList, setSearchList] = useState([
     { id: 1, artist: "남관", title: "가을축제", price: 100000, fees: 15000, amount: 3, total: 115000, progress: 'wait', thumb: "/sample.png" },
@@ -37,7 +41,9 @@ function MyPage(props) {
     { id: 10, artist: "남관", title: "가을축제", price: 100000, fees: 15000, amount: 3, total: 115000, progress: 'confirm', thumb: "/sample.png" },
   ]);
 
-  console.log(props.match.params.category);
+  const callbackSwitch = (index) => {
+    search.filter = index;
+  }
 
   return (
     <Container>
@@ -51,12 +57,15 @@ function MyPage(props) {
             case 'own':
               return <Purchase id={props.match.params.id} type={props.match.params.category} showImage={true} showPolicy={true} option={true} />
             case 'favorite':
+              return <Favorite />
             case 'manage':
+              return <Manage />
             default:
               return <MyPageBody />
           }
         })()
       }
+      <UpButton />
     </Container>
   )
 
@@ -68,7 +77,6 @@ function MyPage(props) {
           <MyNFT />
           <PurchaseList />
         </BodyArea>
-        <UpButton />
       </BodyContainer>
     );
   }
@@ -205,24 +213,7 @@ function MyPage(props) {
   function SearchBar() {
     return (
       <SearchContainer>
-        <SwitchArea>
-          <SwitchContainer>
-            <SwitchRadio checked={sw === 0} onChange={() => setSw(0)} />
-            <SwitchButton className={sw === 0 ? "on" : "off"}>전체</SwitchButton>
-          </SwitchContainer>
-          <SwitchContainer>
-            <SwitchRadio checked={sw === 1} onChange={() => setSw(1)} />
-            <SwitchButton className={sw === 1 ? "on" : "off"}>1개월</SwitchButton>
-          </SwitchContainer>
-          <SwitchContainer>
-            <SwitchRadio checked={sw === 2} onChange={() => setSw(2)} />
-            <SwitchButton className={sw === 2 ? "on" : "off"}>3개월</SwitchButton>
-          </SwitchContainer>
-          <SwitchContainer>
-            <SwitchRadio checked={sw === 3} onChange={() => setSw(3)} />
-            <SwitchButton className={sw === 3 ? "on" : "off"}>6개월</SwitchButton>
-          </SwitchContainer>          
-        </SwitchArea>
+        <SwitchButton width={590} height={52} options={["전체", "1개월", "3개월", "6개월"]} optionWidth={140} optionHeight={52} onChangeCallback={callbackSwitch} />
         <SearchArea>
           <ABInput cancel={false} width={446} height={52} placeholder="NFT명 또는 아티스트명을 검색해 주세요." />
           <RectButton width={80} height={52} bgColor="#FF3D21" onClick={() => { setSearchList([]) } }
@@ -487,56 +478,6 @@ const SearchContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin: 0 0 40px 0;
-`
-
-const SwitchArea = styled.div`
-  display: flex;
-  width: 590px;
-  flex-direction: row;
-  justify-content: space-between;
-`
-
-const SwitchContainer = styled.div`
-  .on {
-    background: #FF3D21;
-    color: #FFFFFF;    
-    font-weight: 700;
-  }
-
-  .off{
-    background: #FFFFFF;
-    color: #656565;    
-    border: 1px solid #EEEEEE;
-    font-weight: 400;
-  }
-`
-
-const SwitchRadio = styled.input.attrs({ type: 'radio' })`
-  width: 140px;
-  height: 52px;
-  cursor: pointer;
-  position: absolute;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  z-index: 2;
-  opacity: 0;
-`
-
-const SwitchButton = styled.span`
-  position: relative;
-  width: 140px;
-  height: 52px;
-  display: flex;
-  box-sizing: border-box;
-  border-radius: 100px;
-  justify-content: center;
-  align-items: center;
-
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: -0.02em;
 `
 
 const SearchArea = styled.div`

@@ -7,7 +7,6 @@ function Line(props) {
       style={{
         border: `${props.height ? props.height : 1}px solid ${props.color}`, 
         borderBottom: "none",
-        height: props.height ? props.height : 1,
         background: props.color,
         padding: 0,
         width: props.width ? `${props.width}px` : "100%",

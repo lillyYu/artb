@@ -1,35 +1,40 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 
-import Popup from "../../Common/popup";
+import { Popup } from "../../Common/popup";
 import { RectButton } from "../../Common/button";
 
 import Purchase from "../Purchase";
 
 function Complete(props) {
-  const [popup, setPopup] = useState(false);
-  const [popupData, setPopupData] = useState({
+  const [popup, setPopup] = useState({
+    flag: false,
     warn: false,
     title: '',
     subtitle: ''
   });
 
   useEffect(() => {
-    setPopupData({
+    setPopup({
+      flag: true,
       warn: false,
       title: "이메일 전송완료",
       subtitle: "회원가입 이메일로 전송되었습니다."
     });
-    setPopup(true);
   }, []);  
 
   const closeCallback = () => {
-    setPopup(false);
+    setPopup({
+      flag: false,
+      warn: false,
+      title: "",
+      subtitle: ""
+    });
   }
 
   return (
     <Container>
-      {popup ? <Popup onClose={closeCallback} warn={popupData.warn} title={popupData.title} subtitle={popupData.subtitle} /> : <></>}
+      {popup.flag ? <Popup onClose={closeCallback} warn={popup.warn} title={popup.title} subtitle={popup.subtitle} /> : <></>}
       <CompleteHeader/>
       <Purchase id={props.match.params.id} showImage={false} />
     </Container>

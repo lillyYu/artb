@@ -1,47 +1,85 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useRecoilState } from "recoil";
+
+import { popupState } from "../../../store/web2";
 
 import { TextButton } from "../../Common/button";
+import Line from "../../Common/line";
+import { Popup } from "../../Common/popup";
 
 function Lnb(props) {
+  const history = useHistory();
+  const [popup, setPopup] = useRecoilState(popupState);
+  const script = {
+    title: ""
+  };
+
+  const closeCallback = () => {
+    setPopup({
+      flag: false,
+      warn: false,
+      title: "",
+      subtitle: ""
+    });
+  }  
+
+  if (props.subUrl) {
+    switch (props.subUrl) {
+      case "favorite": script.title = "찜한 내역"; break;
+      case "manage": script.title = "회원정보 관리"; break;
+      default: script.title = "구매 내역 상세";
+    }
+  }
+  else
+    script.title = "마이페이지";
+
   return (
     <HeaderContainer>
+      {popup.flag ? <Popup onClose={closeCallback} warn={popup.warn} title={popup.title} subtitle={popup.subtitle} /> : <></>}
       <TitleContainer>
         <TitleText>My Page</TitleText>
         <SubtitleContainer>
-          <SubtitleText>마이페이지</SubtitleText>
+          <SubtitleText>{script.title}</SubtitleText>
           <SubtitleMenu>
-            <TextButton width={68} height={28} btnStyle={{
+            <TextButton onClick={() => history.push("/mypage/favorite")} width={68} height={28} btnStyle={{
               fontFamily: "Spoqa Han Sans Neo",
               fontSize: "18px",
               fontWeight: "400",
               lineHeight: "28px",
               letterSpacing: "-0.04em",
-              color: "#CBCBCB"                
+              margin: "10px 0 10px 0",
+              color: props.subUrl === "favorite" ? "#FF3D21" : "#CBCBCB"
             }}>찜한 내역</TextButton>
+            <Line color="#FF3D21" width="20" height="4" lineStyle={{ borderRadius: "5px", display: (props.subUrl === "favorite" ? "block" : "none") }} />
           </SubtitleMenu>
           <SubtitleMenu>
-            <TextButton width={100} height={28} btnStyle={{
+            <TextButton onClick={() => history.push("/mypage/manage")} width={100} height={28} btnStyle={{
               fontFamily: "Spoqa Han Sans Neo",
               fontSize: "18px",
               fontWeight: "400",
               lineHeight: "28px",
               letterSpacing: "-0.04em",
-              color: "#CBCBCB"
+              margin: "10px 0 10px 0",
+              color: props.subUrl === "manage" ? "#FF3D21" : "#CBCBCB"
             }}>회원정보 관리</TextButton>
+            <Line color="#FF3D21" width="20" height="4" lineStyle={{ borderRadius: "5px", display: (props.subUrl === "manage" ? "block" : "none") }} />
           </SubtitleMenu>
         </SubtitleContainer>
-        <LocationBar />
+        <LocationBar subUrl={props.subUrl} />
       </TitleContainer>
     </HeaderContainer>
   )
 
-  function LocationBar() {
+  function LocationBar(props) {
     return (
       <LocationArea>
         홈
         <CaretRight />
-        <LocationIndicator>마이페이지</LocationIndicator>
+        {props.subUrl ? "마이페이지" : <LocationIndicator>마이페이지</LocationIndicator>}
+        {props.subUrl ? <CaretRight /> : <></>}
+        {props.subUrl ? <LocationIndicator>{script.title}</LocationIndicator> : <></> }
       </LocationArea>
     );
   }
@@ -96,8 +134,8 @@ const SubtitleMenu = styled.div`
   display: flex;
   width: 140px;
   height: 52px;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
 `
 
 const LocationArea = styled.div`
