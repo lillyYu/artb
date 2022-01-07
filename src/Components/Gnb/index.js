@@ -40,6 +40,7 @@ function Gnb() {
 
   return (
     <Container>
+      <SignDiag openDialog={openDialog} mode={dialogMode}/>
       <MainMenu>
         <LogoArea>
           <ImageButton src="/" img="/gnb_logo.svg" width="115.56" height="40" />
@@ -148,7 +149,6 @@ function Gnb() {
         >
           회원가입
         </RectButton>
-        <SignDiag openDialog={openDialog} mode={dialogMode}/>
         <RectButton
           width="160"
           height="60"

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { RectButton } from "../Common/button.js";
 import { ABLabel, ABInput } from "../Common/form";
 
-function Join(props) {
+function Join() {
   return (
     <>
       <ScrollFrame>
@@ -360,6 +360,7 @@ const Container = styled.div`
   &.hide {
     display: none;
   }
+  z-index: 50;
 `;
 
 const Top = styled.div`
