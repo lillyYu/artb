@@ -151,7 +151,7 @@ function ABPassword(props) {
             height={16}
             img="/cancel_circle.svg"
             btnStyle={{
-              display: flag === true ? "flex" : "none",
+              visibility: flag === true ? "visible" : "hidden",
               marginRight: 15,
             }}
             onClick={clearInput}
@@ -160,7 +160,6 @@ function ABPassword(props) {
             width={16}
             height={16}
             img="/eye_icon.svg"
-            btnStyle={{ paddingLeft: flag === true ? 30 : 0 }}
             onClick={toggleInput}
           />
         </>
