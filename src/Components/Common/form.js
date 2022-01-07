@@ -52,6 +52,7 @@ function ABInput(props) {
           props.require === true && text === ""
             ? "1px solid #D1504B"
             : "1px solid #C5C5C5",
+        background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
         ...props.style,
       }}
     >
@@ -60,8 +61,9 @@ function ABInput(props) {
         placeholder={props.placeholder}
         size={props.size}
         style={{
-          width: props.width - 16 * 3 - 20,
+          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 55,
           height: props.height - 14 * 2,
+          color: props.readOnly === true ? "#CBCBCB" : "#000000",
         }}
         value={text}
         onChange={changeInput}
@@ -72,10 +74,12 @@ function ABInput(props) {
           width={16}
           height={16}
           img="/eye_icon.svg"
+          btnStyle={{ display: flag === true ? "flex" : "none" }}
           onClick={toggleInput}
         />
+      ) : props.cancel === false ? (
+        <></>
       ) : (
-        props.readOnly !== true ?
         <ImageButton
           width={16}
           height={16}
@@ -83,7 +87,6 @@ function ABInput(props) {
           btnStyle={{ display: flag === true ? "flex" : "none" }}
           onClick={clearInput}
         />
-        : <></>
       )}
     </InputContainer>
   );
@@ -115,21 +118,28 @@ function ABPassword(props) {
   };
 
   return (
-    <InputContainer style={{
-      width: props.width,
-      height: props.height,
-      border: props.require === true && text === '' ? "1px solid #D1504B" : "1px solid #C5C5C5",
-      background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
-      ...props.style
-    }}>
-      <InputBox type={props.pass === true && hidden === true ? "password" : "text"}
+    <InputContainer
+      style={{
+        width: props.width,
+        height: props.height,
+        border:
+          props.require === true && text === ""
+            ? "1px solid #D1504B"
+            : "1px solid #C5C5C5",
+        background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
+        ...props.style,
+      }}
+    >
+      <InputBox
+        type={props.pass === true && hidden === true ? "password" : "text"}
         placeholder={props.placeholder}
         size={props.size}
         readOnly={props.readOnly}
         style={{
-          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 55, height: props.height - 14 * 2,
+          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 55,
+          height: props.height - 14 * 2,
           background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
-          color: props.readOnly === true ? "#CBCBCB" : "#000000"
+          color: props.readOnly === true ? "#CBCBCB" : "#000000",
         }}
         value={text}
         onChange={changeInput}
@@ -150,7 +160,7 @@ function ABPassword(props) {
             width={16}
             height={16}
             img="/eye_icon.svg"
-            btnStyle={{ paddingLeft: flag === true ? 30:0 }}
+            btnStyle={{ paddingLeft: flag === true ? 30 : 0 }}
             onClick={toggleInput}
           />
         </>
