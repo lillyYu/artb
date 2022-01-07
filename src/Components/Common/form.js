@@ -92,82 +92,6 @@ function ABInput(props) {
   );
 }
 
-function ABPassword(props) {
-  const [flag, setFlag] = useState(false);
-  const [hidden, setHidden] = useState(true);
-  const [text, setText] = useState("");
-
-  const changeInput = (e) => {
-    if (0 < e.target.value.length) setFlag(true);
-    else setFlag(false);
-
-    let inputText = e.target.value;
-
-    setText(inputText);
-    if (props.onChangeCallback) props.onChangeCallback(inputText);
-  };
-
-  const clearInput = () => {
-    setText("");
-    setFlag(false);
-    if (props.onChangeCallback) props.onChangeCallback("");
-  };
-
-  const toggleInput = () => {
-    setHidden(!hidden);
-  };
-
-  return (
-    <InputContainer
-      style={{
-        width: props.width,
-        height: props.height,
-        border:
-          props.require === true && text === ""
-            ? "1px solid #D1504B"
-            : "1px solid #C5C5C5",
-        background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
-        ...props.style,
-      }}
-    >
-      <InputBox
-        type={props.pass === true && hidden === true ? "password" : "text"}
-        placeholder={props.placeholder}
-        size={props.size}
-        readOnly={props.readOnly}
-        style={{
-          width: props.width - (props.cancel === false ? 0 : 16 * 3) - 50,
-          height: props.height - 14 * 2,
-          background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",
-          color: props.readOnly === true ? "#CBCBCB" : "#000000",
-        }}
-        value={text}
-        onChange={changeInput}
-      />
-      {
-        <>
-          <ImageButton
-            width={16}
-            height={16}
-            img="/cancel_circle.svg"
-            btnStyle={{
-              visibility: flag === true ? "visible" : "hidden",
-              marginRight: 15,
-            }}
-            onClick={clearInput}
-          />
-          <ImageButton
-            width={16}
-            height={16}
-            img="/eye_icon.svg"
-            onClick={toggleInput}
-          />
-        </>
-      }
-    </InputContainer>
-  );
-}
-
 function ABCheckBox(props) {
   const [check, setCheck] = useState(props.checked);
 
@@ -329,4 +253,4 @@ const ABRadioArea = styled.div`
   height: 24px;
 `;
 
-export { ABLabel, ABInput, ABCheckBox, ABRadio, ABPassword };
+export { ABLabel, ABInput, ABCheckBox, ABRadio };

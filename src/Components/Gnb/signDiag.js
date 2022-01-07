@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { RectButton } from "../Common/button.js";
-import { ABLabel, ABInput, ABPassword } from "../Common/form";
+import { ABLabel, ABInput } from "../Common/form";
 
 function Join(props) {
   return (
@@ -65,7 +65,7 @@ function Join(props) {
         <InputItem>
           <ABLabel require={true}>비밀번호</ABLabel>
           <InputBox>
-            <ABPassword
+            <ABInput
               type="password"
               placeholder="비밀번호를 입력해 주세요."
               width={496}
@@ -183,20 +183,22 @@ function Login() {
       <InputItem>
         <ABLabel>이메일 아이디</ABLabel>
         <InputBox>
-          <InputText
+          <ABInput
             type="text"
             placeholder="이메일을 입력해 주세요."
-            style={{ width: 496 }}
+            width={496}
+            height={52}
           />
         </InputBox>
       </InputItem>
       <InputItem>
         <ABLabel>비밀번호</ABLabel>
         <InputBox>
-          <InputText
+          <ABInput
             type="password"
             placeholder="비밀번호를 입력해 주세요."
-            style={{ width: 496 }}
+            width={496}
+            height={52}
           />
         </InputBox>
       </InputItem>
