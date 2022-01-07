@@ -1,116 +1,164 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { RectButton } from "../Common/button.js";
+import { ABLabel, ABInput, ABPassword } from "../Common/form";
 
-function Join() {
+function Join(props) {
   return (
     <>
-      <Top>
-        <Logo />
-        <MenuFrame>
-          <MenuDisabled>로그인</MenuDisabled>
-        </MenuFrame>
-        <MenuFrame>
-          <MenuActive>회원가입</MenuActive>
-          <ActiveBar />
-        </MenuFrame>
-      </Top>
-      <InputItem>
-        <InputName>
-          이메일 아이디<span className="necessary">*</span>
-        </InputName>
-        <InputBox>
-          <InputText
-            type="text"
-            placeholder="이메일을 입력해 주세요."
-            style={{ width: 412, marginRight: 4 }}
-            className="error"
-          />
-          <RectButton
-            width="80"
-            height="52"
-            bgColor="#FF3D21"
-            btnStyle={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#FFF",
-              borderRadius: "5px",
-            }}
-            onClick={() => {}}
-          >
-            인증
-          </RectButton>
-        </InputBox>
-      </InputItem>
-      <InputItem>
-        <InputName>
-          비밀번호<span className="necessary">*</span>
-        </InputName>
-        <InputBox>
-          <InputText
-            type="password"
-            placeholder="비밀번호를 입력해 주세요."
-            style={{ width: 496 }}
-          />
-        </InputBox>
-      </InputItem>
-      <InputItem>
-        <InputName>
-          성함<span className="necessary">*</span>
-        </InputName>
-        <InputBox>
-          <InputText
-            type="text"
-            placeholder="성함을 입력해 주세요."
-            style={{ width: 496 }}
-          />
-        </InputBox>
-      </InputItem>
-      <InputItem>
-        <InputName>
-          전화번호<span className="necessary">*</span>
-        </InputName>
-        <InputBox>
-          <InputText
-            type="text"
-            placeholder="전화번호를 입력해 주세요."
-            style={{ width: 496 }}
-          />
-        </InputBox>
-      </InputItem>
-      <InputItem>
-        <InputName>
-          주소<span className="necessary">*</span>
-        </InputName>
-        <InputBox>
-          <InputText
-            type="text"
-            placeholder="우편 번호"
-            style={{ width: 412, marginRight: 4 }}
-          />
-          <RectButton
-            width="80"
-            height="52"
-            bgColor="#FF3D21"
-            btnStyle={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#FFF",
-              borderRadius: "5px",
-            }}
-            onClick={() => {}}
-          >
-            우편번호
-          </RectButton>
-        </InputBox>
-      </InputItem>
-      <AgreementBox>
+      <ScrollFrame>
+        <InputItem>
+          <ABLabel require={true}>이메일 아이디</ABLabel>
+          <InputBox>
+            <ABInput
+              type="text"
+              placeholder="이메일을 입력해 주세요."
+              width={412}
+              height={52}
+              require={true}
+              style={{ marginRight: 4 }}
+            />
+            <RectButton
+              width="80"
+              height="52"
+              bgColor="#FF3D21"
+              btnStyle={{
+                fontSize: "16px",
+                fontWeight: "bold",
+                color: "#FFF",
+                borderRadius: "5px",
+                marginRight: 30,
+              }}
+              onClick={() => {}}
+            >
+              인증
+            </RectButton>
+          </InputBox>
+          <InputBox>
+            <ABInput
+              type="text"
+              placeholder="인증번호를 입력해 주세요."
+              width={412}
+              height={52}
+              require={true}
+              style={{ marginRight: 4, marginTop: 10 }}
+            />
+            <RectButton
+              width="80"
+              height="52"
+              bgColor="#FF3D21"
+              btnStyle={{
+                fontSize: "16px",
+                fontWeight: "bold",
+                color: "#FFF",
+                borderRadius: "5px",
+                marginRight: 30,
+                marginTop: 10,
+              }}
+              onClick={() => {}}
+            >
+              인증
+            </RectButton>
+          </InputBox>
+          <CheckMsg>인증이 완료되었습니다.</CheckMsg>
+        </InputItem>
+        <InputItem>
+          <ABLabel require={true}>비밀번호</ABLabel>
+          <InputBox>
+            <ABPassword
+              type="password"
+              placeholder="비밀번호를 입력해 주세요."
+              width={496}
+              height={52}
+              require={true}
+              pass={true}
+            />
+          </InputBox>
+        </InputItem>
+        <InputItem>
+          <ABLabel require={true}>성함</ABLabel>
+          <InputBox>
+            <ABInput
+              type="text"
+              placeholder="성함을 입력해 주세요."
+              width={496}
+              height={52}
+              require={true}
+            />
+          </InputBox>
+        </InputItem>
+        <InputItem>
+          <ABLabel require={true}>전화번호</ABLabel>
+          <InputBox>
+            <ABInput
+              type="text"
+              placeholder="전화번호를 입력해 주세요."
+              width={496}
+              height={52}
+              require={true}
+            />
+          </InputBox>
+        </InputItem>
+        <InputItem>
+          <ABLabel require={true}>주소</ABLabel>
+          <InputBox>
+            <ABInput
+              type="text"
+              placeholder="우편 번호"
+              width={412}
+              height={52}
+              style={{ marginRight: 4 }}
+              readOnly={true}
+              require={true}
+            />
+            <RectButton
+              width="80"
+              height="52"
+              bgColor="#FF3D21"
+              btnStyle={{
+                fontSize: "16px",
+                fontWeight: "bold",
+                color: "#FFF",
+                borderRadius: "5px",
+              }}
+              onClick={() => {}}
+            >
+              우편번호
+            </RectButton>
+          </InputBox>
+          <InputBox>
+            <ABInput
+              type="text"
+              placeholder="기본 주소"
+              width={496}
+              height={52}
+              style={{ marginTop: 10 }}
+              readOnly={true}
+              require={true}
+            />
+          </InputBox>
+          <InputBox>
+            <ABInput
+              type="text"
+              placeholder="상세 주소"
+              width={496}
+              height={52}
+              style={{ marginTop: 10 }}
+              require={true}
+            />
+          </InputBox>
+        </InputItem>
+      </ScrollFrame>
+      <CenterBox>
+        <WarningMsg>이메일을 확인해주세요</WarningMsg>
+      </CenterBox>
+      <CenterBox>
         <Agreement>
           <span className="link">서비스 이용약관</span> &nbsp;및&nbsp;
           <span className="link">개인정보 취급방침</span>의 내용을 확인하였고,
           동의합니다
         </Agreement>
-      </AgreementBox>
+      </CenterBox>
       <RectButton
         width="496"
         height="52"
@@ -119,7 +167,7 @@ function Join() {
           fontSize: "16px",
           fontWeight: "bold",
           color: "#FFF",
-          borderRadius: "5px"
+          borderRadius: "5px",
         }}
         onClick={() => {}}
       >
@@ -132,20 +180,8 @@ function Join() {
 function Login() {
   return (
     <>
-      <Top>
-        <Logo />
-        <MenuFrame>
-          <MenuActive>로그인</MenuActive>
-          <ActiveBar />
-        </MenuFrame>
-        <MenuFrame>
-          <MenuDisabled>회원가입</MenuDisabled>
-        </MenuFrame>
-      </Top>
       <InputItem>
-        <InputName>
-          이메일 아이디
-        </InputName>
+        <ABLabel>이메일 아이디</ABLabel>
         <InputBox>
           <InputText
             type="text"
@@ -155,9 +191,7 @@ function Login() {
         </InputBox>
       </InputItem>
       <InputItem>
-        <InputName>
-          비밀번호
-        </InputName>
+        <ABLabel>비밀번호</ABLabel>
         <InputBox>
           <InputText
             type="password"
@@ -166,7 +200,7 @@ function Login() {
           />
         </InputBox>
       </InputItem>
-      <div style={{marginBottom: 298}} />
+      <div style={{ marginBottom: 298 }} />
       <RectButton
         width="496"
         height="52"
@@ -175,13 +209,13 @@ function Login() {
           fontSize: "16px",
           fontWeight: "bold",
           color: "#FFF",
-          borderRadius: "5px"
+          borderRadius: "5px",
         }}
         onClick={() => {}}
       >
         로그인
       </RectButton>
-      <div style={{marginBottom: 20}} />
+      <div style={{ marginBottom: 20 }} />
       <RectButton
         width="496"
         height="52"
@@ -191,7 +225,7 @@ function Login() {
           fontSize: "16px",
           fontWeight: "bold",
           color: "#303030",
-          borderRadius: "5px"
+          borderRadius: "5px",
         }}
         onClick={() => {}}
       >
@@ -201,10 +235,99 @@ function Login() {
   );
 }
 
-function SignDiag({ openDialog, mode }) {
+function JoinComplete() {
   return (
-    <Container className={openDialog ? "show" : "hide"}>
-      {mode == "join" ? <Join /> : <Login />}
+    <>
+      <HCenter>
+        <RoundCheck src="/round_check.svg" style={{ marginTop: 221 }} />
+        <CompleteText1 style={{ marginTop: 20 }}>
+          <span className="name">김이름</span>님 회원가입이 완료되었습니다.
+        </CompleteText1>
+        <CompleteText2 tyle={{ marginTop: 4 }}>
+          아트비의 다양한 서비스를 이용하실 수 있습니다.
+        </CompleteText2>
+        <RectButton
+          width="496"
+          height="52"
+          bgColor="#FF3D21"
+          btnStyle={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#FFF",
+            borderRadius: "5px",
+            marginTop: 221,
+          }}
+          onClick={() => {}}
+        >
+          홈으로
+        </RectButton>
+      </HCenter>
+    </>
+  );
+}
+
+function SignDiag({ openDialog, mode }) {
+  const [scrollbar, setScrollbar] = useState(true);
+  const [type, setType] = useState(mode);
+  const [page, setPage] = useState(<></>);
+
+  useEffect(() => {
+    if (type == "join") {
+      setScrollbar(true);
+      setPage(<Join />);
+    } else if (type == "joinComplete") {
+      setScrollbar(false);
+      setPage(<JoinComplete />);
+    } else if (type == "login") {
+      setScrollbar(false);
+      setPage(<Login />);
+    }
+  }, [type]);
+
+  return (
+    <Container
+      className={openDialog ? "show" : "hide"}
+      style={{
+        paddingRight: scrollbar ? 12 : 40,
+        width: scrollbar ? 526 : 496,
+      }}
+    >
+      <Top>
+        <Logo src="/logo_red.png" />
+        <MenuFrame style={{ paddingLeft: 150 }}>
+          {type == "join" || type == "joinComplete" ? (
+            <MenuDisabled
+              onClick={() => {
+                setType("login");
+              }}
+            >
+              로그인
+            </MenuDisabled>
+          ) : (
+            <>
+              <MenuActive>로그인</MenuActive>
+              <ActiveBar />
+            </>
+          )}
+        </MenuFrame>
+        <MenuFrame>
+          {type == "login" ? (
+            <MenuDisabled
+              onClick={() => {
+                setType("join");
+              }}
+            >
+              회원가입
+            </MenuDisabled>
+          ) : (
+            <>
+              <MenuActive>회원가입</MenuActive>
+              <ActiveBar />
+            </>
+          )}
+        </MenuFrame>
+      </Top>
+      {page}
     </Container>
   );
 }
@@ -213,10 +336,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px;
+  padding: 40px 12px 40px 40px;
 
   position: absolute;
-  width: 496px;
+  width: 528px;
   height: 714px;
   left: 310px;
   top: 180px;
@@ -242,14 +365,17 @@ const Top = styled.div`
   flex-direction: row;
 `;
 
-const Logo = styled.img``;
+const Logo = styled.img`
+  width: 156px;
+  height: 52px;
+`;
 
 const MenuFrame = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 25px;
+  padding: 12px 0px 0 50px;
 `;
 
 const MenuDisabled = styled.span`
@@ -268,6 +394,23 @@ const MenuDisabled = styled.span`
   /* light light dark */
 
   color: #cbcbcb;
+  cursor: pointer;
+`;
+
+const ScrollFrame = styled.div`
+  height: 500px;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 100px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbcbcb;
+    border-radius: 100px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: white;
+  }
 `;
 
 const MenuActive = styled.span`
@@ -314,28 +457,6 @@ const InputBox = styled.div`
   flex-direction: row;
 `;
 
-const InputName = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height, or 150% */
-
-  display: flex;
-  align-items: center;
-  letter-spacing: -0.02em;
-
-  /* dark-dark */
-
-  color: #303030;
-  margin: 0 0 4px 0;
-
-  .necessary {
-    color: #d1504b;
-  }
-`;
-
 const InputText = styled.input`
   padding: 16px;
   height: 52px;
@@ -350,16 +471,53 @@ const InputText = styled.input`
   }
 
   &.error {
-    border: 1px solid #D1504B;
+    border: 1px solid #d1504b;
   }
 `;
 
-const AgreementBox = styled.div`
+const WarningMsg = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  /* warning */
+
+  color: #d1504b;
+  padding: 0 30px 0 0;
+`;
+
+const CheckMsg = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* light light dark */
+
+  color: #cbcbcb;
+  margin: 2px 0 0 16px;
+`;
+
+const CenterBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 0 0 20px 0;
+  margin: 20px 0 20px 0;
 `;
 
 const Agreement = styled.span`
@@ -377,6 +535,55 @@ const Agreement = styled.span`
   .link {
     text-decoration-line: underline;
   }
-  margin: 40px 0 0 0;
+  margin: 10px 0 0 0;
+  padding: 0 30px 0 0;
+`;
+
+const RoundCheck = styled.img`
+  display: flex;
+  width: 80px;
+  height: 80px;
+`;
+
+const HCenter = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const CompleteText1 = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height, or 150% */
+
+  text-align: center;
+  letter-spacing: -0.04em;
+
+  /* primary */
+  .name {
+    color: #ff3d21;
+  }
+`;
+
+const CompleteText2 = styled.span`
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 28px;
+  /* identical to box height, or 156% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.04em;
+
+  /* dark-dark */
+
+  color: #303030;
 `;
 export default SignDiag;
