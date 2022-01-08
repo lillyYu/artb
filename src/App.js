@@ -1,16 +1,23 @@
 /* Components */
 import Gnb from "./Components/Gnb";
+import Footer from "./Components/Footer";
 import Home from "./Components/Home";
+import NftList from "./Components/NftList";
+import NftDetail from "./Components/NftList/NftDetail";
+import Hp from "./Components/Hp";
+import Payment from "./Components/NftList/Payment";
+import Complete from "./Components/NftList/Complete";
+import MyPage from "./Components/MyPage";
+
 import NftTrade from "./Components/NftTrade";
 import PayCoin from "./Components/NftTrade/Payment/coin";
 import PayCash from "./Components/NftTrade/Payment/cash";
-import Footer from "./Components/Footer";
 import MyNFT from "./Components/Gnb/myNFT";
 import CheckAccount from "./Components/Gnb/checkAccount";
-import Term1 from './Components/Terms/Term1';
-import Term2 from './Components/Terms/Term2';
-import AccountTransferPopup from './Components/NftTrade/Popup/accountTransfer';
-import OrderDetail from './Components/Gnb/OrderDetail';
+import Term1 from "./Components/Terms/Term1";
+import Term2 from "./Components/Terms/Term2";
+import AccountTransferPopup from "./Components/NftTrade/Popup/accountTransfer";
+import OrderDetail from "./Components/Gnb/OrderDetail";
 
 /* Libraries */
 import styled from "styled-components";
@@ -24,32 +31,24 @@ function App() {
     <Container>
       <Gnb />
       <Switch>
-        <Route path="/payment/coin" component={PayCoin}></Route>
-        <Route path="/payment/cash" component={PayCash}></Route>
-        <Route path="/mypage/check" component={CheckAccount}></Route>
-        <Route path="/mypage" exact component={MyNFT} />
-        <Route path="/mypage/orders/:id" exact component={OrderDetail} />
-        <Route
-          path="/"
-          exact
-          component={() => <NftTrade />} />
-        <Route path="/term1" exact component={Term1} />
-        <Route path="/term2" exact component={Term2} />
-        <Route path="/accountTransfer" exact component={AccountTransferPopup} />
-        {/* <Route path="/" component={NftTrade}></Route> */}
-        {/* <Route path="/" component={Home}></Route> */}
+        <Route path="/detail/:id" component={NftDetail} />
+        <Route path="/hp/:sub/:id" component={Hp} />
+        <Route path="/hp/:sub" component={Hp} />
+        <Route path="/payment/:id" component={Payment} />
+        <Route path="/complete/:id" component={Complete} />
+        <Route path="/mypage/:category/:id" component={MyPage} />
+        <Route path="/mypage/:category" component={MyPage} />
+        <Route path="/mypage" component={MyPage} />
+        <Route path="/list" component={NftList} />
+        <Route exact path="/" component={Home} />
       </Switch>
-      {/* <Switch>
-        <Route path="/" component={Home}></Route>
-        <Route path="/trade" component={NftTrade}></Route>
-      </Switch> */}
-      {/* <Footer /> */}
+      <Footer />
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 720px;
+  width: 1920px;
 `;
 
 export default App;

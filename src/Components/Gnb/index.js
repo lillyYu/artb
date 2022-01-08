@@ -8,161 +8,273 @@ import React, { useState, useEffect } from "react";
 
 import { useRecoilState } from "recoil";
 import WalletConnect from "../NftTrade/Popup/walletConnect";
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import {
-  web3State,
-  accountState,
-
-} from "../../store/web3";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { web3State, accountState } from "../../store/web3";
 import { openWalletPopupState } from "../../store/wallet";
+import { diagState } from "../../store/web2";
+import { TextButton, ImageButton, RectButton } from "../Common/button.js";
+import Grid from "../Common/grid.js";
+
+import SignDiag from "./signDiag";
+import MyInfo from "./MyInfo";
 
 function Gnb() {
   // const [web3, setWeb3] = useRecoilState(web3State);
-  const [account, setAccount] = useRecoilState(accountState);
-  const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
-  const history = useHistory();
-  const location = useLocation();
-  const isHome = location.pathname === '/'
+  const [url, setUrl] = useState(window.location.pathname.split("/")[1]);
+  const [over, setOver] = useState(false);
+  const handleNav = (e) => {
+    setUrl(
+      e.target.parentElement.href.substring(
+        e.target.parentElement.href.lastIndexOf("/") + 1
+      )
+    );
+  };
+  // const [account, setAccount] = useRecoilState(accountState);
+  // const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
+  // const history = useHistory();
+  // const location = useLocation();
+  // const isHome = location.pathname === '/'
+  const [openDialog, setOpenDialog] = useState(false);
+  const [diagType, setDiagType] = useRecoilState(diagState);
+  const [logined, setLogined] = useState(false);
+
+  const loginCallback = () => {
+    setOpenDialog(false);
+    setLogined(true);
+  }
+
   return (
     <Container>
-      <div className="Gnb__left">
-        {!isHome && <img className="Gnb__goBack" src="/detail_toggleClose.png" onClick={() => { history.goBack(); }} />}
-        <img className="Gnb__logo" src="/gnb_logo.png" style={!isHome ? {
-          position: "absolute",
-          left: 'calc(50% - 81px)'
-        } : {}} onClick={() => { history.push('/') }} />
-      </div>
-      {/* <Setting>
-        <Link
-          to={{
-            pathname: "/mypage",
-          }}
+      <PopupContainer>
+        { openDialog ? <SignDiag loginCallback={loginCallback}/> : <></> }
+      </PopupContainer>
+      <MainMenu>
+        <LogoArea>
+          <ImageButton src="/" img="/gnb_logo.svg" width="115.56" height="40" />
+        </LogoArea>
+        <MenuArea onMouseLeave={() => setOver(false)}>
+          <TextButton width="128" height="26" onMouseOver={() => setOver(true)}>
+            NFT 소개
+          </TextButton>
+          <TextButton width="128" height="26" onMouseOver={() => setOver(true)}>
+            NFT 리스트
+          </TextButton>
+          <TextButton width="128" height="26" onMouseOver={() => setOver(true)}>
+            아티스트
+          </TextButton>
+          <TextButton width="128" height="26" onMouseOver={() => setOver(true)}>
+            고객센터
+          </TextButton>
+        </MenuArea>
+        { logined === true ? <MyInfo name="이건용" count="13"/> : <ButtonBar/> }
+      </MainMenu>
+      <SubMenu className={over === true ? "on" : ""}>
+        <TabArea
+          onMouseOver={() => setOver(true)}
+          onMouseLeave={() => setOver(false)}
         >
-          <img
-            src="/Union2.png"
-            style={{ width: "50px", height: "50px" }}
-            onClick={() => {
-              window.scrollTo(0, 0);
-            }}
-          />
-        </Link>
-      </Setting> */}
-      {isOpenWalletPopup ? <WalletConnect setWalletPopup={setIsOpenWalletPopup} /> : null}
-      <Setting>
-        {account ?
-          <Link
-            to={{
-              pathname: "/mypage",
-            }}
-          >
-            <img
-              src="/Union2.png"
-              style={{ width: "50px", height: "50px" }}
-              onClick={() => {
-                window.scrollTo(0, 0);
-              }}
-            />
-          </Link>
-          :
-          <My>
-            <div className="payImg">
-              <img
-                src="/detail_pay.png"
-                style={{ width: "30px", height: "30px" }}
-                onClick={() => {
-                  setIsOpenWalletPopup(!isOpenWalletPopup)
-                }}
-              />
-            </div>
-          </My>
-        }
-      </Setting>
+          <SubTab>
+            <TextButton
+              src="/nft"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "nft" ? "on" : ""}
+            >
+              NFT란?
+            </TextButton>
+            <TextButton
+              src="/business"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "business" ? "on" : ""}
+            >
+              NFT 사업소개
+            </TextButton>
+            <TextButton
+              src="/benefit"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "benefit" ? "on" : ""}
+            >
+              NFT 혜택
+            </TextButton>
+          </SubTab>
+          <SubTab>
+            <TextButton
+              src="/list"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "list" ? "on" : ""}
+            >
+              NFT 리스트
+            </TextButton>
+          </SubTab>
+          <SubTab>
+            <TextButton
+              src="/artist"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "artist" ? "on" : ""}
+            >
+              아티스트
+            </TextButton>
+          </SubTab>
+          <SubTab>
+            <TextButton src="/hp/notice" width="128" height="26" onClick={handleNav} className={url === "notice" ? "on" : ""}>공지사항</TextButton>
+            <TextButton src="/hp/faq" width="128" height="26" onClick={handleNav} className={url === "faq" ? "on" : ""}>자주 묻는 질문</TextButton>
+            <TextButton src="/hp/download" width="128" height="26" onClick={handleNav} className={url === "download" ? "on" : ""}>다운로드</TextButton>
+            <TextButton src="/hp/qna" width="128" height="26" onClick={handleNav} className={url === "qna" ? "on" : ""}>1:1 문의</TextButton>
+          </SubTab>
+        </TabArea>
+      </SubMenu>
     </Container>
   );
+
+  function ButtonBar() {
+    return (
+      <ButtonArea>
+        <RectButton
+          width="160"
+          height="60"
+          bdColor="#FF3D21"
+          bgColor="var(--white)"
+          btnStyle={{
+            fontSize: "20px",
+            fontWeight: "700",
+            color: "#FF3D21",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setOpenDialog(!openDialog);
+            setDiagType('join')
+          }}
+        >
+          회원가입
+        </RectButton>
+        <RectButton
+          width="160"
+          height="60"
+          bgColor="#FF3D21"
+          btnStyle={{
+            fontSize: "20px",
+            fontWeight: "700",
+            color: "#FFFFFF",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setOpenDialog(!openDialog);
+            setDiagType('login')
+          }}
+        >
+          로그인
+        </RectButton>
+      </ButtonArea>      
+    )
+  }
 }
 
 const Container = styled.div`
   display: flex;
-  position: fixed;
-  top: 0;
-  width: 720px;
-  height: 130px;
-  padding: 0 58px;
+  flex-direction: column;
+  .on {
+    display: flex;
+  }
+`;
+
+const PopupContainer = styled.div`
+  display: flex;
+  width: 1px;
+  height: 1px;
+`
+
+const MainMenu = styled.div`
+  display: flex;
+  width: 1920px;
+  height: 100px;
+  padding: 0 20px;
   box-sizing: border-box;
   align-items: center;
-  justify-content: space-between;
-  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
   z-index: 2;
+`;
 
-  .Gnb__goBack {
-    transform: rotate(90deg);
-    width: 26px; 
-    height: 16px; 
-    cursor: pointer;
-  }
-  .Gnb__logo {
-    width: 162px; 
-    height: 56px; 
-    cursor: pointer;
-  }
+const SubMenu = styled.div`
+  display: none;
+  width: 1920px;
+  height: 230px;
+  box-shadow: 0px 40px 40px rgba(0, 0, 0, 0.07),
+    0px 40px 30px rgba(0, 0, 0, 0.0503198), 0px 20px 20px rgba(0, 0, 0, 0.04),
+    0px 12px 10px rgba(0, 0, 0, 0.03), 0px 4px 4px rgba(0, 0, 0, 0.04),
+    0px 2px 2px rgba(0, 0, 0, 0.0196802);
+  z-index: 1;
+  background-color: #ffffff;
+  top: 100px;
+  position: absolute;
+`;
 
-  .Gnb__left {
-    display: flex;
-    align-items: center;
+const TabArea = styled.div`
+  display: flex;
+  margin: 0 0 0 555px;
+  width: 640px;
+  height: 190px;
+  flex-direction: row;
+`;
+
+const SubTab = styled.div`
+  display: flex;
+  width: 160px;
+  height: 190px;
+  flex-direction: column;
+  font-size: 18px;
+  line-height: 28px;
+  align-items: center;
+  gap: 22px 0;
+  margin: 24px 0 0 0;
+
+  a:hover {
+    color: #ff3d21;
+    font-weight: bold;
   }
   a {
-    text-decoration: none;
+    color: #424242;
+  }
+  .on {
+    color: #ff3d21;
+    font-weight: bold;
   }
 `;
 
-const Setting = styled.div`
+const LogoArea = styled.div`
   display: flex;
-  gap: 0 20px;
+  width: 115.56px;
+  margin: 0 445.44px 0 0;
+`;
+
+const MenuArea = styled.div`
+  display: flex;
+  width: 640px;
+  height: 100px;
+  a {
+    color: #000000;
+    font-size: 20px;
+    font-family: Spoqa Han Sans Neo;
+    font-weight: 500;
+    line-height: 26px;
+  }
+  justify-content: space-between;
+  margin: 0 391px 0 0;
   align-items: center;
-  width: 120px;
-  justify-content:center;
 `;
 
-const Language = styled.div`
-  font-size: 20px;
-  color: black;
-  cursor: pointer;
-`;
-
-const My = styled.div`
-  display:flex;
-  flex-direction:column;
-  /* justify-content: flex-end;  */
-  align-items:center;
-  position: relative;
-  
-  .payImg{
-    display:flex;
-    justify-content: center; 
-    align-items:center;
-    margin: auto;
-    cursor:pointer;
-    padding: 10px;
-    border-radius:8px;
-    background-color: #E64724CC;
-  }
-
-  /* .mouseHover {
-    display: none;
-  }
-  
-  .payImg:hover .mouseHover{
-    display: flex;
-    flex-direction: column;
-    background-color: #e2e2e2;
-    border-radius:8px;
-    padding: 10px;
-    width: 250px;
-    position: absolute;
-    bottom: -70px;
-    right: 0; */
-
-
+const ButtonArea = styled.div`
+  display: flex;
+  width: 370px;
+  justify-content: space-evenly;
 `;
 
 export default Gnb;
