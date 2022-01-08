@@ -17,7 +17,7 @@ function Slider(props) {
         {
           props.children.map((item, idx) => {
             return (
-              <SlideRadioNode circleColor={props.dotColors[index]}>
+              <SlideRadioNode circleColor={props.dotColors[index]} key={idx}>
                 <SlideRadio onChange={() => moveSlider(idx)} checked={index === idx} className={index === idx ? "on" : ""} />
                 <SlideCircle style={index === idx ? { border: `1px solid ${props.dotColors[index]}` } : {}} />
               </SlideRadioNode>

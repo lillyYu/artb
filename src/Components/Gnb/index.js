@@ -11,7 +11,7 @@ import WalletConnect from "../NftTrade/Popup/walletConnect";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { web3State, accountState } from "../../store/web3";
 import { openWalletPopupState } from "../../store/wallet";
-
+import { diagState } from "../../store/web2";
 import { TextButton, ImageButton, RectButton } from "../Common/button.js";
 import Grid from "../Common/grid.js";
 
@@ -35,7 +35,7 @@ function Gnb() {
   // const location = useLocation();
   // const isHome = location.pathname === '/'
   const [openDialog, setOpenDialog] = useState(false);
-  const [dialogMode, setDialogMode] = useState('join');
+  const [diagType, setDiagType] = useRecoilState(diagState);
   const [logined, setLogined] = useState(false);
 
   const loginCallback = () => {
@@ -46,7 +46,7 @@ function Gnb() {
   return (
     <Container>
       <PopupContainer>
-        { openDialog ? <SignDiag loginCallback={loginCallback} mode={dialogMode} /> : <></> }
+        { openDialog ? <SignDiag loginCallback={loginCallback}/> : <></> }
       </PopupContainer>
       <MainMenu>
         <LogoArea>
@@ -151,7 +151,7 @@ function Gnb() {
           }}
           onClick={() => {
             setOpenDialog(!openDialog);
-            setDialogMode('join')
+            setDiagType('join')
           }}
         >
           회원가입
@@ -168,7 +168,7 @@ function Gnb() {
           }}
           onClick={() => {
             setOpenDialog(!openDialog);
-            setDialogMode('login')
+            setDiagType('login')
           }}
         >
           로그인

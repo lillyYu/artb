@@ -28,7 +28,7 @@ function Card(props) {
     {
       props.data.map((node, index) => {
         return (
-          <CardContainer>
+          <CardContainer key={index}>
             <CardTop>
               <CardImage src={node.image}/>
             </CardTop>
@@ -37,9 +37,9 @@ function Card(props) {
                 <NoText>{String(index + 1).padStart(2, '0')}</NoText>
                 <TitleText>{node.title}</TitleText>
                 {
-                  node.desc.map((sub) => {
+                  node.desc.map((sub, idx) => {
                   return (
-                    <DescText>{sub}</DescText>
+                    <DescText key={idx}>{sub}</DescText>
                   );
                   })
                 }

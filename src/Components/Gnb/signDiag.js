@@ -1,9 +1,113 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useRecoilState } from "recoil";
 import { RectButton } from "../Common/button.js";
 import { ABLabel, ABInput } from "../Common/form";
+import { PopupDialog } from "../Common/popup";
+import { diagState } from "../../store/web2";
+
+function ShowAgreement(props) {
+  return (
+    <PopupDialog
+      title="서비스 이용약관"
+      width={1024}
+      height={600}
+      buttons={[
+        {
+          name: "동의 후 확인",
+          click: props.closePopup,
+          bgColor: "#FF3D21",
+          style: {
+            fontFamily: "Spoqa Han Sans Neo",
+            fontSize: "16px",
+            fontWeight: "bold",
+            lineHeight: "24px",
+            letterSpacing: "-0.02em",
+            color: "#FFFFFF",
+            borderRadius: "5px",
+          },
+        },
+      ]}
+    >
+      <AgreementContent>
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+        hihdfdfdfadadf
+        <br />
+      </AgreementContent>
+    </PopupDialog>
+  );
+}
 
 function Join() {
+  const [showAgree, setShowAgree] = useState(false);
+
+  const closePopup = useCallback(() => {
+    setShowAgree(false);
+  });
+
   return (
     <>
       <ScrollFrame>
@@ -154,10 +258,26 @@ function Join() {
       </CenterBox>
       <CenterBox>
         <Agreement>
-          <span className="link">서비스 이용약관</span> &nbsp;및&nbsp;
-          <span className="link">개인정보 취급방침</span>의 내용을 확인하였고,
-          동의합니다
+          <span
+            className="link"
+            onClick={() => {
+              setShowAgree(true);
+            }}
+          >
+            서비스 이용약관
+          </span>{" "}
+          &nbsp;및&nbsp;
+          <span
+            className="link"
+            onClick={() => {
+              setShowAgree(true);
+            }}
+          >
+            개인정보 취급방침
+          </span>
+          의 내용을 확인하였고, 동의합니다
         </Agreement>
+        {showAgree ? <ShowAgreement closePopup={closePopup} /> : <></>}
       </CenterBox>
       <RectButton
         width="496"
@@ -178,6 +298,8 @@ function Join() {
 }
 
 function Login(props) {
+  const [type, setType] = useRecoilState(diagState);
+
   return (
     <>
       <InputItem>
@@ -199,10 +321,14 @@ function Login(props) {
             placeholder="비밀번호를 입력해 주세요."
             width={496}
             height={52}
+            pass={true}
           />
         </InputBox>
       </InputItem>
-      <div style={{ marginBottom: 298 }} />
+      <WarningBox>
+        <WarningMsg>이메일 또는 비밀번호를 확인해 주세요.</WarningMsg>
+      </WarningBox>
+      <div style={{ marginBottom: 278 }} />
       <RectButton
         width="496"
         height="52"
@@ -229,7 +355,9 @@ function Login(props) {
           color: "#303030",
           borderRadius: "5px",
         }}
-        onClick={() => {}}
+        onClick={() => {
+          setType("findId");
+        }}
       >
         아이디 / 비밀번호 찾기
       </RectButton>
@@ -268,9 +396,17 @@ function JoinComplete() {
   );
 }
 
-function SignDiag(props) {
-  const [type, setType] = useState(props.mode);
-  const scrollbar = props.mode === "join" ? true : false;
+function LoginDiag(props) {
+  const [type, setType] = useRecoilState(diagState);
+  const [scrollbar, setScrollbar] = useState(type === "join" ? true : false);
+
+  useEffect(() => {
+    if (type === "join") {
+      setScrollbar(true);
+    } else {
+      setScrollbar(false);
+    }
+  }, [type]);
 
   return (
     <Container
@@ -316,13 +452,364 @@ function SignDiag(props) {
       </Top>
       {(() => {
         switch (type) {
-          case "join": return <Join />
-          case "login": return <Login loginCallback={props.loginCallback} />
-          case "joinComplete": return <JoinComplete />
-          default: return null
+          case "join": {
+            return <Join />;
+          }
+          case "login": {
+            return <Login loginCallback={props.loginCallback} />;
+          }
+          case "joinComplete": {
+            return <JoinComplete />;
+          }
+          default:
+            return null;
         }
       })()}
     </Container>
+  );
+}
+
+function FindIdComplete() {
+  return (
+    <>
+      <HCenter>
+        <RoundCheck src="/round_check.svg" style={{ marginTop: 221 }} />
+        <CompleteText1 style={{ marginTop: 20 }}>
+          회원님의 아이디는
+        </CompleteText1>
+        <CompleteText1 style={{ marginTop: 20 }}>
+          <span className="name">apd**@naver.com</span> 입니다.
+        </CompleteText1>
+        <RectButton
+          width="496"
+          height="52"
+          bgColor="#FF3D21"
+          btnStyle={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#FFF",
+            borderRadius: "5px",
+            marginTop: 191,
+          }}
+          onClick={() => {}}
+        >
+          로그인
+        </RectButton>
+      </HCenter>
+    </>
+  );
+}
+
+function FindId(props) {
+  const [type, setType] = useRecoilState(diagState);
+  return (
+    <>
+      <InputItem>
+        <ABLabel>이메일</ABLabel>
+        <InputBox>
+          <ABInput
+            type="text"
+            placeholder="이메일을 입력해 주세요."
+            width={412}
+            height={52}
+            require={true}
+            style={{ marginRight: 4 }}
+          />
+          <RectButton
+            width="80"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+              marginRight: 30,
+            }}
+            onClick={() => {}}
+          >
+            전송
+          </RectButton>
+        </InputBox>
+        <InputBox>
+          <ABInput
+            type="text"
+            placeholder="인증코드를 입력해 주세요."
+            width={412}
+            height={52}
+            require={true}
+            style={{ marginRight: 4, marginTop: 10 }}
+          />
+          <RectButton
+            width="80"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+              marginRight: 30,
+              marginTop: 10,
+            }}
+            onClick={() => {}}
+          >
+            인증
+          </RectButton>
+        </InputBox>
+      </InputItem>
+      <WarningBox>
+        <WarningMsg>이메일 또는 비밀번호를 확인해 주세요.</WarningMsg>
+      </WarningBox>
+      <div style={{ marginBottom: 318 }} />
+      <RectButton
+        width="496"
+        height="52"
+        bgColor="#FF3D21"
+        btnStyle={{
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#FFF",
+          borderRadius: "5px",
+        }}
+        onClick={() => {
+          setType("findIdComplete")
+        }}
+      >
+        아이디 찾기
+      </RectButton>
+      <div style={{ marginBottom: 20 }} />
+      <RectButton
+        width="496"
+        height="52"
+        bgColor="#FFF"
+        bdColor="#CBCBCB"
+        btnStyle={{
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#303030",
+          borderRadius: "5px",
+        }}
+        onClick={() => {}}
+      >
+        로그인
+      </RectButton>
+    </>
+  );
+}
+
+function FindPass(){
+  const [type, setType] = useRecoilState(diagState);
+  return (
+    <>
+      <InputItem>
+        <ABLabel>이메일</ABLabel>
+        <InputBox>
+          <ABInput
+            type="text"
+            placeholder="이메일을 입력해 주세요."
+            width={412}
+            height={52}
+            require={true}
+            style={{ marginRight: 4 }}
+          />
+          <RectButton
+            width="80"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+              marginRight: 30,
+            }}
+            onClick={() => {}}
+          >
+            전송
+          </RectButton>
+        </InputBox>
+        <InputBox>
+          <ABInput
+            type="text"
+            placeholder="인증코드를 입력해 주세요."
+            width={412}
+            height={52}
+            require={true}
+            style={{ marginRight: 4, marginTop: 10 }}
+          />
+          <RectButton
+            width="80"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+              marginRight: 30,
+              marginTop: 10,
+            }}
+            onClick={() => {}}
+          >
+            인증
+          </RectButton>
+        </InputBox>
+        <CheckMsg>인증이 완료되었습니다.</CheckMsg>
+      </InputItem>
+      <InputItem>
+          <ABLabel>새로운 비밀번호</ABLabel>
+          <InputBox>
+            <ABInput
+              type="password"
+              placeholder="비밀번호를 입력해 주세요."
+              width={496}
+              height={52}
+              require={true}
+              pass={true}
+            />
+          </InputBox>
+        </InputItem>
+      <div style={{ marginBottom: 258 }} />
+      <RectButton
+        width="496"
+        height="52"
+        bgColor="#FF3D21"
+        btnStyle={{
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#FFF",
+          borderRadius: "5px",
+        }}
+        onClick={() => {
+          setType("findPassComplete")
+        }}
+      >
+        비밀번호 변경
+      </RectButton>
+      <div style={{ marginBottom: 20 }} />
+      <RectButton
+        width="496"
+        height="52"
+        bgColor="#FFF"
+        bdColor="#CBCBCB"
+        btnStyle={{
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#303030",
+          borderRadius: "5px",
+        }}
+        onClick={() => {}}
+      >
+        로그인
+      </RectButton>
+    </>
+  );
+}
+
+function FindPassComplete(){
+  return (
+    <>
+      <HCenter>
+        <RoundCheck src="/round_check.svg" style={{ marginTop: 221 }} />
+        <CompleteText1 style={{ marginTop: 20 }}>
+          비밀번호가 변경되었습니다.
+        </CompleteText1>
+        <RectButton
+          width="496"
+          height="52"
+          bgColor="#FF3D21"
+          btnStyle={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#FFF",
+            borderRadius: "5px",
+            marginTop: 261,
+          }}
+          onClick={() => {}}
+        >
+          로그인
+        </RectButton>
+      </HCenter>
+    </>
+  )
+}
+
+function FindDiag(props) {
+  const [type, setType] = useRecoilState(diagState);
+
+  return (
+    <Container
+      style={{
+        paddingRight: 40,
+        width: 496,
+      }}
+    >
+      <Top>
+        <Logo src="/logo_red.png" />
+        <MenuFrame style={{ paddingLeft: 50, paddingRight: 0, width: 150 }}>
+          {["findPass", "findPassComplete"].indexOf(type) >= 0? (
+            <MenuDisabled
+              onClick={() => {
+                setType("findId");
+              }}
+            >
+              아이디 찾기
+            </MenuDisabled>
+          ) : (
+            <>
+              <MenuActive>아이디 찾기</MenuActive>
+              <ActiveBar />
+            </>
+          )}
+        </MenuFrame>
+        <MenuFrame style={{ paddingLeft: 0, marginLeft: 0, width: 140 }}>
+          {["findId", "findIdComplete"].indexOf(type) >= 0? (
+            <MenuDisabled
+              onClick={() => {
+                setType("findPass");
+              }}
+            >
+              비밀번호 찾기
+            </MenuDisabled>
+          ) : (
+            <>
+              <MenuActive>비밀번호 찾기</MenuActive>
+              <ActiveBar />
+            </>
+          )}
+        </MenuFrame>
+      </Top>
+      {(() => {
+        switch (type) {
+          case "findId": {
+            return <FindId />;
+          }
+          case "findIdComplete": {
+            return <FindIdComplete />;
+          }
+          case "findPass": return <FindPass/>
+          case "findPassComplete": return <FindPassComplete/>
+          default:
+            return null;
+        }
+      })()}
+    </Container>
+  );
+}
+
+function SignDiag(props) {
+  const [diagType, setDiagType] = useRecoilState(diagState);
+  const loginDiag = ["join", "login", "joinComplete"];
+
+  return (
+    <>
+      {loginDiag.indexOf(diagType) >= 0 ? (
+        <LoginDiag loginCallback={props.loginCallback} />
+      ) : (
+        <FindDiag />
+      )}
+    </>
   );
 }
 
@@ -469,6 +956,13 @@ const InputText = styled.input`
     border: 1px solid #d1504b;
   }
 `;
+const WarningBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0 20px 0;
+`;
 
 const WarningMsg = styled.span`
   font-family: Spoqa Han Sans Neo;
@@ -580,5 +1074,23 @@ const CompleteText2 = styled.span`
   /* dark-dark */
 
   color: #303030;
+`;
+
+const AgreementContent = styled.div`
+  height: 372px;
+  overflow: auto;
+  background: #fafafa;
+  border-radius: 5px;
+  ::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 100px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbcbcb;
+    border-radius: 100px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: white;
+  }
 `;
 export default SignDiag;

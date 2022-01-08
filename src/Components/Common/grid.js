@@ -14,7 +14,7 @@ function Grid(props) {
       }
     }>
       {props.gridData.map((data, index) => (
-        <GridNode data={data} />
+        <GridNode data={data} key={index}/>
       ))}
     </GridBox>
   );

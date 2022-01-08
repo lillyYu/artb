@@ -9,3 +9,10 @@ export const popupState = atom({
     subtitle: ''    
   },
 });
+
+export const diagState = atom({
+  key: "diagState",
+  default: {
+    type: "join"   
+  },
+});
