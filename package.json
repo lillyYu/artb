@@ -26,6 +26,7 @@
     "web3modal": "^1.9.4"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "start": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts start",
     "build": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts build",
     "test": "react-scripts test",
