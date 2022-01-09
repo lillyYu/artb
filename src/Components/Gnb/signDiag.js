@@ -102,6 +102,7 @@ function ShowAgreement(props) {
 }
 
 function Join() {
+  const [type, setType] = useRecoilState(diagState);
   const [showAgree, setShowAgree] = useState(false);
 
   const closePopup = useCallback(() => {
@@ -253,46 +254,50 @@ function Join() {
           </InputBox>
         </InputItem>
       </ScrollFrame>
-      <CenterBox>
-        <WarningMsg>이메일을 확인해주세요</WarningMsg>
-      </CenterBox>
-      <CenterBox>
-        <Agreement>
-          <span
-            className="link"
-            onClick={() => {
-              setShowAgree(true);
-            }}
-          >
-            서비스 이용약관
-          </span>{" "}
-          &nbsp;및&nbsp;
-          <span
-            className="link"
-            onClick={() => {
-              setShowAgree(true);
-            }}
-          >
-            개인정보 취급방침
-          </span>
-          의 내용을 확인하였고, 동의합니다
-        </Agreement>
-        {showAgree ? <ShowAgreement closePopup={closePopup} /> : <></>}
-      </CenterBox>
-      <RectButton
-        width="496"
-        height="52"
-        bgColor="#FF3D21"
-        btnStyle={{
-          fontSize: "16px",
-          fontWeight: "bold",
-          color: "#FFF",
-          borderRadius: "5px",
-        }}
-        onClick={() => {}}
-      >
-        회원가입 완료
-      </RectButton>
+      <ReverseColumn>
+        <RectButton
+          width="496"
+          height="52"
+          bgColor="#FF3D21"
+          btnStyle={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#FFF",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setType("joinComplete");
+          }}
+        >
+          회원가입 완료
+        </RectButton>
+        <CenterBox>
+          <Agreement>
+            <span
+              className="link"
+              onClick={() => {
+                setShowAgree(true);
+              }}
+            >
+              서비스 이용약관
+            </span>{" "}
+            &nbsp;및&nbsp;
+            <span
+              className="link"
+              onClick={() => {
+                setShowAgree(true);
+              }}
+            >
+              개인정보 취급방침
+            </span>
+            의 내용을 확인하였고, 동의합니다
+          </Agreement>
+          {showAgree ? <ShowAgreement closePopup={closePopup} /> : <></>}
+        </CenterBox>
+        <CenterBox>
+          <WarningMsg>이메일을 확인해주세요</WarningMsg>
+        </CenterBox>
+      </ReverseColumn>
     </>
   );
 }
@@ -376,21 +381,22 @@ function JoinComplete() {
         <CompleteText2 tyle={{ marginTop: 4 }}>
           아트비의 다양한 서비스를 이용하실 수 있습니다.
         </CompleteText2>
-        <RectButton
-          width="496"
-          height="52"
-          bgColor="#FF3D21"
-          btnStyle={{
-            fontSize: "16px",
-            fontWeight: "bold",
-            color: "#FFF",
-            borderRadius: "5px",
-            marginTop: 221,
-          }}
-          onClick={() => {}}
-        >
-          홈으로
-        </RectButton>
+        <ReverseColumn className="reverserdd">
+          <RectButton
+            width="496"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+            }}
+            onClick={() => {}}
+          >
+            홈으로
+          </RectButton>
+        </ReverseColumn>
       </HCenter>
     </>
   );
@@ -480,21 +486,22 @@ function FindIdComplete() {
         <CompleteText1 style={{ marginTop: 20 }}>
           <span className="name">apd**@naver.com</span> 입니다.
         </CompleteText1>
-        <RectButton
-          width="496"
-          height="52"
-          bgColor="#FF3D21"
-          btnStyle={{
-            fontSize: "16px",
-            fontWeight: "bold",
-            color: "#FFF",
-            borderRadius: "5px",
-            marginTop: 191,
-          }}
-          onClick={() => {}}
-        >
-          로그인
-        </RectButton>
+        <ReverseColumn>
+          <RectButton
+            width="496"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+            }}
+            onClick={() => {}}
+          >
+            로그인
+          </RectButton>
+        </ReverseColumn>
       </HCenter>
     </>
   );
@@ -561,44 +568,47 @@ function FindId(props) {
       <WarningBox>
         <WarningMsg>이메일 또는 비밀번호를 확인해 주세요.</WarningMsg>
       </WarningBox>
-      <div style={{ marginBottom: 318 }} />
-      <RectButton
-        width="496"
-        height="52"
-        bgColor="#FF3D21"
-        btnStyle={{
-          fontSize: "16px",
-          fontWeight: "bold",
-          color: "#FFF",
-          borderRadius: "5px",
-        }}
-        onClick={() => {
-          setType("findIdComplete")
-        }}
-      >
-        아이디 찾기
-      </RectButton>
-      <div style={{ marginBottom: 20 }} />
-      <RectButton
-        width="496"
-        height="52"
-        bgColor="#FFF"
-        bdColor="#CBCBCB"
-        btnStyle={{
-          fontSize: "16px",
-          fontWeight: "bold",
-          color: "#303030",
-          borderRadius: "5px",
-        }}
-        onClick={() => {}}
-      >
-        로그인
-      </RectButton>
+      <ReverseColumn>
+        <RectButton
+          width="496"
+          height="52"
+          bgColor="#FFF"
+          bdColor="#CBCBCB"
+          btnStyle={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#303030",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setType("login");
+          }}
+        >
+          로그인
+        </RectButton>
+        <div style={{ marginBottom: 20 }} />
+        <RectButton
+          width="496"
+          height="52"
+          bgColor="#FF3D21"
+          btnStyle={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#FFF",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setType("findIdComplete");
+          }}
+        >
+          아이디 찾기
+        </RectButton>
+      </ReverseColumn>
     </>
   );
 }
 
-function FindPass(){
+function FindPass() {
   const [type, setType] = useRecoilState(diagState);
   return (
     <>
@@ -658,63 +668,37 @@ function FindPass(){
         <CheckMsg>인증이 완료되었습니다.</CheckMsg>
       </InputItem>
       <InputItem>
-          <ABLabel>새로운 비밀번호</ABLabel>
-          <InputBox>
-            <ABInput
-              type="password"
-              placeholder="비밀번호를 입력해 주세요."
-              width={496}
-              height={52}
-              require={true}
-              pass={true}
-            />
-          </InputBox>
-        </InputItem>
-      <div style={{ marginBottom: 258 }} />
-      <RectButton
-        width="496"
-        height="52"
-        bgColor="#FF3D21"
-        btnStyle={{
-          fontSize: "16px",
-          fontWeight: "bold",
-          color: "#FFF",
-          borderRadius: "5px",
-        }}
-        onClick={() => {
-          setType("findPassComplete")
-        }}
-      >
-        비밀번호 변경
-      </RectButton>
-      <div style={{ marginBottom: 20 }} />
-      <RectButton
-        width="496"
-        height="52"
-        bgColor="#FFF"
-        bdColor="#CBCBCB"
-        btnStyle={{
-          fontSize: "16px",
-          fontWeight: "bold",
-          color: "#303030",
-          borderRadius: "5px",
-        }}
-        onClick={() => {}}
-      >
-        로그인
-      </RectButton>
-    </>
-  );
-}
-
-function FindPassComplete(){
-  return (
-    <>
-      <HCenter>
-        <RoundCheck src="/round_check.svg" style={{ marginTop: 221 }} />
-        <CompleteText1 style={{ marginTop: 20 }}>
-          비밀번호가 변경되었습니다.
-        </CompleteText1>
+        <ABLabel>새로운 비밀번호</ABLabel>
+        <InputBox>
+          <ABInput
+            type="password"
+            placeholder="비밀번호를 입력해 주세요."
+            width={496}
+            height={52}
+            require={true}
+            pass={true}
+          />
+        </InputBox>
+      </InputItem>
+      <ReverseColumn>
+        <RectButton
+          width="496"
+          height="52"
+          bgColor="#FFF"
+          bdColor="#CBCBCB"
+          btnStyle={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#303030",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            setType("login");
+          }}
+        >
+          로그인
+        </RectButton>
+        <div style={{ marginBottom: 20 }} />
         <RectButton
           width="496"
           height="52"
@@ -724,15 +708,45 @@ function FindPassComplete(){
             fontWeight: "bold",
             color: "#FFF",
             borderRadius: "5px",
-            marginTop: 261,
           }}
-          onClick={() => {}}
+          onClick={() => {
+            setType("findPassComplete");
+          }}
         >
-          로그인
+          비밀번호 변경
         </RectButton>
+      </ReverseColumn>
+    </>
+  );
+}
+
+function FindPassComplete() {
+  return (
+    <>
+      <HCenter>
+        <RoundCheck src="/round_check.svg" style={{ marginTop: 221 }} />
+        <CompleteText1 style={{ marginTop: 20 }}>
+          비밀번호가 변경되었습니다.
+        </CompleteText1>
+        <ReverseColumn>
+          <RectButton
+            width="496"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+            }}
+            onClick={() => {}}
+          >
+            로그인
+          </RectButton>
+        </ReverseColumn>
       </HCenter>
     </>
-  )
+  );
 }
 
 function FindDiag(props) {
@@ -748,7 +762,7 @@ function FindDiag(props) {
       <Top>
         <Logo src="/logo_red.png" />
         <MenuFrame style={{ paddingLeft: 50, paddingRight: 0, width: 150 }}>
-          {["findPass", "findPassComplete"].indexOf(type) >= 0? (
+          {["findPass", "findPassComplete"].indexOf(type) >= 0 ? (
             <MenuDisabled
               onClick={() => {
                 setType("findId");
@@ -764,7 +778,7 @@ function FindDiag(props) {
           )}
         </MenuFrame>
         <MenuFrame style={{ paddingLeft: 0, marginLeft: 0, width: 140 }}>
-          {["findId", "findIdComplete"].indexOf(type) >= 0? (
+          {["findId", "findIdComplete"].indexOf(type) >= 0 ? (
             <MenuDisabled
               onClick={() => {
                 setType("findPass");
@@ -788,8 +802,10 @@ function FindDiag(props) {
           case "findIdComplete": {
             return <FindIdComplete />;
           }
-          case "findPass": return <FindPass/>
-          case "findPassComplete": return <FindPassComplete/>
+          case "findPass":
+            return <FindPass />;
+          case "findPassComplete":
+            return <FindPassComplete />;
           default:
             return null;
         }
@@ -980,7 +996,6 @@ const WarningMsg = styled.span`
   /* warning */
 
   color: #d1504b;
-  padding: 0 30px 0 0;
 `;
 
 const CheckMsg = styled.span`
@@ -1025,7 +1040,6 @@ const Agreement = styled.span`
     text-decoration-line: underline;
   }
   margin: 10px 0 0 0;
-  padding: 0 30px 0 0;
 `;
 
 const RoundCheck = styled.img`
@@ -1037,6 +1051,7 @@ const RoundCheck = styled.img`
 const HCenter = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
   flex-direction: column;
   align-items: center;
 `;
@@ -1092,5 +1107,17 @@ const AgreementContent = styled.div`
   ::-webkit-scrollbar-track {
     background-color: white;
   }
+`;
+
+const ReverseColumn = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1;
+`;
+
+const ReverseRow = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  flex: 1;
 `;
 export default SignDiag;
