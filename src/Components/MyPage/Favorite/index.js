@@ -34,18 +34,18 @@ function Favorite() {
   }
 
   const [datas, setDatas] = useState([
-    { type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
-    { type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
-    { type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
-    { type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death: 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
-    { type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
-    { type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
-    { type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
-    { type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death: 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
-    { type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
-    { type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
-    { type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
-    { type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },    
+    { id: 1, type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
+    { id: 2, type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
+    { id: 3, type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
+    { id: 4, type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death: 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
+    { id: 5, type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
+    { id: 6, type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
+    { id: 7, type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
+    { id: 8, type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death: 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
+    { id: 9, type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
+    { id: 10, type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },
+    { id: 11, type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
+    { id: 12, type: 1, data: { image: "/artist_sample.png", artist: "남3관", born: 1920, death : 1981, desc: "아티스트 설명입니다.", count: 13, avgPrice: 53500 } },    
   ]);  
 
   return (

@@ -3,9 +3,14 @@ import React, { useState, useEffect } from "react";
 import { ImageButton } from "../../Common/button";
 import Grid from "../../Common/grid";
 import Line from "../../Common/line";
+import { useHistory } from "react-router-dom";
 
 function Arts(props) {
-  const onChangeFavorite = (index) => {
+  const history = useHistory();
+
+  const onChangeFavorite = (e, index) => {
+    e.stopPropagation();
+    
     if (props.onChangeCallback)
       props.onChangeCallback(index);
   }
@@ -20,11 +25,11 @@ function Arts(props) {
       rowHeight={props.rowHeight}
       gridData={props.data.map((node, index) => {
         return (
-          <ArtsContainer>
+          <ArtsContainer onClick={() => history.push(`/detail/${node.id}`)} >
             <CardTop style={{ height: `${props.colWidth}px]` }}>
               <CardImage src={node.data.image} />
               <FavoriteBox style={{ position: "absolute", margin: `20px 0 0 ${props.colWidth - 46}px`}}>
-                <ImageButton img="/heart.svg" width="26" height="24" onClick={() => onChangeFavorite(index)} />
+                <ImageButton img="/heart.svg" width="26" height="24" onClick={(e) => onChangeFavorite(e, index)} />
               </FavoriteBox>
             </CardTop>
             <CardBottom style={{ width: `${props.colWidth}px`, height: `${props.rowHeight * 0.44}px`, top: `${props.colWidth * 0.87}px` }}>
@@ -85,6 +90,7 @@ function Arts(props) {
 
 const ArtsContainer = styled.div`
   display: flex;
+  cursor: pointer;
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.08));
   border-radius: 0px 0px 0px 20px;
   flex-direction: column;
@@ -98,7 +104,6 @@ const CardTop = styled.div`
 const CardBottom = styled.div`
   display: flex;
   position: absolute;
-  z-index: 1;
   border-radius: 0px 0px 20px 20px;
   background: #FFFFFF;
   box-shadow: 0px -4px 10px 4px rgba(0, 0, 0, 0.1);

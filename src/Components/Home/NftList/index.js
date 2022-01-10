@@ -22,10 +22,10 @@ function NFtList() {
         <ArtsArea>
           <Arts width="1300" height="481" cols="4" rows="1" colWidth="310" rowHeight="481" data={
             [
-              { type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
-              { type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
-              { type: 0, data: { image: "/arts.svg", artist: "남2관", title: "가을축제3", year: 1986, width: 203, height: 300, tech: "Oil painting", price: 43002, total: 300000, remain: 38902 } },
-              { type: 0, data: { image: "/arts.svg", artist: "남3관", title: "가을축제4", year: 1987, width: 204, height: 300, tech: "Oil painting", price: 43003, total: 400000, remain: 38903 } }
+              { id: 1, type: 0, data: { image: "/arts.svg", artist: "남0관", title: "가을축제1", year: 1984, width: 201, height: 300, tech: "Oil painting", price: 43000, total: 100000, remain: 38900 } },
+              { id: 2, type: 0, data: { image: "/arts.svg", artist: "남1관", title: "가을축제2", year: 1985, width: 202, height: 300, tech: "Oil painting", price: 43001, total: 200000, remain: 38901 } },
+              { id: 3, type: 0, data: { image: "/arts.svg", artist: "남2관", title: "가을축제3", year: 1986, width: 203, height: 300, tech: "Oil painting", price: 43002, total: 300000, remain: 38902 } },
+              { id: 4, type: 0, data: { image: "/arts.svg", artist: "남3관", title: "가을축제4", year: 1987, width: 204, height: 300, tech: "Oil painting", price: 43003, total: 400000, remain: 38903 } }
             ]
           } />
         </ArtsArea>
