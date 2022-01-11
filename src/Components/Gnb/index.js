@@ -18,6 +18,8 @@ import Grid from "../Common/grid.js";
 import SignDiag from "./signDiag";
 import MyInfo from "./MyInfo";
 
+import { useRequest } from "../../utilities/request-hook"
+
 function Gnb() {
   // const [web3, setWeb3] = useRecoilState(web3State);
   const [url, setUrl] = useState(window.location.pathname.split("/")[1]);
@@ -38,7 +40,19 @@ function Gnb() {
   const [diagType, setDiagType] = useRecoilState(diagState);
   const [logined, setLogined] = useState(false);
 
+  const {isLoading, data, fetch} = useRequest({url:'/user/login', method: 'POST'})
+
   const loginCallback = () => {
+    console.log('login11')
+    fetch({
+      data: {
+        username: 'sunya7a@gmail.com',
+        password: 'Ajfslrj4a!$'
+      }
+    },
+    (res) => {
+      console.log('data32154', res)
+    })
     setOpenDialog(false);
     setLogined(true);
   }

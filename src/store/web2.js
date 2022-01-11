@@ -1,4 +1,7 @@
 import { atom } from "recoil";
+import { recoilPersist } from 'recoil-persist'
+
+const { persistAtom } = recoilPersist()
 
 export const popupState = atom({
   key: "popup",
@@ -16,3 +19,11 @@ export const diagState = atom({
     type: "join"   
   },
 });
+
+export const authState = atom({
+  key: 'authState',
+  default: {
+    token: null
+  },
+  effects_UNSTABLE: [persistAtom],
+})
