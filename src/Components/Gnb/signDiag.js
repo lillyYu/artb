@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import React, { useState, useEffect, useCallback } from "react";
 import { useRecoilState } from "recoil";
+import ReactKakaoPostcode from "react-kakao-postcode/dist";
 import { RectButton } from "../Common/button.js";
 import { ABLabel, ABInput } from "../Common/form";
-import { PopupDialog } from "../Common/popup";
+import { PopupDialog, PopupDialogCustom } from "../Common/popup";
 import { diagState } from "../../store/web2";
 
 function ShowAgreement(props) {
@@ -104,10 +105,12 @@ function ShowAgreement(props) {
 function Join() {
   const [type, setType] = useRecoilState(diagState);
   const [showAgree, setShowAgree] = useState(false);
+  const [isOpenPost, setIsOpenPost] = useState(false);
 
   const closePopup = useCallback(() => {
     setShowAgree(false);
   });
+  
 
   return (
     <>
@@ -226,10 +229,36 @@ function Join() {
                 color: "#FFF",
                 borderRadius: "5px",
               }}
-              onClick={() => {}}
+              onClick={() => {
+                setIsOpenPost(!isOpenPost);
+              }}
             >
               우편번호
             </RectButton>
+            {isOpenPost ? (
+              <PopupDialog
+                buttons={[
+                  {
+                    name: "닫기",
+                    click: () => {
+                      setIsOpenPost(false)
+                    },
+                    bgColor: "#FF3D21",
+                    style: {
+                      fontFamily: "Spoqa Han Sans Neo",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      lineHeight: "24px",
+                      letterSpacing: "-0.02em",
+                      color: "#FFFFFF",
+                      borderRadius: "5px",
+                    },
+                  },
+                ]}
+              >
+                <ReactKakaoPostcode autoClose />
+              </PopupDialog>
+            ) : null}
           </InputBox>
           <InputBox>
             <ABInput
@@ -761,7 +790,7 @@ function FindDiag(props) {
     >
       <Top>
         <Logo src="/logo_red.png" />
-        <MenuFrame style={{ paddingLeft: 50, paddingRight: 0, width: 150 }}>
+        <MenuFrame style={{ paddingLeft: 50, width: 150 }}>
           {["findPass", "findPassComplete"].indexOf(type) >= 0 ? (
             <MenuDisabled
               onClick={() => {
@@ -777,7 +806,7 @@ function FindDiag(props) {
             </>
           )}
         </MenuFrame>
-        <MenuFrame style={{ paddingLeft: 0, marginLeft: 0, width: 140 }}>
+        <MenuFrame style={{ paddingLeft: 0, width: 140 }}>
           {["findId", "findIdComplete"].indexOf(type) >= 0 ? (
             <MenuDisabled
               onClick={() => {
@@ -1120,4 +1149,5 @@ const ReverseRow = styled.div`
   flex-direction: row-reverse;
   flex: 1;
 `;
+
 export default SignDiag;
