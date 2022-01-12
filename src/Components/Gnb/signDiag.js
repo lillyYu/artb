@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useEffect, useCallback } from "react";
 import { useRecoilState } from "recoil";
-import ReactKakaoPostcode from "react-kakao-postcode/dist";
+import DaumPostcode from 'react-daum-postcode';
 import { RectButton } from "../Common/button.js";
 import { ABLabel, ABInput } from "../Common/form";
 import { PopupDialog, PopupDialogCustom } from "../Common/popup";
@@ -106,11 +106,32 @@ function Join() {
   const [type, setType] = useRecoilState(diagState);
   const [showAgree, setShowAgree] = useState(false);
   const [isOpenPost, setIsOpenPost] = useState(false);
+  const [postAddr, setPostAddr] = useState({});
 
   const closePopup = useCallback(() => {
     setShowAgree(false);
   });
   
+  const handlePostComplete = (data) => {
+    
+    let fullAddress = data.address;
+    let extraAddress = ''; 
+    
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== '') {
+        extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+      }
+      fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+    }
+    setPostAddr((prev) => {
+      return { ...prev, zonecode: data.zonecode }
+    })
+    setIsOpenPost(false)
+    console.log(postAddr.zonecode, data.zonecode, fullAddress);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+  }
 
   return (
     <>
@@ -218,6 +239,7 @@ function Join() {
               style={{ marginRight: 4 }}
               readOnly={true}
               require={true}
+              value={postAddr.zonecode}
             />
             <RectButton
               width="80"
@@ -256,7 +278,7 @@ function Join() {
                   },
                 ]}
               >
-                <ReactKakaoPostcode autoClose />
+                <DaumPostcode onComplete={handlePostComplete} autoClose />
               </PopupDialog>
             ) : null}
           </InputBox>
