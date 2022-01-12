@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import React, { useState, useEffect, useCallback } from "react";
-import { useRecoilState } from "recoil";
-import DaumPostcode from 'react-daum-postcode';
+import { useRecoilState, useRecoilTransaction_UNSTABLE } from "recoil";
 import { RectButton } from "../Common/button.js";
 import { ABLabel, ABInput } from "../Common/form";
-import { PopupDialog, PopupDialogCustom } from "../Common/popup";
-import { diagState } from "../../store/web2";
+import { PopupDialog } from "../Common/popup";
+import { diagState, authState } from "../../store/web2";
+import PostPopup from "../Common/postPopup";
+import { useRequest } from "../../utilities/request-hook"
 
 function ShowAgreement(props) {
   return (
@@ -112,25 +113,8 @@ function Join() {
     setShowAgree(false);
   });
   
-  const handlePostComplete = (data) => {
-    
-    let fullAddress = data.address;
-    let extraAddress = ''; 
-    
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-      }
-      fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
-    }
-    setPostAddr((prev) => {
-      return { ...prev, zonecode: data.zonecode }
-    })
-    setIsOpenPost(false)
-    console.log(postAddr.zonecode, data.zonecode, fullAddress);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+  const addressCallback = (zonecode, address) => {
+    console.log(zonecode, address);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
   }
 
   return (
@@ -252,35 +236,12 @@ function Join() {
                 borderRadius: "5px",
               }}
               onClick={() => {
-                setIsOpenPost(!isOpenPost);
+                setIsOpenPost(true);
               }}
             >
               우편번호
             </RectButton>
-            {isOpenPost ? (
-              <PopupDialog
-                buttons={[
-                  {
-                    name: "닫기",
-                    click: () => {
-                      setIsOpenPost(false)
-                    },
-                    bgColor: "#FF3D21",
-                    style: {
-                      fontFamily: "Spoqa Han Sans Neo",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                      lineHeight: "24px",
-                      letterSpacing: "-0.02em",
-                      color: "#FFFFFF",
-                      borderRadius: "5px",
-                    },
-                  },
-                ]}
-              >
-                <DaumPostcode onComplete={handlePostComplete} autoClose />
-              </PopupDialog>
-            ) : null}
+            {isOpenPost ? <PostPopup onAddress={addressCallback} popupFlag={isOpenPost} setPopupFlag={setIsOpenPost} /> : null}
           </InputBox>
           <InputBox>
             <ABInput
@@ -355,6 +316,32 @@ function Join() {
 
 function Login(props) {
   const [type, setType] = useRecoilState(diagState);
+  const [token, setToken] = useRecoilState(authState);
+  const {isLoading, data, fetch} = useRequest({url:'/user/login', method: 'POST'})
+  const loginForm = {
+    id: "",
+    pass: ""
+  }
+  const idCallback = (value) => {
+    loginForm.id = value;
+  }
+  const passCallback = (value) => {
+    loginForm.pass = value;
+  }
+  const loginProc = () => {
+    fetch({
+      data: {
+        username: loginForm.id,
+        password: loginForm.pass
+      }
+    },
+    (res) => {
+      setToken(res.access_token);
+
+      if( props.loginCallback )
+        props.loginCallback();
+    })
+  }
 
   return (
     <>
@@ -366,6 +353,7 @@ function Login(props) {
             placeholder="이메일을 입력해 주세요."
             width={496}
             height={52}
+            onChangeCallback={idCallback}
           />
         </InputBox>
       </InputItem>
@@ -378,6 +366,7 @@ function Login(props) {
             width={496}
             height={52}
             pass={true}
+            onChangeCallback={passCallback}
           />
         </InputBox>
       </InputItem>
@@ -395,7 +384,7 @@ function Login(props) {
           color: "#FFF",
           borderRadius: "5px",
         }}
-        onClick={props.loginCallback}
+        onClick={loginProc}
       >
         로그인
       </RectButton>
