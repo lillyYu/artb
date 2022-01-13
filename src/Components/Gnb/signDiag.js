@@ -203,9 +203,14 @@ function SignDiag(props) {
     const closePopup = useCallback(() => {
       setShowAgree(false);
     });
+
+    console.log(postAddr);
     
     const addressCallback = (zonecode, address) => {
-      console.log(zonecode, address);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+      setPostAddr({
+        zonecode: zonecode,
+        address: address
+      });
     }
   
     return (
@@ -343,6 +348,7 @@ function SignDiag(props) {
                 style={{ marginTop: 10 }}
                 readOnly={true}
                 require={true}
+                value={postAddr.address}
               />
             </InputBox>
             <InputBox>
