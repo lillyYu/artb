@@ -199,12 +199,40 @@ function SignDiag(props) {
     const [showAgree, setShowAgree] = useState(false);
     const [isOpenPost, setIsOpenPost] = useState(false);
     const [postAddr, setPostAddr] = useState({});
+    const [form, setForm] = useState({});
+    const [warnCode, setWarnCode] = useState({
+      email: 0,
+      password: 0,
+      name: 0,
+      phone: 0,
+      zonecode: 0,
+      extraAddr: 0
+    });
+    const [warnMsg, setWarnMsg] = useState(false);
+    const msg = {
+      email: {
+        1: '이메일을 확인해 주세요.'
+      },
+      password: {
+        1: '패스워드를 확인해 주세요.'
+      },
+      name: {
+        1: '성함을 확인해주세요.'
+      },
+      phone: {
+        1: '전화번호를 확인해주세요.'
+      },
+      zonecode: {
+        1: '기본주소를 확인해주세요.'
+      },
+      extraAddr: {
+        1: '상세주소를 확인해주세요.'
+      }
+    }
   
     const closePopup = useCallback(() => {
       setShowAgree(false);
     });
-
-    console.log(postAddr);
     
     const addressCallback = (zonecode, address) => {
       setPostAddr({
@@ -212,6 +240,22 @@ function SignDiag(props) {
         address: address
       });
     }
+
+    const validation = () => {
+      let isWarned = false
+      for(const k in warnCode){
+        if(warnCode[k] != 0){
+          setWarnMsg(msg[k][warnCode[k]])
+          isWarned = true
+          break
+        }
+      }
+      if(!isWarned) setWarnMsg('')
+    }
+
+    useEffect(() => {
+      validation()
+    }, [warnCode])
   
     return (
       <>
@@ -226,6 +270,21 @@ function SignDiag(props) {
                 height={52}
                 require={true}
                 style={{ marginRight: 4 }}
+                value={form.email}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    email: value
+                  })
+                }}
+                onBlur={e => {
+                  if(form.email == 'asdf'){
+                    setWarnCode({
+                      ...warnCode,
+                      email: 1
+                    })
+                  }
+                }}
               />
               <RectButton
                 width="80"
@@ -403,9 +462,10 @@ function SignDiag(props) {
             </Agreement>
             {showAgree ? <ShowAgreement closePopup={closePopup} /> : <></>}
           </CenterBox>
-          <CenterBox>
+          {warnMsg == '' ? null
+          :<CenterBox>
             <WarningMsg>이메일을 확인해주세요</WarningMsg>
-          </CenterBox>
+          </CenterBox>}
         </ReverseColumn>
       </>
     );
