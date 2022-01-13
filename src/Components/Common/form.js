@@ -79,6 +79,7 @@ function ABInput(props) {
           value={text}
           onChange={changeInput}
           readOnly={props.readOnly}
+          onBlur={props.onBlur}
         />
         { props.cancel === true ? <></> :
           <ImageButton
