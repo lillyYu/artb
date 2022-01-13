@@ -107,6 +107,7 @@ function Join() {
   const [showAgree, setShowAgree] = useState(false);
   const [isOpenPost, setIsOpenPost] = useState(false);
   const [postAddr, setPostAddr] = useState({});
+  const [zonecode, setZonecode] = useState('');
 
   const closePopup = useCallback(() => {
     setShowAgree(false);
@@ -129,9 +130,14 @@ function Join() {
     setPostAddr((prev) => {
       return { ...prev, zonecode: data.zonecode }
     })
+    setZonecode(data.zonecode);
     setIsOpenPost(false)
-    console.log(postAddr.zonecode, data.zonecode, fullAddress);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+    console.log(postAddr.zonecode, zonecode, data.zonecode, fullAddress);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
   }
+
+  useEffect(() => {
+    console.log('z1', zonecode)
+  }, [zonecode])
 
   return (
     <>
@@ -239,7 +245,7 @@ function Join() {
               style={{ marginRight: 4 }}
               readOnly={true}
               require={true}
-              value={postAddr.zonecode}
+              value={zonecode}
             />
             <RectButton
               width="80"
