@@ -27,3 +27,19 @@ export const authState = atom({
   },
   effects_UNSTABLE: [persistAtom],
 })
+
+export const accountState = atom({
+  key: 'accountState',
+  default: {
+    logined: false,
+    info: {
+      email: "",
+      name: "",
+      phone: "",
+      post: "",
+      addr1: "",
+      addr2: "",
+      nftCount: 0    
+    },
+  }
+})
