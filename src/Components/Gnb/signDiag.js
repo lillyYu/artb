@@ -198,20 +198,15 @@ function SignDiag(props) {
     const [type, setType] = useRecoilState(diagState);
     const [showAgree, setShowAgree] = useState(false);
     const [isOpenPost, setIsOpenPost] = useState(false);
-    const [postAddr, setPostAddr] = useState({});
     const [form, setForm] = useState({});
-    const [warnCode, setWarnCode] = useState({
-      email: 0,
-      password: 0,
-      name: 0,
-      phone: 0,
-      zonecode: 0,
-      extraAddr: 0
-    });
     const [warnMsg, setWarnMsg] = useState(false);
+    
     const msg = {
       email: {
         1: '이메일을 확인해 주세요.'
+      },
+      authCode: {
+        1: '인증번호를 확인해 주세요'
       },
       password: {
         1: '패스워드를 확인해 주세요.'
@@ -222,7 +217,7 @@ function SignDiag(props) {
       phone: {
         1: '전화번호를 확인해주세요.'
       },
-      zonecode: {
+      basicAddr: {
         1: '기본주소를 확인해주세요.'
       },
       extraAddr: {
@@ -234,29 +229,77 @@ function SignDiag(props) {
       setShowAgree(false);
     });
     
-    const addressCallback = (zonecode, address) => {
-      setPostAddr({
-        zonecode: zonecode,
-        address: address
-      });
+    const addressCallback = (zonecode, basicAddr) => {
+      setForm({
+        ...form,
+        zonecode,
+        basicAddr
+      })
+      validation({
+        zonecode,
+        basicAddr
+      })
     }
 
-    const validation = () => {
+    const validation = (obj = {}) => {
       let isWarned = false
-      for(const k in warnCode){
-        if(warnCode[k] != 0){
-          setWarnMsg(msg[k][warnCode[k]])
-          isWarned = true
-          break
+      for(const k in msg){
+        if(k == 'email'){
+            const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+            if(regEmail.test(form.email) == false){
+              isWarned = true
+              setWarnMsg(msg[k][1])
+              break
+            }
+        }
+        if(k == 'authCode'){
+            if(form.authCode == '' || form.authCode == undefined){
+              isWarned = true
+              setWarnMsg(msg[k][1])
+              break
+            }
+        }
+        if(k == 'password'){
+          if(form.password == '' || form.password == undefined){
+            isWarned = true
+            setWarnMsg(msg[k][1])
+            break
+          }
+        }
+        if(k == 'name'){
+          if(form.name == '' || form.name == undefined){
+            isWarned = true
+            setWarnMsg(msg[k][1])
+            break
+          }
+        }
+        if(k == 'phone'){
+          const regPhone1 = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+          const regPhone2 = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
+          if(regPhone1.test(form.phone) == false && regPhone2.test(form.phone) == false){
+            isWarned = true
+            setWarnMsg(msg[k][1])
+            break
+          }
+        }
+        if(k == 'basicAddr'){
+          if((obj.basicAddr == undefined || obj.basicAddr == '') && (form.basicAddr == undefined || form.basicAddr == '')){
+            isWarned = true
+            setWarnMsg(msg[k][1])
+            break
+          }
+        }
+        if(k == 'extraAddr'){
+          if(form.extraAddr == undefined || form.extraAddr == ''){
+            isWarned = true
+            setWarnMsg(msg[k][1])
+            break
+          }
         }
       }
       if(!isWarned) setWarnMsg('')
     }
 
-    useEffect(() => {
-      validation()
-    }, [warnCode])
-  
     return (
       <>
         <ScrollFrame>
@@ -278,12 +321,7 @@ function SignDiag(props) {
                   })
                 }}
                 onBlur={e => {
-                  if(form.email == 'asdf'){
-                    setWarnCode({
-                      ...warnCode,
-                      email: 1
-                    })
-                  }
+                  validation()
                 }}
               />
               <RectButton
@@ -310,6 +348,15 @@ function SignDiag(props) {
                 height={52}
                 require={true}
                 style={{ marginRight: 4, marginTop: 10 }}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    authCode: value
+                  })
+                }}
+                onBlur={() => {
+                  validation()
+                }}
               />
               <RectButton
                 width="80"
@@ -340,6 +387,15 @@ function SignDiag(props) {
                 height={52}
                 require={true}
                 pass={true}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    password: value
+                  })
+                }}
+                onBlur={() => {
+                  validation()
+                }}
               />
             </InputBox>
           </InputItem>
@@ -352,6 +408,15 @@ function SignDiag(props) {
                 width={496}
                 height={52}
                 require={true}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    name: value
+                  })
+                }}
+                onBlur={() => {
+                  validation()
+                }}
               />
             </InputBox>
           </InputItem>
@@ -364,6 +429,15 @@ function SignDiag(props) {
                 width={496}
                 height={52}
                 require={true}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    phone: value
+                  })
+                }}
+                onBlur={() => {
+                  validation()
+                }}
               />
             </InputBox>
           </InputItem>
@@ -378,7 +452,13 @@ function SignDiag(props) {
                 style={{ marginRight: 4 }}
                 readOnly={true}
                 require={true}
-                value={postAddr.zonecode}
+                value={form.zonecode}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    zonecode: value
+                  })
+                }}
               />
               <RectButton
                 width="80"
@@ -407,7 +487,13 @@ function SignDiag(props) {
                 style={{ marginTop: 10 }}
                 readOnly={true}
                 require={true}
-                value={postAddr.address}
+                value={form.basicAddr}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    basicAddr: value
+                  })
+                }}
               />
             </InputBox>
             <InputBox>
@@ -418,6 +504,15 @@ function SignDiag(props) {
                 height={52}
                 style={{ marginTop: 10 }}
                 require={true}
+                onChangeCallback={(value) => {
+                  setForm({
+                    ...form,
+                    extraAddr: value
+                  })
+                }}
+                onBlur={() => {
+                  validation()
+                }}
               />
             </InputBox>
           </InputItem>
@@ -464,7 +559,7 @@ function SignDiag(props) {
           </CenterBox>
           {warnMsg == '' ? null
           :<CenterBox>
-            <WarningMsg>이메일을 확인해주세요</WarningMsg>
+            <WarningMsg>{warnMsg}</WarningMsg>
           </CenterBox>}
         </ReverseColumn>
       </>
@@ -477,21 +572,26 @@ function SignDiag(props) {
     const [account, setAccount] = useRecoilState(accountState);
     const login = useRequest({url:'/user/login', method: 'POST'})
     const profile = useRequest({url:'/user/profile', method: 'GET'})
-    const loginForm = {
-      id: "",
-      pass: ""
-    }
+    const [form, setForm] = useState({});
+    const [warnMsg, setWarnMsg] = useState(false);
+    
     const idCallback = (value) => {
-      loginForm.id = value;
+      setForm({
+        ...form,
+        email: value
+      })
     }
     const passCallback = (value) => {
-      loginForm.pass = value;
+      setForm({
+        ...form,
+        password: value
+      })
     }
     const loginProc = () => {
       login.fetch({
         data: {
-          username: loginForm.id,
-          password: loginForm.pass
+          username: form.email,
+          password: form.password
         }
       },
       (res) => {
@@ -517,6 +617,20 @@ function SignDiag(props) {
         closeDiaglog();
       })
     }
+    const validation = () => {
+      let isWarned = false
+      const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+      if(regEmail.test(form.email) == false){
+        isWarned = true
+        setWarnMsg("이메일 또는 비밀번호를 확인해 주세요.")
+      }else if(form.password == undefined || form.password == ''){
+        isWarned = true
+        setWarnMsg("이메일 또는 비밀번호를 확인해 주세요.")
+      }
+      if(!isWarned){
+        setWarnMsg('')
+      }
+    }
   
     return (
       <>
@@ -529,6 +643,9 @@ function SignDiag(props) {
               width={496}
               height={52}
               onChangeCallback={idCallback}
+              onBlur={() => {
+                validation()
+              }}
             />
           </InputBox>
         </InputItem>
@@ -542,12 +659,17 @@ function SignDiag(props) {
               height={52}
               pass={true}
               onChangeCallback={passCallback}
+              onBlur={() => {
+                validation()
+              }}
             />
           </InputBox>
         </InputItem>
+        { warnMsg == ''?null:
         <WarningBox>
-          <WarningMsg>이메일 또는 비밀번호를 확인해 주세요.</WarningMsg>
+          <WarningMsg>{warnMsg}</WarningMsg>
         </WarningBox>
+        }
         <div style={{ marginBottom: 278 }} />
         <RectButton
           width="496"
