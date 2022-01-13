@@ -1,18 +1,25 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
-import { TextButton, ImageButton } from "../Common/button";
+import { ImageButton } from "../Common/button";
 
 function Slider(props) {
-  const [pos, setPos] = useState(0)
   const [index, setIndex] = useState(0)
+  const scrollContainer = useRef(null);
   const moveSlider = (idx) => {
-    setIndex(idx)
-    setPos(idx * props.height)
+    setIndex(idx);
+    scrollContainer.current.scrollTop = idx * props.height;
   }
+  const scrollEvent = (e) => {
+    const curIndex = Math.round(e.target.scrollTop / props.height);
+
+    if( curIndex !== index )
+      setIndex(curIndex);
+  };
+
   
   return (
-    <Container style={{ width: `${props.width}px`, height: `${props.height}px` }}>
+    <Container ref={scrollContainer} onScroll={scrollEvent} style={{ width: `${props.width}px`, height: `${props.height}px` }}>
       <SliderArea style={{ height: `${props.height}px` }}>
         {
           props.children.map((item, idx) => {
@@ -27,9 +34,9 @@ function Slider(props) {
       </SliderArea>
       <MoveDownArea style={index === (props.children.length - 1) ? {display: "none"} : {display: "flex"} }>
         <MoveText style={{color: props.textColors[index]}}>Scorll Down</MoveText>
-        <ImageButton width="24" height="24" img="/scrolldown.svg" onClick={() => moveSlider(index + 1)} />
+        <ScrollDownImage src={props.scrollDownImages[index]} />
       </MoveDownArea>
-      <SliderBody style={{ marginTop: `${-pos}px` }}>
+      <SliderBody>
         {props.children}
       </SliderBody>
     </Container>
@@ -37,7 +44,14 @@ function Slider(props) {
 }
 
 const Container = styled.div`
-  overflow: hidden;
+  overflow: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 const SliderBody = styled.div`
@@ -111,6 +125,13 @@ const MoveText = styled.span`
   font-weight: 700;
   line-height: 26px;
   letter-spacing: -0.02em;
+`
+
+const ScrollDownImage = styled.img`
+  display: flex;
+  width: 80px;
+  height: 80px;
+  margin: 10px 0 0 0;
 `
 
 export default Slider;

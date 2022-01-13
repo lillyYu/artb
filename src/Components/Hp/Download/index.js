@@ -125,7 +125,6 @@ const BackSide = styled.div`
   filter: drop-shadow(0px 40px 40px rgba(0, 0, 0, 0.07)) drop-shadow(0px 40px 30px rgba(0, 0, 0, 0.0503198)) drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.04)) drop-shadow(0px 12px 10px rgba(0, 0, 0, 0.03)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.04)) drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.0196802));
 `
 
-
 const CenterSide = styled.img`
   position: relative;
   width: 640px;

@@ -6,6 +6,7 @@ import Line from "../../Common/line";
 import { RectButton, UpDownButton } from "../../Common/button";
 import { ABLabel, ABInput, ABCheckBox, ABRadio } from "../../Common/form";
 import { Popup } from "../../Common/popup";
+import PostPopup from "../../Common/postPopup";
 
 function Payment(props) {
   const history = useHistory();
@@ -13,6 +14,7 @@ function Payment(props) {
   const [fees, setFees] = useState(15000);
   const [agree, setAgree] = useState(false);
   const [deliverySw, setDeliverySw] = useState(0);
+  const [postPopup, setPostPopup] = useState(false);
   const [popup, setPopup] = useState({
     flag: false,
     warn: false,
@@ -124,6 +126,13 @@ function Payment(props) {
     setAgree(value);
   }
 
+  const addressCallback = (zone, address) => {
+    deliveryInfo.post = zone;
+    deliveryInfo.addr1 = address;
+
+    console.log(zone, address);
+  }
+
   const datas = {
     id: props.id,
     artist: "남관",
@@ -136,6 +145,7 @@ function Payment(props) {
   return (
     <Container>
       {popup.flag ? <Popup onClose={closeCallback} warn={popup.warn} title={popup.title} subtitle={popup.subtitle}/> : <></> }
+      {postPopup ? <PostPopup onAddress={addressCallback} popupFlag={postPopup} setPopupFlag={setPostPopup}/> : <></> }
       <PaymentArea>
         <LocationBar />
         <OrderInfo />
@@ -386,7 +396,7 @@ function Payment(props) {
         <ABLabel require={true} style={{ margin: "20px 0 4px 0" }}>주소</ABLabel>
         <PostContainer>
           <ABInput readOnly={true} number={true} require={true} width={636} height={52} placeholder="우편 번호" value={deliveryInfo.post} onChangeCallback={setDeliveryPost} />
-          <RectButton width={80} height={52} bgColor="#FF3D21" btnStyle={{
+          <RectButton width={80} height={52} bgColor="#FF3D21" onClick={() => setPostPopup(true)} btnStyle={{
             fontFamily: "Spoqa Han Sans Neo",
             fontSize: "16px",
             fontWeight: "700",

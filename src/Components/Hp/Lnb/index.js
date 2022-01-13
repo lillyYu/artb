@@ -58,6 +58,7 @@ const TitleText = styled.span`
 const MenuArea = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `
 
 const SubtitleText = styled.span`
@@ -69,7 +70,7 @@ const SubtitleText = styled.span`
   font-weight: 700;
   line-height: 75px;
   letter-spacing: -0.05em;
-  margin: 0 111px 0 91px;
+  margin: 0 111px 0 0;
   color: #FFFFFF;
 `
 

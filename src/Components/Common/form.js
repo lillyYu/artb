@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { ImageButton } from "./button";
 
@@ -14,9 +14,13 @@ function ABLabel(props) {
 
 function ABInput(props) {
   const [hidden, setHidden] = useState(true);
-  const [text, setText] = useState(props.value ? props.value : "");
+  const [text, setText] = useState(props.value !== undefined ? props.value : "");
   const [flag, setFlag] = useState(0 < text.length ? true : false);
   const buttonCount = (props.cancel === false ? 0 : 1) + (props.pass === true ? 1 : 0);
+
+  useEffect(() => {
+    setText(props.value !== undefined ? props.value : "")
+  }, [props.value])
 
   const changeInput = (e) => {
     if (0 < e.target.value.length) setFlag(true);

@@ -7,14 +7,9 @@ import React, { useState, useEffect } from "react";
 // import { HashLink } from "react-router-hash-link";
 
 import { useRecoilState } from "recoil";
-import WalletConnect from "../NftTrade/Popup/walletConnect";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { web3State, accountState } from "../../store/web3";
-import { openWalletPopupState } from "../../store/wallet";
+import { accountState } from "../../store/web2";
 import { diagState } from "../../store/web2";
 import { TextButton, ImageButton, RectButton } from "../Common/button.js";
-import Grid from "../Common/grid.js";
-
 import SignDiag from "./signDiag";
 import MyInfo from "./MyInfo";
 
@@ -29,24 +24,22 @@ function Gnb() {
       )
     );
   };
-  // const [account, setAccount] = useRecoilState(accountState);
+  const [account, setAccount] = useRecoilState(accountState);
   // const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
   // const history = useHistory();
   // const location = useLocation();
   // const isHome = location.pathname === '/'
   const [openDialog, setOpenDialog] = useState(false);
   const [diagType, setDiagType] = useRecoilState(diagState);
-  const [logined, setLogined] = useState(false);
 
-  const loginCallback = () => {
+  const closeCallback = () => {
     setOpenDialog(false);
-    setLogined(true);
   }
 
   return (
     <Container>
       <PopupContainer>
-        { openDialog ? <SignDiag loginCallback={loginCallback}/> : <></> }
+        { openDialog ? <SignDiag closeCallback={closeCallback} /> : <></> }
       </PopupContainer>
       <MainMenu>
         <LogoArea>
@@ -66,7 +59,7 @@ function Gnb() {
             고객센터
           </TextButton>
         </MenuArea>
-        { logined === true ? <MyInfo name="이건용" count="13"/> : <ButtonBar/> }
+        { account.logined === true ? <MyInfo name={account.info.name} count={account.info.nftCount}/> : <ButtonBar/> }
       </MainMenu>
       <SubMenu className={over === true ? "on" : ""}>
         <TabArea
