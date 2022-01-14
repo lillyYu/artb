@@ -1,4 +1,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap");
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: local("Spoqa Han Sans Neo"),
+    url("./fonts/SpoqaHanSansNeo-Thin.woff") format("woff");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: local("Spoqa Han Sans Neo"),
+    url("./fonts/SpoqaHanSansNeo-Light.woff") format("woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: local("Spoqa Han Sans Neo"),
+    url("./fonts/SpoqaHanSansNeo-Regular.woff") format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: local("Spoqa Han Sans Neo"),
+    url("./fonts/SpoqaHanSansNeo-Medium.woff") format("woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: local("Spoqa Han Sans Neo"),
+    url("./fonts/SpoqaHanSansNeo-Bold.woff") format("woff");
+  font-weight: 700;
+}
 
 html,
 body,
@@ -134,9 +170,9 @@ body {
   background-color: var(--pale-grey);
   font-family: Noto Sans;
 }
-@media (max-width: 1920px) {
+@media (max-width: 750px) {
   body {
-    min-width: 1920px;
+    min-width: 720px;
     font-family: Noto Sans;
     width: fit-content;
   }
