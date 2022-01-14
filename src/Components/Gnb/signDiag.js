@@ -200,6 +200,7 @@ function SignDiag(props) {
     const [isOpenPost, setIsOpenPost] = useState(false);
     const [form, setForm] = useState({});
     const [warnMsg, setWarnMsg] = useState(false);
+    const [isSubmited, setIsSubmited] = useState(false);
     
     const msg = {
       email: {
@@ -241,7 +242,9 @@ function SignDiag(props) {
       })
     }
 
-    const validation = (obj = {}) => {
+    const validation = (obj = {}, submit = false) => {
+      setIsSubmited(submit)
+      if(!submit && !isSubmited) return
       let isWarned = false
       for(const k in msg){
         if(k == 'email'){
@@ -298,6 +301,7 @@ function SignDiag(props) {
         }
       }
       if(!isWarned) setWarnMsg('')
+      return !isWarned
     }
 
     return (
@@ -529,6 +533,7 @@ function SignDiag(props) {
               borderRadius: "5px",
             }}
             onClick={() => {
+              if(!validation({}, true)) return
               setType("joinComplete");
             }}
           >
@@ -574,6 +579,7 @@ function SignDiag(props) {
     const profile = useRequest({url:'/user/profile', method: 'GET'})
     const [form, setForm] = useState({});
     const [warnMsg, setWarnMsg] = useState(false);
+    const [isSubmited, setIsSubmited] = useState(false);
     
     const idCallback = (value) => {
       setForm({
@@ -588,6 +594,10 @@ function SignDiag(props) {
       })
     }
     const loginProc = () => {
+      setIsSubmited(true)
+      if(!validation(true)){
+        return false
+      }
       login.fetch({
         data: {
           username: form.email,
@@ -617,7 +627,8 @@ function SignDiag(props) {
         closeDiaglog();
       })
     }
-    const validation = () => {
+    const validation = (submited = false) => {
+      if(!isSubmited && !submited) return
       let isWarned = false
       const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
       if(regEmail.test(form.email) == false){
@@ -630,6 +641,7 @@ function SignDiag(props) {
       if(!isWarned){
         setWarnMsg('')
       }
+      return !isWarned
     }
   
     return (
