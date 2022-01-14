@@ -178,7 +178,7 @@ const RectBox = styled.span`
   display: flex;  
   justify-content: center;
   align-items: center;
-  box-sizing: content-box;
+  box-sizing: border-box;
 `
 
 const UpDownContainer = styled.div`

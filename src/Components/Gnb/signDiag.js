@@ -200,6 +200,7 @@ function SignDiag(props) {
     const [form, setForm] = useState({});
     const [warnMsg, setWarnMsg] = useState(false);
     const [isSubmited, setIsSubmited] = useState(false);
+    const joinReq = useRequest({ url: "/user/join", method: "POST" });
 
     const msg = {
       email: {
@@ -217,10 +218,10 @@ function SignDiag(props) {
       phone: {
         1: "전화번호를 확인해주세요.",
       },
-      basicAddr: {
+      addr1: {
         1: "기본주소를 확인해주세요.",
       },
-      extraAddr: {
+      addr2: {
         1: "상세주소를 확인해주세요.",
       },
     };
@@ -229,15 +230,16 @@ function SignDiag(props) {
       setShowAgree(false);
     });
 
-    const addressCallback = (zonecode, basicAddr) => {
+    const addressCallback = (post, addr1, addr2) => {
       setForm({
         ...form,
-        zonecode,
-        basicAddr,
+        post,
+        addr1,
+        addr2
       });
       validation({
-        zonecode,
-        basicAddr,
+        post,
+        addr1,
       });
     };
 
@@ -288,18 +290,18 @@ function SignDiag(props) {
             break;
           }
         }
-        if (k == "basicAddr") {
+        if (k == "addr1") {
           if (
-            (obj.basicAddr == undefined || obj.basicAddr == "") &&
-            (form.basicAddr == undefined || form.basicAddr == "")
+            (obj.addr1 == undefined || obj.addr1 == "") &&
+            (form.addr1 == undefined || form.addr1 == "")
           ) {
             isWarned = true;
             setWarnMsg(msg[k][1]);
             break;
           }
         }
-        if (k == "extraAddr") {
-          if (form.extraAddr == undefined || form.extraAddr == "") {
+        if (k == "addr2") {
+          if (form.addr2 == undefined || form.addr2 == "") {
             isWarned = true;
             setWarnMsg(msg[k][1]);
             break;
@@ -309,6 +311,21 @@ function SignDiag(props) {
       if (!isWarned) setWarnMsg("");
       return !isWarned;
     };
+
+    const joinProc = () => {
+      setIsSubmited(true)
+      if(!validation({}, true)) return
+      joinReq.fetch({
+        data: form
+      }, (res) => {
+        if(res.status == 201){
+          setWarnMsg('')
+          setType('joinComplete')
+        }else{
+          setWarnMsg('회원 가입이 실패했습니다.')
+        }
+      })
+    }
 
     return (
       <>
@@ -462,11 +479,11 @@ function SignDiag(props) {
                 style={{ marginRight: 4 }}
                 readOnly={true}
                 require={true}
-                value={form.zonecode}
+                value={form.post}
                 onChangeCallback={(value) => {
                   setForm({
                     ...form,
-                    zonecode: value,
+                    post: value,
                   });
                 }}
               />
@@ -503,11 +520,11 @@ function SignDiag(props) {
                 style={{ marginTop: 10 }}
                 readOnly={true}
                 require={true}
-                value={form.basicAddr}
+                value={form.addr1}
                 onChangeCallback={(value) => {
                   setForm({
                     ...form,
-                    basicAddr: value,
+                    addr1: value,
                   });
                 }}
               />
@@ -523,7 +540,7 @@ function SignDiag(props) {
                 onChangeCallback={(value) => {
                   setForm({
                     ...form,
-                    extraAddr: value,
+                    addr2: value,
                   });
                 }}
                 onBlur={() => {
@@ -544,10 +561,7 @@ function SignDiag(props) {
               color: "#FFF",
               borderRadius: "5px",
             }}
-            onClick={() => {
-              if (!validation({}, true)) return;
-              setType("joinComplete");
-            }}
+            onClick={joinProc}
           >
             회원가입 완료
           </RectButton>
