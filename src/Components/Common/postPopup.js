@@ -19,7 +19,7 @@ function PostPopup(props) {
     }
 
     if( props.onAddress )
-      props.onAddress(data.zonecode, fullAddress);
+      props.onAddress(data.zonecode, data.address, extraAddress);
 
     props.setPopupFlag(false);
   }
