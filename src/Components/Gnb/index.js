@@ -8,9 +8,8 @@ import React, { useState, useEffect } from "react";
 
 import { useRecoilState } from "recoil";
 import { accountState } from "../../store/web2";
-import { diagState } from "../../store/web2";
+import { useHistory } from 'react-router-dom';
 import { TextButton, ImageButton, RectButton } from "../Common/button.js";
-import SignDiag from "./signDiag";
 import MyInfo from "./MyInfo";
 
 function Gnb() {
@@ -26,21 +25,12 @@ function Gnb() {
   };
   const [account, setAccount] = useRecoilState(accountState);
   // const [isOpenWalletPopup, setIsOpenWalletPopup] = useRecoilState(openWalletPopupState);
-  // const history = useHistory();
+  const history = useHistory();
   // const location = useLocation();
   // const isHome = location.pathname === '/'
-  const [openDialog, setOpenDialog] = useState(false);
-  const [diagType, setDiagType] = useRecoilState(diagState);
-
-  const closeCallback = () => {
-    setOpenDialog(false);
-  }
 
   return (
     <Container>
-      <PopupContainer>
-        { openDialog ? <SignDiag closeCallback={closeCallback} /> : <></> }
-      </PopupContainer>
       <MainMenu>
         <LogoArea>
           <ImageButton src="/" img="/gnb_logo.svg" width="115.56" height="40" />
@@ -143,8 +133,7 @@ function Gnb() {
             borderRadius: "5px",
           }}
           onClick={() => {
-            setOpenDialog(!openDialog);
-            setDiagType('join')
+            history.push('/account/join')
           }}
         >
           회원가입
@@ -160,8 +149,7 @@ function Gnb() {
             borderRadius: "5px",
           }}
           onClick={() => {
-            setOpenDialog(!openDialog);
-            setDiagType('login')
+            history.push('/account/login')
           }}
         >
           로그인
@@ -178,12 +166,6 @@ const Container = styled.div`
     display: flex;
   }
 `;
-
-const PopupContainer = styled.div`
-  display: flex;
-  width: 1px;
-  height: 1px;
-`
 
 const MainMenu = styled.div`
   display: flex;

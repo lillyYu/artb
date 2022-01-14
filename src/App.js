@@ -18,6 +18,7 @@ import Term1 from "./Components/Terms/Term1";
 import Term2 from "./Components/Terms/Term2";
 import AccountTransferPopup from "./Components/NftTrade/Popup/accountTransfer";
 import OrderDetail from "./Components/Gnb/OrderDetail";
+import Account from "./Components/Account"
 
 /* Libraries */
 import styled from "styled-components";
@@ -40,6 +41,8 @@ function App() {
         <Route path="/mypage/:category" component={MyPage} />
         <Route path="/mypage" component={MyPage} />
         <Route path="/list" component={NftList} />
+        <Route path="/account/join" render={() => <Account mode="join"/>}/>
+        <Route path="/account/login" render={() => <Account mode="login"/>}/>
         <Route exact path="/" component={Home} />
       </Switch>
       <Footer />

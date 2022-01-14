@@ -58,7 +58,7 @@ function ABInput(props) {
         width: props.width,
         height: props.height,
         border:
-          props.require === true && text === ""
+          props.warning === true
             ? "1px solid #D1504B"
             : "1px solid #C5C5C5",
         background: props.readOnly === true ? "#EEEEEE" : "#FFFFFF",

@@ -9,6 +9,7 @@ import { TextButton, RectButton } from "../../Common/button";
 import { PopupDialog } from "../../Common/popup";
 
 import { popupState } from "../../../store/web2";
+import { useRequest } from "../../../utilities/request-hook";
 
 function Manage() {
   const [agree, setAgree] = useState(false);
@@ -29,6 +30,7 @@ function Manage() {
     password: "potjpoejaopjdfpojapodjfpo"
   }
   const [manageInfo, setManageInfo] = useState(myData);
+  const withdrawReq = useRequest({ url: "/user/withdraw", method: "POST" });
 
   const setAgreeCallback = (value) => {
     setAgree(value);
@@ -101,7 +103,11 @@ function Manage() {
   }
 
   const callSignout = () => {
-    setPopupDialog({ flag: true, mode: 2 });
+    withdrawReq.fetch({}, (res) => {
+      if(res.status == 201){
+        setPopupDialog({ flag: true, mode: 2 });
+      }
+    })
   }
 
   return (
@@ -285,7 +291,7 @@ function Manage() {
 
   function Signout() {
     return (
-      <PopupDialog icon="/singout_icon.svg" title="회원탈퇴" subtitle={["사용하시는 지갑에 NFT가 전송되지 않은 상태로 회원탈퇴 시", "NFT 구매내역이 사라질수 있며 탈퇴 후 계정은 복구할 수 없습니다."]} buttons={
+      <PopupDialog icon="/singout_icon.svg" title="회원탈퇴" subtitle={["사용하시는 지갑에 NFT가 전송되지 않은 상태로 회원탈퇴 시", "NFT 구매내역이 사라질수 있으며 탈퇴 후 계정은 복구할 수 없습니다."]} buttons={
         [
           {
             name: "회원 탈퇴", click: callSignout, bgColor:"#FFFFFF", bdColor:"#CBCBCB",
