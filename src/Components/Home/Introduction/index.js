@@ -39,10 +39,10 @@ function Introduction() {
           <TextBox style={{ fontFamily: "Montserrat", fontSize: "20px", fontWeight: "700", lineHeight: "26px", letterSpacing: "-0.02em" }}>
             <Logo src="/small_logo.svg" />Art Block Chain Platform
           </TextBox>
-          <TitleText style={{ fontSize: "56px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#000000"}}>
+          <TitleText style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#000000"}}>
             총 {total}점의 예술품을
           </TitleText>
-          <TitleText style={{ fontSize: "56px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#FF3D21"}}>
+          <TitleText style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#FF3D21"}}>
             NFT로 만나보세요!
           </TitleText>
         </TitleContainer>

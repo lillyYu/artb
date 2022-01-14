@@ -56,16 +56,16 @@ export const useRequest = (options = {}, axiosConfig = {}) => {
       try {
         const response = await axios({ ...options, ...requestParams });
         const responseData = mapResponseToData(response);
-
-        callback(responseData);
+        
+        callback(response);
         setData(responseData);
         setLoading(false);
       } catch (err) {
-        console.error(err)
         const [message, redirect] = handleError(err);
 
         setLoading(false);
         //setNotification({ message, isVisible: true });
+        callback(err.response)
 
         if (redirect) {
           history.push(redirect);
