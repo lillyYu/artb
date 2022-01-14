@@ -28,7 +28,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "dev:build" : "react-scripts build",
+    "dev:build": "react-scripts build",
     "start": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts start",
     "build": "cp -rf ./build/contracts/ ./src/lib/contracts/ && react-scripts build",
     "test": "react-scripts test",
