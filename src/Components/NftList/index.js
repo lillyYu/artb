@@ -104,12 +104,14 @@ function NftList() {
 const Container = styled.div`
   display: flex;
   background-image : url(/list_background.png);
+  justify-content: center;
+  
 `
 
 const ListArea = styled.div`
   display: flex;
   width: 1460px;
-  margin: 80px 230px;
+  margin: 80px 0;
   align-items: center;
   flex-direction: column;
   justify-content: center;

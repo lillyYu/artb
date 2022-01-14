@@ -340,7 +340,7 @@ function Manage() {
 
 const Container = styled.div`
   display: flex;
-  width: 1920px;
+  width: 100%;
   justify-content: center;
 `
 

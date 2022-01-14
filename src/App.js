@@ -48,7 +48,13 @@ function App() {
 }
 
 const Container = styled.div`
+@media only screen and (max-width: 1920px) {
+  width: 1440px;
+}
+
+@media only screen and (min-width: 1920px) {
   width: 1920px;
+}
 `;
 
 export default App;

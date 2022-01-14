@@ -187,18 +187,17 @@ const PopupContainer = styled.div`
 
 const MainMenu = styled.div`
   display: flex;
-  width: 1920px;
   height: 100px;
   padding: 0 20px;
   box-sizing: border-box;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
   z-index: 2;
+  width: 100%;
 `;
 
 const SubMenu = styled.div`
   display: none;
-  width: 1920px;
   height: 230px;
   box-shadow: 0px 40px 40px rgba(0, 0, 0, 0.07),
     0px 40px 30px rgba(0, 0, 0, 0.0503198), 0px 20px 20px rgba(0, 0, 0, 0.04),
@@ -208,14 +207,29 @@ const SubMenu = styled.div`
   background-color: #ffffff;
   top: 100px;
   position: absolute;
+
+  @media only screen and (max-width: 1920px) {
+    width: 1440px;
+  }
+  
+  @media only screen and (min-width: 1920px) {
+    width: 1920px;
+  }
 `;
 
 const TabArea = styled.div`
   display: flex;
-  margin: 0 0 0 555px;
   width: 640px;
   height: 190px;
   flex-direction: row;
+
+  @media only screen and (max-width: 1920px) {
+    margin: 0 0 0 315px;
+  }
+  
+  @media only screen and (min-width: 1920px) {
+    margin: 0 0 0 555px;
+  }
 `;
 
 const SubTab = styled.div`
@@ -245,7 +259,6 @@ const SubTab = styled.div`
 const LogoArea = styled.div`
   display: flex;
   width: 115.56px;
-  margin: 0 445.44px 0 0;
 `;
 
 const MenuArea = styled.div`
@@ -260,8 +273,15 @@ const MenuArea = styled.div`
     line-height: 26px;
   }
   justify-content: space-between;
-  margin: 0 391px 0 0;
   align-items: center;
+
+  @media only screen and (max-width: 1920px) {
+    margin: 0 151px 0 205.44px;
+  }
+  
+  @media only screen and (min-width: 1920px) {
+    margin: 0 391px 0 445.44px;
+  }
 `;
 
 const ButtonArea = styled.div`

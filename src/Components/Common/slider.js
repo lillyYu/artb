@@ -19,7 +19,7 @@ function Slider(props) {
 
   
   return (
-    <Container ref={scrollContainer} onScroll={scrollEvent} style={{ width: `${props.width}px`, height: `${props.height}px` }}>
+    <Container ref={scrollContainer} onScroll={scrollEvent} style={{ height: `${props.height}px` }}>
       <SliderArea style={{ height: `${props.height}px` }}>
         {
           props.children.map((item, idx) => {
@@ -52,6 +52,7 @@ const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+  width: 100%;
 `
 
 const SliderBody = styled.div`

@@ -11,12 +11,14 @@ import NtfList from "./NftList";
 import Slider from "../Common/slider";
 
 function Home() {
+  console.log(document.body.clientWidth);
+
   return (
-    <Slider width="1920" height="954"
+    <Slider height="954"
       dotColors={["#FFFFFF", "#FF3D21", "#FF3D21"]}
       textColors={["#FFFFFF", "#303030", "#303030"]}
       scrollDownImages={["/scrolldown_white.svg", "/scrolldown.svg", "/scrolldown.svg"]}>
-      <Introduction />      
+      <Introduction /> 
       <Benefit />
       <NtfList/>
     </Slider>
