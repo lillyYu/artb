@@ -163,7 +163,7 @@ function NftDetail(props) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1920px;
+  width: 100%;
   height: 1978px;
 `
 
@@ -175,7 +175,7 @@ const TopArea = styled.div`
 
 const TopContainer = styled.div`
   display: flex;
-  width: 1920px;
+  width: 100%;
   height: 954px;
   flex-direction: row;
   background: rgba(0, 0, 0, 0.8);

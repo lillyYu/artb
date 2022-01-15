@@ -34,17 +34,17 @@ function Hp(props) {
 
 const Container = styled.div`
   display: flex;
-  width: 1920px;
   background: #303030;
   background-image: url("/hp_background.png");
   background-repeat: no-repeat;
   background-size: 1016px 638px;
   background-position: 0px -100px
+  width: 100%;
+  justify-content: center;
 `
 
 const HelpCenter = styled.div`
   display: flex;
-  width: 1920px;
   justify-content: center;
   margin: 80px 0 0 0;
   flex-direction: column;

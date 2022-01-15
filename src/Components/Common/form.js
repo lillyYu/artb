@@ -94,7 +94,7 @@ function ABInput(props) {
           <ImageButton
             width={16}
             height={16}
-            img="/eye_icon.svg"
+            img={hidden === true ? "/eye_icon.svg" : "/eye_show_icon.svg" }
             btnStyle={{ display: props.readOnly === true ? "none" : "flex" }}
             onClick={toggleInput}
           /> : <></>

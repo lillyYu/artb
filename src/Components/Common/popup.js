@@ -80,7 +80,13 @@ function PopupDialogCustom(props) {
 
 const Container = styled.div`
   display: flex;
-  width: 1920px;
+  @media only screen and (max-width: 1920px) {
+    width: 1440px;
+  }
+  
+  @media only screen and (min-width: 1920px) {
+    width: 1920px;
+  }
   position: absolute;
   z-index: 50;
   justify-content: center;
