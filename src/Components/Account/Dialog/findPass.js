@@ -11,6 +11,43 @@ import { useHistory } from 'react-router-dom';
 
 function FindPass() {
   const [type, setType] = useRecoilState(diagState);
+  const [form, setForm] = useState({});
+  const [warnMsg, setWarnMsg] = useState(false);
+  const [isSubmited, setIsSubmited] = useState(false);
+  const [warning, setWarning] = useState({});
+
+  const findPassProc = () => {
+    if (!validation(true)) {
+      return false;
+    }
+    setType("findPassComplete");
+  }
+  const validation = (submit = false) => {
+    if(submit) setIsSubmited(submit);
+    if (!submit && !isSubmited) return;
+    let isValid = true;
+    let tempWarning = {};
+    const regEmail =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    if (regEmail.test(form.email) == false) {
+      isValid = false;
+      setWarnMsg("이메일을 확인해 주세요.");
+      tempWarning = {
+        ...tempWarning,
+        email: true,
+      };
+    }else{
+      tempWarning = {
+        ...tempWarning,
+        email: false,
+      };
+    }
+    if (isValid) {
+      setWarnMsg("");
+    }
+    setWarning(tempWarning);
+    return isValid;
+  }
   return (
     <>
       <InputItem>
@@ -22,7 +59,17 @@ function FindPass() {
             width={412}
             height={52}
             require={true}
+            warning={warning.email}
             style={{ marginRight: 4 }}
+            onChangeCallback={(value) => {
+              setForm({
+                ...form,
+                email: value,
+              });
+            }}
+            onBlur={() => {
+              validation();
+            }}
           />
           <RectButton
             width="80"
@@ -48,6 +95,12 @@ function FindPass() {
             height={52}
             require={true}
             style={{ marginRight: 4, marginTop: 10 }}
+            onChangeCallback={(value) => {
+              setForm({
+                ...form,
+                authCode: value,
+              });
+            }}
           />
           <RectButton
             width="80"
@@ -78,9 +131,18 @@ function FindPass() {
             height={52}
             require={true}
             pass={true}
+            onChangeCallback={(value) => {
+              setForm({
+                ...form,
+                newPassword: value,
+              });
+            }}
           />
         </InputBox>
       </InputItem>
+      <WarningBox>
+        <WarningMsg>{warnMsg}</WarningMsg>
+      </WarningBox>
       <ReverseColumn>
         <RectButton
           width="496"
@@ -110,9 +172,7 @@ function FindPass() {
             color: "#FFF",
             borderRadius: "5px",
           }}
-          onClick={() => {
-            setType("findPassComplete");
-          }}
+          onClick={findPassProc}
         >
           비밀번호 변경
         </RectButton>

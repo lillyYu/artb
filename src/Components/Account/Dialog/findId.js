@@ -68,7 +68,7 @@ function FindId(props) {
         </InputBox>
       </InputItem>
       <WarningBox>
-        <WarningMsg>이메일 또는 비밀번호를 확인해 주세요.</WarningMsg>
+        <WarningMsg>이메일 또는 비밀번호를 확인해 주세요.(기획 후 작업예정)</WarningMsg>
       </WarningBox>
       <ReverseColumn>
         <RectButton

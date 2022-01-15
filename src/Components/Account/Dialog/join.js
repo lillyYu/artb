@@ -60,10 +60,8 @@ function Join() {
   };
 
   const validation = (obj = {}, submit = false) => {
-    console.log("111", isSubmited);
-    setIsSubmited(submit);
+    if(submit) setIsSubmited(submit);
     if (!submit && !isSubmited) return;
-    console.log("112");
     let isValid = true;
     let tempWarning = {};
     for (const k in msg) {
@@ -79,7 +77,6 @@ function Join() {
             ...tempWarning,
             email: true,
           };
-          console.log("warning324", warning);
         } else {
           tempWarning = {
             ...tempWarning,
@@ -202,23 +199,17 @@ function Join() {
     }
     setWarning(tempWarning);
     if (isValid) setWarnMsg("");
-    console.log("warning22", warning);
     return isValid;
   };
 
-  useEffect(() => {
-    console.log("warning22444", warning);
-  }, [warning]);
-
   const joinProc = () => {
-    setIsSubmited(true);
     if (!validation({}, true)) return;
     joinReq.fetch(
       {
         data: form,
       },
       (res) => {
-        if (res.status == 201) {
+        if (res && res.status == 201) {
           setWarnMsg("");
           setType("joinComplete");
         } else {

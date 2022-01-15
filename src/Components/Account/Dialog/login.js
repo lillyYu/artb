@@ -18,6 +18,7 @@ function Login(props) {
   const [form, setForm] = useState({});
   const [warnMsg, setWarnMsg] = useState(false);
   const [isSubmited, setIsSubmited] = useState(false);
+  const [warning, setWarning] = useState({});
   const history = useHistory();
 
   const idCallback = (value) => {
@@ -33,7 +34,6 @@ function Login(props) {
     });
   };
   const loginProc = () => {
-    setIsSubmited(true);
     if (!validation(true)) {
       return false;
     }
@@ -45,7 +45,7 @@ function Login(props) {
         },
       },
       (res) => {
-        if (res.status == 201) {
+        if (res && res.status == 201) {
           setWarnMsg("");
         } else {
           setWarnMsg("로그인이 실패하였습니다.");
@@ -74,22 +74,45 @@ function Login(props) {
       }
     );
   };
-  const validation = (submited = false) => {
-    if (!isSubmited && !submited) return;
-    let isWarned = false;
+  const validation = (submit = false) => {
+    if(submit) setIsSubmited(submit);
+    if (!submit && !isSubmited) return;
+    let isValid = true;
+    let tempWarning = {};
     const regEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
     if (regEmail.test(form.email) == false) {
-      isWarned = true;
+      isValid = false;
       setWarnMsg("이메일 또는 비밀번호를 확인해 주세요.");
-    } else if (form.password == undefined || form.password == "") {
-      isWarned = true;
-      setWarnMsg("이메일 또는 비밀번호를 확인해 주세요.");
+      tempWarning = {
+        ...tempWarning,
+        email: true,
+      };
+    }else{
+      tempWarning = {
+        ...tempWarning,
+        email: false,
+      };
     }
-    if (!isWarned) {
+    
+    if (form.password == undefined || form.password == "") {
+      isValid = false;
+      setWarnMsg("이메일 또는 비밀번호를 확인해 주세요.");
+      tempWarning = {
+        ...tempWarning,
+        password: true,
+      };
+    }else{
+      tempWarning = {
+        ...tempWarning,
+        password: false,
+      };
+    }
+    if (isValid) {
       setWarnMsg("");
     }
-    return !isWarned;
+    setWarning(tempWarning);
+    return isValid;
   };
 
   return (
@@ -102,6 +125,7 @@ function Login(props) {
             placeholder="이메일을 입력해 주세요."
             width={496}
             height={52}
+            warning={warning.email}
             onChangeCallback={idCallback}
             onBlur={() => {
               validation();
@@ -118,6 +142,7 @@ function Login(props) {
             width={496}
             height={52}
             pass={true}
+            warning={warning.password}
             onChangeCallback={passCallback}
             onBlur={() => {
               validation();
