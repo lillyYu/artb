@@ -11,8 +11,6 @@ import NtfList from "./NftList";
 import Slider from "../Common/slider";
 
 function Home() {
-  console.log(document.body.clientWidth);
-
   return (
     <Slider height="954"
       dotColors={["#FFFFFF", "#FF3D21", "#FF3D21"]}
