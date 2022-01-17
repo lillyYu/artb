@@ -23,34 +23,55 @@ import Account from "./Components/Account"
 /* Libraries */
 import styled from "styled-components";
 import { Route, Switch, useLocation } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
   const location = useLocation();
+  const [ground, setGround] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setGround(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   return (
-    <Container>
-      <Gnb />
-      <Switch>
-        <Route path="/detail/:id" component={NftDetail} />
-        <Route path="/hp/:sub/:id" component={Hp} />
-        <Route path="/hp/:sub" component={Hp} />
-        <Route path="/payment/:id" component={Payment} />
-        <Route path="/complete/:id" component={Complete} />
-        <Route path="/mypage/:category/:id" component={MyPage} />
-        <Route path="/mypage/:category" component={MyPage} />
-        <Route path="/mypage" component={MyPage} />
-        <Route path="/list" component={NftList} />
-        <Route path="/account/join" render={() => <Account mode="join"/>}/>
-        <Route path="/account/login" render={() => <Account mode="login"/>}/>
-        <Route exact path="/" component={Home} />
-      </Switch>
-      <Footer />
-    </Container>
+    <Ground style={{width: ground}}>
+      <Container>
+        <Gnb />
+        <Switch>
+          <Route path="/detail/:id" component={NftDetail} />
+          <Route path="/hp/:sub/:id" component={Hp} />
+          <Route path="/hp/:sub" component={Hp} />
+          <Route path="/payment/:id" component={Payment} />
+          <Route path="/complete/:id" component={Complete} />
+          <Route path="/mypage/:category/:id" component={MyPage} />
+          <Route path="/mypage/:category" component={MyPage} />
+          <Route path="/mypage" component={MyPage} />
+          <Route path="/list" component={NftList} />
+          <Route path="/account/join" render={() => <Account mode="join"/>}/>
+          <Route path="/account/login" render={() => <Account mode="login"/>}/>
+          <Route exact path="/" component={Home} />
+        </Switch>
+        <Footer />
+      </Container>
+    </Ground>
   );
 }
 
+const Ground = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 @media only screen and (max-width: 1920px) {
   width: 1440px;
 }
