@@ -116,7 +116,8 @@ function NftDetail(props) {
               background: "#FFFFFF",
               justifyContent: "center",
               alignItems: "center",
-              border: "1px solid #CBCBCB"
+              border: "1px solid #CBCBCB",
+              boxSizing: "border-box"
             }}
             btnBoxStyle={{ width: 40, height: 40, bdColor: "#CBCBCB", bgColor: "#FFFFFF" }}
             btnStyle={{ width: 16, height: 16 }} />

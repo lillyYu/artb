@@ -227,7 +227,8 @@ function Payment(props) {
                   background: "#FFFFFF",
                   justifyContent: "center",
                   alignItems: "center",
-                  border: "1px solid #C5C5C5"
+                  border: "1px solid #C5C5C5",
+                  boxSizing: "border-box"
                 }}
                 btnBoxStyle={{ width: 40, height: 40, bgColor: "#FFFFFF", bdColor: "#C5C5C5" }}
                 btnStyle={{ width: 16, height: 16 }}
@@ -354,7 +355,7 @@ function Payment(props) {
       <MethodArea>
         <TitleBox>결제수단</TitleBox>
         <ButtonBar>
-          <RectButton onClick={() => alert("계좌이체")}
+          <RectButton onClick={() => {}}
             width={160} height={40} bgColor="#FF3D21" btnStyle={{
             borderRadius: "2px",
             fontFamily: "Spoqa Han Sans Neo",
