@@ -181,92 +181,34 @@ function FindPass() {
   );
 }
 
-
-const Top = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Logo = styled.img`
-  width: 156px;
-  height: 52px;
-`;
-
-const MenuFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 12px 0px 0 50px;
-`;
-
-const MenuDisabled = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 28px;
-  /* identical to box height, or 156% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.04em;
-
-  /* light light dark */
-
-  color: #cbcbcb;
-  cursor: pointer;
-`;
-
-const ScrollFrame = styled.div`
-  height: 500px;
-  overflow: auto;
-  ::-webkit-scrollbar {
-    width: 10px;
-    border-radius: 100px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #cbcbcb;
-    border-radius: 100px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: white;
-  }
-`;
-
-const MenuActive = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 28px;
-  /* identical to box height, or 156% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.04em;
-
-  /* primary */
-
-  color: #ff3d21;
-`;
-
-const ActiveBar = styled.div`
-  position: static;
-  width: 20px;
-  height: 4px;
-  left: calc(50% - 20px / 2);
-  bottom: 0px;
-
-  /* primary */
-
-  background: #ff3d21;
-  border-radius: 5px;
-
-  margin: 10px 0 0 0;
-`;
+function FindPassComplete() {
+  return (
+    <>
+      <HCenter>
+        <RoundCheck src="/round_check.svg" style={{ marginTop: 221 }} />
+        <CompleteText1 style={{ marginTop: 20 }}>
+          비밀번호가 변경되었습니다.
+        </CompleteText1>
+        <ReverseColumn>
+          <RectButton
+            width="496"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+            }}
+            onClick={() => {}}
+          >
+            로그인
+          </RectButton>
+        </ReverseColumn>
+      </HCenter>
+    </>
+  );
+}
 
 const InputItem = styled.div`
   display: flex;
@@ -279,23 +221,6 @@ const InputBox = styled.div`
   flex-direction: row;
 `;
 
-const InputText = styled.input`
-  padding: 16px;
-  height: 52px;
-  background: #ffffff;
-  /* light light dark */
-
-  border: 1px solid #cbcbcb;
-  box-sizing: border-box;
-  border-radius: 5px;
-  ::placeholder {
-    color: #cbcbcb;
-  }
-
-  &.error {
-    border: 1px solid #d1504b;
-  }
-`;
 const WarningBox = styled.div`
   display: flex;
   justify-content: center;
@@ -340,32 +265,6 @@ const CheckMsg = styled.span`
   margin: 2px 0 0 16px;
 `;
 
-const CenterBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 20px 0 20px 0;
-`;
-
-const Agreement = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  /* identical to box height, or 143% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.02em;
-  .link {
-    text-decoration-line: underline;
-  }
-  margin: 10px 0 0 0;
-`;
-
 const RoundCheck = styled.img`
   display: flex;
   width: 80px;
@@ -397,53 +296,10 @@ const CompleteText1 = styled.span`
   }
 `;
 
-const CompleteText2 = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 28px;
-  /* identical to box height, or 156% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.04em;
-
-  /* dark-dark */
-
-  color: #303030;
-`;
-
-const AgreementContent = styled.div`
-  height: 372px;
-  overflow: auto;
-  background: #fafafa;
-  border-radius: 5px;
-  ::-webkit-scrollbar {
-    width: 10px;
-    border-radius: 100px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #cbcbcb;
-    border-radius: 100px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: white;
-  }
-`;
-
 const ReverseColumn = styled.div`
   display: flex;
   flex-direction: column-reverse;
   flex: 1;
 `;
 
-const ReverseRow = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  flex: 1;
-`;
-
-
-export default FindPass;
+export { FindPass, FindPassComplete };

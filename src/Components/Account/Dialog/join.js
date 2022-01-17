@@ -7,10 +7,12 @@ import { PopupDialog } from "../../Common/popup";
 import { diagState, authState, accountState } from "../../../store/web2";
 import PostPopup from "../../Common/postPopup";
 import { useRequest } from "../../../utilities/request-hook";
+import { service, privacy } from "./agree";
 
 function Join() {
   const [type, setType] = useRecoilState(diagState);
-  const [showAgree, setShowAgree] = useState(false);
+  const [showServiceAgree, setShowServiceAgree] = useState(false);
+  const [showPrivacyAgree, setShowPrivacyAgree] = useState(false);
   const [isOpenPost, setIsOpenPost] = useState(false);
   const [form, setForm] = useState({});
   const [warnMsg, setWarnMsg] = useState(false);
@@ -43,7 +45,8 @@ function Join() {
   };
 
   const closePopup = useCallback(() => {
-    setShowAgree(false);
+    setShowServiceAgree(false);
+    setShowPrivacyAgree(false);
   });
 
   const addressCallback = (post, addr1, addr2) => {
@@ -60,7 +63,7 @@ function Join() {
   };
 
   const validation = (obj = {}, submit = false) => {
-    if(submit) setIsSubmited(submit);
+    if (submit) setIsSubmited(submit);
     if (!submit && !isSubmited) return;
     let isValid = true;
     let tempWarning = {};
@@ -470,7 +473,7 @@ function Join() {
             <span
               className="link"
               onClick={() => {
-                setShowAgree(true);
+                setShowServiceAgree(true);
               }}
             >
               서비스 이용약관
@@ -479,14 +482,19 @@ function Join() {
             <span
               className="link"
               onClick={() => {
-                setShowAgree(true);
+                setShowPrivacyAgree(true);
               }}
             >
               개인정보 취급방침
             </span>
             의 내용을 확인하였고, 동의합니다
           </Agreement>
-          {showAgree ? <ShowAgreement closePopup={closePopup} /> : <></>}
+          {showServiceAgree ? (
+            <ShowServiceAgree closePopup={closePopup} />
+          ) : null}
+          {showPrivacyAgree ? (
+            <ShowPrivacyAgree closePopup={closePopup} />
+          ) : null}
         </CenterBox>
         {warnMsg == "" ? null : (
           <CenterBox>
@@ -498,7 +506,7 @@ function Join() {
   );
 }
 
-function ShowAgreement(props) {
+function ShowServiceAgree(props) {
   return (
     <PopupDialog
       title="서비스 이용약관"
@@ -522,113 +530,87 @@ function ShowAgreement(props) {
       ]}
     >
       <AgreementContent>
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
-        hihdfdfdfadadf
-        <br />
+        {service.split("\n").map((L) => {
+          return (
+            <>
+              {L}
+              <br />
+            </>
+          );
+        })}
       </AgreementContent>
     </PopupDialog>
   );
 }
 
-const Top = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+function ShowPrivacyAgree(props) {
+  return (
+    <PopupDialog
+      title="개인정보 취급방침"
+      width={1024}
+      height={600}
+      buttons={[
+        {
+          name: "동의 후 확인",
+          click: props.closePopup,
+          bgColor: "#FF3D21",
+          style: {
+            fontFamily: "Spoqa Han Sans Neo",
+            fontSize: "16px",
+            fontWeight: "bold",
+            lineHeight: "24px",
+            letterSpacing: "-0.02em",
+            color: "#FFFFFF",
+            borderRadius: "5px",
+          },
+        },
+      ]}
+    >
+      <AgreementContent>
+        {privacy.split("\n").map((L) => {
+          return (
+            <>
+              {L}
+              <br />
+            </>
+          );
+        })}
+      </AgreementContent>
+    </PopupDialog>
+  );
+}
 
-const Logo = styled.img`
-  width: 156px;
-  height: 52px;
-`;
-
-const MenuFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 12px 0px 0 50px;
-`;
-
-const MenuDisabled = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 28px;
-  /* identical to box height, or 156% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.04em;
-
-  /* light light dark */
-
-  color: #cbcbcb;
-  cursor: pointer;
-`;
+function JoinComplete() {
+  return (
+    <>
+      <HCenter>
+        <RoundCheck src="/round_check.svg" style={{ marginTop: 221 }} />
+        <CompleteText1 style={{ marginTop: 20 }}>
+          <span className="name">김이름</span>님 회원가입이 완료되었습니다.
+        </CompleteText1>
+        <CompleteText2 tyle={{ marginTop: 4 }}>
+          아트비의 다양한 서비스를 이용하실 수 있습니다.
+        </CompleteText2>
+        <ReverseColumn className="reverserdd">
+          <RectButton
+            width="496"
+            height="52"
+            bgColor="#FF3D21"
+            btnStyle={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#FFF",
+              borderRadius: "5px",
+            }}
+            onClick={() => {}}
+          >
+            홈으로
+          </RectButton>
+        </ReverseColumn>
+      </HCenter>
+    </>
+  );
+}
 
 const ScrollFrame = styled.div`
   height: 500px;
@@ -646,39 +628,6 @@ const ScrollFrame = styled.div`
   }
 `;
 
-const MenuActive = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 28px;
-  /* identical to box height, or 156% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.04em;
-
-  /* primary */
-
-  color: #ff3d21;
-`;
-
-const ActiveBar = styled.div`
-  position: static;
-  width: 20px;
-  height: 4px;
-  left: calc(50% - 20px / 2);
-  bottom: 0px;
-
-  /* primary */
-
-  background: #ff3d21;
-  border-radius: 5px;
-
-  margin: 10px 0 0 0;
-`;
-
 const InputItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -688,31 +637,6 @@ const InputItem = styled.div`
 const InputBox = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const InputText = styled.input`
-  padding: 16px;
-  height: 52px;
-  background: #ffffff;
-  /* light light dark */
-
-  border: 1px solid #cbcbcb;
-  box-sizing: border-box;
-  border-radius: 5px;
-  ::placeholder {
-    color: #cbcbcb;
-  }
-
-  &.error {
-    border: 1px solid #d1504b;
-  }
-`;
-const WarningBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 20px 0 20px 0;
 `;
 
 const WarningMsg = styled.span`
@@ -842,6 +766,18 @@ const AgreementContent = styled.div`
   ::-webkit-scrollbar-track {
     background-color: white;
   }
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  /* or 143% */
+
+  letter-spacing: -0.02em;
+
+  /* dark-light */
+
+  color: #656565;
 `;
 
 const ReverseColumn = styled.div`
@@ -850,11 +786,4 @@ const ReverseColumn = styled.div`
   flex: 1;
 `;
 
-const ReverseRow = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  flex: 1;
-`;
-
-
-export default Join
+export { Join, JoinComplete };
