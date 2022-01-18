@@ -13,6 +13,7 @@ function Payment(props) {
   const [amount, setAmount] = useState(1);
   const [fees, setFees] = useState(15000);
   const [agree, setAgree] = useState(false);
+  const [autosave, setAutosave] = useState(false);
   const [deliverySw, setDeliverySw] = useState(0);
   const [postPopup, setPostPopup] = useState(false);
   const [popup, setPopup] = useState({
@@ -23,7 +24,6 @@ function Payment(props) {
   });
   const myData = {
     address: '',
-    autoSave: false,
     agree: false,
     delivery: {
       name: "김성함",
@@ -80,8 +80,8 @@ function Payment(props) {
     myData.address = value;
   }
 
-  const setAutoSave = (value) => {
-    myData.autoSave = value;
+  const autosaveCallback = (value) => {
+    setAutosave(value);
   }
 
   const setRadio = (value) => {
@@ -123,7 +123,6 @@ function Payment(props) {
 
   const setAgreeCallback = (value) => {
     myData.agree = value;
-    setAgree(value);
   }
 
   const addressCallback = (zone, address) => {
@@ -170,7 +169,7 @@ function Payment(props) {
   }
 
   function changeAmount(amount) {
-    if (datas.price * amount >= 150000)
+    if (amount >= 3)
       setFees(0);
     else
       setFees(datas.fees);
@@ -236,7 +235,7 @@ function Payment(props) {
             </PriceData>
           </OrderRow>
           <OrderRow style={{ height: "44px", background: "#FAFAFA", justifyContent: "center" }}>
-            <OrderTail>NFT 금액이 15만원 이상일 경우 수수료 무료</OrderTail>
+            <OrderTail>NFT 작품 3개 이상 구매할 경우 수수료 무료</OrderTail>
           </OrderRow>          
         </OrderTable>
       </OrderArea>
@@ -260,7 +259,7 @@ function Payment(props) {
         <ABLabel require={true} style={{ margin: "0 0 4px 0" }}>NFT 지갑 주소</ABLabel>
         <ABInput require={false} wallet={true} pass={false} width={720} height={52} placeholder="NFT 수령을 받기 위한 지갑 주소를 입력해주세요." onChangeCallback={setWalletAddress} />
         <AutoSaveBox>
-          <ABCheckBox checked={false} onChangeCallback={setAutoSave} />
+          <ABCheckBox checked={autosave} onChangeCallback={autosaveCallback} />
           <TextField style={{margin: "0 0 0 10px"}}>자동저장</TextField>
         </AutoSaveBox>
         <AgreeBox onClick={() => setAgree(!agree)}>

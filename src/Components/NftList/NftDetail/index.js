@@ -25,8 +25,6 @@ function NftDetail(props) {
   };
   const [amount, setAmount] = useState(0);
 
-  console.log(props.match.params.id);
-
   return (
     <Container>
       <TopArea>
@@ -128,7 +126,7 @@ function NftDetail(props) {
     function Price() {
       return (
         <PriceBox>
-          <PriceDesc>NFT 금액이 15만원 이상일 경우 수수료 무료</PriceDesc>
+          <PriceDesc>NFT 작품 3개 이상 구매할 경우 수수료 무료</PriceDesc>
           <PriceRow style={{ margin: "0 0 8px 0" }}>
             <PriceHeader>NFT 금액</PriceHeader>
             <PriceData>{Intl.NumberFormat().format(datas.price)}원</PriceData>
