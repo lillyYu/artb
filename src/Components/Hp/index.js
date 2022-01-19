@@ -24,7 +24,7 @@ function Hp(props) {
             case 'faq': return <Download />
             default: return null
           }
-          })()}
+          })()} 
           <UpButton />
         </BodyArea>
       </HelpCenter>
@@ -37,10 +37,14 @@ const Container = styled.div`
   background: #303030;
   background-image: url("/hp_background.png");
   background-repeat: no-repeat;
-  background-size: 1016px 638px;
+  background-size: 50%;
   background-position: 0px -100px
   width: 100%;
+  padding: 0 15%;
   justify-content: center;
+  @media (max-width:767px) {
+    padding: 0 5%;
+  }
 `
 
 const HelpCenter = styled.div`
@@ -49,9 +53,15 @@ const HelpCenter = styled.div`
   margin: 80px 0 0 0;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+
+  @media (max-width: 767px) {
+    margin: 0;
+  }
 `
 
 const BodyArea = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;

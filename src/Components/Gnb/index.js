@@ -180,6 +180,7 @@ const MainMenu = styled.div`
 
 const SubMenu = styled.div`
   display: none;
+  width: 100vw;
   height: 230px;
   box-shadow: 0px 40px 40px rgba(0, 0, 0, 0.07),
     0px 40px 30px rgba(0, 0, 0, 0.0503198), 0px 20px 20px rgba(0, 0, 0, 0.04),
@@ -189,14 +190,6 @@ const SubMenu = styled.div`
   background-color: #ffffff;
   top: 100px;
   position: absolute;
-
-  @media only screen and (max-width: 1920px) {
-    width: 1440px;
-  }
-  
-  @media only screen and (min-width: 1920px) {
-    width: 1920px;
-  }
 `;
 
 const TabArea = styled.div`

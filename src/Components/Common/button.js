@@ -202,6 +202,10 @@ const UpButtonContainer = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);  
   justify-content: center;
   align-items: center;    
+
+  @media (max-width:767px) {
+    display: none;
+  }
 `
 
 const Arrow = styled.img`

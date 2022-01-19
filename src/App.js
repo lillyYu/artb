@@ -71,14 +71,13 @@ const Ground = styled.div`
 
 const Container = styled.div`
   display: flex;
+  width: 100vw;
   flex-direction: column;
-@media only screen and (max-width: 1920px) {
-  width: 1440px;
-}
-
-@media only screen and (min-width: 1920px) {
-  width: 1920px;
-}
+  @media (max-width:767px) {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 `;
 
 export default App;
+
