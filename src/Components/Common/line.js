@@ -12,12 +12,11 @@ function Line(props) {
         width: props.width ? `${props.width}px` : "100%",
         opacity: props.opacity ? props.opacity : "1",
         ...props.lineStyle
-       
-      ,"@media (max-width: 767px)": {
-        opacity: "0",
-      }}
+      }
     } />
   );
 }
+
+
 
 export default Line;

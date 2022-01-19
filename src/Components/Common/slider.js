@@ -53,6 +53,10 @@ const Container = styled.div`
     display: none;
   }
   width: 100%;
+
+  @media (max-widht:767px) {
+    display: none;
+  }
 `
 
 const SliderBody = styled.div`

@@ -21,7 +21,7 @@ function Download() {
         <SubtitleText>아트비 백서를 통해 더 자세한 설명을 보실수 있으며 아트비 지갑을통해 토큰을 사용하고</SubtitleText>
         <SubtitleText>전자도록으로 아트비가 보유한 예술품을 확인할 수 있습니다</SubtitleText>
       </DescBox>
-      <Line color="#656565" />
+      <Line color="#656565"/>
       <LinkTable />
     </Container>
   );
@@ -35,7 +35,8 @@ function Download() {
             <TableTitle>아트비 백서</TableTitle>
             <TableSubtitle>Artb프로젝트에 대한 세부적인 설명을 확인 하실 수 있습니다.</TableSubtitle>
             <RectButton src="/download/pdf/en"
-              width={160} height={52} bgColor="#FF3D21" btnStyle={{
+              className='mobileLeft'
+              height={52} bgColor="#FF3D21" btnStyle={{
               fontFamily: "Spoqa Han Sans Neo",
               fontSize: "16px",
               fontWeight: "700",
@@ -43,10 +44,10 @@ function Download() {
               letterSpacing: "-0.02em",
               borderRadius: "5px",
               color: "#FFFFFF",
-              margin: "0 10px 0 0"
             }}>다운로드 (En)</RectButton>
             <RectButton src="/download/pdf/kor"
-              width={160} height={52} bgColor="#FF3D21" btnStyle={{
+              className='mobileRight'
+              height={52} bgColor="#FF3D21" btnStyle={{
               fontFamily: "Spoqa Han Sans Neo",
               fontSize: "16px",
               fontWeight: "700",
@@ -62,16 +63,7 @@ function Download() {
             <TableIcon src="/paper_icon.svg" />
             <TableTitle>전자도록</TableTitle>
             <TableSubtitle>아트비 글로버(주)가 보유한 예술품 리스트를 전자도록을 통해 확인 하실 수 있습니다.</TableSubtitle>
-            <RectButton src="/download/pdf/en"
-              width={160} height={52} bgColor="#FF3D21" btnStyle={{
-              fontFamily: "Spoqa Han Sans Neo",
-              fontSize: "16px",
-              fontWeight: "700",
-              lineHeight: "24px",
-              letterSpacing: "-0.02em",
-              borderRadius: "5px",
-              color: "#FFFFFF"
-            }}>더 알아보기</RectButton>      
+            <RectButton src="/download/pdf/en" className='mobileButton'>더 알아보기</RectButton>      
           </TableRow>
         </TableBox>
         <TableBox>
@@ -79,16 +71,7 @@ function Download() {
             <TableIcon src="/home_icon.svg" />
             <TableTitle>회사 홈페이지</TableTitle>
             <TableSubtitle>아트비 글로버(주)가 보유한 예술품 리스트를 전자도록을 통해 확인 하실 수 있습니다.</TableSubtitle>
-            <RectButton src="/download/pdf/en"
-              width={160} height={52} bgColor="#FF3D21" btnStyle={{
-              fontFamily: "Spoqa Han Sans Neo",
-              fontSize: "16px",
-              fontWeight: "700",
-              lineHeight: "24px",
-              letterSpacing: "-0.02em",
-              borderRadius: "5px",
-              color: "#FFFFFF"
-            }}>더 알아보기</RectButton>
+            <RectButton src="/download/pdf/en" className='mobileButton'>더 알아보기</RectButton>      
           </TableRow>
         </TableBox>
       </TableContainer>

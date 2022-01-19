@@ -71,6 +71,10 @@ const NoticeBox = styled.div`
   flex-direction: column;
   margin: 0 0 80px 0;
   z-index: 1;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+  }
 `;
 
 const ReadFrame = styled.div`
@@ -84,6 +88,10 @@ const ReadFrame = styled.div`
   border-radius: 5px;
 
   margin: 0 0 40px 0;
+
+  @media (max-width: 767px) {
+    border-radius: 0;
+  }
 `;
 
 const TitleFrame = styled.div`
@@ -107,6 +115,11 @@ const ReadTitle = styled.span`
   /* black */
 
   color: #000000;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    font-size: 16px;
+  }
 `;
 
 const ReadDate = styled.span`
@@ -124,6 +137,12 @@ const ReadDate = styled.span`
   /* dark-dark */
 
   color: #303030;
+
+  @media (max-width: 767px) {
+    font-weight: 300;
+    font-size: 16px;
+    align-items: flex-end;
+  }
 `;
 
 const ReadBar = styled.div`
@@ -133,6 +152,10 @@ const ReadBar = styled.div`
   background: #000000;
   opacity: 0.5;
   margin: 20px 0 20px 0;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `;
 
 const ReadContent = styled.div`
@@ -150,6 +173,10 @@ const ReadContent = styled.div`
   /* dark-dark */
 
   color: #303030;
+
+  @media (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const ReadImage = styled.img`
@@ -165,6 +192,14 @@ const NoticeRow = styled.div`
   box-shadow: inset 0px 0px 30px rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
   border-radius: 5px;
+
+  @media (max-width: 767px) {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    padding: 16px;
+    flex-direction: column;
+  }
 `;
 
 const NoticeNo = styled.span`
@@ -179,6 +214,13 @@ const NoticeNo = styled.span`
   color: #ffffff;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 767px) {
+    display: block;
+    font-weight: 300;
+    font-size: 14px;
+    height: auto;
+  }
 `;
 
 const NoticeHeader = styled.span`
@@ -193,6 +235,15 @@ const NoticeHeader = styled.span`
   color: #ffffff;
   justify-content: start;
   align-items: center;
+
+  @media (max-width: 767px) {
+    display: block;
+    width: 100%;
+    height: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 const NoticeDate = styled.span`
   display: flex;
@@ -206,6 +257,13 @@ const NoticeDate = styled.span`
   height: 80px;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 767px) {
+    display: block;
+    height: auto;
+    font-size: 16px;
+    font-weight: 300;
+  }
 `;
 
 export default NoticeRead;

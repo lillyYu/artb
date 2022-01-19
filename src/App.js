@@ -67,6 +67,10 @@ function App() {
 const Ground = styled.div`
   display: flex;
   justify-content: center;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+  }
 `
 
 const Container = styled.div`
