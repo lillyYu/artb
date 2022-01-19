@@ -14,8 +14,7 @@ function Home() {
   return (
     <Slider height="954"
       dotColors={["#FFFFFF", "#FF3D21", "#FF3D21"]}
-      textColors={["#FFFFFF", "#303030", "#303030"]}
-      scrollDownImages={["/scrolldown_white.svg", "/scrolldown.svg", "/scrolldown.svg"]}>
+      textColors={["#FFFFFF", "#303030", "#303030"]}>
       <Introduction /> 
       <Benefit />
       <NtfList/>

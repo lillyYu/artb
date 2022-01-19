@@ -107,6 +107,10 @@ function ABInput(props) {
 function ABCheckBox(props) {
   const [check, setCheck] = useState(props.checked);
 
+  useEffect(() => {
+    setCheck(props.checked)
+  }, [props.checked])
+
   const changeCheck = (e) => {
     setCheck(e.target.checked);
     if (props.onChangeCallback) props.onChangeCallback(e.target.checked);
