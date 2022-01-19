@@ -18,6 +18,7 @@ function Join() {
   const [warnMsg, setWarnMsg] = useState(false);
   const [isSubmited, setIsSubmited] = useState(false);
   const joinReq = useRequest({ url: "/user/join", method: "POST" });
+  const authReq = useRequest({ url: "/user/auth-code", method: "POST" });
   const [warning, setWarning] = useState({});
 
   const msg = {
@@ -222,6 +223,19 @@ function Join() {
     );
   };
 
+  const requestAuthCode = () => {
+    authReq.fetch({
+      data: {
+        email: form.email
+      }
+    }, (res) => {
+      console.log(res)
+      if(res && res.status == 201){
+        
+      }
+    })
+  }
+
   return (
     <>
       <ScrollFrame>
@@ -258,7 +272,7 @@ function Join() {
                 borderRadius: "5px",
                 marginRight: 30,
               }}
-              onClick={() => {}}
+              onClick={requestAuthCode}
             >
               인증
             </RectButton>
