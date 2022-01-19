@@ -85,6 +85,7 @@ function Notice() {
 }
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,26 +93,34 @@ const Container = styled.div`
 
 const NoticeBox = styled.div`
   display: flex;
-  width: 1300px;
+  width: 100%;
   flex-direction: column;
 `;
 
 const NoticeRow = styled.div`
   display: flex;
   flex-direction: row;
-  width: 1300px;
+  width: 100%;
   height: 80px;
   background: rgba(255, 255, 255, 0.2);
   box-shadow: inset 0px 0px 30px rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
   border-radius: 5px;
   margin: 0 0 20px 0;
+
+  @media (max-width:767px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 16px;
+    height: fit-content;
+  }
 `;
 
 const NoticeNo = styled.span`
   display: flex;
-  width: 160px;
-  height: 80px;
+  flex:1;
+  height: inherit;
   font-family: Spoqa Han Sans Neo;
   font-size: 18px;
   font-weight: 700;
@@ -120,12 +129,17 @@ const NoticeNo = styled.span`
   color: #ffffff;
   justify-content: center;
   align-items: center;
+
+  @media (max-width:767px) {
+   font-size: 14px;
+   font-weight: 300;
+  }
 `;
 
 const NoticeHeader = styled.span`
   display: flex;
-  width: 978px;
-  height: 80px;
+  flex: 6;
+  height: inherit;
   font-family: Spoqa Han Sans Neo;
   font-size: 18px;
   font-weight: 700;
@@ -134,6 +148,16 @@ const NoticeHeader = styled.span`
   color: #ffffff;
   justify-content: start;
   align-items: center;
+
+  @media (max-width:767px) {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: flex-start;
+  }
 `;
 const NoticeDate = styled.span`
   display: flex;
@@ -147,6 +171,14 @@ const NoticeDate = styled.span`
   height: 80px;
   justify-content: center;
   align-items: center;
+
+  @media (max-width:767px) {
+    height: fit-content;
+    font-size: 14px;
+    font-weight: 300;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 `;
 
 const PageBar = styled.div`

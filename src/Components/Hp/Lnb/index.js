@@ -44,6 +44,15 @@ const Container = styled.div`
   width: 1300px;
   height: 263px;
   flex-direction: column;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+    height: auto;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+
+    ::-webkit-scrollbar{ display:none; }
+  }
 `
 
 const TitleText = styled.span`
@@ -53,12 +62,19 @@ const TitleText = styled.span`
   font-weight: 700;
   line-height: 26px;
   letter-spacing: -0.02em;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 const MenuArea = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 767px) {
+    justify-content: center;
+  }
 `
 
 const SubtitleText = styled.span`
@@ -72,6 +88,9 @@ const SubtitleText = styled.span`
   letter-spacing: -0.05em;
   margin: 0 111px 0 0;
   color: #FFFFFF;
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 const MenuTab = styled.div`
@@ -90,7 +109,6 @@ const MenuTab = styled.div`
     line-height: 26px;
     letter-spacing: -0.02em;
     color: #FFFFFF;
-    
   }
 
   .on {
@@ -101,6 +119,26 @@ const MenuTab = styled.div`
     letter-spacing: -0.02em;
     color: #FFFFFF;
   }  
+
+  @media (max-width: 767px) {
+    position: relative;
+    display: flex;
+    width: 100vw;
+    height: 60px;
+    margin: 0;
+
+    a {
+      color: #656565;
+    }
+    .on {
+      color: #ff3d21;
+      border-bottom: 2px solid #ff3d21;
+    }
+    span {
+      display: flex;
+      padding-bottom: 20px;
+    }
+  }
 `
 
 const ButtonTab = styled.div`
@@ -114,6 +152,10 @@ const ButtonTab = styled.div`
 const LocationTab = styled.div`
   display: flex;
   height: 32px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 const LocationText = styled.span`

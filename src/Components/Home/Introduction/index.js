@@ -39,10 +39,10 @@ function Introduction() {
           <TextBox style={{ fontFamily: "Montserrat", fontSize: "20px", fontWeight: "700", lineHeight: "26px", letterSpacing: "-0.02em" }}>
             <Logo src="/small_logo.svg" />Art Block Chain Platform
           </TextBox>
-          <TitleText style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#000000"}}>
+          <TitleText style={{color: "#000000"}}>
             총 {total}점의 예술품을
           </TitleText>
-          <TitleText style={{ fontSize: "60px", lineHeight: "75px", letterSpacing: "-0.05em", color: "#FF3D21"}}>
+          <TitleText style={{color: "#FF3D21"}}>
             NFT로 만나보세요!
           </TitleText>
         </TitleContainer>
@@ -53,7 +53,7 @@ function Introduction() {
   function Description() {
     return (
       <DescContainer>
-        <TitleText style={{ fontSize: "24px", lineHeight: "36px", letterSpacing: "-0.04em", color: "#FFFFFF", margin: "0 0 20px 0" }}>
+        <TitleText style={{ fontSize: "24px", lineHeight: "36px", letterSpacing: "-0.04em", margin: "0 0 20px 0" }}>
           {data.title}
         </TitleText>
         <TableRow>
@@ -72,13 +72,13 @@ function Introduction() {
           <HeaderText>작품기법</HeaderText>
           <DataText>{data.tech}</DataText>
         </TableRow>
-        <Line color="#FFFFFF" lineStyle={{ margin: "20px 0" }} />
+        <Line color="white" lineStyle={{ margin: "20px 0" }} />
         <TableRow>
           <TextBox>
             <Gem src="/gem_white.svg" />
             <HeaderText>{Intl.NumberFormat().format(data.remain)} / {Intl.NumberFormat().format(data.total)}</HeaderText>
           </TextBox>
-          <TitleText style={{ fontSize: "18px", lineHeight: "28px", letterSpacing: "-0.04em", color: "#FFFFFF" }}>{Intl.NumberFormat().format(data.price)}원</TitleText>
+          <TitleText style={{ fontSize: "18px", lineHeight: "28px", letterSpacing: "-0.04em" }}>{Intl.NumberFormat().format(data.price)}원</TitleText>
         </TableRow>
       </DescContainer>
     );
@@ -94,6 +94,12 @@ function Introduction() {
             더 알아보기
           </TitleText>
         </RectButton>
+
+        <RectButton src={`/detail/${data.id}`} width="160" height="52" bgColor="#FF3D21" btnStyle={{ borderRadius: "5px" }} >
+          <TitleText style={{ fontSize: "16px", lineHeight: "24px", letterSpacing: "-0.02em", color: "#ffffff" }}>
+            더 알아보기
+          </TitleText>
+        </RectButton>
       </ButtonContainer>
     );
   }  
@@ -103,18 +109,38 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   height: 954px;
+
+  @media (max-width: 767px) {
+    flex-direction: column-reverse;
+    height: auto;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+  }
 `
 
 const DescArea = styled.div`
+  position: relative;
   width: 674px;
+  top: -70px;
   background-color: #E6381F;
   display: flex;
   justify-content: end;
   align-items: center;
+
+  @media (max-width: 767px) {
+    width:100vw;
+    background: transparent;
+    color: #303030;
+  }
 `
 
 const ArtsArea = styled.div`
   width: 1246px;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+    height: 300px;
+  }
 `
 
 const ContentsArea = styled.div`
@@ -122,6 +148,11 @@ const ContentsArea = styled.div`
   width: 284px;
   margin: 0 80px 0 0;
   flex-direction: column;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    margin: 0;
+  }
 `
 
 const TitleBoard = styled.div`
@@ -133,14 +164,30 @@ const TitleBoard = styled.div`
   backdrop-filter: blur(20px);  
   border-radius: 0px 20px;
   margin: 0 0 40px 0;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    border-radius: 0px 40px 0px 0;
+    margin: 0;
+    padding: 20px 16px;
+  }
 `
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.div`  border: 1px solid purple;
   display: flex;
   width: 496px;
   height: 184px;
   margin: 40px 40px;
   flex-direction: column;
+
+  @media (max-width: 767px) {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
 `
 
 const Logo = styled.img`
@@ -156,12 +203,26 @@ const TitleText = styled.span`
   align-items: center;
   font-family: Spoqa Han Sans Neo;
   font-weight: 700;
+  font-size: 60px;
+  line-height: 75px;
+  letter-spacing: -0.05em;
+  color: #FFFFFF;
+
+  @media (max-width: 767px) {
+    color: #303030;
+    font-size: 24px;
+    line-height: 36px;
+  }
 `
 
 const TextBox = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 const TableRow = styled.div`
@@ -177,6 +238,10 @@ const HeaderText = styled.span`
   line-height: 20px;
   letter-spacing: -0.02em;
   color: #FFFFFF;
+
+  @media (max-width:767px) {
+    color: #303030;
+  }
 `
 
 const DataText = styled.span`
@@ -186,6 +251,10 @@ const DataText = styled.span`
   line-height: 20px;
   letter-spacing: 0em;
   color: #FFFFFF;
+
+  @media (max-width:767px) {
+    color: #303030;
+  }
 `
 
 const DescContainer = styled.div`
@@ -194,6 +263,12 @@ const DescContainer = styled.div`
   height: 209px;
   flex-direction: column;
   margin: 0 0 80px 0;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    margin: 0;
+    padding: 20px 16px;
+  }
 `
 
 const Gem = styled.img`
@@ -209,6 +284,10 @@ const ButtonContainer = styled.div`
   height: 52px;
   flex-direction: row;
   justify-content: space-between;
+  
+  @media (max-width: 767px) {
+    // display:none;
+  }
 `
 
 const Arrow = styled.img`
