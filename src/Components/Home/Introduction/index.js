@@ -94,6 +94,12 @@ function Introduction() {
             더 알아보기
           </TitleText>
         </RectButton>
+
+        <RectButton src={`/detail/${data.id}`} width="160" height="52" bgColor="#FF3D21" btnStyle={{ borderRadius: "5px" }} >
+          <TitleText style={{ fontSize: "16px", lineHeight: "24px", letterSpacing: "-0.02em", color: "#ffffff" }}>
+            더 알아보기
+          </TitleText>
+        </RectButton>
       </ButtonContainer>
     );
   }  
@@ -105,13 +111,17 @@ const Container = styled.div`
   height: 954px;
 
   @media (max-width: 767px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     height: auto;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
   }
 `
 
 const DescArea = styled.div`
+  position: relative;
   width: 674px;
+  top: -70px;
   background-color: #E6381F;
   display: flex;
   justify-content: end;
@@ -119,16 +129,17 @@ const DescArea = styled.div`
 
   @media (max-width: 767px) {
     width:100vw;
-    // background: #ffffff;
+    background: transparent;
     color: #303030;
   }
 `
 
-const ArtsArea = styled.div` border: 1px solid aqua;
+const ArtsArea = styled.div`
   width: 1246px;
 
   @media (max-width: 767px) {
     width: 100vw;
+    height: 300px;
   }
 `
 
@@ -157,10 +168,14 @@ const TitleBoard = styled.div`
   @media (max-width: 767px) {
     width: 100%;
     height: auto;
+    box-shadow: none;
+    border-radius: 0px 40px 0px 0;
+    margin: 0;
+    padding: 20px 16px;
   }
 `
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.div`  border: 1px solid purple;
   display: flex;
   width: 496px;
   height: 184px;
@@ -168,10 +183,10 @@ const TitleContainer = styled.div`
   flex-direction: column;
 
   @media (max-width: 767px) {
+    display: block;
     width: 100%;
     height: auto;
-    margin: 20px 16px 0;
-    display: block;
+    margin: 0;
   }
 `
 
@@ -248,6 +263,12 @@ const DescContainer = styled.div`
   height: 209px;
   flex-direction: column;
   margin: 0 0 80px 0;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    margin: 0;
+    padding: 20px 16px;
+  }
 `
 
 const Gem = styled.img`
@@ -263,6 +284,10 @@ const ButtonContainer = styled.div`
   height: 52px;
   flex-direction: row;
   justify-content: space-between;
+  
+  @media (max-width: 767px) {
+    // display:none;
+  }
 `
 
 const Arrow = styled.img`
