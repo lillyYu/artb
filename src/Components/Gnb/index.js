@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 
 import { useRecoilState } from "recoil";
 import { accountState } from "../../store/web2";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { TextButton, ImageButton, RectButton } from "../Common/button.js";
 import MyInfo from "./MyInfo";
 
@@ -49,7 +49,11 @@ function Gnb() {
             고객센터
           </TextButton>
         </MenuArea>
-        { account.logined === true ? <MyInfo name={account.info.name} count={account.info.nftCount}/> : <ButtonBar/> }
+        {account.logined === true ? (
+          <MyInfo name={account.info.name} count={account.info.nftCount} />
+        ) : (
+          <ButtonBar />
+        )}
       </MainMenu>
       <SubMenu className={over === true ? "on" : ""}>
         <TabArea
@@ -108,10 +112,42 @@ function Gnb() {
             </TextButton>
           </SubTab>
           <SubTab>
-            <TextButton src="/hp/notice" width="128" height="26" onClick={handleNav} className={url === "notice" ? "on" : ""}>공지사항</TextButton>
-            <TextButton src="/hp/faq" width="128" height="26" onClick={handleNav} className={url === "faq" ? "on" : ""}>자주 묻는 질문</TextButton>
-            <TextButton src="/hp/download" width="128" height="26" onClick={handleNav} className={url === "download" ? "on" : ""}>다운로드</TextButton>
-            <TextButton src="/hp/qna" width="128" height="26" onClick={handleNav} className={url === "qna" ? "on" : ""}>1:1 문의</TextButton>
+            <TextButton
+              src="/hp/notice"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "notice" ? "on" : ""}
+            >
+              공지사항
+            </TextButton>
+            <TextButton
+              src="/hp/faq"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "faq" ? "on" : ""}
+            >
+              자주 묻는 질문
+            </TextButton>
+            <TextButton
+              src="/hp/download"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "download" ? "on" : ""}
+            >
+              다운로드
+            </TextButton>
+            <TextButton
+              src="/hp/qna"
+              width="128"
+              height="26"
+              onClick={handleNav}
+              className={url === "qna" ? "on" : ""}
+            >
+              1:1 문의
+            </TextButton>
           </SubTab>
         </TabArea>
       </SubMenu>
@@ -133,7 +169,7 @@ function Gnb() {
             borderRadius: "5px",
           }}
           onClick={() => {
-            history.push('/account/join')
+            history.push("/account/join");
           }}
         >
           회원가입
@@ -149,13 +185,13 @@ function Gnb() {
             borderRadius: "5px",
           }}
           onClick={() => {
-            history.push('/account/login')
+            history.push("/account/login");
           }}
         >
           로그인
         </RectButton>
-      </ButtonArea>      
-    )
+      </ButtonArea>
+    );
   }
 }
 
@@ -201,7 +237,7 @@ const TabArea = styled.div`
   @media only screen and (max-width: 1920px) {
     margin: 0 0 0 315px;
   }
-  
+
   @media only screen and (min-width: 1920px) {
     margin: 0 0 0 555px;
   }
@@ -253,7 +289,7 @@ const MenuArea = styled.div`
   @media only screen and (max-width: 1920px) {
     margin: 0 151px 0 205.44px;
   }
-  
+
   @media only screen and (min-width: 1920px) {
     margin: 0 391px 0 445.44px;
   }
