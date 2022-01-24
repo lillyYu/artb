@@ -95,11 +95,6 @@ function Introduction() {
           </TitleText>
         </RectButton>
 
-        <RectButton src={`/detail/${data.id}`} width="160" height="52" bgColor="#FF3D21" btnStyle={{ borderRadius: "5px" }} >
-          <TitleText style={{ fontSize: "16px", lineHeight: "24px", letterSpacing: "-0.02em", color: "#ffffff" }}>
-            더 알아보기
-          </TitleText>
-        </RectButton>
       </ButtonContainer>
     );
   }  
@@ -113,7 +108,6 @@ const Container = styled.div`
   @media (max-width: 767px) {
     flex-direction: column-reverse;
     height: auto;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(20px);
   }
 `
@@ -175,7 +169,7 @@ const TitleBoard = styled.div`
   }
 `
 
-const TitleContainer = styled.div`  border: 1px solid purple;
+const TitleContainer = styled.div` 
   display: flex;
   width: 496px;
   height: 184px;

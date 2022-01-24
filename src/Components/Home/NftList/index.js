@@ -47,6 +47,11 @@ const NftBox = styled.div`
   width: 1300px;
   height: 627px;
   flex-direction: column;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+  }
 `
 
 const TitleBox = styled.span`
@@ -58,6 +63,10 @@ const TitleBox = styled.span`
   letter-spacing: -0.02em;
   color: #FF3D21;
   margin: 0 0 20px 0;
+
+  @media (max-width: 767px) {
+    font-size: 14px;
+  }
 `
 
 const SubtitleArea = styled.div`
@@ -71,6 +80,10 @@ const ButtonArea = styled.div`
   width: 284px;
   justify-content: space-between;
   flex-direction: row;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 const SubtitleBox = styled.span`
@@ -80,10 +93,19 @@ const SubtitleBox = styled.span`
   line-height: 60px;
   letter-spacing: -0.05em;
   color: #000000;
+
+  @media (max-width: 767px) {
+    font-size: 24px;
+  }
 `
 
 const ArtsArea = styled.div`
   margin: 40px 0 0 0;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    overflow-x: scroll;
+  }
 `
 
 const Arrow = styled.img`

@@ -58,6 +58,12 @@ const Container = styled.div`
   justify-content: center;
   height: 954px;
   align-items: center;
+
+  @media (max-width: 767px) {
+    display: block;
+    height: auto;
+    padding: 20px 16px;
+  }
 `
 
 const BenefitBox = styled.div`
@@ -65,10 +71,22 @@ const BenefitBox = styled.div`
   width: 1300px;
   height: 646px;
   flex-direction: column;
+  
+  @media (max-width: 767px) { 
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+  }
 `
 
 const ImageArea = styled.div`
   margin: 40px 0 0 0;
+
+  @media (max-width: 767px) {
+    display: flex;
+    overflow-x : scroll;
+    white-space: nowrap;
+  }
 `
 
 const TitleBox = styled.span`
@@ -80,6 +98,10 @@ const TitleBox = styled.span`
   letter-spacing: -0.02em;
   color: #FF3D21;
   margin: 0 0 20px 0;
+
+  @media (max-width: 767px) {
+    font-size: 14px;
+  }
 `
 
 const SubtitleBox = styled.span`
@@ -89,12 +111,21 @@ const SubtitleBox = styled.span`
   line-height: 60px;
   letter-spacing: -0.05em;
   color: #000000;
+
+  @media (max-width: 767px) {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
 `
 
 const CardArea = styled.div`
   display: flex;
   flex-direction : row;
   justify-content: space-between;
+
+  @media (max-width: 767px) {
+  }
 `
 
 const CardContainer = styled.div`
@@ -103,9 +134,16 @@ const CardContainer = styled.div`
   height: 440px;
   flex-direction: column;
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.08));
+
+  @media (max-width:767px) {
+    width: 100%;
+    max-width: 90vw;
+    margin-right: 5%;
+    height: auto;
+  }
 `
 
-const CardTop = styled.div`
+const CardTop = styled.div` 
   display: flex;
   width: 420px;
   height: 280px;
@@ -113,6 +151,12 @@ const CardTop = styled.div`
   border-radius: 20px 20px 0px 0px;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width:767px) {
+    width: 100%;
+    height: auto;
+    padding: 16px;
+  }
 `
 
 const CardBottom = styled.div`
@@ -121,18 +165,35 @@ const CardBottom = styled.div`
   height: 160px;
   border-radius: 0px 0px 20px 20px;
   background: #FFFFFF;
+  
+  @media (max-width:767px) {
+    width: 100%;
+    height: auto;
+  }
 `
 
 const CardImage = styled.img`
   display: flex;
   width: 380px;
   height: 240px;  
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+  }
 `
 
 const DescBox = styled.div`
   display: flex;
   margin: 20px 20px;
   flex-direction: column;
+
+  @media (max-width: 767px) {
+    box-sizing: border-box;
+    margin: 16px;
+    width: 100%;
+    height: auto;
+  }
 `
 
 const NoText = styled.span`
@@ -160,6 +221,13 @@ const DescText = styled.span`
   line-height: 24px;
   letter-spacing: -0.02em;
   text-align: left;
+
+  @media (max-width: 767px) {
+    width: 80vw;
+    height: 100%;
+    white-space: normal;
+
+  }
 `
 
 export default Benefit;
