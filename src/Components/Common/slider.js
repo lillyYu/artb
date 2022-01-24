@@ -32,10 +32,12 @@ function Slider(props) {
           })
         }
       </SliderArea>
+      { props.scrollDownImages ? 
       <MoveDownArea style={index === (props.children.length - 1) ? {display: "none"} : {display: "flex"} }>
         <MoveText style={{color: props.textColors[index]}}>Scorll Down</MoveText>
         <ScrollDownImage src={props.scrollDownImages[index]} />
       </MoveDownArea>
+      : null }
       <SliderBody>
         {props.children}
       </SliderBody>
@@ -121,7 +123,13 @@ const MoveDownArea = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin: 854px 0 0 840px;
+  @media only screen and (max-width: 1920px) {
+    margin: 854px 0 0 600px;
+  }
+  
+  @media only screen and (min-width: 1920px) {
+    margin: 854px 0 0 840px;
+  }
 `
 
 const MoveText = styled.span`
